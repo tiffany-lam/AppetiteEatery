@@ -1,0 +1,43 @@
+@import "./assets/theme";
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+/* CSS RESETS/DEFAULTS:  
+    Adapted from: https://css-tricks.com/reboot-resets-reasoning/
+    Access Date: 02/18/2019
+    Purpose: To reset the default css styles that browsers apply to html elements.
+*/
+* {
+  padding: 0;
+  margin: 0;
+
+  /* ensures that the default font is Karla with no bold*/
+  @include base_font_stack;
+}
+
+/* Reset */
+a,
+a:link,
+a:visited,
+a:hover,
+a:active {
+  text-decoration: none;
+  color: white;
+}
+
+ul,
+ol {
+  list-style-type: none;
+}

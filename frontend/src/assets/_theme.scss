@@ -1,0 +1,99 @@
+///////////////////////////////////////////////////////////////
+// NAMING CONVENTION:
+///////////////////////////////////////////////////////////////
+// - with underscore "_" because its easier to double click and delete and is more readable
+// - if you have multiple of the same color call it green1, green2, green3, etc
+///////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////
+// EXPERIMENTAL COLORS HERE (put all new colors here):
+///////////////////////////////////////////////////////////////
+$green_main: #50d19e;
+
+$red: #bf616a;
+$red_cinnabar: #e9524a;
+
+$yellow: #ebcb8b;
+$yellow_kournikova: #ffe96f;
+
+$green: #a3be8c;
+$green_shamrock: #50d19e;
+
+///////////////////////////////////////////////////////////////
+// CURRENT COLOR PALETTE HERE:
+///////////////////////////////////////////////////////////////
+$french_laundry_blue: #3a4660;
+$comfortably_tan: #c9af98;
+$peachy_kreme: #ed8a63;
+$brown_bonnet: #845007;
+$soft_red: #ef5350;
+
+///////////////////////////////////////////////////////////////
+// GRAYS, WHITES, BLACKS HERE:
+///////////////////////////////////////////////////////////////
+$white: #f2f3f0;
+$white_wildsand: #f5f5f5; //wild sand
+$light_gray: rgba(0, 0, 0, 0.1);
+$black: #000000;
+$black_thunder: #231f20; //black-thunder
+$gray: #353c4a;
+$gray_nobel: #b7b7b7; //gray-nobel
+$gray_alto: #d9d9d9; //gray-alto
+$gray_jaguar: #26262b;
+$gray_material_ui: #eceff1;
+$gray_form_input: #e5e5e5;
+$gray_slightly_darker: #c5cad4;
+
+///////////////////////////////////////////////////////////////
+// LINEAR GRADIENTS HERE:
+///////////////////////////////////////////////////////////////
+$lg_tan: linear-gradient(
+  135deg,
+  rgba(195, 173, 151, 1) 0%,
+  rgba(148, 121, 95, 1) 100%
+);
+$lg_blue: linear-gradient(
+  45deg,
+  rgb(93, 105, 136) 20%,
+  rgba(107, 144, 187, 1) 80%
+);
+// $lg_blue: linear-gradient(45deg, #a3c8ff 20%, rgba(107,144,187,1) 80%);
+$lg_lightblue: linear-gradient(45deg, #c7ddfd 20%, #d7f9e7 80%);
+$lg_red: linear-gradient(60deg, #d44f4f 20%, #ec5353 80%);
+
+///////////////////////////////////////////////////////////////
+// DROP SHADOWS HERE:
+///////////////////////////////////////////////////////////////
+$light_box_shadow: 0 0 5px #c5c5c5;
+$default_box_shadow: 0 0 5px #6b6b6b;
+$strong_box_shadow: 0 0 5px #414141;
+
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+////////////////////// MAIN REFERENCE /////////////////////////
+//////// USE THESE VARIABLES INSIDE YOUR COMPONENTS ///////////
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+// $bg_color: $lg_blue;
+$primary: #000;
+$primary_light: #000;
+$primary_dark: #000;
+
+$secondary: #000;
+$secondary_light: #000;
+$secondary_light: #000;
+
+$background: #000;
+$background_light: #000;
+$background_dark: #000;
+
+///////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////
+// FONT STACK:
+///////////////////////////////////////////////////////////////
+@mixin base_font_stack {
+  font-family: "Karla", sans-serif;
+  font-size: 17px;
+  color: $background_dark; // must be selected from MAIN REFERENCE
+}

@@ -1,0 +1,16 @@
+@import "../../assets/theme";
+
+nav {
+  background-color: red;
+
+  display: flex;
+  flex-direction: row;
+
+  ul {
+    display: flex;
+    flex-direction: row;
+
+    li {
+    }
+  }
+}
