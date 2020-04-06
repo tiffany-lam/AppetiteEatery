@@ -1,8 +1,11 @@
 import React from "react";
 import "./App.scss";
 
-// our components here:
+// custom components here:
 import Navbar from "./components/navbar/navbar.component";
+
+// page components here:
+import HomePage from "./pages/home-page/home-page.component";
 
 function App() {
   return (
@@ -10,8 +13,10 @@ function App() {
       <header>
         <Navbar />
       </header>
-      <main>sdf</main>
-      <footer>df</footer>
+      <main>
+        <HomePage />
+      </main>
+      <footer>FOOTER STUFF</footer>
     </div>
   );
 }

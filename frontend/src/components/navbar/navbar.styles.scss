@@ -1,16 +1,28 @@
 @import "../../assets/theme";
 
 nav {
-  background-color: red;
+  background-color: $primary;
+  padding: 0 1rem;
+  height: 2rem;
 
   display: flex;
   flex-direction: row;
+  align-items: center;
+
+  .searchbar {
+    flex-grow: 1;
+  }
 
   ul {
     display: flex;
     flex-direction: row;
 
     li {
+      font-size: 0.8rem;
+      font-weight: bold;
+      text-transform: uppercase;
+
+      margin-left: 1rem;
     }
   }
 }
