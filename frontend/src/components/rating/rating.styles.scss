@@ -7,13 +7,14 @@
   .rating-filled {
     path {
       // fill: rgb(255, 62, 62);
-      fill: #fffb00;
+      fill: $primary_dark;
     }
   }
 
   .rating-unfilled {
     path {
-      fill: $background;
+      // fill: rgb(255, 149, 149);
+      fill: rgba($primary_dark, 0.35);
     }
   }
 }

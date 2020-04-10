@@ -73,19 +73,21 @@ const HomePage = () => {
           {/* <p>Where niche and quality meet!</p>
           <p>These restaurants are hand selected everyday!</p>
           <p>Hover over to!</p> */}
-          <div className="lime-spotlight-container">
-            <h1>limelight</h1>
-            <div className="lime"></div>
-            <div className="spotlight"></div>
-          </div>
+          <h1>limelight</h1>
+          <div className="lime"></div>
+          <div className="spotlight"></div>
         </div>
         {restaurants.map((restaurant, i) => (
           <div className="image-container">
             <div className="more-info">
-              <h2>{restaurant.name} </h2>
-              <Rating rating={restaurant.rating} />
+              <div className="pop-up-details">
+                <h2>{restaurant.name} </h2>
+                <Rating rating={restaurant.rating} />
+              </div>
             </div>
-            <img key={i} src={restaurant.url}></img>
+            <div className="spotlight-mask-container">
+              <img key={i} src={restaurant.url}></img>
+            </div>
           </div>
         ))}
       </div>
