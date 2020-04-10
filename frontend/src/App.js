@@ -5,6 +5,7 @@ import "./App.scss";
 
 // custom components here:
 import Navbar from "./components/navbar/navbar.component";
+import Test from "./components/test/test.component";
 
 // page components here:
 import HomePage from "./pages/home-page/home-page.component";
@@ -18,12 +19,13 @@ function App() {
         </header>
         <main>
           <Switch>
-            <Route path="/" component={HomePage} />
+            <Route exact path="/" component={HomePage} />
             {/* <Route path="/login" component={} /> */}
             {/* <Route path="/graduated" component={} /> */}
+
+            {/* EXAMPLE: */}
+            <Route path="/test" component={Test} />
           </Switch>
-          {/* EXAMPLE: */}
-          {/* <Route path="/test" component={TestComponentOrPage} /> */}
         </main>
         <footer>FOOTER STUFF</footer>
       </BrowserRouter>
