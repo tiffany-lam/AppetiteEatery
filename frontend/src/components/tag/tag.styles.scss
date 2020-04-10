@@ -1,9 +1,9 @@
 @import "../../assets/theme";
 
 .tag-view {
-  color: $green_main;
+  color: $secondary;
 
-  margin: 5px;
+  margin: 0 5px 0 0;
 
   display: inline;
 }
@@ -21,11 +21,11 @@
 
   transition: width 10s ease;
   .button {
+    cursor: pointer;
+
     grid-area: button;
     height: min-content;
     width: min-content;
-    //   width: 36px;
-    //   height: 36px;
 
     padding: 0;
     margin: 0;
@@ -48,7 +48,6 @@
 
   .form {
     grid-area: form;
-    // display: inline;
 
     align-self: center;
 
@@ -74,12 +73,17 @@
     .input-clicked {
       margin-right: 15px;
 
+      width: 7em;
       border: none;
       border-bottom: 1px solid grey;
-      width: 7em;
       background: none;
       -webkit-transition: width 10s ease-in-out;
       transition: width 0.3s ease-in-out;
+    }
+
+    input[type="text"] {
+      outline: none;
+      color: $secondary;
     }
   }
 }
@@ -90,7 +94,7 @@
   p {
     display: inline;
 
-    color: $green_main;
+    color: $secondary;
 
     margin: 0 2px;
   }

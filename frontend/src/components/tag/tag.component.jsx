@@ -14,7 +14,7 @@ const Tag = (props) => {
   };
 
   const handleChange = (e) => {
-    setInput({ input: e.target.value });
+    setInput(e.target.value);
   };
 
   if (props.type === "add") {
@@ -24,7 +24,7 @@ const Tag = (props) => {
           <AddIcon />
         </button>
         <form className={"form"}>
-          <label for="tag-add">Add a tag</label>
+          <label htmlFor="tag-add">Add a tag</label>
           <input
             className={expand ? "input" : "input-clicked"}
             type="text"
