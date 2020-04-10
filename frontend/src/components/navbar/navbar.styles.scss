@@ -9,48 +9,8 @@ nav {
   flex-direction: row;
   align-items: center;
 
-  p {
-    cursor: pointer;
-    text-transform: uppercase;
+  .logo {
     flex-grow: 1;
-
-    display: flex;
-    align-items: center;
-
-    #appetite-text {
-      font-size: 2rem;
-      font-weight: bold;
-      color: $primary;
-    }
-
-    #eatery-text {
-      font-size: 2rem;
-      // font-weight: bold;
-      color: $secondary_dark;
-    }
-
-    #fork-knife-icon {
-      // margin-right: 0.2rem;
-      margin: 0 0.2rem;
-      path {
-        fill: $secondary_dark;
-
-        // fill: rgb(87, 57, 255);
-      }
-    }
-
-    #small-dot-icon {
-      width: 8px;
-      margin: 0 0.2rem;
-
-      path {
-        fill: $primary;
-      }
-    }
-
-    span {
-      @include base_font_stack;
-    }
   }
 
   .searchbar {
