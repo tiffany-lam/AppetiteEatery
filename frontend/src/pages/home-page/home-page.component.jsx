@@ -1,8 +1,9 @@
 import React from "react";
-import StarsIcon from "@material-ui/icons/Stars";
 
-import Rating from "../../components/rating/rating.component";
+// custom components:
+import ImageCard from "../../components/image-card/image-card.component";
 
+// custom stylesheet:
 import "./home-page.styles.scss";
 
 const restaurants = [
@@ -78,17 +79,23 @@ const HomePage = () => {
           <div className="spotlight"></div>
         </div>
         {restaurants.map((restaurant, i) => (
-          <div key={i} className="image-container">
-            <div className="more-info">
-              <div className="pop-up-details">
-                <h2>{restaurant.name} </h2>
-                <Rating rating={restaurant.rating} />
-              </div>
-            </div>
-            <div className="spotlight-mask-container">
-              <img src={restaurant.url}></img>
-            </div>
-          </div>
+          <ImageCard
+            key={i}
+            name={restaurant.name}
+            rating={restaurant.rating}
+            imageUrl={restaurant.url}
+          />
+          // <div key={i} className="image-container">
+          //   <div className="more-info">
+          //     <div className="pop-up-details">
+          //       <h2>{restaurant.name} </h2>
+          //       <Rating rating={restaurant.rating} />
+          //     </div>
+          //   </div>
+          //   <div className="spotlight-mask-container">
+          //     <img src={restaurant.url}></img>
+          //   </div>
+          // </div>
         ))}
       </div>
     </div>
