@@ -78,7 +78,7 @@ const HomePage = () => {
           <div className="spotlight"></div>
         </div>
         {restaurants.map((restaurant, i) => (
-          <div className="image-container">
+          <div key={i} className="image-container">
             <div className="more-info">
               <div className="pop-up-details">
                 <h2>{restaurant.name} </h2>
@@ -86,7 +86,7 @@ const HomePage = () => {
               </div>
             </div>
             <div className="spotlight-mask-container">
-              <img key={i} src={restaurant.url}></img>
+              <img src={restaurant.url}></img>
             </div>
           </div>
         ))}

@@ -1,4 +1,7 @@
 import React from "react";
+
+import { Link } from "react-router-dom";
+
 import SearchIcon from "@material-ui/icons/Search";
 import LocalDiningIcon from "@material-ui/icons/LocalDining";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
@@ -18,9 +21,18 @@ class Navbar extends React.Component {
         </p>
 
         <ul>
-          <li>Graduated</li>
-          <li>Profile</li>
-          <li>Login</li>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/graduated">Graduated</Link>
+          </li>
+          <li>
+            <Link to="/profile">Profile</Link>
+          </li>
+          <li>
+            <Link to="/login">Login</Link>
+          </li>
         </ul>
       </nav>
     );
