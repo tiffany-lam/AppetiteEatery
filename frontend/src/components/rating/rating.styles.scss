@@ -1,0 +1,19 @@
+@import "../../assets/theme";
+
+.rating-container {
+  display: flex;
+  flex-direction: row;
+
+  .rating-filled {
+    path {
+      // fill: rgb(255, 62, 62);
+      fill: #fffb00;
+    }
+  }
+
+  .rating-unfilled {
+    path {
+      fill: $background;
+    }
+  }
+}
