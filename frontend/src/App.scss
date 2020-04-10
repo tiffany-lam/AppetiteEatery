@@ -1,0 +1,27 @@
+@import "./assets/theme";
+
+.App {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  // height: 100%;
+  background-color: $background;
+
+  header {
+    background-color: $background;
+  }
+
+  main {
+    background-color: $background;
+
+    flex-grow: 1;
+  }
+
+  footer {
+    background-color: $background;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+}
