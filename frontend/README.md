@@ -1,11 +1,5 @@
 #### View project online:
-
-[broadkats.me](www.broadkats.me)  
-www.broadkats.me  
-http://www.broadkats.me
-
-Currently not working:  
-https://www.broadkats.me
+Not currently available.
 
 #### To download and run locally:
 
