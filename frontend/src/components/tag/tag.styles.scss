@@ -1,0 +1,40 @@
+@import "../../assets/theme";
+
+.tag-view {
+  color: $green_main;
+
+  margin: 5px;
+
+  display: inline;
+}
+
+.tag-add {
+  color: $green_main;
+
+  border: 1px solid $green_main;
+  border-radius: 50%;
+}
+
+.tag-delete {
+  display: inline;
+
+  //   border: 1px solid $green_main;
+  //   border-radius: 40%;
+
+  //   padding: 3px 0;
+
+  p {
+    display: inline;
+
+    color: $green_main;
+
+    margin: 0 2px;
+  }
+
+  svg {
+    margin: auto 0;
+
+    height: 10px;
+    width: 10px;
+  }
+}

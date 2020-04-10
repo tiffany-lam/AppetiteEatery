@@ -94,6 +94,7 @@ $background_dark: #000;
 ///////////////////////////////////////////////////////////////
 @mixin base_font_stack {
   font-family: "Karla", sans-serif;
+  font-weight: normal;
   font-size: 17px;
   color: $background_dark; // must be selected from MAIN REFERENCE
 }

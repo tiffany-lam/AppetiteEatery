@@ -1,0 +1,120 @@
+@import "../../assets/theme";
+
+.restauraunt-page {
+  display: grid;
+  grid-template-rows: min-content min-content min-content min-content;
+  grid-template-areas:
+    " name "
+    " description "
+    " tags "
+    " images "
+    " others ";
+}
+
+.restauraunt-name {
+  grid-area: name;
+  word-break: normal;
+
+  .view {
+    display: grid;
+    grid-template-rows: min-content min-content;
+    grid-template-areas:
+      " name-label "
+      " name-content ";
+
+    .label {
+      grid-area: name-label;
+      font-size: 10px;
+    }
+
+    .name {
+      grid-area: name-content;
+      font-size: 30px;
+    }
+  }
+
+  .manage {
+  }
+}
+
+.restauraunt-description {
+  grid-area: description;
+
+  .view {
+    display: grid;
+    grid-template-rows: min-content min-content min-content;
+    grid-template-areas:
+      " description-label "
+      " description-content"
+      " description-extra ";
+
+    .label {
+      grid-area: description-label;
+      font-size: 10px;
+    }
+
+    .description {
+      grid-area: description-content;
+    }
+
+    .extra {
+      grid-area: description-extra;
+
+      display: grid;
+      grid-template-columns: min-content auto min-content;
+      grid-template-areas: " description-open . description-owner";
+
+      .open {
+        grid-area: description-open;
+      }
+
+      .owner {
+        grid-area: description-owner;
+      }
+    }
+  }
+
+  .manage {
+  }
+}
+
+.restauraunt-tags {
+  grid-area: tags;
+  .view {
+  }
+  .manage {
+  }
+}
+
+.restauraunt-images {
+  grid-area: images;
+  .view {
+  }
+  .manage {
+  }
+}
+
+.restauraunt-others {
+  grid-area: others;
+}
+
+.restauraunt-menu {
+  .view {
+  }
+  .manage {
+  }
+}
+
+.restauraunt-map {
+  .view {
+  }
+  .manage {
+  }
+}
+
+.restauraunt-details {
+  .view {
+  }
+  .manage {
+  }
+}

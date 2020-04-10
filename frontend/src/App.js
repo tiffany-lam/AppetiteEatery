@@ -6,6 +6,7 @@ import Navbar from "./components/navbar/navbar.component";
 
 // page components here:
 import HomePage from "./pages/home-page/home-page.component";
+import RestaurantPage from "./pages/restaurant-page/restaurant-page.component";
 
 function App() {
   return (
@@ -14,7 +15,8 @@ function App() {
         <Navbar />
       </header>
       <main>
-        <HomePage />
+        {/* <HomePage /> */}
+        <RestaurantPage />
       </main>
       <footer>FOOTER STUFF</footer>
     </div>
