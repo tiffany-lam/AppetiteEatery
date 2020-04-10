@@ -35,7 +35,7 @@ class RestaurantPage extends Component {
       return this.state.owner === this.state.user ? (
         <Tag type="delete">tag</Tag>
       ) : (
-        <Tag type="add">tag</Tag>
+        <Tag>tag</Tag>
       );
     });
 
@@ -82,6 +82,7 @@ class RestaurantPage extends Component {
         <div className="temp">
           <ul>{tags}</ul>
         </div>
+        <Tag type="add" />
       </section>
     );
 

@@ -8,20 +8,84 @@
   display: inline;
 }
 
-.tag-add {
-  color: $green_main;
+.tag-expand {
+  height: min-content;
+  width: min-content;
 
-  border: 1px solid $green_main;
-  border-radius: 50%;
+  border: solid 1px black;
+  border-radius: 30px;
+
+  display: grid;
+  grid-template-columns: min-content min-content;
+  grid-template-areas: " button form ";
+
+  transition: width 10s ease;
+  .button {
+    grid-area: button;
+    height: min-content;
+    width: min-content;
+    //   width: 36px;
+    //   height: 36px;
+
+    padding: 0;
+    margin: 0;
+
+    outline: 0;
+
+    display: flex;
+    justify-content: center;
+
+    background: none;
+    border: none;
+
+    svg {
+      height: 30px;
+      width: 30px;
+    }
+
+    transition: width ease 3s;
+  }
+
+  .form {
+    grid-area: form;
+    // display: inline;
+
+    align-self: center;
+
+    label {
+      border: 0;
+      clip: rect(0 0 0 0);
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      width: 1px;
+    }
+
+    .input {
+      width: 0px;
+      background: none;
+      border: none;
+      -webkit-transition: width 10s ease-in-out;
+      transition: width 0.3s ease-in-out;
+    }
+
+    .input-clicked {
+      margin-right: 15px;
+
+      border: none;
+      border-bottom: 1px solid grey;
+      width: 7em;
+      background: none;
+      -webkit-transition: width 10s ease-in-out;
+      transition: width 0.3s ease-in-out;
+    }
+  }
 }
 
 .tag-delete {
   display: inline;
-
-  //   border: 1px solid $green_main;
-  //   border-radius: 40%;
-
-  //   padding: 3px 0;
 
   p {
     display: inline;
