@@ -123,7 +123,7 @@
 
   .view {
     display: grid;
-    grid-template-rows: min-content min-content;
+    grid-template-rows: min-content max-content;
     grid-gap: 5px 0;
     grid-template-areas:
       " images-label "
@@ -138,16 +138,8 @@
     .content {
       grid-area: images-content;
 
-      display: flex;
-      flex-direction: row;
-
-      img {
-        width: 100px;
-        height: 100px;
-        object-fit: cover;
-
-        margin-right: 15px;
-      }
+      min-height: 150px;
+      max-height: 300px;
     }
   }
 
