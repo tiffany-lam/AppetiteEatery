@@ -17,7 +17,6 @@ const ImageCard = ({
   // const [varB, setVarB] = useState([]);
 
   // useEffect(() => {
-  //   // same as componentDidMount() (not really but sorta; read up on this)
   //   // console.log("rendered");
   // });
 

@@ -2,7 +2,6 @@
 
 p {
   cursor: pointer;
-  text-transform: uppercase;
   display: flex;
   align-items: center;
 
@@ -33,8 +32,6 @@ p {
     margin: 0 0.2rem;
     path {
       fill: $secondary_dark;
-
-      // fill: rgb(87, 57, 255);
     }
   }
 
@@ -50,4 +47,8 @@ p {
   span {
     @include base_font_stack;
   }
+}
+
+.uppercase {
+  text-transform: uppercase;
 }

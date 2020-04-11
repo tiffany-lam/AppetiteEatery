@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 // custom components:
 import Logo from "../logo/logo.component";
 
+// custom stylesheet:
 import "./navbar.styles.scss";
 
 class Navbar extends React.Component {
@@ -12,7 +13,7 @@ class Navbar extends React.Component {
       <nav>
         <div className="logo-container-flex">
           <Link to="/">
-            <Logo />
+            <Logo eVersion={1} uppercase={false} />
           </Link>
         </div>
 
