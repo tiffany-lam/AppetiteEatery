@@ -33,6 +33,7 @@ a:link,
 a:visited,
 a:hover,
 a:active {
+  cursor: pointer;
   text-decoration: none;
   color: $secondary_dark;
 }
