@@ -8,17 +8,27 @@ import "./restaurant-page.styles.scss";
 import Divider from "../../components/divider/divider.component";
 import Tag from "../../components/tag/tag.component";
 import CarouselFourHorizontal from "../../components/carouselfour-horizontal/carouselfour-horizontal.component";
+import CarousoelOneHorizontal from "../../components/carouselone-horizontal/carouselone-horizontal.component";
+import CarouselOneHorizontal from "../../components/carouselone-horizontal/carouselone-horizontal.component";
 
 class RestaurantPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: "xxxy",
+      user: "xxx",
       owner: "xxx",
       name: "ChickPls",
       description:
         "This is delicious! This is delicious! This is delicious! This is delicious! This is delicious! This is delicious! This is delicious! This is delicious! This is delicious! This is delicious! This is delicious!",
-      tags: ["chicka", "chickb", "chickc"],
+      tags: [
+        "chicka",
+        "chickb",
+        "chickc",
+        "chicke",
+        "chickf",
+        "chickg",
+        "chickh",
+      ],
       images: [
         "https://images.unsplash.com/photo-1484723091739-30a097e8f929?ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80",
         "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
@@ -34,7 +44,7 @@ class RestaurantPage extends Component {
         "https://images.unsplash.com/photo-1529042410759-befb1204b468?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=333&q=80",
         "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
       ],
-      menu: [
+      menus: [
         "https://images.pexels.com/photos/2617751/pexels-photo-2617751.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260",
         "https://image.freepik.com/free-vector/restaurant-menu-template_23-2147510410.jpg",
         "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/gluten-free-menu-poster-template-a34844400e847b46fdf731d336c442c9_screen.jpg?ts=1498651899",
@@ -61,69 +71,55 @@ class RestaurantPage extends Component {
       );
     });
 
-    const images = this.state.images.map((url) => {
-      return this.state.owner === this.state.user ? (
-        <img className="content" src={url} alt="Food" />
-      ) : (
-        <img className="content" src={url} alt="Food" />
-      );
-    });
-
-    const menus = this.state.menu.map((url) => {
-      return this.state.owner === this.state.user ? (
-        <img src={url} alt="Food" />
-      ) : (
-        <img src={url} alt="Food" />
-      );
-    });
-
     const view = (
-      <div className="restauraunt-page-background">
-        <section className="restauraunt-page">
-          <h1 className="restauraunt-name">
+      <div className="restaurant-page-background">
+        <section className="restaurant-page">
+          <h1 className="restaurant-name">
             <span className="view">
               <span className="label">Restaurant Name </span>
               <span className="name">{this.state.name}</span>
             </span>
           </h1>
-          <section className="restauraunt-description">
+          <section className="restaurant-description">
             <Divider full={true} />
             <div className="view">
               <h2 className="label">Description</h2>
               <p className="description">{this.state.description}</p>
-              <p className="extra">
-                <span className="open">Opened 04/20/69</span>
-                <span className="owner">Owned by {this.state.owner}</span>
-              </p>
             </div>
+            <p className="extra">
+              <span className="open">Opened 04/20/69</span>
+              <span className="owner">Owned by {this.state.owner}</span>
+            </p>
           </section>
-          <section className="restauraunt-tags">
+          <section className="restaurant-tags">
             <Divider full={true} />
             <h2 className="view">
               <span className="label">Tags</span>
             </h2>
             <ul className="content">{tags}</ul>
           </section>
-          <section className="restauraunt-images">
+          <section className="restaurant-images">
             <Divider full={true} />
             <div className="view">
               <h2 className="label">Images</h2>
-              {/* <div className="content">{images}</div> */}
               <CarouselFourHorizontal
                 className="content"
                 images={this.state.images}
               />
             </div>
           </section>
-          <section className="restauraunt-others">
+          <section className="restaurant-others">
             <Divider className="line" full={true} />
-            <section className="restauraunt-menu">
+            <section className="restaurant-menu">
               <div className="view">
                 <h2 className="label">Menu</h2>
-                <div className="content">{menus}</div>
+                <CarouselOneHorizontal
+                  className="content"
+                  images={this.state.menus}
+                />
               </div>
             </section>
-            <section className="restauraunt-map">
+            <section className="restaurant-map">
               <div className="view">
                 <h2 className="label">Map</h2>
                 <div className="content">
@@ -131,7 +127,7 @@ class RestaurantPage extends Component {
                 </div>
               </div>
             </section>
-            <section className="restauraunt-details">
+            <section className="restaurant-details">
               <div className="view">
                 <h2 className="label">Details</h2>
                 <dl className="content">
@@ -153,30 +149,103 @@ class RestaurantPage extends Component {
     );
 
     const manage = (
-      <section className="restauraunt-page">
-        <h1>Restaurant Name Owned</h1>
-        <Divider full={true} />
-        <section>
-          <h2>Description</h2>
-        </section>
-        <section>
-          <h2>Tags</h2>
-          <Tag type="add" />
-        </section>
-        <section>
-          <h2>Images</h2>
-        </section>
-        <section className="restaurant-others">
-          <section>
-            <h2>Menu</h2>
-          </section>
-          <section>
-            <h2>Map</h2>
-          </section>
-          <section>
-            <h2>Details</h2>
-          </section>
-        </section>
+      <section className="restaurant-page-background">
+        <form
+          action=""
+          method="put"
+          className="restaurant-page"
+          id="manage-restaurant"
+        >
+          <fieldset form="manage-restaurant" className="restaurant-name">
+            <label className="manage">
+              <span className="label">Restaurant Name</span>
+              <input
+                type="text"
+                name="name"
+                id="name"
+                required
+                className="name"
+              />
+            </label>
+          </fieldset>
+          <fieldset form="manage-restaurant" className="restaurant-description">
+            <Divider full={true} />
+            <label className="manage">
+              <span className="label">Description</span>
+              <textarea
+                className="description"
+                name="description"
+                id="description"
+                rows="5"
+                cols="33"
+              ></textarea>
+            </label>
+            <p className="extra">
+              <span className="open">Opened 04/20/69</span>
+              <span className="owner">Owned by {this.state.owner}</span>
+            </p>
+          </fieldset>
+          <fieldset form="manage-restaurant" className="restaurant-tags">
+            <Divider full={true} />
+            <div className="manage">
+              <p className="label">Tags</p>
+              <Tag className="add-tag" type="add" />
+              <ul className="content">{tags}</ul>
+            </div>
+          </fieldset>
+          <fieldset form="manage-restaurant" className="restaurant-images">
+            <Divider full={true} />
+            <div className="manage">
+              <label htmlFor="images" className="label">
+                Images
+              </label>
+              <CarouselFourHorizontal
+                className="content"
+                images={this.state.images}
+              />
+            </div>
+          </fieldset>
+          {/* <fieldset form="manage-restaurant" className="restaurant-others">
+              <Divider className="line" full={true} />
+              <fieldset form="manage-restaurant" className="restaurant-menu">
+                <label htmlFor="menus" className="label">
+                  Menu
+                </label>
+                <CarouselOneHorizontal
+                  className="content"
+                  images={this.state.menus}
+                />
+              </fieldset>
+              <fieldset form="manage-restaurant" className="restaurant-map">
+                <label htmlFor="map" className="label">
+                  Menu
+                </label>
+                <div className="content">
+                  <img src={this.state.map} alt="map" />
+                </div>
+              </fieldset>
+              <fieldset
+                form="manage-restaurant"
+                className="restaurant-details"
+              >
+                <label htmlFor="details" className="label"></label>
+                <fieldset form="manage-restaurant" className="manage">
+                  <label htmlFor="parking" className="label">
+                    Parking
+                  </label>
+                  <Divider className="divider3" full={true} />
+                  <label htmlFor="wifi" className="label">
+                    Wifi
+                  </label>
+                  <Divider className="divider3" full={true} />
+                  <label htmlFor="takeout" className="label">
+                    Takeout
+                  </label>
+                  <Divider className="divider3" full={true} />
+                </fieldset>
+              </fieldset>
+            </fieldset> */}
+        </form>
       </section>
     );
 

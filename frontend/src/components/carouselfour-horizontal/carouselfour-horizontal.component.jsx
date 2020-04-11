@@ -9,7 +9,9 @@ import "./carouselfour-horizontal.styles.scss";
 // IMPORT ICONS
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import CloseIcon from "@material-ui/icons/Close";
 
+// LIMIT THE AMOUNT OF IMAGES THIS USES
 const CarouselFourHorizontal = (props) => {
   const [index, setIndex] = useState(0);
 
@@ -30,10 +32,18 @@ const CarouselFourHorizontal = (props) => {
   };
 
   const displayed = () => {
+    // let previous = index;
+    // if (index === 0) {
+    //   previous = props.images.length - 1;
+    // }
+
     let originalIndex = index;
+    // let urls = [previous, index];
     let urls = [index];
 
+    // originally 4
     while (urls.length < 4) {
+      // while (urls.length < 5) {
       if (originalIndex + 1 <= props.images.length - 1) {
         urls.push(++originalIndex);
       } else {
@@ -42,18 +52,60 @@ const CarouselFourHorizontal = (props) => {
       }
     }
 
+    // let next = index + 1;
+    // if (index + 1 === props.images.length - 1) {
+    //   next = 0;
+    // }
+
+    // urls.push(next);
     return urls;
   };
 
-  const displayedImages = displayed();
+  // const displayedImages = displayed();
+  // console.log(displayed());
 
   const images = props.images.map((url, imageIndex) => {
-    return displayedImages.includes(imageIndex) ? (
-      <img className={"img-displayed"} key={imageIndex} src={url} alt="foodz" />
+    return displayed().includes(imageIndex) ? (
+      <div className="img-container">
+        <img
+          className={"img-displayed"}
+          key={imageIndex}
+          src={url}
+          alt="foodz"
+        />
+        <button
+          className="button"
+          type="button"
+          onClick={console.log(`deleted image at ${url}`)}
+        >
+          <CloseIcon></CloseIcon>
+        </button>
+      </div>
     ) : (
-      <img className={"img-hidden"} key={imageIndex} src={url} alt="foodz" />
+      <div className="img-container-hidden">
+        <img className={"img-hidden"} key={imageIndex} src={url} alt="foodz" />
+      </div>
     );
   });
+
+  // completely rerenders new array so transition does not work
+  // const images = displayed().map((urlIndex, i) => {
+  //   return i === 0 || i === displayed().length - 1 ? (
+  //     <img
+  //       className={"img-hidden"}
+  //       key={i}
+  //       src={props.images[urlIndex]}
+  //       alt="foodz"
+  //     />
+  //   ) : (
+  //     <img
+  //       className={"img-displayed"}
+  //       key={i}
+  //       src={props.images[urlIndex]}
+  //       alt="foodz"
+  //     />
+  //   );
+  // });
 
   return (
     <section

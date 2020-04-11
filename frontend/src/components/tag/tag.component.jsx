@@ -19,14 +19,17 @@ const Tag = (props) => {
 
   if (props.type === "add") {
     return (
-      <div className="tag-expand">
+      <div className={props.className ? `${props.className} form` : `form`}>
+        <label htmlFor="add-button" className="visually-hidden">
+          Add a Tag
+        </label>
         <button className="button" type="button" onClick={handleExpand}>
           <AddIcon />
         </button>
-        <form className={"form"}>
-          <label htmlFor="tag-add">Add a tag</label>
+        <label className="input">
+          <span className="visually-hidden">Add a tag</span>{" "}
           <input
-            className={expand ? "input" : "input-clicked"}
+            className="input-text"
             type="text"
             name="tag-add"
             id="tag-add"
@@ -35,14 +38,16 @@ const Tag = (props) => {
             value={input}
             onChange={handleChange}
           ></input>
-        </form>
+        </label>
       </div>
     );
   } else if (props.type === "delete") {
     return (
       <li className="tag-delete">
-        <p>#{props.children}</p>
-        <CloseIcon></CloseIcon>
+        <label htmlFor="delete-button">#{props.children}</label>
+        <button className="button" type="button">
+          <CloseIcon></CloseIcon>
+        </button>
       </li>
     );
   } else {
