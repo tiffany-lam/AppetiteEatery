@@ -9,6 +9,9 @@ const ImageCard = ({
   name = "none",
   rating = 3,
   imageUrl = DEFAULT_IMAGE_URL,
+  className,
+  onMouseEnter,
+  onMouseLeave,
 }) => {
   // const [varA, setVarA] = useState("");
   // const [varB, setVarB] = useState([]);
@@ -19,7 +22,11 @@ const ImageCard = ({
   // });
 
   return (
-    <div className="image-container">
+    <div
+      className={`image-container ${className}`}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
       <div className="pop-up-details-container">
         <div className="pop-up-details-box">
           <h2>{name}</h2>
