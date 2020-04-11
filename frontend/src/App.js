@@ -6,10 +6,12 @@ import "./App.scss";
 // custom components here:
 import Navbar from "./components/navbar/navbar.component";
 import Test from "./components/test/test.component";
+import FooterNav from "./components/footer-nav/footer-nav.component";
 
 // page components here:
 import HomePage from "./pages/home-page/home-page.component";
 import RestaurantPage from "./pages/restaurant-page/restaurant-page.component";
+import ContactUsPage from "./pages/contact-us-page/contact-us.component";
 
 function App() {
   return (
@@ -27,9 +29,12 @@ function App() {
             {/* EXAMPLE: */}
             <Route path="/test" component={Test} />
             <Route path="/restaurant-page" component={RestaurantPage} />
+            <Route path="/contact-us" component={ContactUsPage} />
           </Switch>
         </main>
-        <footer>FOOTER STUFF</footer>
+        <footer>
+          <FooterNav />
+        </footer>
       </BrowserRouter>
     </div>
   );
