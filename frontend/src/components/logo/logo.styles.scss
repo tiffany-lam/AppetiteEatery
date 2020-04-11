@@ -1,0 +1,54 @@
+@import "../../assets/theme";
+
+p {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+
+  #ap-text {
+    font-size: 2rem;
+    font-weight: bold;
+    color: $primary;
+    // font-style: italic;
+  }
+
+  #petite-text {
+    font-size: 2rem;
+    font-weight: bold;
+    // font-style: italic;
+    color: $primary;
+  }
+
+  #eatery-text {
+    // margin-left: 0.5rem;
+    font-size: 2rem;
+    // font-weight: bold;
+    color: $secondary_dark;
+    // font-style: italic;
+  }
+
+  #fork-knife-icon {
+    // margin-right: 0.2rem;
+    margin: 0 0.2rem;
+    path {
+      fill: $secondary_dark;
+    }
+  }
+
+  #small-dot-icon {
+    width: 8px;
+    margin: 0 0.2rem;
+
+    path {
+      fill: $primary;
+    }
+  }
+
+  span {
+    @include base_font_stack;
+  }
+}
+
+.uppercase {
+  text-transform: uppercase;
+}

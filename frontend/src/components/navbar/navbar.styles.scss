@@ -3,11 +3,17 @@
 nav {
   // background-color: $primary;
   padding: 0 1rem;
-  height: 4rem;
+  margin-bottom: 2rem;
+  // height: 4rem;
 
   display: flex;
   flex-direction: row;
   align-items: center;
+
+  .logo-container-flex {
+    flex-grow: 1;
+    display: flex;
+  }
 
   .searchbar {
     flex-grow: 1;
@@ -29,11 +35,60 @@ nav {
     flex-direction: row;
 
     li {
-      font-size: 0.8rem;
-      font-weight: bold;
+      cursor: pointer;
+      font-size: 0.9rem;
+      // font-weight: bold;
       text-transform: uppercase;
 
-      margin-left: 1rem;
+      // margin-left: 0.5rem;
+      padding: 0.5rem;
+      position: relative;
+
+      height: 1.5rem;
+
+      // background-color: green;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .circle-mask {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+
+        background-color: $primary;
+        z-index: 1;
+
+        clip-path: polygon(0 0, 100% 0, 100% 0, 50% 0, 0 0);
+        transition: clip-path 100ms ease-out;
+      }
+
+      a {
+        // background-color: blue;
+        height: 100%;
+        position: relative;
+        z-index: 2;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        transition: color 200ms ease-in-out;
+      }
+
+      &:hover {
+        a {
+          color: $background;
+          // font-weight: bold;
+        }
+
+        .circle-mask {
+          clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 85%, 0 100%);
+        }
+      }
     }
   }
 }

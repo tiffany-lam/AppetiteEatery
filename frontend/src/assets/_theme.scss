@@ -26,6 +26,7 @@ $apple_beige: #fff5da;
 $soft_red: #ff6b71;
 // $mellow_blue: #1f3146;
 $mellow_blue: #344861;
+$deep_purple_brown: #2f1728;
 
 $french_laundry_blue: #3a4660;
 $comfortably_tan: #c9af98;
@@ -81,11 +82,11 @@ $strong_box_shadow: 0 0 5px #414141;
 // $bg_color: $lg_blue;
 $primary: $soft_red;
 $primary_light: #000;
-$primary_dark: #000;
+$primary_dark: #ff1119;
 
 $secondary: $mellow_blue;
 $secondary_light: #000;
-$secondary_light: #000;
+$secondary_dark: $deep_purple_brown;
 
 $background: $apple_beige;
 $background_light: #000;
@@ -100,6 +101,6 @@ $background_dark: #000;
   font-family: "Karla", sans-serif;
   font-weight: normal;
   font-size: 17px;
-  color: $secondary; // must be selected from MAIN REFERENCE
   font-weight: normal;
+  color: $secondary_dark; // must be selected from MAIN REFERENCE
 }

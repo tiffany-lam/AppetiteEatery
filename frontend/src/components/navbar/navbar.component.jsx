@@ -1,20 +1,39 @@
 import React from "react";
-import SearchIcon from "@material-ui/icons/Search";
+import { Link } from "react-router-dom";
 
+// custom components:
+import Logo from "../logo/logo.component";
+
+// custom stylesheet:
 import "./navbar.styles.scss";
 
 class Navbar extends React.Component {
   render() {
     return (
       <nav>
-        <div className="searchbar">
-          OUR SEARCH COMPONENT HERE <SearchIcon />
+        <div className="logo-container-flex">
+          <Link to="/">
+            <Logo eVersion={1} uppercase={false} />
+          </Link>
         </div>
 
         <ul>
-          <li>Home</li>
-          <li>Graduated</li>
-          <li>Profile</li>
+          <li>
+            <div className="circle-mask"></div>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <div className="circle-mask"></div>
+            <Link to="/graduated">Graduated</Link>
+          </li>
+          <li>
+            <div className="circle-mask"></div>
+            <Link to="/profile">Profile</Link>
+          </li>
+          <li>
+            <div className="circle-mask"></div>
+            <Link to="/login">Login</Link>
+          </li>
         </ul>
       </nav>
     );

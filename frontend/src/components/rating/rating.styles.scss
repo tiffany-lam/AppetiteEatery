@@ -1,0 +1,20 @@
+@import "../../assets/theme";
+
+.rating-container {
+  display: flex;
+  flex-direction: row;
+
+  .rating-filled {
+    path {
+      // fill: rgb(255, 62, 62);
+      fill: $primary_dark;
+    }
+  }
+
+  .rating-unfilled {
+    path {
+      // fill: rgb(255, 149, 149);
+      fill: rgba($primary_dark, 0.35);
+    }
+  }
+}
