@@ -258,6 +258,7 @@
 
   .restaurant-menu {
     grid-area: menu;
+    height: 100%;
 
     .view {
       height: 100%;
@@ -265,25 +266,23 @@
       grid-template-rows: min-content auto;
       grid-gap: 5px 0;
       grid-template-areas:
-        " menu-label "
-        " menu-content ";
+        " menu-view-label "
+        " menu-view-content ";
 
       .label {
-        grid-area: menu-label;
+        grid-area: menu-view-label;
 
         font-size: 15px;
       }
 
       .content {
-        grid-area: menu-content;
+        grid-area: menu-view-content;
 
         // min-height: 150px;
+        max-width: 100px;
         height: 100%;
         // max-height: 300px;
       }
-    }
-
-    .manage {
     }
   }
 
@@ -321,9 +320,6 @@
           margin-right: 15px;
         }
       }
-    }
-
-    .manage {
     }
   }
 
@@ -411,8 +407,168 @@
         grid-area: content1-content;
       }
     }
+  }
+}
 
+.restaurant-others-manage {
+  grid-area: others;
+
+  width: 100%;
+
+  display: grid;
+  grid-template-rows: min-content min-content min-content;
+  grid-gap: 0 20px;
+
+  grid-template-areas:
+    " menu "
+    " map "
+    " details ";
+
+  .restaurant-menu {
+    grid-area: menu;
+    height: 100%;
+
+    display: grid;
+    grid-template-rows: min-content max-content;
+    grid-gap: 5px 0;
+    grid-template-areas:
+      " menu-manage-label "
+      " menu-manage-content ";
+
+    .label {
+      grid-area: menu-manage-label;
+
+      font-size: 15px;
+    }
+
+    .content {
+      grid-area: menu-manage-content;
+
+      min-height: 150px;
+      //   height: 200px;
+      max-height: 300px;
+    }
+  }
+
+  .restaurant-map {
+    grid-area: map;
+
+    display: grid;
+    margin-bottom: 20px;
+
+    grid-template-rows: min-content min-content;
+    grid-gap: 5px 0;
+    grid-template-areas:
+      " map-label "
+      " map-content ";
+
+    .label {
+      grid-area: map-label;
+
+      font-size: 15px;
+    }
+
+    .content {
+      grid-area: map-content;
+
+      display: flex;
+      justify-content: center;
+      align-content: center;
+      flex-direction: column;
+
+      img {
+        margin: 0 auto;
+        width: 100%;
+        height: auto;
+        max-width: 500px;
+        max-height: 500px;
+        object-fit: cover;
+      }
+    }
+  }
+
+  .restaurant-details {
+    grid-area: details;
     .manage {
+      display: grid;
+      grid-template-rows: min-content min-content min-content;
+      grid-gap: 5px 0;
+      grid-template-areas:
+        " detail-label "
+        " detail-content ";
+
+      .label {
+        grid-area: detail-label;
+
+        font-size: 15px;
+      }
+
+      .content {
+        display: grid;
+        grid-template-columns: min-content auto min-content;
+        grid-template-rows: min-content min-content min-content min-content min-content min-content;
+        grid-gap: 5px 0;
+        grid-template-areas:
+          " content1-label . content1-content "
+          " divider1 divider1 divider1"
+          " content2-label . content2-content "
+          " divider2 divider2 divider2"
+          " content3-label . content3-content "
+          " divider3 divider3 divider3";
+
+        .content1-label {
+          grid-area: content1-label;
+        }
+
+        .content1-content {
+          grid-area: content1-content;
+        }
+
+        .content2-label {
+          grid-area: content2-label;
+        }
+
+        .content2-content {
+          grid-area: content2-content;
+        }
+
+        .content3-label {
+          grid-area: content3-label;
+        }
+
+        .content3-content {
+          grid-area: content3-content;
+        }
+
+        .divider1 {
+          grid-area: divider1;
+        }
+
+        .divider2 {
+          grid-area: divider2;
+        }
+
+        .divider3 {
+          grid-area: divider3;
+        }
+      }
+    }
+
+    .content1 {
+      display: grid;
+      grid-template-columns: max-content auto max-content;
+      grid-template-rows: min-content min-content min-content;
+      grid-template-areas:
+        " content1-label "
+        " content1-content ";
+
+      .content1-label {
+        grid-area: content1-label;
+      }
+
+      .content1-content {
+        grid-area: content1-content;
+      }
     }
   }
 }

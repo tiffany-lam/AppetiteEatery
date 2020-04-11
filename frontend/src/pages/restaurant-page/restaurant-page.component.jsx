@@ -165,6 +165,8 @@ class RestaurantPage extends Component {
                 id="name"
                 required
                 className="name"
+                value={this.state.name}
+                // onChange
               />
             </label>
           </fieldset>
@@ -177,7 +179,8 @@ class RestaurantPage extends Component {
                 name="description"
                 id="description"
                 rows="5"
-                cols="33"
+                // cols="33"
+                placeholder={this.state.description}
               ></textarea>
             </label>
             <p className="extra">
@@ -201,50 +204,91 @@ class RestaurantPage extends Component {
               </label>
               <CarouselFourHorizontal
                 className="content"
+                manage={this.state.user === this.state.owner}
                 images={this.state.images}
               />
             </div>
           </fieldset>
-          {/* <fieldset form="manage-restaurant" className="restaurant-others">
-              <Divider className="line" full={true} />
-              <fieldset form="manage-restaurant" className="restaurant-menu">
-                <label htmlFor="menus" className="label">
-                  Menu
-                </label>
-                <CarouselOneHorizontal
-                  className="content"
-                  images={this.state.menus}
-                />
+          <fieldset form="manage-restaurant">
+            <Divider className="line" full={true} />
+            <div className="restaurant-others-manage">
+              <fieldset form="manage-restaurant">
+                <div className="restaurant-menu">
+                  <p className="label">Menu</p>
+                  <CarouselFourHorizontal
+                    className="content"
+                    manage={this.state.user === this.state.owner}
+                    images={this.state.menus}
+                  />
+                </div>
               </fieldset>
               <fieldset form="manage-restaurant" className="restaurant-map">
+                <Divider className="line" full={true} />
                 <label htmlFor="map" className="label">
-                  Menu
+                  Map
                 </label>
                 <div className="content">
                   <img src={this.state.map} alt="map" />
                 </div>
               </fieldset>
-              <fieldset
-                form="manage-restaurant"
-                className="restaurant-details"
-              >
-                <label htmlFor="details" className="label"></label>
-                <fieldset form="manage-restaurant" className="manage">
-                  <label htmlFor="parking" className="label">
-                    Parking
-                  </label>
-                  <Divider className="divider3" full={true} />
-                  <label htmlFor="wifi" className="label">
-                    Wifi
-                  </label>
-                  <Divider className="divider3" full={true} />
-                  <label htmlFor="takeout" className="label">
-                    Takeout
-                  </label>
-                  <Divider className="divider3" full={true} />
-                </fieldset>
+              <fieldset form="manage-restaurant" className="restaurant-details">
+                <Divider className="line" full={true} />
+                <div className="manage">
+                  <p className="label">Details</p>
+                  <fieldset form="manage-restaurant" className="manage">
+                    <Divider className="line" full={true} />
+                    <div className="content">
+                      <label htmlFor="parking" className="content1-label">
+                        Parking
+                      </label>
+                      <select
+                        name="parking"
+                        id="parking-select"
+                        className="content1-content"
+                      >
+                        <option value="none" selected disabled hidden>
+                          Select an Option
+                        </option>
+                        <option value="available">Available</option>
+                        <option value="unavailable">Unavailable</option>
+                      </select>
+                      <Divider className="divider1" full={true} />
+                      <label htmlFor="wifi" className="content2-label">
+                        Wifi
+                      </label>
+                      <select
+                        name="wifi"
+                        id="wifi-select"
+                        className="content2-content"
+                      >
+                        <option value="none" selected disabled hidden>
+                          Select an Option
+                        </option>
+                        <option value="available">Available</option>
+                        <option value="unavailable">Unavailable</option>
+                      </select>
+                      <Divider className="divider2" full={true} />
+                      <label htmlFor="takeout" className="content3-label">
+                        Takeout
+                      </label>
+                      <select
+                        name="takeout"
+                        id="takeout-select"
+                        className="content3-content"
+                      >
+                        <option value="none" selected disabled hidden>
+                          Select an Option
+                        </option>
+                        <option value="available">Available</option>
+                        <option value="unavailable">Unavailable</option>
+                      </select>
+                      <Divider className="divider3" full={true} />
+                    </div>
+                  </fieldset>
+                </div>
               </fieldset>
-            </fieldset> */}
+            </div>
+          </fieldset>
         </form>
       </section>
     );

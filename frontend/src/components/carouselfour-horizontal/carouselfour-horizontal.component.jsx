@@ -73,13 +73,15 @@ const CarouselFourHorizontal = (props) => {
           src={url}
           alt="foodz"
         />
-        <button
-          className="button"
-          type="button"
-          onClick={console.log(`deleted image at ${url}`)}
-        >
-          <CloseIcon></CloseIcon>
-        </button>
+        {props.manage ? (
+          <button
+            className="button"
+            type="button"
+            onClick={console.log(`deleted image at ${url}`)}
+          >
+            <CloseIcon></CloseIcon>
+          </button>
+        ) : null}
       </div>
     ) : (
       <div className="img-container-hidden">
