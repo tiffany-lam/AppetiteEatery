@@ -20,15 +20,14 @@ const ImageCard = ({
 
   return (
     <div className="image-container">
-      <div className="more-info">
-        <div className="pop-up-details">
-          <h2>{name} </h2>
+      <div className="pop-up-details-container">
+        <div className="pop-up-details-box">
+          <h2>{name}</h2>
           <Rating rating={rating} />
         </div>
       </div>
-      <div className="spotlight-mask-container">
-        <img src={`${imageUrl}`} alt=""></img>
-      </div>
+      <div className="spotlight-mask"></div>
+      <img src={`${imageUrl}`} alt=""></img>
     </div>
   );
 };
