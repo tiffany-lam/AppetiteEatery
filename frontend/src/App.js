@@ -9,6 +9,8 @@ import Test from "./components/test/test.component";
 
 // page components here:
 import HomePage from "./pages/home-page/home-page.component";
+import RestaurantPage from "./pages/restaurant-page/restaurant-page.component";
+import ErrorPage from "./pages/error-page/error-page.component";
 
 function App() {
   return (
@@ -20,11 +22,17 @@ function App() {
         <main>
           <Switch>
             <Route exact path="/" component={HomePage} />
+            <Route
+              exact
+              path="/restaurant/:restaurantId"
+              component={RestaurantPage}
+            />
+
             {/* <Route path="/login" component={} /> */}
             {/* <Route path="/graduated" component={} /> */}
 
-            {/* EXAMPLE: */}
             <Route path="/test" component={Test} />
+            <Route to="*" component={ErrorPage} />
           </Switch>
         </main>
         <footer>FOOTER STUFF</footer>

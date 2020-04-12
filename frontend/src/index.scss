@@ -38,6 +38,10 @@ a:active {
   color: $secondary_dark;
 }
 
+a:active {
+  opacity: 0.5;
+}
+
 ul,
 ol {
   list-style-type: none;

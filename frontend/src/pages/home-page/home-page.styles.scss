@@ -1,9 +1,10 @@
 @import "../../assets/theme";
 
 .home-page-container {
-  width: 100%;
-  height: 100%;
   // background-color: red;
+  width: 90%;
+  height: 100%;
+  margin: 0 auto;
   // height: 25rem;
 
   display: flex;
@@ -12,6 +13,7 @@
   align-items: center;
 
   .limelight-container {
+    // background-color: blue;
     display: flex;
     flex-wrap: wrap;
     width: 100%;
@@ -80,6 +82,18 @@
 
           transition: clip-path 300ms ease-in-out;
         }
+
+        .expand-light {
+          // clip-path: polygon(50% 0%, 100% 75%, 100% 100%, 0 100%, 0 75%); // expand beyond edge
+
+          clip-path: polygon(
+            50% 0%,
+            100% 100%,
+            100% 100%,
+            0 100%,
+            0 100%
+          ); // expand to corner edge
+        }
       }
 
       // #limelight-condition-content {
@@ -106,17 +120,4 @@
 
 .glow {
   filter: drop-shadow(0 0 5px $background);
-}
-
-// needed to added specificity:
-.expand-light.expand-light.expand-light.expand-light.expand-light {
-  // clip-path: polygon(50% 0%, 100% 75%, 100% 100%, 0 100%, 0 75%); // expand beyond edge
-
-  clip-path: polygon(
-    50% 0%,
-    100% 100%,
-    100% 100%,
-    0 100%,
-    0 100%
-  ); // expand to corner edge
 }

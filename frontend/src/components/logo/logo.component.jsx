@@ -20,7 +20,9 @@ const Logo = ({ className, eVersion = 0, uppercase = false }) => {
   if (eVersion >= letterE.length) eVersion = 0;
 
   return (
-    <p className={`${className} ${uppercase ? "uppercase" : ""}`}>
+    <p
+      className={`logo-container ${className} ${uppercase ? "uppercase" : ""}`}
+    >
       {/* <LocalDiningIcon id="fork-knife-icon" /> */}
 
       <span id="ap-text">ap</span>

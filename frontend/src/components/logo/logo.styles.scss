@@ -1,6 +1,6 @@
 @import "../../assets/theme";
 
-p {
+.logo-container {
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -55,7 +55,7 @@ p {
 }
 
 @media (max-width: 768px) {
-  p {
+  .logo-container {
     #fork-knife-icon {
       background-color: $primary;
 
