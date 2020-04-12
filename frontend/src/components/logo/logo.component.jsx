@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 
+// custom components:
+import CircleButton from "../circle-btn/circle-btn.component";
+
 // icons:
 import LocalDiningIcon from "@material-ui/icons/LocalDining";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
@@ -22,7 +25,11 @@ const Logo = ({ className, eVersion = 0, uppercase = false }) => {
 
       <span id="ap-text">ap</span>
       <span id="petite-text">p{letterE[eVersion]}tite</span>
-      <LocalDiningIcon id="fork-knife-icon" />
+
+      <CircleButton hoverRotate={true} id="fork-knife-icon">
+        <LocalDiningIcon />
+      </CircleButton>
+
       {/* <FiberManualRecordIcon id="small-dot-icon" /> */}
       <span id="eatery-text">eatery</span>
     </p>

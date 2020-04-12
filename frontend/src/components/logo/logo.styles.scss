@@ -28,10 +28,11 @@ p {
   }
 
   #fork-knife-icon {
-    // margin-right: 0.2rem;
-    margin: 0 0.2rem;
-    path {
-      fill: $secondary_dark;
+    background-color: transparent;
+    svg {
+      path {
+        fill: $secondary_dark;
+      }
     }
   }
 
@@ -51,4 +52,29 @@ p {
 
 .uppercase {
   text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+  p {
+    #fork-knife-icon {
+      background-color: $primary;
+
+      svg {
+        path {
+          fill: $background;
+        }
+      }
+    }
+    #ap-text {
+      display: none;
+    }
+
+    #petite-text {
+      display: none;
+    }
+
+    #eatery-text {
+      display: none;
+    }
+  }
 }
