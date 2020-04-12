@@ -1,0 +1,49 @@
+@import "../../assets/theme";
+
+.mmodal-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  // background-color: salmon;
+
+  .my-content {
+    // position: absolute;
+    z-index: 5;
+    width: 40rem;
+    height: 30rem;
+    background-color: blue;
+
+    &:hover {
+      background-color: white;
+    }
+  }
+
+  .mmodal-killswitch {
+    position: fixed;
+    z-index: 3;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(black, 0.5);
+
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+
+    &:hover {
+      // background-color: rgba(red, 0.5);
+    }
+  }
+}
+
+.display-nothing {
+  display: none;
+}
