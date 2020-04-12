@@ -1,0 +1,163 @@
+@import "../../assets/theme";
+
+.carousel {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-areas: " carousel ";
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+}
+
+.carousel-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  grid-area: carousel;
+  align-items: center;
+
+  margin: 0 5px;
+
+  .left,
+  .right {
+    z-index: 1;
+
+    height: 40px;
+    width: 40px;
+
+    border: none;
+    border-radius: 50%;
+    // border: solid 1px lightgray;
+
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+
+    background: none;
+    // background-color: white;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    svg {
+      padding: 0;
+      margin: 0;
+
+      height: 30px;
+      width: 30px;
+
+      border-radius: 50%;
+
+      fill: white;
+    }
+
+    svg:hover {
+      fill: $primary;
+    }
+  }
+}
+
+.carousel-images {
+  grid-area: carousel;
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-content: center;
+
+  -webkit-transition: all 1s ease-in-out;
+  -moz-transition: all 1s ease-in-out;
+  -o-transition: all 1s ease-in-out;
+  transition: all 1s ease-in-out;
+
+  .img-container {
+    height: 100%;
+    width: 100%;
+
+    // display: grid;
+    // grid-template-columns: auto;
+    // grid-template-rows: auto;
+    // grid-template-areas: " img-container ";
+    position: relative;
+
+    .img-displayed {
+      // grid-area: img-container;
+      max-width: 100%;
+      max-height: 250px;
+      min-width: 25%;
+      // css so that only 4 images will fit on the carousel
+      // width: 25%;
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+
+      // -webkit-transition: width 0.3s ease-in-out;
+      // transition: width 0.3s ease-in-out;
+
+      -webkit-transition: 0.3s ease;
+      transition: 0.3s ease;
+      // margin-right: 2px;
+    }
+
+    .button {
+      // grid-area: img-container;
+      z-index: 1;
+      position: absolute;
+
+      // margin: auto;
+      // left: 50%;
+      // top: 50%;
+      left: calc(50% - 10px);
+      top: calc(50% - 10px);
+
+      background: none;
+      border: none;
+      svg {
+        margin: auto 0;
+
+        height: 20px;
+        width: 20px;
+
+        fill: white;
+        cursor: pointer;
+      }
+
+      svg:hover {
+        fill: $primary;
+      }
+    }
+  }
+
+  div.img-container:hover {
+    .img-displayed {
+      opacity: 0.8;
+    }
+  }
+
+  .img-container-hidden {
+    height: 100%;
+    width: 0;
+    .img-hidden {
+      max-width: 0;
+
+      width: 0;
+      height: 0;
+      background: none;
+      border: none;
+      // -webkit-transition: width 0.3s ease-in-out;
+      // transition: width 0.3s ease-in-out;
+
+      -webkit-transition: 0.3s ease;
+      transition: 0.3s ease;
+    }
+  }
+}

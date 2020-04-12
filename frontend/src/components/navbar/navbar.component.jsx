@@ -1,79 +1,64 @@
-import React from "react";
-
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import RegisterModal from "../auth/RegisterModal";
-import SearchIcon from "@material-ui/icons/Search";
-import LocalDiningIcon from "@material-ui/icons/LocalDining";
-import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
+
+// custom components:
+import Logo from "../logo/logo.component";
+import CircleButton from "../circle-btn/circle-btn.component";
+import MModal from "../mmodal/mmodal.component";
+
+// mui icons:
+import MenuIcon from "@material-ui/icons/Menu";
+
+// custom stylesheet:
 import "./navbar.styles.scss";
 
-class Navbar extends React.Component {
-  constructor(props) {
-    super(props);
+const Navbar = ({ className }) => {
+  const [hideNav, setHideNav] = useState(true);
+  const [showLogin, setShowLogin] = useState(false);
 
-    this.state = {
-      modalOpen: false
-    };
-  }
+  const toggleNavBar = () => {
+    setHideNav(!hideNav);
+  };
 
-  handleModalOpen = () => {
-    // this.setState((prevState) => {
-    //   return{
-    //     modalOpen: !prevState.modalOpen
-    //   }
-      
-    // })
-    this.setState({
-      modalOpen: !this.state.modalOpen
-      
-    })
-  }
-  registerButton = () => {
-    // if (this.props.auth.isAuthed) {
-    //   return (<Button id="navButton"  href="/" onClick={this.props.logoutAction}>Log Out</Button>
-    //   )
-    // }
-    
-    console.log("inside clicked");
-    return (<RegisterModal show={true} />)
+  const toggleLogin = () => {
+    setShowLogin(!showLogin);
+  };
 
-  }
-  render() {
-    return (
-      <div>
-      <nav>
-        <p>
-          {/* <LocalDiningIcon id="fork-knife-icon" /> */}
-          <span id="appetite-text">appetite</span>
-          <LocalDiningIcon id="fork-knife-icon" />
-
-          {/* <FiberManualRecordIcon id="small-dot-icon" /> */}
-          <span id="eatery-text">eatery</span>
-        </p>
-
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/graduated">Graduated</Link>
-          </li>
-          <li>
-            <Link to="/profile">Profile</Link>
-          </li>
-          <li>
-            {/* {this.state.modalOpen== true?<RegisterModal/>:''} */}
-            <RegisterModal modalOpen = {this.state.modalOpen}/>
-            <a onClick = {this.handleModalOpen} >Login </a>
-            
-            
-          </li>
-        </ul>
-      </nav>
-        
+  return (
+    <nav className="header-nav">
+      {showLogin ? <MModal /> : ""}
+      <div className="logo-container-flex">
+        <Link to="/">
+          <Logo eVersion={1} uppercase={true} />
+        </Link>
       </div>
-    );
-  }
-}
+
+      <CircleButton id="menu-btn" onClick={toggleNavBar} hoverRotate={true}>
+        <MenuIcon />
+      </CircleButton>
+
+      <ul className={hideNav ? "mobile-hidden" : ""}>
+        {/* <ul> */}
+        <li>
+          <div className="nav-item-mask"></div>
+          <Link to="/">Home</Link>
+        </li>
+        <li>
+          <div className="nav-item-mask"></div>
+          <Link to="/graduated">Graduated</Link>
+        </li>
+        <li>
+          <div className="nav-item-mask"></div>
+          <Link to="/profile">Profile</Link>
+        </li>
+        <li>
+          <div className="nav-item-mask"></div>
+          {/* <Link to="/login">Login</Link> */}
+          <a onClick={toggleLogin}>Login</a>
+        </li>
+      </ul>
+    </nav>
+  );
+};
 
 export default Navbar;

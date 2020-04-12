@@ -7,8 +7,13 @@ import "./App.scss";
 import Navbar from "./components/navbar/navbar.component";
 import Test from "./components/test/test.component";
 import RegisterModal from "./components/auth/RegisterModal"
+import FooterNav from "./components/footer-nav/footer-nav.component";
+
 // page components here:
 import HomePage from "./pages/home-page/home-page.component";
+import RestaurantPage from "./pages/restaurant-page/restaurant-page.component";
+import ContactUsPage from "./pages/contact-us-page/contact-us.component";
+import ErrorPage from "./pages/error-page/error-page.component";
 
 function App() {
   return (
@@ -24,10 +29,24 @@ function App() {
             {/* <Route path="/graduated" component={} /> */}
             {/* <Route exact path="/" component={HomePage} /> */}
             {/* EXAMPLE: */}
+            <Route
+              exact
+              path="/restaurant/:restaurantId"
+              component={RestaurantPage}
+            />
+
+            {/* <Route path="/login" component={} /> */}
+            {/* <Route path="/graduated" component={} /> */}
+            <Route path="/contact-us" component={ContactUsPage} />
             <Route path="/test" component={Test} />
+            {/* <Route path="/restaurant-page" component={RestaurantPage} /> */}
+
+            <Route to="*" component={ErrorPage} />
           </Switch>
         </main>
-        <footer>FOOTER STUFF</footer>
+        <footer>
+          <FooterNav />
+        </footer>
       </BrowserRouter>
     </div>
   );
