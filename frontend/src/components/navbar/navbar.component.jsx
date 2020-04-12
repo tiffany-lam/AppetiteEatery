@@ -26,7 +26,14 @@ const Navbar = ({ className }) => {
 
   return (
     <nav className="header-nav">
-      {showLogin ? <MModal /> : ""}
+      {showLogin ? (
+        <MModal toggleLogin={toggleLogin}>
+          <Logo />
+        </MModal>
+      ) : (
+        ""
+      )}
+
       <div className="logo-container-flex">
         <Link to="/">
           <Logo eVersion={1} uppercase={true} />

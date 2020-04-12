@@ -4,30 +4,27 @@ import "./mmodal.styles.scss";
 class MModal extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { showModal: true };
+    this.state = { showModal: "ldsjflisejlfi" };
   }
-
-  // componentDidMount() {}
-
-  customFunction = () => {
-    this.setState({ showModal: !this.state.showModal });
-  };
 
   render() {
     return (
       <div className="mmodal-container">
         <div
-          onClick={this.customFunction}
-          className={`mmodal-killswitch ${
-            this.state.showModal ? "" : "display-nothing"
-          }`}
+          onClick={this.props.toggleLogin}
+          // className={`mmodal-killswitch ${
+          //   this.state.showModal ? "" : "display-nothing"
+          // }`}
+          className="mmodal-killswitch"
         ></div>
         <div
-          className={`my-content ${
-            this.state.showModal ? "" : "display-nothing"
-          }`}
+          className="my-content"
+
+          // className={`my-content ${
+          //   this.state.showModal ? "" : "display-nothing"
+          // }`}
         >
-          actualsdfdsf content
+          {this.props.children}
         </div>
       </div>
     );
