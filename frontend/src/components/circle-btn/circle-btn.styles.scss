@@ -1,0 +1,34 @@
+@import "../../assets/theme";
+
+.circle-btn-container {
+  cursor: pointer;
+  background-color: $primary;
+
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  svg {
+    // transform: rotate(0deg);
+    // transition: transform 200ms ease-in-out;
+    path {
+      fill: $secondary;
+    }
+  }
+}
+
+.hover-rotate {
+  svg {
+    transition: transform 250ms ease;
+  }
+
+  &:hover {
+    svg {
+      transform: rotate(180deg);
+    }
+  }
+}
