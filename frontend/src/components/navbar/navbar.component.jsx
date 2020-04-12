@@ -1,15 +1,46 @@
 import React from "react";
 
 import { Link } from "react-router-dom";
-
+import RegisterModal from "../auth/RegisterModal";
 import SearchIcon from "@material-ui/icons/Search";
 import LocalDiningIcon from "@material-ui/icons/LocalDining";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import "./navbar.styles.scss";
 
 class Navbar extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      modalOpen: false
+    };
+  }
+
+  handleModalOpen = () => {
+    // this.setState((prevState) => {
+    //   return{
+    //     modalOpen: !prevState.modalOpen
+    //   }
+      
+    // })
+    this.setState({
+      modalOpen: !this.state.modalOpen
+      
+    })
+  }
+  registerButton = () => {
+    // if (this.props.auth.isAuthed) {
+    //   return (<Button id="navButton"  href="/" onClick={this.props.logoutAction}>Log Out</Button>
+    //   )
+    // }
+    
+    console.log("inside clicked");
+    return (<RegisterModal show={true} />)
+
+  }
   render() {
     return (
+      <div>
       <nav>
         <p>
           {/* <LocalDiningIcon id="fork-knife-icon" /> */}
@@ -31,10 +62,16 @@ class Navbar extends React.Component {
             <Link to="/profile">Profile</Link>
           </li>
           <li>
-            <Link to="/login">Login</Link>
+            {/* {this.state.modalOpen== true?<RegisterModal/>:''} */}
+            <RegisterModal modalOpen = {this.state.modalOpen}/>
+            <a onClick = {this.handleModalOpen} >Login </a>
+            
+            
           </li>
         </ul>
       </nav>
+        
+      </div>
     );
   }
 }
