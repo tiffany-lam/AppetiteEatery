@@ -1,0 +1,33 @@
+@import "../../assets/theme";
+
+.page-background {
+    background: white;
+}
+
+.userInfo {
+    background: $gray-alto;
+    padding: 25px;
+}
+
+.userReviews {
+    background: $secondary;
+    padding: 25px;
+}
+
+li {
+    color: white;
+    font-size: 20px;
+    line-height: 2em;
+}
+
+.map-img {
+    width: 400px;
+    height: 200px;
+    object-fit: cover;
+}
+
+.review-img {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+}
