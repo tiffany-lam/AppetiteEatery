@@ -1,17 +1,22 @@
 @import "../../assets/theme";
 
-.page-background {
-    background: white;
+.pageBackground {
+    //background: white;
+    padding: 75px;
 }
 
 .userInfo {
     background: $gray-alto;
-    padding: 25px;
+    border-radius: 25px;
+    column-count: 2;
+    padding: 50px;
 }
 
 .userReviews {
-    background: $secondary;
-    padding: 25px;
+    background: $secondary_dark;
+    border-radius: 25px;
+    column-count: 2;
+    padding: 50px;
 }
 
 li {
@@ -30,4 +35,13 @@ li {
     width: 300px;
     height: 300px;
     object-fit: cover;
+}
+
+.profile-pic {
+    float: left;
+    padding: 20px;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
 }
