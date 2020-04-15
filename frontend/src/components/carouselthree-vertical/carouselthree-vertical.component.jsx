@@ -2,17 +2,16 @@
 import React, { useState } from "react";
 
 // IMPORT STYLES
-import "./carouselfour-horizontal.styles.scss";
+import "./carouselthree-vertical.styles.scss";
 
 // IMPORT COMPONENTS
 
 // IMPORT ICONS
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
+import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import CloseIcon from "@material-ui/icons/Close";
 
-// LIMIT THE AMOUNT OF IMAGES THIS USES
-const CarouselFourHorizontal = (props) => {
+const CarouselThreeVertical = (props) => {
   const [index, setIndex] = useState(0);
 
   const previous = () => {
@@ -42,7 +41,7 @@ const CarouselFourHorizontal = (props) => {
     let urls = [index];
 
     // originally 4
-    while (urls.length < 4) {
+    while (urls.length < 3) {
       // while (urls.length < 5) {
       if (originalIndex + 1 <= props.images.length - 1) {
         urls.push(++originalIndex);
@@ -72,8 +71,6 @@ const CarouselFourHorizontal = (props) => {
           key={imageIndex}
           src={url}
           alt="foodz"
-          height="500"
-          width="500"
         />
         {props.manage ? (
           <button
@@ -92,40 +89,23 @@ const CarouselFourHorizontal = (props) => {
     );
   });
 
-  // completely rerenders new array so transition does not work
-  // const images = displayed().map((urlIndex, i) => {
-  //   return i === 0 || i === displayed().length - 1 ? (
-  //     <img
-  //       className={"img-hidden"}
-  //       key={i}
-  //       src={props.images[urlIndex]}
-  //       alt="foodz"
-  //     />
-  //   ) : (
-  //     <img
-  //       className={"img-displayed"}
-  //       key={i}
-  //       src={props.images[urlIndex]}
-  //       alt="foodz"
-  //     />
-  //   );
-  // });
-
   return (
     <section
-      className={props.className ? `${props.className} carousel` : `carousel`}
+      className={
+        props.className ? `${props.className} carouselthree` : `carouselthree`
+      }
     >
-      <section className="carousel-buttons">
+      <section className="carouselthree-buttons">
         <button className="left" type="button" onClick={previous}>
-          <ChevronLeftIcon></ChevronLeftIcon>
+          <KeyboardArrowUpIcon></KeyboardArrowUpIcon>
         </button>
         <button className="right" type="button" onClick={next}>
-          <ChevronRightIcon></ChevronRightIcon>
+          <KeyboardArrowDownIcon></KeyboardArrowDownIcon>
         </button>
       </section>
-      <section className="carousel-images">{images}</section>
+      <section className="carouselthree-images">{images}</section>
     </section>
   );
 };
 
-export default CarouselFourHorizontal;
+export default CarouselThreeVertical;

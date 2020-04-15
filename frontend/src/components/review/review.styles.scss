@@ -1,0 +1,71 @@
+@import "../../assets/theme";
+
+.review {
+  height: 100%;
+  width: 100%;
+
+  background-color: white;
+  border: 1px solid grey;
+
+  margin-bottom: 1rem;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .review-user-info {
+    height: min-content;
+    width: min-content;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+
+    margin: 0.5rem;
+
+    overflow-wrap: anywhere;
+    text-align: right;
+
+    img {
+      height: 5rem;
+      width: 5rem;
+      object-fit: cover;
+
+      margin: 0.3rem 0;
+
+      border-radius: 10px;
+    }
+
+    p {
+      font-weight: bold;
+    }
+  }
+
+  .review-content {
+    // flex-grow: 5;
+    // flex-shrink: 0;
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    overflow-wrap: anywhere;
+
+    margin: 0.5rem 0.5rem;
+
+    p {
+      width: 100%;
+      z-index: 10;
+
+      margin: 0.5rem 0 0.5rem 0.1rem;
+    }
+  }
+
+  .review-photos {
+    height: 100%;
+    width: min-content;
+
+    margin: 0.5rem 0.5rem;
+  }
+}

@@ -1,0 +1,23 @@
+@import "../../assets/theme";
+
+.tabs {
+  height: 100%;
+  width: 100%;
+  background-color: mediumaquamarine;
+
+  display: flex;
+  flex-direction: column;
+
+  li {
+    display: inline;
+  }
+
+  ul {
+    margin: 0 0 1rem 0;
+  }
+
+  button {
+    background-color: inherit;
+    cursor: pointer;
+  }
+}
