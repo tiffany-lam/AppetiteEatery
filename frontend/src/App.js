@@ -6,7 +6,7 @@ import "./App.scss";
 // custom components here:
 import Navbar from "./components/navbar/navbar.component";
 import Test from "./components/test/test.component";
-import RegisterModal from "./components/auth/RegisterModal"
+import RegisterModal from "./components/auth/RegisterForm"
 import FooterNav from "./components/footer-nav/footer-nav.component";
 
 // page components here:
