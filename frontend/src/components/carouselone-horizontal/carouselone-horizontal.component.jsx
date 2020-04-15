@@ -9,6 +9,7 @@ import "./carouselone-horizontal.styles.scss";
 // IMPORT ICONS
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import CloseIcon from "@material-ui/icons/Close";
 
 const CarouselOneHorizontal = (props) => {
   const [index, setIndex] = useState(0);
@@ -31,9 +32,27 @@ const CarouselOneHorizontal = (props) => {
 
   const images = props.images.map((url, imageIndex) => {
     return imageIndex === index ? (
-      <img className={"img-displayed"} key={imageIndex} src={url} alt="foodz" />
+      <div className="img-container">
+        <img
+          className={"img-displayed"}
+          key={imageIndex}
+          src={url}
+          alt="foodz"
+        />
+        {props.manage ? (
+          <button
+            className="button"
+            type="button"
+            onClick={console.log(`deleted image at ${url}`)}
+          >
+            <CloseIcon></CloseIcon>
+          </button>
+        ) : null}
+      </div>
     ) : (
-      <img className={"img-hidden"} key={imageIndex} src={url} alt="foodz" />
+      <div className="img-container-hidden">
+        <img className={"img-hidden"} key={imageIndex} src={url} alt="foodz" />
+      </div>
     );
   });
 
@@ -43,15 +62,15 @@ const CarouselOneHorizontal = (props) => {
         props.className ? `${props.className} carouselone` : `carouselone`
       }
     >
-      <section className="carouselone-buttons">
+      <div className="carouselone-buttons">
         <button className="left" type="button" onClick={previous}>
           <ChevronLeftIcon></ChevronLeftIcon>
         </button>
         <button className="right" type="button" onClick={next}>
           <ChevronRightIcon></ChevronRightIcon>
         </button>
-      </section>
-      <section className="carouselone-images">{images}</section>
+      </div>
+      <div className="carouselone-images">{images}</div>
     </section>
   );
 };
