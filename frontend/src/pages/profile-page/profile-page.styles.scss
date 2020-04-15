@@ -1,0 +1,63 @@
+@import "../../assets/theme";
+
+.pageBackground {
+    padding: 25px;
+    margin: 2em 3em;
+}
+
+.userInfo {
+    background-color: $gray_alto;
+    border-radius: 25px;
+    margin: 13px;
+    // display: flex;
+    // flex-direction: column;
+}
+
+.userInfo li {
+    color: black;
+}
+
+.container {
+    column-count: 2;
+    column-gap: 50px;
+    background-color: white;
+    border-radius: 25px;
+    
+}
+
+.userReviews {
+    background: $secondary_dark;
+    border-radius: 25px;
+    column-count: 2;
+    padding: 50px;
+}
+
+li {
+    font-size: 20px;
+    color: white;
+    line-height: 2em;
+}
+
+// Images
+.map-img {
+    width: 590px;
+    height: 315px;
+    object-fit: cover;
+    border-radius: 25px;
+    margin: 10px;
+}
+
+.review-img {
+    width: 400px;
+    height: 300px;
+    object-fit: cover;
+}
+
+.profile-img {
+    float: left;
+    padding: 20px;
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 50%;
+}

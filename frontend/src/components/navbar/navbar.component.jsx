@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 // custom components:
 import Logo from "../logo/logo.component";
 import CircleButton from "../circle-btn/circle-btn.component";
-import MModal from "../mmodal/mmodal.component";
-
+import CustomModal from "../custom-modal/custom-modal.component";
+import RegisterForm from "../auth/RegisterForm"
 // mui icons:
 import MenuIcon from "@material-ui/icons/Menu";
 
@@ -14,23 +14,28 @@ import "./navbar.styles.scss";
 
 const Navbar = ({ className }) => {
   const [hideNav, setHideNav] = useState(true);
-  const [showLogin, setShowLogin] = useState(false);
+  //function for showing and hiding our modal
+  const [showModal, setShowModal] = useState(false);
 
   const toggleNavBar = () => {
     setHideNav(!hideNav);
   };
 
-  const toggleLogin = () => {
-    setShowLogin(!showLogin);
+  // toggle the moddle by changing it's state
+  const toggleModal = () => {
+    setShowModal(!showModal);
   };
 
   return (
     <nav className="header-nav">
-      {showLogin ? (
-        <MModal toggleLogin={toggleLogin}>
-          <Logo />
-        </MModal>
+      {/* if showModal is true, then show the modal contents, else show nothing */}
+      {showModal ? (
+        <CustomModal toggleModal={toggleModal}>
+          <RegisterForm />
+          {/*  this is where your modal content component will go */}
+        </CustomModal>
       ) : (
+        // this is the else, show nothing
         ""
       )}
 
@@ -61,7 +66,7 @@ const Navbar = ({ className }) => {
         <li>
           <div className="nav-item-mask"></div>
           {/* <Link to="/login">Login</Link> */}
-          <a onClick={toggleLogin}>Login</a>
+          <a onClick={toggleModal}>Login</a>
         </li>
       </ul>
     </nav>
