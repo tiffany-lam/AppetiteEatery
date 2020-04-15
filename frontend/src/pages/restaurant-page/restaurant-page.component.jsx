@@ -20,7 +20,7 @@ class RestaurantPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: "xxx",
+      user: "xxxy",
       owner: "xxx",
       name: "ChickPls",
       description:
