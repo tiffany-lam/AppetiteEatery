@@ -1,28 +1,43 @@
 @import "./assets/theme";
 
 .App {
+  box-sizing: border-box;
+
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  // height: 100%;
+  height: 100%;
   background-color: $background;
+  // overflow: hidden;
 
   header {
-    background-color: $background;
-    // margin-bottom: 5rem;
+    position: fixed;
+
+    z-index: 2; // header needs to be on top of everything
+
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: red;
   }
 
   main {
-    background-color: $background;
-
+    margin-top: 3.5rem; // IMPORTANT: change value as navbar height changes
     flex-grow: 1;
+
+    z-index: 1;
+
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: green;
   }
 
   footer {
-    background-color: $background;
+    z-index: 0;
 
+    width: 100%;
     display: flex;
-    flex-direction: row;
     justify-content: center;
+    background-color: blue;
   }
 }

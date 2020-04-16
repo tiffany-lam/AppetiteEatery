@@ -1,13 +1,16 @@
 @import "../../assets/theme";
 
 .header-nav {
-  background-color: $background;
-  box-sizing: border-box;
+  // background-color: $background;
+
+  // box-sizing: border-box;
   // position: fixed;
   z-index: 100;
-  padding: 0.5rem;
-  padding-bottom: 1rem;
-  width: 100%;
+  padding: 0.5rem 0;
+  // margin-right: $padding_small;
+  // margin-left: $padding_small;
+  // padding-bottom: 1rem;
+  width: 65%;
   // background-color: salmon;
   // margin-bottom: 2rem;
   // height: 4rem;
@@ -16,10 +19,14 @@
   flex-direction: row;
   align-items: center;
 
+  background-color: yellow;
+
   .logo-container-flex {
     z-index: 1;
     flex-grow: 1;
     display: flex;
+    // justify-content: center;
+    align-items: center;
 
     // background-color: red;
   }

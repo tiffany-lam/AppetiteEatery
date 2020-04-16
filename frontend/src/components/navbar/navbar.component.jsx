@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Logo from "../logo/logo.component";
 import CircleButton from "../circle-btn/circle-btn.component";
 import CustomModal from "../custom-modal/custom-modal.component";
-import RegisterForm from "../auth/RegisterForm"
+import RegisterForm from "../auth/RegisterForm";
 // mui icons:
 import MenuIcon from "@material-ui/icons/Menu";
 
@@ -34,10 +34,8 @@ const Navbar = ({ className }) => {
           <RegisterForm />
           {/*  this is where your modal content component will go */}
         </CustomModal>
-      ) : (
-        // this is the else, show nothing
-        ""
-      )}
+      ) : // this is the else, show nothing
+      null}
 
       <div className="logo-container-flex">
         <Link to="/">

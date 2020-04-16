@@ -2,15 +2,24 @@
 
 .home-page-container {
   // background-color: red;
-  width: 90%;
+  box-sizing: border-box;
+  z-index: 0;
+  // width: 90%;
+  // width: 100%;
+
   height: 100%;
-  margin: 0 auto;
+  // margin: 0 auto;
   // height: 25rem;
+  // margin-right: $padding_small;
+  // margin-left: $padding_small;
+  width: 65%;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  background-color: pink;
 
   .limelight-container {
     // background-color: blue;
@@ -120,4 +129,7 @@
 
 .glow {
   filter: drop-shadow(0 0 5px $background);
+}
+
+@media (max-width: 768px) {
 }
