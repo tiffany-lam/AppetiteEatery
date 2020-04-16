@@ -1,17 +1,18 @@
 @import "../../assets/theme";
 
 .footer-nav {
-  padding: 0.3rem 0;
+  // padding: 0.3rem 0;
+  // position: fixed;
   margin: 0;
 
   z-index: 100;
-
-  background-color: inherit;
 
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+
+  // width: 80%;
 
   // background-color: orange; // for testing and debugging
 }
