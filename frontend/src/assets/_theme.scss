@@ -110,3 +110,10 @@ $background_dark: $dark_beige;
 $padding_small: 1rem;
 $padding_medium: 4rem;
 $padding_large: 10rem;
+
+$page_width_big: 65%;
+$page_width_medium: 80%;
+$page_width_large: 90%;
+
+@media (max-width: 768px) {
+}
