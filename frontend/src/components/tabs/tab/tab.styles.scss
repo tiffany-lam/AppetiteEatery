@@ -1,19 +1,21 @@
 @import "../../../assets/theme";
 
 .tab-inactive {
-  width: 5em;
+  width: auto;
   background-color: inherit;
   border: none;
-  border-bottom: 1px solid black;
+  // border-bottom: 1px solid black;
 
   padding: 10px;
 }
 
 .tab-active {
-  width: 5em;
-  background-color: inherit;
+  width: auto;
+  // background-color: inherit;
+
+  background-color: $primary;
   border: none;
-  border-bottom: 1px solid red;
+  // border-bottom: 1px solid red;
 
   padding: 10px;
 }

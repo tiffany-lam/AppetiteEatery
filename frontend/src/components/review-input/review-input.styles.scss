@@ -44,6 +44,14 @@
     p {
       margin-left: 0.5rem;
     }
+
+    img {
+      height: 2rem;
+      width: 2rem;
+
+      object-fit: cover;
+      border-radius: 10px;
+    }
   }
 
   // .review-rating {
@@ -70,6 +78,19 @@
 
       height: 8ems;
       width: 100%;
+
+      border: 1px solid $secondary;
+      border-radius: 10px;
+
+      outline: none;
+
+      padding: 1rem;
+      margin: 0.5rem 0;
+    }
+
+    textarea:focus {
+      border: 1px solid $primary;
+      box-shadow: 0 0 5px $primary;
     }
 
     .review-form-submit {
@@ -133,19 +154,21 @@
       }
 
       label {
-        border: 1px solid black;
+        // border: 1px solid black;
         height: 36px;
         width: 36px;
 
         margin: 0.2rem 0.2rem 0.2rem 0;
-
-        border-radius: 10px;
 
         cursor: pointer;
 
         display: flex;
         justify-content: center;
         align-items: center;
+      }
+
+      label:hover {
+        box-shadow: $default_box_shadow;
       }
 
       img {

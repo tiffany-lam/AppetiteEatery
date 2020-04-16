@@ -3,7 +3,7 @@
 .tabs {
   height: 100%;
   width: 100%;
-  background-color: mediumaquamarine;
+  background-color: transparent;
 
   display: flex;
   flex-direction: column;
@@ -14,10 +14,11 @@
 
   ul {
     margin: 0 0 1rem 0;
+    border-bottom: 1px solid $secondary;
   }
 
   button {
-    background-color: inherit;
+    // background-color: inherit;
     cursor: pointer;
   }
 }

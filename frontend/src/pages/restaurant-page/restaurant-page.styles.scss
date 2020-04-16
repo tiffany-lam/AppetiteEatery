@@ -15,7 +15,8 @@
   // height: 100%;
   width: 65%;
 
-  background-color: $background_light;
+  // background-color: $background_light;
+  background-color: transparent;
 
   display: flex;
   flex-direction: row;
@@ -37,7 +38,8 @@
   margin: 2rem 1rem 2rem 0;
   padding: 1rem;
 
-  background-color: $background_dark;
+  // background-color: $background_dark;
+  background-color: transparent;
 
   display: flex;
   flex-direction: column;
@@ -131,7 +133,8 @@
   // min-width: 350px;
   width: 35%;
 
-  background-color: lightpink;
+  // background-color: lightpink;
+  background-color: transparent;
 
   padding: 2rem 1rem 2rem 1rem;
 
@@ -142,6 +145,8 @@
   .restaurant-page-side-contents {
     position: -webkit-sticky;
     position: sticky;
+
+    max-height: 80vh;
 
     top: 8%;
     // top: 2%;
@@ -165,7 +170,7 @@
       justify-content: flex-start;
       align-items: center;
 
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
 
       h2 {
         @include visually-hidden;
@@ -182,12 +187,12 @@
     }
 
     .restaurant-page-map {
-      height: 300px;
+      height: 200px;
       width: 100%;
 
       position: relative;
 
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
 
       h2 {
         @include visually-hidden;
@@ -232,6 +237,14 @@
       width: 100%;
     }
   }
+}
+
+.temp {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  width: 100%;
 }
 
 .restaurant-page-main-manage {
@@ -389,7 +402,7 @@
 }
 
 .active {
-  background-color: white;
+  background-color: transparent;
 }
 
 @media screen and (max-width: 750px) {

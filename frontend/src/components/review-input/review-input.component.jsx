@@ -56,9 +56,9 @@ class ReviewInput extends Component {
       <section className="review-input">
         <div className="review-extra">
           <div className="review-user">
-            <FaceIcon></FaceIcon>
+            <img src={this.props.avatar} alt="User" />
             {/* <p>{props.user}</p> */}
-            <p>me</p>
+            <p>{this.props.user}</p>
           </div>
           {/* <div className="review-rating"> */}
           <Rating rating={3} />

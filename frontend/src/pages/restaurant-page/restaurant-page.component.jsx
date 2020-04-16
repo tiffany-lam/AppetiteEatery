@@ -19,8 +19,16 @@ class RestaurantPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: "xxxy",
-      owner: "xxx",
+      user: {
+        username: "xxxy",
+        avatar:
+          "https://images.unsplash.com/photo-1543852786-1cf6624b9987?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
+      },
+      owner: {
+        username: "xxx",
+        avatar:
+          "https://images.unsplash.com/photo-1586912597722-f4f14ed28572?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
+      },
       name: "ChickPls",
       description:
         "This is delicious! This is delicious! This is delicious! This is delicious! This is delicious! This is delicious! This is delicious! This is delicious! This is delicious! This is delicious! This is delicious!",
@@ -32,13 +40,13 @@ class RestaurantPage extends Component {
         "chickf",
         "chickg",
         "chickh",
-        "chicka",
-        "chickb",
-        "chickc",
-        "chicke",
-        "chickf",
-        "chickg",
-        "chickh",
+        "chicki",
+        "chickj",
+        "chickk",
+        "chickl",
+        "chickm",
+        "chickn",
+        "chicko",
       ],
       reviews: [
         {
@@ -186,10 +194,28 @@ class RestaurantPage extends Component {
     this.setState({ edit: "" });
   };
 
+  own = () => {
+    this.setState({
+      user: { username: "xxx", avatar: this.state.user.avatar },
+    });
+  };
+
+  noOwn = () => {
+    this.setState({
+      user: { username: "xxxy", avatar: this.state.user.avatar },
+    });
+  };
+
+  deleteTag = (del) => {
+    let newTags = this.state.tags.filter((tag) => tag !== del);
+
+    this.setState({ tags: newTags });
+  };
+
   render() {
     const tags = this.state.tags.map((tag) => {
-      return this.state.owner === this.state.user ? (
-        <Tag type="delete" key={tag}>
+      return this.state.owner.username === this.state.user.username ? (
+        <Tag type="delete" key={tag} delete={this.deleteTag}>
           {tag}
         </Tag>
       ) : (
@@ -218,7 +244,7 @@ class RestaurantPage extends Component {
           <h1>{this.state.name}</h1>
           <div className="restaurant-page-information">
             <p>Opened {this.state.open}</p>
-            <p>Owned by {this.state.owner}</p>
+            <p>Owned by {this.state.owner.username}</p>
           </div>
           <Carousel
             className="restaurant-page-carousel"
@@ -232,7 +258,10 @@ class RestaurantPage extends Component {
           </section>
           <section className="restaurant-page-review-input">
             <h2>Have something to say?</h2>
-            <ReviewInput></ReviewInput>
+            <ReviewInput
+              user={this.state.user.username}
+              avatar={this.state.user.avatar}
+            ></ReviewInput>
           </section>
           <section className="restaurant-page-reviews">
             <h2>Reviews</h2>
@@ -251,7 +280,7 @@ class RestaurantPage extends Component {
             <div className="restaurant-page-others-container">
               <div className="restaurant-page-others">
                 <Tabs
-                  labels={["Details", "Menu"]}
+                  labels={["Details", "Menu", "Map"]}
                   content={[
                     <React.Fragment>
                       <dl className="restaurant-page-details">
@@ -275,8 +304,17 @@ class RestaurantPage extends Component {
                         size={1}
                       />
                     </React.Fragment>,
+                    <MapContainer />,
                   ]}
                 ></Tabs>
+              </div>
+              <div className="temp">
+                <button type="button" onClick={this.own}>
+                  OWN
+                </button>
+                <button type="button" onClick={this.noOwn}>
+                  DISOWN
+                </button>
               </div>
             </div>
           </div>
@@ -330,7 +368,7 @@ class RestaurantPage extends Component {
               </div>
               <div className="restaurant-page-information">
                 <p>Opened {this.state.open}</p>
-                <p>Owned by {this.state.owner}</p>
+                <p>Owned by {this.state.owner.username}</p>
               </div>
             </fieldset>
             <fieldset form="manage-restaurant" className="restaurant-container">
@@ -592,6 +630,14 @@ class RestaurantPage extends Component {
                   ]}
                 ></Tabs>
               </div>
+              <div className="temp">
+                <button type="button" onClick={this.own}>
+                  OWN
+                </button>
+                <button type="button" onClick={this.noOwn}>
+                  DISOWN
+                </button>
+              </div>
             </div>
           </div>
         </form>
@@ -742,7 +788,7 @@ class RestaurantPage extends Component {
 
     return (
       <React.Fragment>
-        {this.state.owner === this.state.user ? manage : view}
+        {this.state.owner.username === this.state.user.username ? manage : view}
       </React.Fragment>
     );
   }
