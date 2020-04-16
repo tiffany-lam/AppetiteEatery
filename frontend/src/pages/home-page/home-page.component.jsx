@@ -113,7 +113,12 @@ const HomePage = () => {
           onMouseEnter={enableLimelightGlow}
           onMouseLeave={disableLimeLightGlow}
         >
-          <h1>limelight</h1>
+          {/* <h1>limelight</h1> */}
+          <svg viewBox="0 0 88 18">
+            <text x="1" y="14.5">
+              limelight
+            </text>
+          </svg>
           <div className="lime"></div>
           <div
             className={`spotlight-wrap-glow ${galleryItemHover ? "glow" : ""}`}
