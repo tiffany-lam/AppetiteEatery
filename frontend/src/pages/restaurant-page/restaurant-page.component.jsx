@@ -7,8 +7,7 @@ import "./restaurant-page.styles.scss";
 // IMPORT COMPONENTS
 import Divider from "../../components/divider/divider.component";
 import Tag from "../../components/tag/tag.component";
-import CarouselFourHorizontal from "../../components/carouselfour-horizontal/carouselfour-horizontal.component";
-import CarouselOneHorizontal from "../../components/carouselone-horizontal/carouselone-horizontal.component";
+import Carousel from "../../components/carousel/carousel.component";
 import Review from "../../components/review/review.component";
 import ReviewInput from "../../components/review-input/review-input.component";
 import MapContainer from "../../components/map-container/map-container.component";
@@ -221,9 +220,10 @@ class RestaurantPage extends Component {
             <p>Opened {this.state.open}</p>
             <p>Owned by {this.state.owner}</p>
           </div>
-          <CarouselFourHorizontal
+          <Carousel
             className="restaurant-page-carousel"
             images={this.state.images}
+            size={4}
           />
           <Divider full={true} />
           <section className="restaurant-page-description">
@@ -269,9 +269,10 @@ class RestaurantPage extends Component {
                       </dl>
                     </React.Fragment>,
                     <React.Fragment>
-                      <CarouselOneHorizontal
+                      <Carousel
                         className="restaurant-page-menu"
                         images={this.state.menus}
+                        size={1}
                       />
                     </React.Fragment>,
                   ]}
@@ -334,7 +335,7 @@ class RestaurantPage extends Component {
             </fieldset>
             <fieldset form="manage-restaurant" className="restaurant-container">
               <div className="restaurant-page-carousel">
-                <CarouselFourHorizontal images={this.state.images} manage />
+                <Carousel images={this.state.images} manage size={4} />
               </div>
               <Divider full={true} />
             </fieldset>
@@ -581,10 +582,11 @@ class RestaurantPage extends Component {
                       </div>
                     </fieldset>,
                     <fieldset form="restaurant-manage-extra">
-                      <CarouselOneHorizontal
+                      <Carousel
                         className="restaurant-page-menu"
                         images={this.state.menus}
                         manage
+                        size={1}
                       />
                     </fieldset>,
                   ]}

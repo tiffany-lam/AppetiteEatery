@@ -1,0 +1,315 @@
+@import "../../assets/theme";
+
+@mixin img-displayed {
+  max-height: 100%;
+  max-width: 100%;
+
+  object-fit: cover;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  border-radius: 10px;
+
+  // -webkit-transition: width 0.3s ease-in-out;
+  // transition: width 0.3s ease-in-out;
+
+  // -webkit-transition: 10s ease;
+  // transition: 10s ease;
+  // margin-right: 2px;
+
+  // -ms-transform: translateX(-25%); /* IE 9 */
+  // transform: translateX(-25%); /* Standard syntax */
+}
+
+@mixin img-hover {
+  opacity: 0.8;
+  box-shadow: $light_box_shadow;
+}
+
+@mixin button {
+  z-index: 1;
+  position: absolute;
+
+  left: calc(50% - 10px);
+  top: calc(50% - 10px);
+
+  background: none;
+  border: none;
+  svg {
+    margin: auto 0;
+
+    height: 20px;
+    width: 20px;
+
+    fill: white;
+    cursor: pointer;
+  }
+
+  svg:hover {
+    fill: $primary;
+  }
+}
+
+@mixin scroll-buttons {
+  z-index: 1;
+
+  height: 40px;
+  width: 40px;
+
+  border: none;
+  border-radius: 50%;
+  // border: solid 1px lightgray;
+
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+
+  background: none;
+  // background-color: white;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  svg {
+    padding: 0;
+    margin: 0;
+
+    height: 30px;
+    width: 30px;
+
+    border-radius: 50%;
+
+    fill: white;
+  }
+
+  svg:hover {
+    fill: $primary;
+  }
+}
+
+.carousel {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-areas: " carousel ";
+
+  width: 100%;
+  // height: 100%;
+  // overflow: hidden;
+}
+
+.carousel-buttons-horizontal {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  grid-area: carousel;
+  align-self: center;
+
+  margin: 0 5px;
+
+  height: min-content;
+
+  .left,
+  .right {
+    @include scroll-buttons;
+  }
+}
+
+.carousel-buttons-vertical {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  grid-area: carousel;
+
+  margin: 5px auto;
+
+  width: min-content;
+
+  .left,
+  .right {
+    @include scroll-buttons;
+  }
+}
+
+.carousel-images-horizontal {
+  grid-area: carousel;
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-content: center;
+
+  .img-container-four {
+    margin: 0 2px;
+
+    box-sizing: border-box;
+
+    width: 25%;
+    height: 0;
+    padding-top: 25%;
+
+    position: relative;
+
+    .img-displayed {
+      @include img-displayed;
+    }
+
+    .button {
+      @include button;
+    }
+  }
+
+  .img-container-three {
+    margin: 0 2px;
+
+    box-sizing: border-box;
+
+    width: 33.33%;
+    height: 0;
+    padding-top: 33.33%;
+
+    position: relative;
+
+    .img-displayed {
+      @include img-displayed;
+    }
+
+    .button {
+      @include button;
+    }
+  }
+
+  .img-container-two {
+    margin: 0 2px;
+
+    box-sizing: border-box;
+
+    width: 50%;
+    height: 0;
+    padding-top: 50%;
+
+    position: relative;
+
+    .img-displayed {
+      @include img-displayed;
+    }
+
+    .button {
+      @include button;
+    }
+  }
+
+  .img-container-one {
+    box-sizing: border-box;
+
+    width: 100%;
+    height: 0;
+    padding-top: 100%;
+
+    position: relative;
+
+    .img-displayed {
+      @include img-displayed;
+    }
+  }
+
+  div.img-container-four:hover,
+  div.img-container-three:hover,
+  div.img-container-two:hover,
+  div.img-container-one:hover {
+    .img-displayed {
+      @include img-hover;
+    }
+  }
+
+  .img-container-hidden {
+    height: 100%;
+    width: 0;
+    .img-hidden {
+      max-width: 0;
+
+      width: 0;
+      height: 100%;
+      background: none;
+      border: none;
+      // -webkit-transition: width 0.3s ease-in-out;
+      // transition: width 0.3s ease-in-out;
+
+      // -webkit-transition: 10s ease;
+      // transition: 10s ease;
+
+      // -ms-transform: translateX(); /* IE 9 */
+      // transform: translateX(0); /* Standard syntax */
+    }
+  }
+}
+
+.carousel-images-vertical {
+  grid-area: carousel;
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-content: center;
+
+  // -webkit-transition: all 1s ease-in-out;
+  // -moz-transition: all 1s ease-in-out;
+  // -o-transition: all 1s ease-in-out;
+  // transition: all 1s ease-in-out;
+
+  .img-container-four,
+  .img-container-three,
+  .img-container-two,
+  .img-container-one {
+    margin: 2px 0;
+
+    box-sizing: border-box;
+
+    width: 100%;
+    height: 0;
+    padding-top: 100%;
+
+    position: relative;
+
+    .img-displayed {
+      @include img-displayed;
+    }
+
+    .button {
+      @include button;
+    }
+  }
+
+  div.img-container-four:hover,
+  div.img-container-three:hover,
+  div.img-container-two:hover,
+  div.img-container-one:hover {
+    .img-displayed {
+      @include img-hover;
+    }
+  }
+
+  .img-container-hidden {
+    height: 0;
+    width: 100%;
+    .img-hidden {
+      max-width: 0;
+
+      width: 100%;
+      height: 0;
+      background: none;
+      border: none;
+    }
+  }
+}

@@ -2,17 +2,19 @@
 import React, { useState } from "react";
 
 // IMPORT STYLES
-import "./carouselfour-horizontal.styles.scss";
+import "./carousel.styles.scss";
 
 // IMPORT COMPONENTS
 
 // IMPORT ICONS
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
+import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import CloseIcon from "@material-ui/icons/Close";
 
 // LIMIT THE AMOUNT OF IMAGES THIS USES
-const CarouselFourHorizontal = (props) => {
+const Carousel = (props) => {
   const [index, setIndex] = useState(0);
 
   const previous = () => {
@@ -42,7 +44,7 @@ const CarouselFourHorizontal = (props) => {
     let urls = [index];
 
     // originally 4
-    while (urls.length < 4) {
+    while (urls.length < props.size) {
       // while (urls.length < 5) {
       if (originalIndex + 1 <= props.images.length - 1) {
         urls.push(++originalIndex);
@@ -66,14 +68,26 @@ const CarouselFourHorizontal = (props) => {
 
   const images = props.images.map((url, imageIndex) => {
     return displayed().includes(imageIndex) ? (
-      <div className="img-container">
+      <div
+        className={
+          props.size === 4
+            ? "img-container-four"
+            : props.size === 3
+            ? "img-container-three"
+            : props.size === 2
+            ? "img-container-two"
+            : props.size === 1
+            ? "img-container-one"
+            : null
+        }
+      >
         <img
           className={"img-displayed"}
           key={imageIndex}
           src={url}
           alt="foodz"
-          height="500"
-          width="500"
+          height="1000"
+          width="1000"
         />
         {props.manage ? (
           <button
@@ -115,17 +129,43 @@ const CarouselFourHorizontal = (props) => {
     <section
       className={props.className ? `${props.className} carousel` : `carousel`}
     >
-      <section className="carousel-buttons">
-        <button className="left" type="button" onClick={previous}>
-          <ChevronLeftIcon></ChevronLeftIcon>
-        </button>
-        <button className="right" type="button" onClick={next}>
-          <ChevronRightIcon></ChevronRightIcon>
-        </button>
+      <section
+        className={
+          props.vertical
+            ? "carousel-buttons-vertical"
+            : "carousel-buttons-horizontal"
+        }
+      >
+        {props.images.length > props.size ? (
+          <button className="left" type="button" onClick={previous}>
+            {props.vertical ? (
+              <KeyboardArrowUpIcon></KeyboardArrowUpIcon>
+            ) : (
+              <ChevronLeftIcon></ChevronLeftIcon>
+            )}
+          </button>
+        ) : null}
+        {props.images.length > props.size ? (
+          <button className="right" type="button" onClick={next}>
+            {props.vertical ? (
+              <KeyboardArrowDownIcon></KeyboardArrowDownIcon>
+            ) : (
+              <ChevronRightIcon></ChevronRightIcon>
+            )}
+          </button>
+        ) : null}
       </section>
-      <section className="carousel-images">{images}</section>
+      <section
+        className={
+          props.vertical
+            ? "carousel-images-vertical"
+            : "carousel-images-horizontal"
+        }
+      >
+        {images}
+      </section>
     </section>
   );
 };
 
-export default CarouselFourHorizontal;
+export default Carousel;
