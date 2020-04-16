@@ -1,5 +1,11 @@
 @import "./assets/theme";
 
+@mixin center_content {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 .App {
   box-sizing: border-box;
 
@@ -10,34 +16,31 @@
   // overflow: hidden;
 
   header {
-    position: fixed;
-
     z-index: 2; // header needs to be on top of everything
+    position: fixed;
+    background-color: $background;
 
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    background-color: red;
+    @include center_content();
+    // background-color: red; // for test and debugging
   }
 
   main {
+    z-index: 1;
     margin-top: 3.5rem; // IMPORTANT: change value as navbar height changes
     flex-grow: 1;
+    // box-shadow: 0px 3px 14px -2px rgba(0, 0, 0, 0.35);
+    background-color: $background;
 
-    z-index: 1;
-
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    background-color: green;
+    @include center_content();
+    // background-color: green; // for test and debugging
   }
 
   footer {
     z-index: 0;
+    background-color: $vegeta_green;
+    flex-grow: 0;
 
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    background-color: blue;
+    @include center_content();
+    // background-color: blue; // for test and debugging
   }
 }

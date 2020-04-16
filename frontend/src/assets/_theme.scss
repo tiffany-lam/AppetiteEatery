@@ -20,6 +20,7 @@ $green: #a3be8c;
 $green_shamrock: #50d19e;
 
 $dark_beige: #efe4b0;
+$vegeta_green: #c1d9bc;
 
 ///////////////////////////////////////////////////////////////
 // CURRENT COLOR PALETTE HERE:
@@ -107,13 +108,58 @@ $background_dark: $dark_beige;
   color: $secondary_dark; // must be selected from MAIN REFERENCE
 }
 
-$padding_small: 1rem;
-$padding_medium: 4rem;
-$padding_large: 10rem;
-
-$page_width_big: 65%;
+$page_width_large: 65%;
 $page_width_medium: 80%;
-$page_width_large: 90%;
+$page_width_small: 90%;
 
+///////////////////////////////////////////////////////////////
+// MEDIA QUERIES FOR PAGE CONTAINERS HERE:
+// step 1: (add your page container class to all three cases here)!!!
+// step 2: do NOT add a width for your page containers
+///////////////////////////////////////////////////////////////
+
+// DEFAULT CASE:
+.header-nav,
+.footer-nav {
+  width: $page_width_large;
+  transition: width 200ms linear;
+}
+
+.error-page-container,
+.home-page-container,
+.restaurant-page,
+.contact-us-page-background,
+.pageBackground {
+  // background-color: black;
+  width: $page_width_large;
+  padding-bottom: 3rem;
+  transition: width 200ms linear;
+}
+
+// WHEN SCREEN SIZE HITS 1024PX:
+@media (max-width: 1024px) {
+  .header-nav,
+  .footer-nav,
+  .error-page-container,
+  .home-page-container,
+  .restaurant-page,
+  .contact-us-page-background,
+  .pageBackground {
+    // background-color: purple;
+    width: $page_width_medium;
+  }
+}
+
+// WHEN SCREEN SIZE HITS 768:
 @media (max-width: 768px) {
+  .header-nav,
+  .footer-nav,
+  .error-page-container,
+  .home-page-container,
+  .restaurant-page,
+  .contact-us-page-background,
+  .pageBackground {
+    // background-color: yellow;
+    width: $page_width_small;
+  }
 }
