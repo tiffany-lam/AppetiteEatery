@@ -22,7 +22,7 @@ code {
 * {
   padding: 0;
   margin: 0;
-
+  box-sizing: border-box;
   /* ensures that the default font is Karla with no bold*/
   @include base_font_stack;
 }
@@ -49,4 +49,8 @@ ol {
 
 button {
   border: 0;
+}
+
+p {
+  margin-bottom: 0;
 }

@@ -20,6 +20,8 @@ $green: #a3be8c;
 $green_shamrock: #50d19e;
 
 $dark_beige: #efe4b0;
+$vegeta_green: #c1d9bc;
+$lime: $vegeta_green;
 
 ///////////////////////////////////////////////////////////////
 // CURRENT COLOR PALETTE HERE:
@@ -106,3 +108,8 @@ $background_dark: $dark_beige;
   font-weight: normal;
   color: $secondary_dark; // must be selected from MAIN REFERENCE
 }
+
+$page_width_L: 65%;
+$page_width_M: 80%;
+$page_width_S: 90%;
+$page_width_XS: 95%;
