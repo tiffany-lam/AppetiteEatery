@@ -108,7 +108,7 @@ const HomePage = () => {
   return (
     <div className="home-page-container">
       <div className="limelight-container">
-        {/* <div
+        <div
           className="header-box"
           onMouseEnter={enableLimelightGlow}
           onMouseLeave={disableLimeLightGlow}
@@ -126,7 +126,7 @@ const HomePage = () => {
               className={`spotlight ${galleryItemHover ? "expand-light" : ""}`}
             ></div>
           </div>
-        </div> */}
+        </div>
         {/* {restaurants.map((restaurant, i) => (
           <Link key={i} to={`/restaurant/${restaurant.id}`}>
             <ImageCard

@@ -2,7 +2,6 @@
 
 .home-page-container {
   z-index: 0;
-  // width: 90%;
   width: 100%;
   height: 100%;
   // margin: 0 auto;
@@ -22,14 +21,9 @@
     // display: flex;
     // flex-wrap: wrap;
     width: 100%;
-    // height: 100%;
     display: grid;
     grid-gap: 1rem;
-    // grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-    // grid-template-rows: repeat(auto, minmax(20rem, 20rem));
-    // grid-template-rows: minmax(20rem, 20rem);
-    // grid-template-rows: repeat(auto-fill, minmax(20rem, 1fr));
-    // grid-template-rows: auto;
+
     grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
     grid-auto-rows: 1fr;
 
@@ -84,14 +78,6 @@
         position: absolute;
         top: 0;
         left: 0;
-        // width: 100%;
-        font-weight: bold;
-        // font-size: 3vw;
-        text-transform: uppercase;
-
-        // display: flex;
-        // justify-content: center;
-        // align-items: center;
         text {
           background-color: blue;
           fill: $secondary_dark;
@@ -147,31 +133,6 @@
           ); // expand to corner edge
         }
       }
-
-      // #limelight-condition-content {
-      //   z-index: 4;
-
-      //   // font-size: 1.5rem;
-      //   font-weight: bold;
-
-      //   position: absolute;
-      //   bottom: 0;
-      //   left: 0;
-
-      //   width: 100%;
-      //   height: 25%;
-      //   // background-color: red;
-
-      //   display: flex;
-      //   justify-self: flex-end;
-      //   align-items: flex-end;
-      // }
-    }
-
-    .gallery-item {
-      background-color: lightpink;
-      // width: 80%;
-      // height: 100%;
     }
   }
 }

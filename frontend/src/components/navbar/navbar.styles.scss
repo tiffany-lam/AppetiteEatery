@@ -53,6 +53,8 @@
     display: flex;
     flex-direction: row;
 
+    background-color: $lime;
+
     li {
       cursor: pointer;
       font-size: 0.9rem;
@@ -139,9 +141,9 @@
       top: 0;
       left: 0;
       right: 0;
-      background-color: RGB(191, 215, 185);
-      clip-path: circle(880px at 100% 0);
-      transition: clip-path 250ms ease-out;
+      background-color: $lime;
+      clip-path: circle(1000px at 88% 0);
+      transition: clip-path 300ms ease-in-out;
 
       box-shadow: 0 0 5px rgba(black, 0.2);
 
@@ -149,7 +151,7 @@
       flex-direction: column;
 
       &:hover {
-        clip-path: circle(800px at 100% 0);
+        // clip-path: circle(800px at 100% 0);
       }
 
       li {
@@ -171,7 +173,7 @@
 
     .mobile-hidden {
       // display: none;
-      clip-path: circle(0px at 100% 0);
+      clip-path: circle(0px at 88% 0);
     }
   }
 }
