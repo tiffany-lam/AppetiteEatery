@@ -31,7 +31,7 @@ const Rating = ({
     <div
       className={`rating-container ${
         vertical ? "rating-vertical" : "rating-horizontal"
-      }`}
+      } ${input ? "rating-input" : ""}`}
     >
       {console.log("Rating Rendering")}
       {[...Array(maxRating)].map((e, i) =>
