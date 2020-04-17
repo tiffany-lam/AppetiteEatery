@@ -11,7 +11,7 @@ class ProfilePage extends Component {
         super(props);
         this.state = {
             name: "Tom Dumpling",
-            userName: "wonton-tom",
+            userName: "wontom",
             location: "San Francisco, CA",
             joinDate: "1/27/19",
             placesVisited: "23",
@@ -26,10 +26,12 @@ class ProfilePage extends Component {
     render() {
         return (
             <React.Fragment>
-                <div className="pageBackground">
-                    <div className="container">
-                        <div className="userInfo">
-                        <p><img className="profile-img" src={this.state.profilePic} alt="user"/></p>
+                <div className="profile-page-container">
+                    <div className="userContainer">
+                        {/* <div className="userInfo"> */}
+                        <span>
+                            <img className="profile-img" src={this.state.profilePic} alt="user"/>
+                        </span>
                         <ul>
                             <li>{this.state.name}</li>
                             <li>@{this.state.userName}</li>
@@ -39,7 +41,7 @@ class ProfilePage extends Component {
                             <li>Reviews: {this.state.reviews}</li>
                             <li>Favorites: {this.state.favorites}</li>
                         </ul>
-                        </div>
+                        {/* </div> */}
                         <span>
                              <img className="map-img" src={this.state.map} alt="map"/>
                         </span> 
