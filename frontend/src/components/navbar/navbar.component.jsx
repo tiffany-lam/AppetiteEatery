@@ -6,6 +6,8 @@ import Logo from "../logo/logo.component";
 import CircleButton from "../circle-btn/circle-btn.component";
 import CustomModal from "../custom-modal/custom-modal.component";
 import RegisterForm from "../auth/RegisterForm";
+import Rating from "../rating/rating.component";
+
 // mui icons:
 import MenuIcon from "@material-ui/icons/Menu";
 
@@ -16,6 +18,8 @@ const Navbar = ({ className }) => {
   const [hideNav, setHideNav] = useState(true);
   //function for showing and hiding our modal
   const [showModal, setShowModal] = useState(false);
+
+  const [ratingTest, setRatingTest] = useState(0);
 
   const toggleNavBar = () => {
     setHideNav(!hideNav);
@@ -36,17 +40,19 @@ const Navbar = ({ className }) => {
         </CustomModal>
       ) : // this is the else, show nothing
       null}
-
       <div className="logo-container-flex">
         <Link to="/">
           <Logo eVersion={1} uppercase={true} />
         </Link>
       </div>
-
+      <Rating input setRating={setRatingTest} />
+      ~
+      <Rating vertical maxRating={9} />
+      ~
+      <Rating rating={3} />
       <CircleButton id="menu-btn" onClick={toggleNavBar} hoverRotate={true}>
         <MenuIcon />
       </CircleButton>
-
       <ul className={hideNav ? "mobile-hidden" : ""}>
         {/* <ul> */}
         <li>

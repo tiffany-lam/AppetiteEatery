@@ -18,3 +18,13 @@
     }
   }
 }
+
+.rating-vertical {
+  display: flex;
+  flex-direction: column;
+}
+
+.rating-horizontal {
+  display: flex;
+  flex-direction: row;
+}
