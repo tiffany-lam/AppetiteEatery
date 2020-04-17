@@ -1,5 +1,12 @@
 @import "../../assets/theme";
-
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
 .logo-container {
   cursor: pointer;
   display: flex;
@@ -47,6 +54,22 @@
 
   span {
     @include base_font_stack;
+  }
+
+  &:hover {
+    // background-color: red;
+    #fork-knife-icon {
+      // background-color: blue;
+      // background-color: transparent;
+      svg {
+        // background-color: yellow;
+
+        path {
+          animation: spin 1s infinite linear;
+          transform-origin: center;
+        }
+      }
+    }
   }
 }
 
