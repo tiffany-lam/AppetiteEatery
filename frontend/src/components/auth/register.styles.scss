@@ -1,8 +1,5 @@
 @import "../../assets/theme";
 
-
-
-
 .register-form{
     margin: 25px 30px;
     .row1{
@@ -16,12 +13,22 @@
     }
     label{
         display: block;
+        .radio{
+            float:left;
+            clear:none;
+            paddding: 0px 1 em 0px 8px;
+        }
     }
     input{
         display: block;
         border: none;
         border-bottom: 2px solid $green;
         margin-bottom: 15px;
+    }
+    input[type=radio]{
+        float: left;
+        clear: none;
+        margin: 2px 0px 0px 2px;
     }
 
     button{

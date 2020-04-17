@@ -1,4 +1,5 @@
-import React from "react";
+import React, {Component} from "react";
+import firebaseAuth from "./components/auth/firebaseAuth";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 
 import "./App.scss";
@@ -16,41 +17,68 @@ import ContactUsPage from "./pages/contact-us-page/contact-us.component";
 import ErrorPage from "./pages/error-page/error-page.component";
 import ProfilePage from "./pages/profile-page/profile-page.component";
 
-function App() {
-  return (
-    <div className="App">
-      <BrowserRouter>
-        <header>
-          <Navbar />
-        </header>
-        <main>
-          <Switch>
-            <Route exact path="/" component={HomePage} />
+class App extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+        user: {},
 
-            {/* <Route path="/graduated" component={} /> */}
-            {/* <Route exact path="/" component={HomePage} /> */}
-            {/* EXAMPLE: */}
-            <Route
-              exact
-              path="/restaurant/:restaurantId"
-              component={RestaurantPage}
-            />
+    };
+  }
+  //after component is done rendering the first time
+  componentDidMount(){
+    this.authListener();
+  }
+  authListener(){
+    firebaseAuth.auth().onAuthStateChanged((user) =>{
+        console.log(user);
+        if(user){
+            this.setState({user});  
+        }
+        else{
+            this.setState({user:null});
+        }
+    });
+  }
+  render(){
+    return(
+      <div className="App">
+        <BrowserRouter>
+          <header>
+            <Navbar />
+          </header>
+          <main>
+            <Switch>
+              <Route exact path="/" component={HomePage} />
 
-            {/* <Route path="/login" component={} /> */}
-            {/* <Route path="/graduated" component={} /> */}
-            <Route path="/contact-us" component={ContactUsPage} />
-            <Route path="/test" component={Test} />
-            {/* <Route path="/restaurant-page" component={RestaurantPage} /> */}
-            <Route path="/profile" component={ProfilePage} />
-            <Route to="*" component={ErrorPage} />
-          </Switch>
-        </main>
-        <footer>
-          <FooterNav />
-        </footer>
-      </BrowserRouter>
-    </div>
-  );
+              {/* <Route path="/graduated" component={} /> */}
+              {/* <Route exact path="/" component={HomePage} /> */}
+              {/* EXAMPLE: */}
+              <Route
+                exact
+                path="/restaurant/:restaurantId"
+                component={RestaurantPage}
+              />
+
+              {/* <Route path="/login" component={} /> */}
+              {/* <Route path="/graduated" component={} /> */}
+              <Route path="/contact-us" component={ContactUsPage} />
+              <Route path="/test" component={Test} />
+              {/* <Route path="/restaurant-page" component={RestaurantPage} /> */}
+              {/* check to see if user is login, if not don't show */}
+              {/* {this.state.user ? 
+              <Route path="/profile" component={ProfilePage} /> : ""} */}
+              <Route path="/profile" component={ProfilePage} />
+              <Route to="*" component={ErrorPage} />
+            </Switch>
+          </main>
+          <footer>
+            <FooterNav />
+          </footer>
+        </BrowserRouter>
+      </div>
+    );
+  }
 }
 
 export default App;
