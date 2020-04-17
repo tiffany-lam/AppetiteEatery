@@ -113,3 +113,55 @@ $page_width_L: 65%;
 $page_width_M: 80%;
 $page_width_S: 90%;
 $page_width_XS: 95%;
+
+///////////////////////////////////////////////////////////////
+// MEDIA QUERIES FOR PAGE CONTAINERS HERE:
+// step 1: (add your page container class to all three cases here)!!!
+// step 2: do NOT add a width for your page containers
+///////////////////////////////////////////////////////////////
+
+// DEFAULT CASE:
+.header-nav,
+.footer-nav {
+  width: $page_width_L;
+  transition: width 200ms linear;
+}
+
+.error-page-container,
+.home-page-container,
+.restaurant-page,
+.contact-us-page-background,
+.pageBackground {
+  // background-color: black;
+  width: $page_width_L;
+  padding-bottom: 3rem;
+  transition: width 200ms linear;
+}
+
+// WHEN SCREEN SIZE HITS 1024PX:
+@media (max-width: 1024px) {
+  .header-nav,
+  .footer-nav,
+  .error-page-container,
+  .home-page-container,
+  .restaurant-page,
+  .contact-us-page-background,
+  .pageBackground {
+    // background-color: purple;
+    width: $page_width_M;
+  }
+}
+
+// WHEN SCREEN SIZE HITS 768:
+@media (max-width: 768px) {
+  .header-nav,
+  .footer-nav,
+  .error-page-container,
+  .home-page-container,
+  .restaurant-page,
+  .contact-us-page-background,
+  .pageBackground {
+    // background-color: yellow;
+    width: $page_width_S;
+  }
+}

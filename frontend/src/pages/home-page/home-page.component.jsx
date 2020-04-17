@@ -108,12 +108,11 @@ const HomePage = () => {
   return (
     <div className="home-page-container">
       <div className="limelight-container">
-        <div
+        {/* <div
           className="header-box"
           onMouseEnter={enableLimelightGlow}
           onMouseLeave={disableLimeLightGlow}
         >
-          {/* <h1>limelight</h1> */}
           <svg viewBox="0 0 88 18">
             <text x="1" y="14.5">
               limelight
@@ -127,18 +126,27 @@ const HomePage = () => {
               className={`spotlight ${galleryItemHover ? "expand-light" : ""}`}
             ></div>
           </div>
-        </div>
-        {restaurants.map((restaurant, i) => (
+        </div> */}
+        {/* {restaurants.map((restaurant, i) => (
           <Link key={i} to={`/restaurant/${restaurant.id}`}>
             <ImageCard
               className="image-lights-up-limelight"
               onMouseEnter={enableLimelightGlow}
               onMouseLeave={disableLimeLightGlow}
-              // onMouseEnter={() => {
-              //   enableLimelightGlow();
-              //   setLimelightContent(restaurant.limelightCondition);
-              // }}
+              name={restaurant.name}
+              rating={restaurant.rating}
+              imageUrl={restaurant.url}
+            />
+          </Link>
+        ))} */}
 
+        {restaurants.map((restaurant, i) => (
+          // <div className="gallery-item"></div>
+          <Link key={i} to={`/restaurant/${restaurant.id}`}>
+            <ImageCard
+              className="image-lights-up-limelight"
+              onMouseEnter={enableLimelightGlow}
+              onMouseLeave={disableLimeLightGlow}
               name={restaurant.name}
               rating={restaurant.rating}
               imageUrl={restaurant.url}
