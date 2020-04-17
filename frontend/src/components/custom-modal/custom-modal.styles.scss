@@ -12,11 +12,17 @@
 }
 
 .modal-popup-box{
+    border-radius: 1em;
       // position: absolute;
     z-index: 5;
     width: 40rem;
     height: 30rem;
-    background-color:  salmon;
+    background-color:  lightgrey;
+}
+.content-container{
+    z-index: 6; 
+    margin: 25px 25px;
+
 }
 
 .close-modal-area{

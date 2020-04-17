@@ -1,1 +1,30 @@
 @import "../../assets/theme";
+
+
+
+
+.register-form{
+    margin: 25px 30px;
+    .row1{
+        display: flex;
+        flex-wrap: wrap; 
+        justify-content: space-between;   
+    }
+    .col1{
+        width: 50%;
+       
+    }
+    label{
+        display: block;
+    }
+    input{
+        display: block;
+        border: none;
+        border-bottom: 2px solid $green;
+        margin-bottom: 15px;
+    }
+
+    button{
+
+    }
+}

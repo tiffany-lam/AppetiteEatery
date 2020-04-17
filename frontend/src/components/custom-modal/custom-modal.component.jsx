@@ -23,8 +23,11 @@ class CustomModal extends React.Component {
         <div
           className="modal-popup-box"
         >
-          {/* we will pass in the children from our navbar, aka the component that gets passed in will get rendered in this component */}
-          {this.props.children}
+          <div className = "content-container"> 
+             {/* we will pass in the children from our navbar, aka the component that gets passed in will get rendered in this component */}
+             {this.props.children}
+          </div>
+         
         </div>
       </div>
     );
