@@ -10,6 +10,7 @@ import Rating from "../rating/rating.component";
 
 // mui icons:
 import MenuIcon from "@material-ui/icons/Menu";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 
 // custom stylesheet:
 import "./navbar.styles.scss";
@@ -18,8 +19,6 @@ const Navbar = ({ className }) => {
   const [hideNav, setHideNav] = useState(true);
   //function for showing and hiding our modal
   const [showModal, setShowModal] = useState(false);
-
-  const [ratingTest, setRatingTest] = useState(0);
 
   const toggleNavBar = () => {
     setHideNav(!hideNav);
@@ -45,11 +44,7 @@ const Navbar = ({ className }) => {
           <Logo eVersion={1} uppercase={true} />
         </Link>
       </div>
-      <Rating input setRating={setRatingTest} />
-      ~
-      <Rating vertical maxRating={9} />
-      ~
-      <Rating rating={3} />
+
       <CircleButton id="menu-btn" onClick={toggleNavBar} hoverRotate={true}>
         <MenuIcon />
       </CircleButton>

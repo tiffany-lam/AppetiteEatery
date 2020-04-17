@@ -11,12 +11,21 @@ const Rating = ({
   },
   maxRating = 5,
   vertical = false,
+  icon = <StarsIcon />,
 }) => {
   const [ratingSelected, setRatingSelected] = useState(0);
 
   useEffect(() => {
     if (!input) setRatingSelected(rating);
   }, [ratingSelected]);
+
+  const createIcon = (key, onClick, className) => {
+    return React.cloneElement(icon, {
+      key: key,
+      onClick: onClick,
+      className: className,
+    });
+  };
 
   return (
     <div
@@ -25,18 +34,18 @@ const Rating = ({
       }`}
     >
       {console.log("Rating Rendering")}
-      {[...Array(maxRating)].map((e, i) => (
-        <StarsIcon
-          key={i}
-          onClick={(e) => {
+      {[...Array(maxRating)].map((e, i) =>
+        createIcon(
+          i,
+          () => {
             if (input) {
               setRatingSelected(i + 1);
               setRating(i + 1);
             }
-          }}
-          className={ratingSelected > i ? "rating-filled" : "rating-unfilled"}
-        />
-      ))}
+          },
+          ratingSelected > i ? "rating-filled" : "rating-unfilled"
+        )
+      )}
     </div>
   );
 };
