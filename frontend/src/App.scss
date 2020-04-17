@@ -18,6 +18,7 @@ html,
 
 .App {
   height: 100%;
+  width: 100%;
 
   display: flex;
   flex-direction: column;
@@ -40,8 +41,9 @@ html,
     z-index: 0;
     // background-color: $background;
 
-    padding-top: 4rem; // important value (change as navbar changes)
-    padding-bottom: 4rem; // important value (change as footer changes)
+    margin-top: 4rem;
+    // padding-top: 4rem; // important value (change as navbar changes)
+    // padding-bottom: 4rem; // important value (change as footer changes)
     flex-grow: 1;
 
     @include center_content();
@@ -52,9 +54,10 @@ html,
     z-index: 1;
     background-color: $vegeta_green;
 
-    position: fixed;
-    bottom: 0;
-    left: 0;
+    // position: sticky;
+    // bottom: 0;
+    // left: 0;
+    // margin-bottom: 1rem;
 
     @include center_content();
     // background-color: blue; // for test and debugging
@@ -62,40 +65,40 @@ html,
 }
 
 // DEFAULT CASE (SCREEN SIZE > 1024px) :
-.App,
-.header-nav,
-.footer-nav {
-  // background-color: pink; // for testing and debugging
-  width: $page_width_L;
-  transition: width 200ms linear;
-}
+// .App,
+// .header-nav,
+// .footer-nav {
+//   // background-color: pink; // for testing and debugging
+//   width: $page_width_L;
+//   transition: width 200ms linear;
+// }
 
-// WHEN SCREEN SIZE HITS 1024PX:
-@media (max-width: 1024px) {
-  .App,
-  .header-nav,
-  .footer-nav {
-    // background-color: yellow; // for testing and debugging
-    width: $page_width_M;
-  }
-}
+// // WHEN SCREEN SIZE HITS 1024PX:
+// @media (max-width: 1024px) {
+//   .App,
+//   .header-nav,
+//   .footer-nav {
+//     // background-color: yellow; // for testing and debugging
+//     width: $page_width_M;
+//   }
+// }
 
-// WHEN SCREEN SIZE HITS 768px:
-@media (max-width: 768px) {
-  .App,
-  .header-nav,
-  .footer-nav {
-    // background-color: rebeccapurple; // for testing and debugging
-    width: $page_width_S;
-  }
-}
+// // WHEN SCREEN SIZE HITS 768px:
+// @media (max-width: 768px) {
+//   .App,
+//   .header-nav,
+//   .footer-nav {
+//     // background-color: rebeccapurple; // for testing and debugging
+//     width: $page_width_S;
+//   }
+// }
 
 // WHEN SCREEN SIZE HITS 480px:
-@media (max-width: 480px) {
-  .App,
-  .header-nav,
-  .footer-nav {
-    // background-color: orangered; // for testing and debugging
-    width: $page_width_XS;
-  }
-}
+// @media (max-width: 480px) {
+//   .App,
+//   .header-nav,
+//   .footer-nav {
+//     // background-color: orangered; // for testing and debugging
+//     width: $page_width_XS;
+//   }
+// }

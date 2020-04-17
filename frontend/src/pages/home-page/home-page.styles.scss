@@ -1,12 +1,9 @@
 @import "../../assets/theme";
 
 .home-page-container {
-  // background-color: red;
-  box-sizing: border-box;
   z-index: 0;
   // width: 90%;
-  // width: 100%;
-
+  width: 100%;
   height: 100%;
   // margin: 0 auto;
   // height: 25rem;
@@ -15,25 +12,49 @@
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  // justify-content: center;
+  // align-items: center;
 
   // background-color: pink; // for testing and debugging
 
   .limelight-container {
-    // background-color: blue;
-    display: flex;
-    flex-wrap: wrap;
+    // background-color: lightgreen;
+    // display: flex;
+    // flex-wrap: wrap;
     width: 100%;
-    justify-content: center;
-    align-items: center;
+    // height: 100%;
+    display: grid;
+    grid-gap: 1rem;
+    // grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    // grid-template-rows: repeat(auto, minmax(20rem, 20rem));
+    // grid-template-rows: minmax(20rem, 20rem);
+    // grid-template-rows: repeat(auto-fill, minmax(20rem, 1fr));
+    // grid-template-rows: auto;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    grid-auto-rows: 1fr;
+
+    &::before {
+      content: "";
+      width: 0;
+      padding-bottom: 100%;
+      grid-row: 1 / 1;
+      grid-column: 1 / 1;
+    }
+
+    & > *:first-child {
+      grid-row: 1 / 1;
+      grid-column: 1 / 1;
+    }
+
+    // justify-content: center;
+    // align-items: center;
 
     .header-box {
       cursor: pointer;
       position: relative;
 
-      height: 20rem;
-      width: 20rem;
+      // height: 20rem;
+      // width: 20rem;
       background-color: $primary;
       overflow: hidden;
 
@@ -145,6 +166,12 @@
       //   justify-self: flex-end;
       //   align-items: flex-end;
       // }
+    }
+
+    .gallery-item {
+      background-color: lightpink;
+      // width: 80%;
+      // height: 100%;
     }
   }
 }
