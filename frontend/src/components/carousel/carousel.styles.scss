@@ -52,6 +52,16 @@
   }
 }
 
+@mixin img-container-contents {
+  .img-displayed {
+    @include img-displayed;
+  }
+
+  .button {
+    @include button;
+  }
+}
+
 @mixin scroll-buttons {
   z-index: 1;
 
@@ -97,7 +107,7 @@
   grid-template-areas: " carousel ";
 
   width: 100%;
-  // height: 100%;
+  height: min-content;
   // overflow: hidden;
 }
 
@@ -136,6 +146,30 @@
   }
 }
 
+@mixin img-four {
+  width: 25%;
+  height: 0;
+  padding-top: 25%;
+}
+
+@mixin img-three {
+  width: 33.33%;
+  height: 0;
+  padding-top: 33.33%;
+}
+
+@mixin img-two {
+  width: 50%;
+  height: 0;
+  padding-top: 50%;
+}
+
+@mixin img-one {
+  width: 100%;
+  height: 0;
+  padding-top: 100%;
+}
+
 .carousel-images-horizontal {
   grid-area: carousel;
   height: 100%;
@@ -147,78 +181,107 @@
   justify-content: center;
   align-content: center;
 
+  // translate purposes
+  overflow: hidden;
+  position: relative;
+
+  .img-container-four-hidden-left {
+    transform: translateX(-100%);
+    position: absolute;
+    left: 0;
+    @include img-four;
+    @include img-container-contents;
+  }
+
+  .img-container-four-hidden-right {
+    transform: translateX(100%);
+    position: absolute;
+    right: 0;
+    @include img-four;
+    @include img-container-contents;
+  }
+
   .img-container-four {
     margin: 0 2px;
-
     box-sizing: border-box;
-
-    width: 25%;
-    height: 0;
-    padding-top: 25%;
-
     position: relative;
 
-    .img-displayed {
-      @include img-displayed;
-    }
+    @include img-four;
+    @include img-container-contents;
+  }
 
-    .button {
-      @include button;
-    }
+  .img-container-three-hidden-left {
+    transform: translateX(-100%);
+    position: absolute;
+    left: 0;
+    @include img-three;
+    @include img-container-contents;
+  }
+
+  .img-container-three-hidden-right {
+    transform: translateX(100%);
+    position: absolute;
+    right: 0;
+    @include img-three;
+    @include img-container-contents;
   }
 
   .img-container-three {
     margin: 0 2px;
-
     box-sizing: border-box;
-
-    width: 33.33%;
-    height: 0;
-    padding-top: 33.33%;
-
     position: relative;
 
-    .img-displayed {
-      @include img-displayed;
-    }
+    @include img-three;
+    @include img-container-contents;
+  }
 
-    .button {
-      @include button;
-    }
+  .img-container-two-hidden-left {
+    transform: translateX(-100%);
+    position: absolute;
+    left: 0;
+    @include img-two;
+    @include img-container-contents;
+  }
+
+  .img-container-two-hidden-right {
+    transform: translateX(100%);
+    position: absolute;
+    right: 0;
+    @include img-two;
+    @include img-container-contents;
   }
 
   .img-container-two {
     margin: 0 2px;
-
     box-sizing: border-box;
-
-    width: 50%;
-    height: 0;
-    padding-top: 50%;
-
     position: relative;
 
-    .img-displayed {
-      @include img-displayed;
-    }
+    @include img-two;
+    @include img-container-contents;
+  }
 
-    .button {
-      @include button;
-    }
+  .img-container-one-hidden-left {
+    transform: translateX(-100%);
+    position: absolute;
+    left: 0;
+    @include img-one;
+    @include img-container-contents;
+  }
+
+  .img-container-one-hidden-right {
+    transform: translateX(100%);
+    position: absolute;
+    right: 0;
+    @include img-one;
+    @include img-container-contents;
   }
 
   .img-container-one {
     box-sizing: border-box;
-
-    width: 100%;
-    height: 0;
-    padding-top: 100%;
-
     position: relative;
 
-    .img-displayed {
-      @include img-displayed;
-    }
+    @include img-one;
+    @include img-container-contents;
   }
 
   div.img-container-four:hover,
@@ -231,15 +294,17 @@
   }
 
   .img-container-hidden {
-    height: 100%;
-    width: 0;
+    // height: 100%;
+    // width: 0;
+    display: none;
     .img-hidden {
-      max-width: 0;
+      display: none;
+      // max-width: 0;
 
-      width: 0;
-      height: 100%;
-      background: none;
-      border: none;
+      // width: 0;
+      // height: 100%;
+      // background: none;
+      // border: none;
       // -webkit-transition: width 0.3s ease-in-out;
       // transition: width 0.3s ease-in-out;
 
@@ -268,6 +333,40 @@
   // -o-transition: all 1s ease-in-out;
   // transition: all 1s ease-in-out;
 
+  // transform
+  position: relative;
+  overflow: hidden;
+
+  .img-container-four-hidden-left,
+  .img-container-three-hidden-left,
+  .img-container-two-hidden-left,
+  .img-container-one-hidden-left {
+    transform: translateY(-100%);
+    position: absolute;
+    top: 0;
+
+    width: 100%;
+    height: 0;
+    padding-top: 100%;
+
+    @include img-container-contents;
+  }
+
+  .img-container-four-hidden-right,
+  .img-container-three-hidden-right,
+  .img-container-two-hidden-right,
+  .img-container-one-hidden-right {
+    transform: translateY(100%);
+    position: absolute;
+    bottom: 0;
+
+    width: 100%;
+    height: 0;
+    padding-top: 100%;
+
+    @include img-container-contents;
+  }
+
   .img-container-four,
   .img-container-three,
   .img-container-two,
@@ -282,13 +381,7 @@
 
     position: relative;
 
-    .img-displayed {
-      @include img-displayed;
-    }
-
-    .button {
-      @include button;
-    }
+    @include img-container-contents;
   }
 
   div.img-container-four:hover,

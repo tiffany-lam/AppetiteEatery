@@ -16,37 +16,53 @@ import CloseIcon from "@material-ui/icons/Close";
 // LIMIT THE AMOUNT OF IMAGES THIS USES
 const Carousel = (props) => {
   const [index, setIndex] = useState(0);
+  const images = props.images;
 
   const previous = () => {
     if (index === 0) {
-      setIndex(props.images.length - 1);
+      // move as many
+      // setIndex(props.images.length - props.size);
+      setIndex(images.length - 1);
     } else {
-      setIndex(index - 1);
+      // move as many
+      setIndex(index - props.size);
+      // shift 1
+      // setIndex(index - 1);
     }
   };
 
   const next = () => {
-    if (index === props.images.length - 1) {
+    if (index === images.length - 1) {
       setIndex(0);
     } else {
-      setIndex(index + 1);
+      // move as many
+      setIndex(index + props.size);
+      // if (index + 1 === images.length - 1) {
+      //   let temporaryImages = [images.length / 2];
+      //   for (let i = images.length / 2; i < images.length; i++) {
+      //     temporaryImages[i] = images[i];
+      //   }
+      //   images.splice;
+      // }
+      // shift one
+      // setIndex(index + 1);
     }
   };
 
   const displayed = () => {
-    // let previous = index;
-    // if (index === 0) {
-    //   previous = props.images.length - 1;
-    // }
+    let previous = index - 1;
+    if (index === 0) {
+      previous = images.length - 1;
+    }
 
     let originalIndex = index;
-    // let urls = [previous, index];
-    let urls = [index];
+    let urls = [previous, index];
+    // let urls = [index];
 
     // originally 4
-    while (urls.length < props.size) {
+    while (urls.length < props.size + 1) {
       // while (urls.length < 5) {
-      if (originalIndex + 1 <= props.images.length - 1) {
+      if (originalIndex + 1 <= images.length - 1) {
         urls.push(++originalIndex);
       } else {
         originalIndex = 0;
@@ -54,56 +70,179 @@ const Carousel = (props) => {
       }
     }
 
-    // let next = index + 1;
-    // if (index + 1 === props.images.length - 1) {
-    //   next = 0;
-    // }
+    let next = originalIndex + 1;
+    if (next === images.length) {
+      next = 0;
+    }
 
-    // urls.push(next);
+    urls.push(next);
+    console.log(urls);
     return urls;
   };
 
   // const displayedImages = displayed();
   // console.log(displayed());
 
-  const images = props.images.map((url, imageIndex) => {
-    return displayed().includes(imageIndex) ? (
-      <div
-        className={
-          props.size === 4
-            ? "img-container-four"
-            : props.size === 3
-            ? "img-container-three"
-            : props.size === 2
-            ? "img-container-two"
-            : props.size === 1
-            ? "img-container-one"
-            : null
-        }
-      >
-        <img
-          className={"img-displayed"}
-          key={imageIndex}
-          src={url}
-          alt="foodz"
-          height="1000"
-          width="1000"
-        />
-        {props.manage ? (
-          <button
-            className="button"
-            type="button"
-            onClick={console.log(`deleted image at ${url}`)}
+  const carouselImages = images.map((url, imageIndex) => {
+    let displayedImages = displayed();
+    if (images.length <= props.size) {
+      return displayed().includes(imageIndex) ? (
+        <div
+          className={
+            props.size === 4
+              ? "img-container-four"
+              : props.size === 3
+              ? "img-container-three"
+              : props.size === 2
+              ? "img-container-two"
+              : props.size === 1
+              ? "img-container-one"
+              : null
+          }
+        >
+          <img
+            className={"img-displayed"}
+            key={imageIndex}
+            src={url}
+            alt="foodz"
+            height="1000"
+            width="1000"
+          />
+          {props.manage ? (
+            <button
+              className="button"
+              type="button"
+              onClick={console.log(`deleted image at ${url}`)}
+            >
+              <CloseIcon></CloseIcon>
+            </button>
+          ) : null}
+        </div>
+      ) : (
+        <div className="img-container-hidden">
+          <img
+            className={"img-hidden"}
+            key={imageIndex}
+            src={url}
+            alt="foodz"
+          />
+        </div>
+      );
+    } else {
+      if (imageIndex === displayedImages[0]) {
+        return (
+          <div
+            className={
+              props.size === 4
+                ? // ? "img-container-four img-container-hidden-left"
+                  "img-container-four-hidden-left"
+                : props.size === 3
+                ? "img-container-three-hidden-left"
+                : props.size === 2
+                ? "img-container-two-hidden-left"
+                : props.size === 1
+                ? "img-container-one-hidden-left"
+                : null
+            }
           >
-            <CloseIcon></CloseIcon>
-          </button>
-        ) : null}
-      </div>
-    ) : (
-      <div className="img-container-hidden">
-        <img className={"img-hidden"} key={imageIndex} src={url} alt="foodz" />
-      </div>
-    );
+            <img
+              className={"img-displayed"}
+              key={imageIndex}
+              src={url}
+              alt="foodz"
+              height="1000"
+              width="1000"
+            />
+            {props.manage ? (
+              <button
+                className="button"
+                type="button"
+                onClick={console.log(`deleted image at ${url}`)}
+              >
+                <CloseIcon></CloseIcon>
+              </button>
+            ) : null}
+          </div>
+        );
+      } else if (imageIndex === displayedImages[displayedImages.length - 1]) {
+        return (
+          <div
+            className={
+              props.size === 4
+                ? "img-container-four-hidden-right"
+                : props.size === 3
+                ? "img-container-three-hidden-right"
+                : props.size === 2
+                ? "img-container-two-hidden-right"
+                : props.size === 1
+                ? "img-container-one-hidden-right"
+                : null
+            }
+          >
+            <img
+              className={"img-displayed"}
+              key={imageIndex}
+              src={url}
+              alt="foodz"
+              height="1000"
+              width="1000"
+            />
+            {props.manage ? (
+              <button
+                className="button"
+                type="button"
+                onClick={console.log(`deleted image at ${url}`)}
+              >
+                <CloseIcon></CloseIcon>
+              </button>
+            ) : null}
+          </div>
+        );
+      } else {
+        return displayed().includes(imageIndex) ? (
+          <div
+            className={
+              props.size === 4
+                ? "img-container-four"
+                : props.size === 3
+                ? "img-container-three"
+                : props.size === 2
+                ? "img-container-two"
+                : props.size === 1
+                ? "img-container-one"
+                : null
+            }
+          >
+            <img
+              className={"img-displayed"}
+              key={imageIndex}
+              src={url}
+              alt="foodz"
+              height="1000"
+              width="1000"
+            />
+            {props.manage ? (
+              <button
+                className="button"
+                type="button"
+                onClick={console.log(`deleted image at ${url}`)}
+              >
+                <CloseIcon></CloseIcon>
+              </button>
+            ) : null}
+          </div>
+        ) : (
+          <div className="img-container-hidden">
+            <img
+              className={"img-hidden"}
+              key={imageIndex}
+              src={url}
+              alt="foodz"
+            />
+          </div>
+        );
+      }
+    }
   });
 
   // completely rerenders new array so transition does not work
@@ -162,7 +301,7 @@ const Carousel = (props) => {
             : "carousel-images-horizontal"
         }
       >
-        {images}
+        {carouselImages}
       </section>
     </section>
   );

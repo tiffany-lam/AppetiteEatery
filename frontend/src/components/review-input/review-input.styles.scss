@@ -15,6 +15,12 @@
   height: 100%;
   width: 100%;
 
+  // border: 1px solid $secondary;
+  border-radius: 5px;
+
+  padding: 0.6rem;
+
+  background-color: rgb(245, 245, 245);
   // display: grid;
   // grid-template-rows: max-content;
   // grid-template-areas: " input ";
@@ -31,7 +37,7 @@
   .review-user {
     // grid-area: input;
     height: min-content;
-    width: min-content;
+    width: 100%;
 
     // z-index: 1;
     // height: min-content;
@@ -40,9 +46,11 @@
     // float: left;
     display: flex;
     flex-direction: row;
+    align-content: center;
 
     p {
       margin-left: 0.5rem;
+      font-weight: bolder;
     }
 
     img {
@@ -50,7 +58,7 @@
       width: 2rem;
 
       object-fit: cover;
-      border-radius: 10px;
+      border-radius: 5px;
     }
   }
 
@@ -76,21 +84,18 @@
     textarea {
       resize: none;
 
-      height: 8ems;
+      height: 5em;
       width: 100%;
 
-      border: 1px solid $secondary;
-      border-radius: 10px;
-
+      border: none;
+      // border-top: 1px solid $secondary;
+      // border-bottom: 1px solid $secondary;
       outline: none;
 
-      padding: 1rem;
-      margin: 0.5rem 0;
-    }
+      background-color: transparent;
 
-    textarea:focus {
-      border: 1px solid $primary;
-      box-shadow: 0 0 5px $primary;
+      padding: 0 0.5rem;
+      margin: 0.5rem 0;
     }
 
     .review-form-submit {
@@ -167,10 +172,6 @@
         align-items: center;
       }
 
-      label:hover {
-        box-shadow: $default_box_shadow;
-      }
-
       img {
         height: 100%;
         width: 36px;
@@ -181,17 +182,22 @@
       }
 
       input[type="submit"] {
+        height: min-content;
         align-self: center;
         margin-left: auto;
 
         background: none;
+        background-color: $primary;
         outline: none;
 
-        height: min-content;
+        font-size: 1em;
+        font-weight: bold;
+        color: white;
 
-        border: 1px solid black;
+        border: 1px solid $primary;
+        border-radius: 5px;
 
-        padding: 0.1rem;
+        padding: 0.6rem;
       }
     }
   }

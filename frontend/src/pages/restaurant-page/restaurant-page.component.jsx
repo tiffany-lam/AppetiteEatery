@@ -180,6 +180,15 @@ class RestaurantPage extends Component {
         takeout: "Available",
         reservation: "Available",
       },
+      hours: {
+        sunday: "11:00 am - 10:00 pm",
+        monday: "11:00 am - 10:00 pm",
+        tuesday: "11:00 am - 10:00 pm",
+        wednesday: "11:00 am - 10:00 pm",
+        thursday: "11:00 am - 10:00 pm",
+        friday: "11:00 am - 10:00 pm",
+        saturday: "11:00 am - 10:00 pm",
+      },
       open: "4/20/19",
       edit: "",
     };
@@ -233,7 +242,7 @@ class RestaurantPage extends Component {
             content={review.content}
             images={review.images}
           ></Review>
-          <Divider full={true} />
+          {/* <Divider full={true} /> */}
         </li>
       );
     });
@@ -246,11 +255,10 @@ class RestaurantPage extends Component {
             <p>Opened {this.state.open}</p>
             <p>Owned by {this.state.owner.username}</p>
           </div>
-          <Carousel
-            className="restaurant-page-carousel"
-            images={this.state.images}
-            size={4}
-          />
+          <Divider full={true} />
+          <div className="restaurant-page-carousel">
+            <Carousel images={this.state.images} size={3} />
+          </div>
           <Divider full={true} />
           <section className="restaurant-page-description">
             <h2>Description</h2>
@@ -262,9 +270,11 @@ class RestaurantPage extends Component {
               user={this.state.user.username}
               avatar={this.state.user.avatar}
             ></ReviewInput>
+            {/* <Divider full /> */}
           </section>
           <section className="restaurant-page-reviews">
             <h2>Reviews</h2>
+            {/* <Divider full /> */}
             <ul>{reviews}</ul>
           </section>
         </section>
@@ -280,21 +290,26 @@ class RestaurantPage extends Component {
             <div className="restaurant-page-others-container">
               <div className="restaurant-page-others">
                 <Tabs
-                  labels={["Details", "Menu", "Map"]}
+                  labels={["Details", "Menu", "Hours"]}
                   content={[
                     <React.Fragment>
                       <dl className="restaurant-page-details">
-                        <dt>Parking</dt>
-                        <dd>Free</dd>
-                        <Divider full={true} />
-                        <dt>Wifi</dt>
-                        <dd>Available</dd>
-                        <Divider full={true} />
-                        <dt>Takeout</dt>
-                        <dd>Available</dd>
-                        <Divider full={true} />
-                        <dt>Reservations</dt>
-                        <dd>Available</dd>
+                        <div className="restaurant-page-detail">
+                          <dt>Parking</dt>
+                          <dd>Free</dd>
+                        </div>
+                        <div className="restaurant-page-detail">
+                          <dt>Wifi</dt>
+                          <dd>Available</dd>
+                        </div>
+                        <div className="restaurant-page-detail">
+                          <dt>Takeout</dt>
+                          <dd>Available</dd>
+                        </div>
+                        <div className="restaurant-page-detail">
+                          <dt>Reservations</dt>
+                          <dd>Available</dd>
+                        </div>
                       </dl>
                     </React.Fragment>,
                     <React.Fragment>
@@ -304,7 +319,37 @@ class RestaurantPage extends Component {
                         size={1}
                       />
                     </React.Fragment>,
-                    <MapContainer />,
+                    // <React.Fragement>
+                    <dl className="restaurant-page-details">
+                      <div className="restaurant-page-detail">
+                        <dt>Sunday</dt>
+                        <dd>{this.state.hours.sunday}</dd>
+                      </div>
+                      <div className="restaurant-page-detail">
+                        <dt>Monday</dt>
+                        <dd>{this.state.hours.monday}</dd>
+                      </div>
+                      <div className="restaurant-page-detail">
+                        <dt>Tuesday</dt>
+                        <dd>{this.state.hours.tuesday}</dd>
+                      </div>
+                      <div className="restaurant-page-detail">
+                        <dt>Wednesday</dt>
+                        <dd>{this.state.hours.wednesday}</dd>
+                      </div>
+                      <div className="restaurant-page-detail">
+                        <dt>Thursday</dt>
+                        <dd>{this.state.hours.thursday}</dd>
+                      </div>
+                      <div className="restaurant-page-detail">
+                        <dt>Friday</dt>
+                        <dd>{this.state.hours.friday}</dd>
+                      </div>
+                      <div className="restaurant-page-detail">
+                        <dt>Saturday</dt>
+                        <dd>{this.state.hours.saturday}</dd>
+                      </div>
+                    </dl>,
                   ]}
                 ></Tabs>
               </div>
@@ -373,7 +418,7 @@ class RestaurantPage extends Component {
             </fieldset>
             <fieldset form="manage-restaurant" className="restaurant-container">
               <div className="restaurant-page-carousel">
-                <Carousel images={this.state.images} manage size={4} />
+                <Carousel images={this.state.images} manage size={3} />
               </div>
               <Divider full={true} />
             </fieldset>
@@ -440,7 +485,7 @@ class RestaurantPage extends Component {
                 className="restaurant-page-others"
               >
                 <Tabs
-                  labels={["Details", "Menu"]}
+                  labels={["Details", "Menu", "Hours"]}
                   content={[
                     <fieldset form="restaurant-manage-extra">
                       <div className="restaurant-page-details">
@@ -488,7 +533,6 @@ class RestaurantPage extends Component {
                             <EditIcon></EditIcon>
                           </button>
                         )}
-                        <Divider full={true} />
                         <label>Wifi</label>
                         {this.state.edit === "wifi" ? (
                           <select
@@ -531,7 +575,6 @@ class RestaurantPage extends Component {
                             <EditIcon></EditIcon>
                           </button>
                         )}
-                        <Divider full={true} />
                         <label>Takeout</label>
                         {this.state.edit === "takeout" ? (
                           <select
@@ -574,7 +617,6 @@ class RestaurantPage extends Component {
                             <EditIcon></EditIcon>
                           </button>
                         )}
-                        <Divider full={true} />
                         <label>Reservations</label>
                         {this.state.edit === "reservations" ? (
                           <select
@@ -626,6 +668,180 @@ class RestaurantPage extends Component {
                         manage
                         size={1}
                       />
+                    </fieldset>,
+                    <fieldset form="restaurant-manage-extra">
+                      <div className="restaurant-page-details">
+                        <label htmlFor="parking">Parking</label>
+                        {this.state.edit === "parking" ? (
+                          <select
+                            name="parking"
+                            id="parking-select"
+                            className="active"
+                          >
+                            <option value="none" selected disabled hidden>
+                              Select an Option
+                            </option>
+                            <option value="free">Free</option>
+                            <option value="paid">Paid</option>
+                            <option value="unavailable">Unavailable</option>
+                          </select>
+                        ) : (
+                          <select
+                            name="parking"
+                            id="parking-select"
+                            className="inactive"
+                            disabled
+                          >
+                            <option value="none" selected disabled hidden>
+                              Select an Option
+                            </option>
+                            <option value="free">Free</option>
+                            <option value="paid">Paid</option>
+                            <option value="unavailable">Unavailable</option>
+                          </select>
+                        )}
+                        {this.state.edit === "parking" ? (
+                          <button
+                            type="button"
+                            onClick={() => this.saveEdit("parking")}
+                          >
+                            <AddIcon></AddIcon>
+                          </button>
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={() => this.setEdit("parking")}
+                          >
+                            <EditIcon></EditIcon>
+                          </button>
+                        )}
+                        <label>Wifi</label>
+                        {this.state.edit === "wifi" ? (
+                          <select
+                            name="wifi"
+                            id="wifi-select"
+                            className="active"
+                          >
+                            <option value="none" selected disabled hidden>
+                              Select an Option
+                            </option>
+                            <option value="available">Available</option>
+                            <option value="unavailable">Unavailable</option>
+                          </select>
+                        ) : (
+                          <select
+                            name="wifi"
+                            id="wifi-select"
+                            className="inactive"
+                            disabled
+                          >
+                            <option value="none" selected disabled hidden>
+                              Select an Option
+                            </option>
+                            <option value="available">Available</option>
+                            <option value="unavailable">Unavailable</option>
+                          </select>
+                        )}
+                        {this.state.edit === "wifi" ? (
+                          <button
+                            type="button"
+                            onClick={() => this.saveEdit("wifi")}
+                          >
+                            <AddIcon></AddIcon>
+                          </button>
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={() => this.setEdit("wifi")}
+                          >
+                            <EditIcon></EditIcon>
+                          </button>
+                        )}
+                        <label>Takeout</label>
+                        {this.state.edit === "takeout" ? (
+                          <select
+                            name="takeout"
+                            id="takeout-select"
+                            className="active"
+                          >
+                            <option value="none" selected disabled hidden>
+                              Select an Option
+                            </option>
+                            <option value="available">Available</option>
+                            <option value="unavailable">Unavailable</option>
+                          </select>
+                        ) : (
+                          <select
+                            name="takeout"
+                            id="takeout-select"
+                            className="inactive"
+                            disabled
+                          >
+                            <option value="none" selected disabled hidden>
+                              Select an Option
+                            </option>
+                            <option value="available">Available</option>
+                            <option value="unavailable">Unavailable</option>
+                          </select>
+                        )}
+                        {this.state.edit === "takeout" ? (
+                          <button
+                            type="button"
+                            onClick={() => this.saveEdit("takeout")}
+                          >
+                            <AddIcon></AddIcon>
+                          </button>
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={() => this.setEdit("takeout")}
+                          >
+                            <EditIcon></EditIcon>
+                          </button>
+                        )}
+                        <label>Reservations</label>
+                        {this.state.edit === "reservations" ? (
+                          <select
+                            name="reservations"
+                            id="reservations"
+                            className="active"
+                          >
+                            <option value="none" selected disabled hidden>
+                              Select an Option
+                            </option>
+                            <option value="available">Available</option>
+                            <option value="unavailable">Unavailable</option>
+                          </select>
+                        ) : (
+                          <select
+                            name="reservations"
+                            id="reservations-select"
+                            className="inactive"
+                            disabled
+                          >
+                            <option value="none" selected disabled hidden>
+                              Select an Option
+                            </option>
+                            <option value="available">Available</option>
+                            <option value="unavailable">Unavailable</option>
+                          </select>
+                        )}
+                        {this.state.edit === "reservations" ? (
+                          <button
+                            type="button"
+                            onClick={() => this.saveEdit("reservations")}
+                          >
+                            <AddIcon></AddIcon>
+                          </button>
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={() => this.setEdit("reservations")}
+                          >
+                            <EditIcon></EditIcon>
+                          </button>
+                        )}
+                      </div>
                     </fieldset>,
                   ]}
                 ></Tabs>

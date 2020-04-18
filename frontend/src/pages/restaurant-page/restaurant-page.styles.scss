@@ -35,7 +35,7 @@
   min-width: min-content;
   width: 65%;
 
-  margin: 2rem 1rem 2rem 0;
+  margin: 1rem 1rem 2rem 0;
   padding: 1rem;
 
   // background-color: $background_dark;
@@ -66,8 +66,11 @@
     justify-content: space-between;
 
     font-size: 0.5em;
-
-    margin-bottom: 1rem;
+    p {
+      font-weight: bold;
+      font-style: italic;
+      color: $secondary;
+    }
   }
 
   .restaurant-page-carousel {
@@ -88,10 +91,10 @@
     height: min-content;
     width: 100%;
 
-    margin: 2rem 0;
+    margin: 2rem 0 1rem 0;
 
     h2 {
-      font-size: 2.3em;
+      font-size: 2em;
       font-weight: bold;
       color: $primary;
 
@@ -112,7 +115,7 @@
     margin: 0 0 2rem 0;
 
     h2 {
-      font-size: 2.3em;
+      font-size: 2em;
       font-weight: bold;
       color: $primary;
 
@@ -225,9 +228,14 @@
       flex-flow: wrap;
       justify-content: flex-start;
 
-      label,
-      dt {
-        margin-right: auto;
+      .restaurant-page-detail {
+        height: min-content;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        margin-bottom: 0.3rem;
       }
     }
 

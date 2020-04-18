@@ -5,8 +5,9 @@
   width: 100%;
 
   background-color: white;
-  border: 1px solid $secondary;
-  border-radius: 10px;
+  // border: 1px solid $secondary;
+  background-color: rgb(245, 245, 245);
+  border-radius: 5px;
 
   margin-bottom: 1rem;
 
@@ -36,7 +37,7 @@
 
       margin: 0.3rem 0;
 
-      border-radius: 10px;
+      border-radius: 5px;
     }
 
     p {
@@ -76,5 +77,5 @@
 }
 
 section.review:hover {
-  box-shadow: $strong_box_shadow;
+  box-shadow: $light_box_shadow;
 }

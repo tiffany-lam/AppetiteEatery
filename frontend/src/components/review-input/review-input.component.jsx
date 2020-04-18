@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import Rating from "../rating/rating.component";
 import FaceIcon from "@material-ui/icons/Face";
 import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
+import AddIcon from "@material-ui/icons/Add";
 import CloseIcon from "@material-ui/icons/Close";
 
 import "./review-input.styles.scss";
@@ -71,10 +72,12 @@ class ReviewInput extends Component {
             name="review-input"
             rows="8"
             cols="33"
+            placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt alias, minima, rem nemo, doloribus ullam impedit quia maiores repellendus perspiciatis accusantium dolorem quisquam laudantium corrupti. Architecto hic saepe natus consequatur."
           ></textarea>
           <div className="review-form-submit">
             <label htmlFor="upload-img">
-              <AddAPhotoIcon></AddAPhotoIcon>
+              {/* <AddAPhotoIcon></AddAPhotoIcon> */}
+              <AddIcon></AddIcon>
               <input
                 type="file"
                 id="upload-img"
@@ -85,7 +88,7 @@ class ReviewInput extends Component {
               />
             </label>
             <div className="review-preview-container">{preview}</div>
-            <input type="submit" value="Review!" />
+            <input type="submit" value="Post Review" />
           </div>
         </form>
       </section>
