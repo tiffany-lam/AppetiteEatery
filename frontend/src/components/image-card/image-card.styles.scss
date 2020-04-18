@@ -2,8 +2,11 @@
 
 .image-container {
   position: relative;
-  height: 20rem;
-  width: 20rem;
+  // height: 20rem;
+  // width: 20rem;
+
+  height: 100%;
+  width: 100%;
   overflow: hidden;
   background-color: $primary;
 

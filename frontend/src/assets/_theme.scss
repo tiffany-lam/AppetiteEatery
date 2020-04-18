@@ -109,9 +109,10 @@ $background_dark: $dark_beige;
   color: $secondary_dark; // must be selected from MAIN REFERENCE
 }
 
-$page_width_large: 65%;
-$page_width_medium: 80%;
-$page_width_small: 90%;
+$page_width_L: 65%;
+$page_width_M: 80%;
+$page_width_S: 90%;
+$page_width_XS: 95%;
 
 ///////////////////////////////////////////////////////////////
 // MEDIA QUERIES FOR PAGE CONTAINERS HERE:
@@ -122,7 +123,7 @@ $page_width_small: 90%;
 // DEFAULT CASE:
 .header-nav,
 .footer-nav {
-  width: $page_width_large;
+  width: $page_width_L;
   transition: width 200ms linear;
 }
 
@@ -132,7 +133,7 @@ $page_width_small: 90%;
 .contact-us-page-background,
 .pageBackground {
   // background-color: black;
-  width: $page_width_large;
+  width: $page_width_L;
   padding-bottom: 3rem;
   transition: width 200ms linear;
 }
@@ -147,7 +148,7 @@ $page_width_small: 90%;
   .contact-us-page-background,
   .pageBackground {
     // background-color: purple;
-    width: $page_width_medium;
+    width: $page_width_M;
   }
 }
 
@@ -161,6 +162,6 @@ $page_width_small: 90%;
   .contact-us-page-background,
   .pageBackground {
     // background-color: yellow;
-    width: $page_width_small;
+    width: $page_width_S;
   }
 }
