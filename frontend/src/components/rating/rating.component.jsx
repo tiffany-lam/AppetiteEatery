@@ -19,11 +19,12 @@ const Rating = ({
     if (!input) setRatingSelected(rating);
   }, [ratingSelected]);
 
-  const createIcon = (key, onClick, className) => {
+  const createIcon = (key, onClick, className, inputHover = "") => {
     return React.cloneElement(icon, {
       key: key,
       onClick: onClick,
-      className: className,
+      onMouseUp: onClick,
+      className: className + " " + inputHover,
     });
   };
 
@@ -33,7 +34,7 @@ const Rating = ({
         vertical ? "rating-vertical" : "rating-horizontal"
       } ${input ? "rating-input" : ""}`}
     >
-      {console.log("Rating Rendering")}
+      {/* {console.log("Rating Rendering")} */}
       {[...Array(maxRating)].map((e, i) =>
         createIcon(
           i,
@@ -43,7 +44,8 @@ const Rating = ({
               setRating(i + 1);
             }
           },
-          ratingSelected > i ? "rating-filled" : "rating-unfilled"
+          ratingSelected > i ? "" : "rating-unfilled",
+          input ? "rating-input rating-big" : ""
         )
       )}
     </div>
