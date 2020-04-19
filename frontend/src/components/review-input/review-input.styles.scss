@@ -15,6 +15,13 @@
   height: 100%;
   width: 100%;
 
+  // border: 1px solid $secondary;
+  border-radius: 5px;
+
+  padding: 0.6rem;
+
+  // background-color: rgb(245, 245, 245);
+  background-color: $light_beige;
   // display: grid;
   // grid-template-rows: max-content;
   // grid-template-areas: " input ";
@@ -31,7 +38,7 @@
   .review-user {
     // grid-area: input;
     height: min-content;
-    width: min-content;
+    width: 100%;
 
     // z-index: 1;
     // height: min-content;
@@ -40,9 +47,19 @@
     // float: left;
     display: flex;
     flex-direction: row;
+    align-content: center;
 
     p {
       margin-left: 0.5rem;
+      font-weight: bolder;
+    }
+
+    img {
+      height: 2rem;
+      width: 2rem;
+
+      object-fit: cover;
+      border-radius: 5px;
     }
   }
 
@@ -62,21 +79,33 @@
 
     display: flex;
     flex-direction: column;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
 
     textarea {
       resize: none;
 
-      height: 8ems;
+      height: 5em;
       width: 100%;
+
+      border: none;
+      // border-top: 1px solid $secondary;
+      // border-bottom: 1px solid $secondary;
+      outline: none;
+
+      background-color: transparent;
+      font-size: 1.1rem;
+      line-height: 1.5rem;
+
+      padding: 0 0.5rem;
+      margin: 0.5rem 0;
     }
 
     .review-form-submit {
       width: 100%;
       display: flex;
       flex-direction: row;
-      justify-content: start;
+      justify-content: flex-start;
 
       #upload-img {
         @include visually-hidden;
@@ -133,13 +162,11 @@
       }
 
       label {
-        border: 1px solid black;
+        // border: 1px solid black;
         height: 36px;
         width: 36px;
 
         margin: 0.2rem 0.2rem 0.2rem 0;
-
-        border-radius: 10px;
 
         cursor: pointer;
 
@@ -158,17 +185,22 @@
       }
 
       input[type="submit"] {
+        height: min-content;
         align-self: center;
         margin-left: auto;
 
         background: none;
+        background-color: $primary;
         outline: none;
 
-        height: min-content;
+        font-size: 1em;
+        font-weight: bold;
+        color: white;
 
-        border: 1px solid black;
+        border: 1px solid $primary;
+        border-radius: 5px;
 
-        padding: 0.1rem;
+        padding: 0.6rem;
       }
     }
   }
