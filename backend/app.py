@@ -15,16 +15,30 @@ print(f"FLASK_APP={os.getenv('FLASK_APP')}")
 print(f'CWD: {os.getcwd()}')
 print('---------------------------------------------------------------')
 
+
 @app.route('/')
 def hello():
     return render_template('index.html')
+
+
+@app.route('/random')
+def boring():
+    print("random")
+
 
 @app.route("/api/<name>")
 def home_page(name):
     db = client["appetite-eatery-db"]
     db.test.insert_one({"name": name})
-
     return f"Check database for name: {name}"
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    # your processing here
+    print("REROUTING TO REACT APP @ index.html")
+    return render_template('index.html')
+
 
 if __name__ == "__main__":
     app.run()
