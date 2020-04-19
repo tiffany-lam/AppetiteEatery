@@ -1,60 +1,107 @@
 @import "../../assets/theme";
 
 .contact-us-page-background {
-  background-color: white;
+  background-color: transparent;
 
   // width: 100%;
   // height: 100%;
 }
 
 .contact-us-page {
+  min-width: 80%;
   width: 90%;
+  max-width: 100%;
+
   margin: 0 auto;
   padding-top: 3rem;
 
-  justify-content: center;
-  display: grid;
-  grid-template-rows: min-content min-content;
-  grid-gap: 1rem 0;
-  grid-template-areas:
-    " title "
-    " form ";
-}
-.contact-us-title {
-  grid-area: title;
-}
-.contact-us-form {
-  grid-area: form;
-  display: grid;
+  display: flex;
+  flex-direction: column;
 
   justify-content: center;
-  grid-template-rows: min-content min-content min-content;
-  grid-gap: 1rem 0;
-  grid-template-areas:
-    " reason "
-    " message "
-    " submit ";
+
+  // justify-content: center;
+  // display: grid;
+  // grid-template-rows: min-content min-content;
+  // grid-gap: 1rem 0;
+  // grid-template-areas:
+  //   " title "
+  //   " form ";
+}
+
+.contact-us-title {
+  // grid-area: title;
+  color: $primary;
+  font-weight: bolder;
+  font-size: 2em;
+  margin: 0 auto;
+  margin-bottom: 1.3rem;
+}
+
+.contact-us-form {
+  // grid-area: form;
+  // display: grid;
+
+  // justify-content: center;
+  // grid-template-rows: min-content min-content min-content;
+  // grid-gap: 1rem 0;
+  // grid-template-areas:
+  //   " reason "
+  //   " message "
+  //   " submit ";
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
 
   .reason {
-    grid-area: reason;
-    justify-content: center;
+    // grid-area: reason;
+    // justify-content: center;
+    margin-bottom: 1rem;
 
     select {
       width: 100%;
+      margin-top: 0.5rem;
     }
   }
 
   .message {
-    grid-area: message;
-    justify-content: center;
+    // grid-area: message;
+    // justify-content: center;
 
     textarea {
       width: 100%;
       resize: none;
+
+      margin-top: 0.5rem;
+      line-height: 1.2rem;
+
+      border: none;
+      border-radius: 5px;
+
+      background-color: $apple_beige;
     }
   }
 
   .submit {
-    grid-area: submit;
+    // grid-area: submit;
+    background-color: $primary;
+    color: white;
+
+    padding: 0.5rem;
+
+    font-size: 1.5rem;
+    font-weight: bold;
+
+    outline: none;
+    border: none;
+    border-radius: 5px;
   }
+}
+
+.contact-us-label {
+  color: $secondary;
+  font-size: 1.4em;
+  font-weight: bold;
 }

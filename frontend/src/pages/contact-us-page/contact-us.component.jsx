@@ -14,7 +14,7 @@ class ContactUsPage extends Component {
           <h1 className="contact-us-title">What can we do for you today?</h1>
           <form action="" method="post" className="contact-us-form">
             <label className="reason">
-              Reason
+              <span className="contact-us-label">Reason</span>
               <select name="reason" id="reason-select">
                 <option value="none" selected disabled hidden>
                   Select an Option
@@ -30,7 +30,7 @@ class ContactUsPage extends Component {
               </select>
             </label>
             <label className="message">
-              Message
+              <span className="contact-us-label">Message</span>
               <textarea id="message" name="message" rows="20"></textarea>
             </label>
             <input type="submit" value="Submit" className="submit" />
