@@ -263,20 +263,35 @@
       flex-direction: row;
       flex-flow: wrap;
       justify-content: flex-start;
+      align-content: center;
 
       .restaurant-page-detail {
-        height: min-content;
+        // height: min-content;
         width: 100%;
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: space-between;
-        // align-content: center;
-        // box-sizing: border-box;
-        // text-align: left;
+        align-content: center;
+        .restaurant-page-detail-buttons {
+          display: flex;
+          //   flex-direction: row;
+          //   flex-wrap: nowrap;
+          align-content: center;
+          select {
+            height: 100%;
+            // align-self: center;
+          }
+          button {
+            svg {
+              display: block;
+            }
+          }
+        }
 
         label {
           margin-right: auto;
+          align-self: center;
         }
 
         margin-bottom: 0.3rem;

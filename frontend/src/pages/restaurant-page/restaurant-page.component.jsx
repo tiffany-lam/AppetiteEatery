@@ -497,181 +497,195 @@ class RestaurantPage extends Component {
                       <div className="restaurant-page-details">
                         <div className="restaurant-page-detail">
                           <label htmlFor="parking">Parking</label>
-                          {this.state.edit === "parking" ? (
-                            <select
-                              name="parking"
-                              id="parking-select"
-                              className="active"
-                            >
-                              <option value="none" selected disabled hidden>
-                                Select an Option
-                              </option>
-                              <option value="free">Free</option>
-                              <option value="paid">Paid</option>
-                              <option value="unavailable">Unavailable</option>
-                            </select>
-                          ) : (
-                            <select
-                              name="parking"
-                              id="parking-select"
-                              className="inactive"
-                              disabled
-                            >
-                              <option value="none" selected disabled hidden>
-                                Select an Option
-                              </option>
-                              <option value="free">Free</option>
-                              <option value="paid">Paid</option>
-                              <option value="unavailable">Unavailable</option>
-                            </select>
-                          )}
-                          {this.state.edit === "parking" ? (
-                            <button
-                              type="button"
-                              onClick={() => this.saveEdit("parking")}
-                            >
-                              <AddIcon></AddIcon>
-                            </button>
-                          ) : (
-                            <button
-                              type="button"
-                              onClick={() => this.setEdit("parking")}
-                            >
-                              <EditIcon></EditIcon>
-                            </button>
-                          )}
+                          <div className="restaurant-page-detail-buttons">
+                            {this.state.edit === "parking" ? (
+                              <select
+                                name="parking"
+                                id="parking-select"
+                                className="active"
+                              >
+                                <option value="none" selected disabled hidden>
+                                  Select an Option
+                                </option>
+                                <option value="free">Free</option>
+                                <option value="paid">Paid</option>
+                                <option value="unavailable">Unavailable</option>
+                              </select>
+                            ) : (
+                              <select
+                                name="parking"
+                                id="parking-select"
+                                className="inactive"
+                                disabled
+                              >
+                                <option value="none" selected disabled hidden>
+                                  Select an Option
+                                </option>
+                                <option value="free">Free</option>
+                                <option value="paid">Paid</option>
+                                <option value="unavailable">Unavailable</option>
+                              </select>
+                            )}
+                            {this.state.edit === "parking" ? (
+                              <button
+                                type="button"
+                                onClick={() => this.saveEdit("parking")}
+                              >
+                                <AddIcon></AddIcon>
+                              </button>
+                            ) : (
+                              <button
+                                type="button"
+                                onClick={() => this.setEdit("parking")}
+                              >
+                                <EditIcon></EditIcon>
+                              </button>
+                            )}
+                          </div>
                         </div>
                         <div className="restaurant-page-detail">
                           <label>Wifi</label>
-                          {this.state.edit === "wifi" ? (
-                            <select
-                              name="wifi"
-                              id="wifi-select"
-                              className="active"
-                            >
-                              <option value="none" selected disabled hidden>
-                                Select an Option
-                              </option>
-                              <option value="available">Available</option>
-                              <option value="unavailable">Unavailable</option>
-                            </select>
-                          ) : (
-                            <select
-                              name="wifi"
-                              id="wifi-select"
-                              className="inactive"
-                              disabled
-                            >
-                              <option value="none" selected disabled hidden>
-                                Select an Option
-                              </option>
-                              <option value="available">Available</option>
-                              <option value="unavailable">Unavailable</option>
-                            </select>
-                          )}
-                          {this.state.edit === "wifi" ? (
-                            <button
-                              type="button"
-                              onClick={() => this.saveEdit("wifi")}
-                            >
-                              <AddIcon></AddIcon>
-                            </button>
-                          ) : (
-                            <button
-                              type="button"
-                              onClick={() => this.setEdit("wifi")}
-                            >
-                              <EditIcon></EditIcon>
-                            </button>
-                          )}
+                          <div className="restaurant-page-detail-buttons">
+                            {this.state.edit === "wifi" ? (
+                              <select
+                                name="wifi"
+                                id="wifi-select"
+                                className="active"
+                              >
+                                <option value="none" selected disabled hidden>
+                                  Select an Option
+                                </option>
+                                <option value="available">Available</option>
+                                <option value="unavailable">Unavailable</option>
+                              </select>
+                            ) : (
+                              <select
+                                name="wifi"
+                                id="wifi-select"
+                                className="inactive"
+                                disabled
+                              >
+                                <option value="none" selected disabled hidden>
+                                  Select an Option
+                                </option>
+                                <option value="available">Available</option>
+                                <option value="unavailable">Unavailable</option>
+                              </select>
+                            )}
+                            {this.state.edit === "wifi" ? (
+                              <button
+                                type="button"
+                                onClick={() => this.saveEdit("wifi")}
+                              >
+                                <AddIcon></AddIcon>
+                              </button>
+                            ) : (
+                              <button
+                                type="button"
+                                onClick={() => this.setEdit("wifi")}
+                              >
+                                <EditIcon></EditIcon>
+                              </button>
+                            )}
+                          </div>
                         </div>
                         <div className="restaurant-page-detail">
                           <label>Takeout</label>
-                          {this.state.edit === "takeout" ? (
-                            <select
-                              name="takeout"
-                              id="takeout-select"
-                              className="active"
-                            >
-                              <option value="none" selected disabled hidden>
-                                Select an Option
-                              </option>
-                              <option value="available">Available</option>
-                              <option value="unavailable">Unavailable</option>
-                            </select>
-                          ) : (
-                            <select
-                              name="takeout"
-                              id="takeout-select"
-                              className="inactive"
-                              disabled
-                            >
-                              <option value="none" selected disabled hidden>
-                                Select an Option
-                              </option>
-                              <option value="available">Available</option>
-                              <option value="unavailable">Unavailable</option>
-                            </select>
-                          )}
-                          {this.state.edit === "takeout" ? (
-                            <button
-                              type="button"
-                              onClick={() => this.saveEdit("takeout")}
-                            >
-                              <AddIcon></AddIcon>
-                            </button>
-                          ) : (
-                            <button
-                              type="button"
-                              onClick={() => this.setEdit("takeout")}
-                            >
-                              <EditIcon></EditIcon>
-                            </button>
-                          )}
+                          <div className="restaurant-page-detail-buttons">
+                            <div className="restaurant-page-detail-buttons">
+                              {this.state.edit === "takeout" ? (
+                                <select
+                                  name="takeout"
+                                  id="takeout-select"
+                                  className="active"
+                                >
+                                  <option value="none" selected disabled hidden>
+                                    Select an Option
+                                  </option>
+                                  <option value="available">Available</option>
+                                  <option value="unavailable">
+                                    Unavailable
+                                  </option>
+                                </select>
+                              ) : (
+                                <select
+                                  name="takeout"
+                                  id="takeout-select"
+                                  className="inactive"
+                                  disabled
+                                >
+                                  <option value="none" selected disabled hidden>
+                                    Select an Option
+                                  </option>
+                                  <option value="available">Available</option>
+                                  <option value="unavailable">
+                                    Unavailable
+                                  </option>
+                                </select>
+                              )}
+                              {this.state.edit === "takeout" ? (
+                                <button
+                                  type="button"
+                                  onClick={() => this.saveEdit("takeout")}
+                                >
+                                  <AddIcon></AddIcon>
+                                </button>
+                              ) : (
+                                <button
+                                  type="button"
+                                  onClick={() => this.setEdit("takeout")}
+                                >
+                                  <EditIcon></EditIcon>
+                                </button>
+                              )}
+                            </div>
+                          </div>
                         </div>
                         <div className="restaurant-page-detail">
                           <label>Reservations</label>
-                          {this.state.edit === "reservations" ? (
-                            <select
-                              name="reservations"
-                              id="reservations"
-                              className="active"
-                            >
-                              <option value="none" selected disabled hidden>
-                                Select an Option
-                              </option>
-                              <option value="available">Available</option>
-                              <option value="unavailable">Unavailable</option>
-                            </select>
-                          ) : (
-                            <select
-                              name="reservations"
-                              id="reservations-select"
-                              className="inactive"
-                              disabled
-                            >
-                              <option value="none" selected disabled hidden>
-                                Select an Option
-                              </option>
-                              <option value="available">Available</option>
-                              <option value="unavailable">Unavailable</option>
-                            </select>
-                          )}
-                          {this.state.edit === "reservations" ? (
-                            <button
-                              type="button"
-                              onClick={() => this.saveEdit("reservations")}
-                            >
-                              <AddIcon></AddIcon>
-                            </button>
-                          ) : (
-                            <button
-                              type="button"
-                              onClick={() => this.setEdit("reservations")}
-                            >
-                              <EditIcon></EditIcon>
-                            </button>
-                          )}
+                          <div className="restaurant-page-detail-buttons">
+                            {this.state.edit === "reservations" ? (
+                              <select
+                                name="reservations"
+                                id="reservations"
+                                className="active"
+                              >
+                                <option value="none" selected disabled hidden>
+                                  Select an Option
+                                </option>
+                                <option value="available">Available</option>
+                                <option value="unavailable">Unavailable</option>
+                              </select>
+                            ) : (
+                              <select
+                                name="reservations"
+                                id="reservations-select"
+                                className="inactive"
+                                disabled
+                              >
+                                <option value="none" selected disabled hidden>
+                                  Select an Option
+                                </option>
+                                <option value="available">Available</option>
+                                <option value="unavailable">Unavailable</option>
+                              </select>
+                            )}
+                            {this.state.edit === "reservations" ? (
+                              <button
+                                type="button"
+                                onClick={() => this.saveEdit("reservations")}
+                              >
+                                <AddIcon></AddIcon>
+                              </button>
+                            ) : (
+                              <button
+                                type="button"
+                                onClick={() => this.setEdit("reservations")}
+                              >
+                                <EditIcon></EditIcon>
+                              </button>
+                            )}
+                          </div>
                         </div>
                       </div>
                     </fieldset>,
@@ -687,283 +701,297 @@ class RestaurantPage extends Component {
                       <div className="restaurant-page-details">
                         <div className="restaurant-page-detail">
                           <label htmlFor="sunday">Sunday</label>
-                          {this.state.edit === "sunday" ? (
-                            <input
-                              name="sunday"
-                              id="sunday-select"
-                              className="active"
-                              type="time"
-                              min="00:00"
-                              max="24:00"
-                              required
-                            ></input>
-                          ) : (
-                            <input
-                              name="sunday"
-                              id="sunday-select"
-                              className="inactive"
-                              type="time"
-                              min="00:00"
-                              max="24:00"
-                              required
-                              disabled
-                            ></input>
-                          )}
-                          {this.state.edit === "sunday" ? (
-                            <button
-                              type="button"
-                              onClick={() => this.saveEdit("sunday")}
-                            >
-                              <AddIcon></AddIcon>
-                            </button>
-                          ) : (
-                            <button
-                              type="button"
-                              onClick={() => this.setEdit("sunday")}
-                            >
-                              <EditIcon></EditIcon>
-                            </button>
-                          )}
+                          <div className="restaurant-page-detail-buttons">
+                            {this.state.edit === "sunday" ? (
+                              <input
+                                name="sunday"
+                                id="sunday-select"
+                                className="active"
+                                type="time"
+                                min="00:00"
+                                max="24:00"
+                                required
+                              ></input>
+                            ) : (
+                              <input
+                                name="sunday"
+                                id="sunday-select"
+                                className="inactive"
+                                type="time"
+                                min="00:00"
+                                max="24:00"
+                                required
+                                disabled
+                              ></input>
+                            )}
+                            {this.state.edit === "sunday" ? (
+                              <button
+                                type="button"
+                                onClick={() => this.saveEdit("sunday")}
+                              >
+                                <AddIcon></AddIcon>
+                              </button>
+                            ) : (
+                              <button
+                                type="button"
+                                onClick={() => this.setEdit("sunday")}
+                              >
+                                <EditIcon></EditIcon>
+                              </button>
+                            )}
+                          </div>
                         </div>
                         <div className="restaurant-page-detail">
                           <label>Monday</label>
-                          {this.state.edit === "monday" ? (
-                            <input
-                              name="monday"
-                              id="monday-select"
-                              className="active"
-                              type="time"
-                              min="00:00"
-                              max="24:00"
-                              required
-                            ></input>
-                          ) : (
-                            <input
-                              name="monday"
-                              id="monday-select"
-                              className="inactive"
-                              type="time"
-                              min="00:00"
-                              max="24:00"
-                              required
-                              disabled
-                            ></input>
-                          )}
-                          {this.state.edit === "monday" ? (
-                            <button
-                              type="button"
-                              onClick={() => this.saveEdit("monday")}
-                            >
-                              <AddIcon></AddIcon>
-                            </button>
-                          ) : (
-                            <button
-                              type="button"
-                              onClick={() => this.setEdit("monday")}
-                            >
-                              <EditIcon></EditIcon>
-                            </button>
-                          )}
+                          <div className="restaurant-page-detail-buttons">
+                            {this.state.edit === "monday" ? (
+                              <input
+                                name="monday"
+                                id="monday-select"
+                                className="active"
+                                type="time"
+                                min="00:00"
+                                max="24:00"
+                                required
+                              ></input>
+                            ) : (
+                              <input
+                                name="monday"
+                                id="monday-select"
+                                className="inactive"
+                                type="time"
+                                min="00:00"
+                                max="24:00"
+                                required
+                                disabled
+                              ></input>
+                            )}
+                            {this.state.edit === "monday" ? (
+                              <button
+                                type="button"
+                                onClick={() => this.saveEdit("monday")}
+                              >
+                                <AddIcon></AddIcon>
+                              </button>
+                            ) : (
+                              <button
+                                type="button"
+                                onClick={() => this.setEdit("monday")}
+                              >
+                                <EditIcon></EditIcon>
+                              </button>
+                            )}
+                          </div>
                         </div>
                         <div className="restaurant-page-detail">
                           <label>Tuesday</label>
-                          {this.state.edit === "tuesday" ? (
-                            <input
-                              name="tuesday"
-                              id="tuesday-select"
-                              className="active"
-                              type="time"
-                              min="00:00"
-                              max="24:00"
-                              required
-                            ></input>
-                          ) : (
-                            <input
-                              name="tuesday"
-                              id="tuesday-select"
-                              className="inactive"
-                              type="time"
-                              min="00:00"
-                              max="24:00"
-                              required
-                              disabled
-                            ></input>
-                          )}
-                          {this.state.edit === "tuesday" ? (
-                            <button
-                              type="button"
-                              onClick={() => this.saveEdit("tuesday")}
-                            >
-                              <AddIcon></AddIcon>
-                            </button>
-                          ) : (
-                            <button
-                              type="button"
-                              onClick={() => this.setEdit("tuesday")}
-                            >
-                              <EditIcon></EditIcon>
-                            </button>
-                          )}
+                          <div className="restaurant-page-detail-buttons">
+                            {this.state.edit === "tuesday" ? (
+                              <input
+                                name="tuesday"
+                                id="tuesday-select"
+                                className="active"
+                                type="time"
+                                min="00:00"
+                                max="24:00"
+                                required
+                              ></input>
+                            ) : (
+                              <input
+                                name="tuesday"
+                                id="tuesday-select"
+                                className="inactive"
+                                type="time"
+                                min="00:00"
+                                max="24:00"
+                                required
+                                disabled
+                              ></input>
+                            )}
+                            {this.state.edit === "tuesday" ? (
+                              <button
+                                type="button"
+                                onClick={() => this.saveEdit("tuesday")}
+                              >
+                                <AddIcon></AddIcon>
+                              </button>
+                            ) : (
+                              <button
+                                type="button"
+                                onClick={() => this.setEdit("tuesday")}
+                              >
+                                <EditIcon></EditIcon>
+                              </button>
+                            )}
+                          </div>
                         </div>
                         <div className="restaurant-page-detail">
                           <label>Wednesday</label>
-                          {this.state.edit === "wednesday" ? (
-                            <input
-                              name="wednesday"
-                              id="wednesday-select"
-                              className="active"
-                              type="time"
-                              min="00:00"
-                              max="24:00"
-                              required
-                            ></input>
-                          ) : (
-                            <input
-                              name="wednesday"
-                              id="wednesday-select"
-                              className="inactive"
-                              type="time"
-                              min="00:00"
-                              max="24:00"
-                              required
-                              disabled
-                            ></input>
-                          )}
-                          {this.state.edit === "wednesday" ? (
-                            <button
-                              type="button"
-                              onClick={() => this.saveEdit("wednesday")}
-                            >
-                              <AddIcon></AddIcon>
-                            </button>
-                          ) : (
-                            <button
-                              type="button"
-                              onClick={() => this.setEdit("wednesday")}
-                            >
-                              <EditIcon></EditIcon>
-                            </button>
-                          )}
+                          <div className="restaurant-page-detail-buttons">
+                            {this.state.edit === "wednesday" ? (
+                              <input
+                                name="wednesday"
+                                id="wednesday-select"
+                                className="active"
+                                type="time"
+                                min="00:00"
+                                max="24:00"
+                                required
+                              ></input>
+                            ) : (
+                              <input
+                                name="wednesday"
+                                id="wednesday-select"
+                                className="inactive"
+                                type="time"
+                                min="00:00"
+                                max="24:00"
+                                required
+                                disabled
+                              ></input>
+                            )}
+                            {this.state.edit === "wednesday" ? (
+                              <button
+                                type="button"
+                                onClick={() => this.saveEdit("wednesday")}
+                              >
+                                <AddIcon></AddIcon>
+                              </button>
+                            ) : (
+                              <button
+                                type="button"
+                                onClick={() => this.setEdit("wednesday")}
+                              >
+                                <EditIcon></EditIcon>
+                              </button>
+                            )}
+                          </div>
                         </div>
                         <div className="restaurant-page-detail">
                           <label>Thursday</label>
-                          {this.state.edit === "thursday" ? (
-                            <input
-                              name="thursday"
-                              id="thursday-select"
-                              className="active"
-                              type="time"
-                              min="00:00"
-                              max="24:00"
-                              required
-                            ></input>
-                          ) : (
-                            <input
-                              name="thursday"
-                              id="thursday-select"
-                              className="inactive"
-                              type="time"
-                              min="00:00"
-                              max="24:00"
-                              required
-                              disabled
-                            ></input>
-                          )}
-                          {this.state.edit === "thursday" ? (
-                            <button
-                              type="button"
-                              onClick={() => this.saveEdit("thursday")}
-                            >
-                              <AddIcon></AddIcon>
-                            </button>
-                          ) : (
-                            <button
-                              type="button"
-                              onClick={() => this.setEdit("thursday")}
-                            >
-                              <EditIcon></EditIcon>
-                            </button>
-                          )}
+                          <div className="restaurant-page-detail-buttons">
+                            {this.state.edit === "thursday" ? (
+                              <input
+                                name="thursday"
+                                id="thursday-select"
+                                className="active"
+                                type="time"
+                                min="00:00"
+                                max="24:00"
+                                required
+                              ></input>
+                            ) : (
+                              <input
+                                name="thursday"
+                                id="thursday-select"
+                                className="inactive"
+                                type="time"
+                                min="00:00"
+                                max="24:00"
+                                required
+                                disabled
+                              ></input>
+                            )}
+                            {this.state.edit === "thursday" ? (
+                              <button
+                                type="button"
+                                onClick={() => this.saveEdit("thursday")}
+                              >
+                                <AddIcon></AddIcon>
+                              </button>
+                            ) : (
+                              <button
+                                type="button"
+                                onClick={() => this.setEdit("thursday")}
+                              >
+                                <EditIcon></EditIcon>
+                              </button>
+                            )}
+                          </div>
                         </div>
                         <div className="restaurant-page-detail">
                           <label>Friday</label>
-                          {this.state.edit === "friday" ? (
-                            <input
-                              name="friday"
-                              id="friday-select"
-                              className="active"
-                              type="time"
-                              min="00:00"
-                              max="24:00"
-                              required
-                            ></input>
-                          ) : (
-                            <input
-                              name="friday"
-                              id="friday-select"
-                              className="inactive"
-                              type="time"
-                              min="00:00"
-                              max="24:00"
-                              required
-                              disabled
-                            ></input>
-                          )}
-                          {this.state.edit === "friday" ? (
-                            <button
-                              type="button"
-                              onClick={() => this.saveEdit("friday")}
-                            >
-                              <AddIcon></AddIcon>
-                            </button>
-                          ) : (
-                            <button
-                              type="button"
-                              onClick={() => this.setEdit("friday")}
-                            >
-                              <EditIcon></EditIcon>
-                            </button>
-                          )}
+                          <div className="restaurant-page-detail-buttons">
+                            {this.state.edit === "friday" ? (
+                              <input
+                                name="friday"
+                                id="friday-select"
+                                className="active"
+                                type="time"
+                                min="00:00"
+                                max="24:00"
+                                required
+                              ></input>
+                            ) : (
+                              <input
+                                name="friday"
+                                id="friday-select"
+                                className="inactive"
+                                type="time"
+                                min="00:00"
+                                max="24:00"
+                                required
+                                disabled
+                              ></input>
+                            )}
+                            {this.state.edit === "friday" ? (
+                              <button
+                                type="button"
+                                onClick={() => this.saveEdit("friday")}
+                              >
+                                <AddIcon></AddIcon>
+                              </button>
+                            ) : (
+                              <button
+                                type="button"
+                                onClick={() => this.setEdit("friday")}
+                              >
+                                <EditIcon></EditIcon>
+                              </button>
+                            )}
+                          </div>
                         </div>
                         <div className="restaurant-page-detail">
                           <label>Saturday</label>
-                          {this.state.edit === "saturday" ? (
-                            <input
-                              name="saturday"
-                              id="saturday-select"
-                              className="active"
-                              type="time"
-                              min="00:00"
-                              max="24:00"
-                              required
-                            ></input>
-                          ) : (
-                            <input
-                              name="saturday"
-                              id="saturday-select"
-                              className="inactive"
-                              type="time"
-                              min="00:00"
-                              max="24:00"
-                              required
-                              disabled
-                            ></input>
-                          )}
-                          {this.state.edit === "saturday" ? (
-                            <button
-                              type="button"
-                              onClick={() => this.saveEdit("saturday")}
-                            >
-                              <AddIcon></AddIcon>
-                            </button>
-                          ) : (
-                            <button
-                              type="button"
-                              onClick={() => this.setEdit("saturday")}
-                            >
-                              <EditIcon></EditIcon>
-                            </button>
-                          )}
+                          <div className="restaurant-page-detail-buttons">
+                            {this.state.edit === "saturday" ? (
+                              <input
+                                name="saturday"
+                                id="saturday-select"
+                                className="active"
+                                type="time"
+                                min="00:00"
+                                max="24:00"
+                                required
+                              ></input>
+                            ) : (
+                              <input
+                                name="saturday"
+                                id="saturday-select"
+                                className="inactive"
+                                type="time"
+                                min="00:00"
+                                max="24:00"
+                                required
+                                disabled
+                              ></input>
+                            )}
+                            {this.state.edit === "saturday" ? (
+                              <button
+                                type="button"
+                                onClick={() => this.saveEdit("saturday")}
+                              >
+                                <AddIcon></AddIcon>
+                              </button>
+                            ) : (
+                              <button
+                                type="button"
+                                onClick={() => this.setEdit("saturday")}
+                              >
+                                <EditIcon></EditIcon>
+                              </button>
+                            )}
+                          </div>
                         </div>
                       </div>
                     </fieldset>,
