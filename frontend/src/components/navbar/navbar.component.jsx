@@ -5,9 +5,12 @@ import { Link } from "react-router-dom";
 import Logo from "../logo/logo.component";
 import CircleButton from "../circle-btn/circle-btn.component";
 import CustomModal from "../custom-modal/custom-modal.component";
+import Tabs from "../tabs/tabs.component"
 import RegisterForm from "../auth/RegisterForm";
+import LoginForm from "../auth/LoginForm";
 // mui icons:
 import MenuIcon from "@material-ui/icons/Menu";
+
 
 // custom stylesheet:
 import "./navbar.styles.scss";
@@ -31,7 +34,13 @@ const Navbar = ({ className }) => {
       {/* if showModal is true, then show the modal contents, else show nothing */}
       {showModal ? (
         <CustomModal toggleModal={toggleModal}>
-          <RegisterForm />
+          <Tabs 
+            labels ={["Login", "Register"]}
+            content={[
+            <LoginForm/>,
+            <RegisterForm/>           
+            ]}
+          ></Tabs>
           {/*  this is where your modal content component will go */}
         </CustomModal>
       ) : // this is the else, show nothing

@@ -33,7 +33,7 @@ class RegisterForm extends Component {
     render() {
         return (
             <div className="register-form">
-                <h1>Register</h1>
+                
                 <form>
                     <div className = "row1"> 
                         <div className="col1">
@@ -94,7 +94,7 @@ class RegisterForm extends Component {
                     </div> {/* close row */}
 
                     {/* Register button / If they already have an acct */}
-                    <div>
+                    <div className = "btnDiv">
                         <button className="registerBtn" onClick={this.signup}>Register</button>
                     </div>
                 </form>

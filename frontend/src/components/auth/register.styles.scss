@@ -2,6 +2,8 @@
 
 .register-form{
     margin: 25px 30px;
+    background-color: inherit;
+    
     .row1{
         display: flex;
         flex-wrap: wrap; 
@@ -13,16 +15,22 @@
     }
     label{
         display: block;
+        
         .radio{
             float:left;
             clear:none;
-            paddding: 0px 1 em 0px 8px;
+            padding: 0px 1em 0px 15px;
         }
+        
     }
     input{
         display: block;
         border: none;
-        border-bottom: 2px solid $green;
+        background-color: khaki;
+        transition-property: background-color, border-color;
+        transition-duration: 0.25s, 0.25s;
+        transition-timing-function: ease, ease;
+        transition-delay: 0s, 0s;
         margin-bottom: 15px;
     }
     input[type=radio]{
@@ -30,8 +38,19 @@
         clear: none;
         margin: 2px 0px 0px 2px;
     }
-
-    button{
-
+    .btnDiv{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .registerBtn{
+        text-align: center;
+        width: 20%;
+        height: 32px;
+        background-color: lightpink;
+        border-radius: 2em;
+    }
+    .registerBtn:hover{
+        background-color: lightskyblue
     }
 }
