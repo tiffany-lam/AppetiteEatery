@@ -477,6 +477,7 @@ class RestaurantPage extends Component {
             <fieldset form="manage-restaurant-extra">
               <div className="restaurant-page-tags">
                 <ul>{tags}</ul>
+                {/* <Tag type="add"></Tag> */}
               </div>
             </fieldset>
             {/* UHHHHHHHH FIGURE OUT A WAY TO SEND THIS LMAO */}
