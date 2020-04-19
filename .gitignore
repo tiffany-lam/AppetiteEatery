@@ -2,4 +2,3 @@
 /backend/__pycache__
 /backend/build
 /backend/venv
-/backend/app.wsgi
