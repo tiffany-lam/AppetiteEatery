@@ -8,8 +8,11 @@ import CustomModal from "../custom-modal/custom-modal.component";
 import Tabs from "../tabs/tabs.component"
 import RegisterForm from "../auth/RegisterForm";
 import LoginForm from "../auth/LoginForm";
+import Rating from "../rating/rating.component";
+
 // mui icons:
 import MenuIcon from "@material-ui/icons/Menu";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 
 
 // custom stylesheet:
@@ -45,7 +48,6 @@ const Navbar = ({ className }) => {
         </CustomModal>
       ) : // this is the else, show nothing
       null}
-
       <div className="logo-container-flex">
         <Link to="/">
           <Logo eVersion={1} uppercase={true} />
@@ -55,7 +57,6 @@ const Navbar = ({ className }) => {
       <CircleButton id="menu-btn" onClick={toggleNavBar} hoverRotate={true}>
         <MenuIcon />
       </CircleButton>
-
       <ul className={hideNav ? "mobile-hidden" : ""}>
         {/* <ul> */}
         <li>

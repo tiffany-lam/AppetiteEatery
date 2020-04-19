@@ -3,42 +3,53 @@ import StarsIcon from "@material-ui/icons/Stars";
 
 import "./rating.styles.scss";
 
-const Rating = ({ rating = 0 }) => {
-  const MAX_RATING = 5;
+const Rating = ({
+  rating = 0,
+  input = false,
+  setRating = (value) => {
+    return;
+  },
+  maxRating = 5,
+  vertical = false,
+  icon = <StarsIcon />,
+}) => {
+  const [ratingSelected, setRatingSelected] = useState(0);
+
+  useEffect(() => {
+    if (!input) setRatingSelected(rating);
+  }, [ratingSelected]);
+
+  const createIcon = (key, onClick, className, inputHover = "") => {
+    return React.cloneElement(icon, {
+      key: key,
+      onClick: onClick,
+      onMouseUp: onClick,
+      className: className + " " + inputHover,
+    });
+  };
 
   return (
-    <div className="rating-container">
-      {[...Array(rating)].map((e, i) => (
-        <StarsIcon key={i} className="rating-filled" />
-      ))}
-      {[...Array(MAX_RATING - rating)].map((e, i) => (
-        <StarsIcon key={i} className="rating-unfilled" />
-      ))}
+    <div
+      className={`rating-container ${
+        vertical ? "rating-vertical" : "rating-horizontal"
+      } ${input ? "rating-input" : ""}`}
+    >
+      {/* {console.log("Rating Rendering")} */}
+      {[...Array(maxRating)].map((e, i) =>
+        createIcon(
+          i,
+          () => {
+            if (input) {
+              setRatingSelected(i + 1);
+              setRating(i + 1);
+            }
+          },
+          ratingSelected > i ? "" : "rating-unfilled",
+          input ? "rating-input rating-big" : ""
+        )
+      )}
     </div>
   );
 };
 
 export default Rating;
-
-// ///////////////////////////////////////////////////////////////////
-// import React from "react";
-// import "./ComponentName.styles.scss";
-
-// class ComponentName extends React.Component {
-//   constructor(props) {
-//     super(props);
-
-//     this.state = {};
-//   }
-
-//   componentDidMount() {}
-
-//   customFunction = () => {};
-
-//   render() {
-//     return <div></div>;
-//   }
-// }
-
-// export default ComponentName;
-// ///////////////////////////////////////////////////////////////////
