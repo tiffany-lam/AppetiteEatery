@@ -8,8 +8,8 @@
 }
 
 .contact-us-page {
-  min-width: 80%;
-  width: 90%;
+  // min-width: 70%;
+  width: 40rem;
   max-width: 100%;
 
   margin: 0 auto;
@@ -55,6 +55,30 @@
 
   justify-content: center;
 
+  .name {
+    margin-bottom: 1rem;
+  }
+
+  .email {
+    margin-bottom: 1rem;
+  }
+
+  input[type="text"] {
+    width: 100%;
+    margin-top: 0.5rem;
+
+    font-size: 1.1rem;
+
+    padding: 0.3rem;
+
+    outline: none;
+
+    border: none;
+    border-radius: 5px;
+
+    background-color: $light_beige;
+  }
+
   .reason {
     // grid-area: reason;
     // justify-content: center;
@@ -63,6 +87,21 @@
     select {
       width: 100%;
       margin-top: 0.5rem;
+
+      font-size: 1.1rem;
+
+      padding: 0.3rem;
+
+      outline: none;
+
+      border: none;
+      border-radius: 5px;
+
+      background-color: $light_beige;
+    }
+
+    select:focus {
+      box-shadow: $dark_beige_box_shadow;
     }
   }
 
@@ -77,15 +116,37 @@
       margin-top: 0.5rem;
       line-height: 1.2rem;
 
+      outline: none;
+
       border: none;
       border-radius: 5px;
 
-      background-color: $apple_beige;
+      background-color: $light_beige;
+
+      padding: 1rem;
+    }
+
+    textarea:focus {
+      box-shadow: $dark_beige_box_shadow;
     }
   }
 
-  .submit {
-    // grid-area: submit;
+  // .submit {
+  //   // grid-area: submit;
+  //   background-color: $primary;
+  //   color: white;
+
+  //   padding: 0.5rem;
+
+  //   font-size: 1.5rem;
+  //   font-weight: bold;
+
+  //   outline: none;
+  //   border: none;
+  //   border-radius: 5px;
+  // }
+
+  input[type="submit"] {
     background-color: $primary;
     color: white;
 
@@ -97,6 +158,14 @@
     outline: none;
     border: none;
     border-radius: 5px;
+
+    cursor: pointer;
+
+    margin-top: 1rem;
+  }
+
+  input[type="submit"]:hover {
+    background-color: $primary_dark;
   }
 }
 
