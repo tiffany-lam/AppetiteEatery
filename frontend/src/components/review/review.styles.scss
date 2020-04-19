@@ -4,8 +4,12 @@
   height: 100%;
   width: 100%;
 
-  background-color: white;
-  border: 1px solid grey;
+  // background-color: white;
+  // border: 1px solid $secondary;
+  // background-color: rgb(245, 245, 245);
+
+  background-color: $light_beige;
+  border-radius: 5px;
 
   margin-bottom: 1rem;
 
@@ -13,13 +17,15 @@
   flex-direction: row;
   justify-content: space-between;
 
+  align-items: stretch;
+
   .review-user-info {
-    height: min-content;
+    // height: min-content;
     width: min-content;
 
     display: flex;
     flex-direction: column;
-    justify-content: start;
+    justify-content: flex-start;
 
     margin: 0.5rem;
 
@@ -33,7 +39,7 @@
 
       margin: 0.3rem 0;
 
-      border-radius: 10px;
+      border-radius: 5px;
     }
 
     p {
@@ -44,28 +50,37 @@
   .review-content {
     // flex-grow: 5;
     // flex-shrink: 0;
-    height: 100%;
+    // height: 100%;
     width: 100%;
 
     display: flex;
     flex-direction: column;
-    justify-content: start;
+    justify-content: flex-start;
     overflow-wrap: anywhere;
 
-    margin: 0.5rem 0.5rem;
+    position: relative;
+
+    margin: 0.8rem 0.5rem 0.5rem 0.5rem;
 
     p {
       width: 100%;
       z-index: 10;
+      font-size: 1.1rem;
+      line-height: 1.5rem;
 
       margin: 0.5rem 0 0.5rem 0.1rem;
     }
   }
 
   .review-photos {
-    height: 100%;
-    width: min-content;
+    // height: min-content;
+    width: 5rem;
 
     margin: 0.5rem 0.5rem;
   }
+}
+
+section.review:hover {
+  // box-shadow: $light_box_shadow;
+  box-shadow: $dark_beige_box_shadow;
 }

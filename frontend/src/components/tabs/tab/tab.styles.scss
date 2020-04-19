@@ -1,19 +1,26 @@
 @import "../../../assets/theme";
 
 .tab-inactive {
-  width: 5em;
-  background-color: inherit;
+  // width: auto;
+  background-color: transparent;
   border: none;
-  border-bottom: 1px solid black;
+  outline: none;
+  color: $secondary;
 
-  padding: 10px;
+  font-weight: bold;
+
+  padding: 0.4rem 0.3rem 0.4rem 0.3rem;
 }
 
 .tab-active {
-  width: 5em;
-  background-color: inherit;
-  border: none;
-  border-bottom: 1px solid red;
+  // width: auto;
 
-  padding: 10px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: $primary;
+
+  font-weight: bold;
+
+  padding: 0.2rem 0.3rem 0 0.3rem;
 }

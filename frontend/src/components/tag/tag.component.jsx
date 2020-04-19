@@ -45,7 +45,11 @@ const Tag = (props) => {
     return (
       <li className="tag-delete">
         <label htmlFor="delete-button">#{props.children}</label>
-        <button className="button" type="button">
+        <button
+          className="button"
+          type="button"
+          onClick={() => props.delete(props.children)}
+        >
           <CloseIcon></CloseIcon>
         </button>
       </li>
