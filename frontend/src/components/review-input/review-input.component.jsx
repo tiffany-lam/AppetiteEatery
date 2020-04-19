@@ -2,7 +2,9 @@ import React, { Component } from "react";
 
 import Rating from "../rating/rating.component";
 import FaceIcon from "@material-ui/icons/Face";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
+import StarsRoundedIcon from "@material-ui/icons/StarsRounded";
 import AddIcon from "@material-ui/icons/Add";
 import CloseIcon from "@material-ui/icons/Close";
 
@@ -11,7 +13,7 @@ import "./review-input.styles.scss";
 class ReviewInput extends Component {
   constructor(props) {
     super(props);
-    this.state = { files: [] };
+    this.state = { files: [], rating: 0 };
   }
 
   handleChange = (e) => {
@@ -34,6 +36,10 @@ class ReviewInput extends Component {
   };
 
   resetImg = (e) => {};
+
+  setRating = (rating) => {
+    this.setState({ rating: rating });
+  };
 
   render() {
     const preview = this.state.files.map((fileObj, index) => (
@@ -62,7 +68,13 @@ class ReviewInput extends Component {
             <p>{this.props.user}</p>
           </div>
           {/* <div className="review-rating"> */}
-          <Rating rating={3} />
+          <Rating
+            input
+            maxRating={5}
+            icon={<FavoriteIcon />}
+            // icon={<StarsRoundedIcon></StarsRoundedIcon>}
+            setRating={this.setRating}
+          />
           {/* </div> */}
         </div>
         <form className="review-form">

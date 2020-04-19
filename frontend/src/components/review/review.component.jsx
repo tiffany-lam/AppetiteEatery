@@ -2,6 +2,7 @@ import React from "react";
 
 import Rating from "../rating/rating.component";
 import Carousel from "../carousel/carousel.component";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 
 import "./review.styles.scss";
 
@@ -13,7 +14,11 @@ const Review = (props) => {
         <p>{props.user}</p> <p>{props.date}</p>
       </div>
       <div className="review-content">
-        <Rating></Rating>
+        <Rating
+          rating={props.rating}
+          maxRating={5}
+          icon={<FavoriteIcon />}
+        ></Rating>
         <p>{props.content}</p>
       </div>
       <div className="review-photos">

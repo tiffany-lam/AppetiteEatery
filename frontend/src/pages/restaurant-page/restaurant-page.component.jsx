@@ -20,43 +20,41 @@ class RestaurantPage extends Component {
     super(props);
     this.state = {
       user: {
-        username: "xxxy",
+        username: "A. Monge",
         avatar:
           "https://images.unsplash.com/photo-1543852786-1cf6624b9987?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
       },
       owner: {
-        username: "xxx",
+        username: "A. Monge Owner",
         avatar:
           "https://images.unsplash.com/photo-1586912597722-f4f14ed28572?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
       },
-      name: "ChickPls",
+      name: "General Vegeta's",
       description:
-        "This is delicious! This is delicious! This is delicious! This is delicious! This is delicious! This is delicious! This is delicious! This is delicious! This is delicious! This is delicious! This is delicious!",
+        "Welcome to General Vegeta's hometown local favorite of vegetable based dishes, such as vegetable curry, vegetable noodles, and vegetable stir fry! You name it, and we offer it with vegetables. We even offer a variety of guranteed vegan meals for your enjoyment! So come stop by, or should I say come stop buy? We've got everything you want and need to feel as healthy as you should be!",
       tags: [
-        "chicka",
-        "chickb",
-        "chickc",
-        "chicke",
-        "chickf",
-        "chickg",
-        "chickh",
-        "chicki",
-        "chickj",
-        "chickk",
-        "chickl",
-        "chickm",
-        "chickn",
-        "chicko",
+        "Veggies",
+        "Vegetarian",
+        "Vegan",
+        "Delicious",
+        "Vegatable-Curry",
+        "Stirfry",
+        "Vegetable-Noodles",
+        "Best-Glass-Noodles",
+        "Italian-Veggie-Pastas",
+        "Soups",
       ],
       reviews: [
         {
           user: {
-            username: "user1",
+            username: "Janie",
             avatar:
               "https://images.unsplash.com/photo-1497752531616-c3afd9760a11?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80",
           },
           date: "1/1/1",
-          content: "I really liked this food.",
+          content:
+            "I really liked this food. The vegetables tasted fresh in my food and I pretty much enjoyed everything I tried here.",
+          rating: 5,
           images: [
             "https://images.unsplash.com/photo-1484723091739-30a097e8f929?ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80",
             "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
@@ -64,12 +62,13 @@ class RestaurantPage extends Component {
         },
         {
           user: {
-            username: "user2",
+            username: "Gabril",
             avatar:
               "https://images.unsplash.com/photo-1539418561314-565804e349c0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
           },
           date: "2/2/2",
           content: "I really did not like this food.",
+          rating: 3,
           images: [
             "https://images.unsplash.com/photo-1484723091739-30a097e8f929?ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80",
             "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
@@ -79,12 +78,13 @@ class RestaurantPage extends Component {
         },
         {
           user: {
-            username: "user3",
+            username: "Leticia",
             avatar:
               "https://images.unsplash.com/photo-1517849845537-4d257902454a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=675&q=80",
           },
           date: "3/3/3",
           content: "Boom shaka laka",
+          rating: 2,
           images: [
             "https://images.unsplash.com/photo-1504544750208-dc0358e63f7f?ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80",
             "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
@@ -94,13 +94,14 @@ class RestaurantPage extends Component {
         },
         {
           user: {
-            username: "user4",
+            username: "Cameron",
             avatar:
               "https://images.unsplash.com/photo-1476293602671-beea27e1e702?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
           },
           date: "4/4/4",
           content:
-            "i am a cat. i like catnip. blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.blep.",
+            "What can I say, I'm a dude who likes food and a foodie whose tastes seek only perfection. This restaurant hits all my pinterest needs, all my yelp travel desires, it just h i t s the spot if you know what I mean. And I mean I'm a hell of a carnivore, but this place? Bruh. This friggin' place. I love it.",
+          rating: 1,
           images: [
             "https://images.unsplash.com/photo-1532980400857-e8d9d275d858?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
           ],
@@ -113,7 +114,8 @@ class RestaurantPage extends Component {
           },
           date: "5/5/5",
           content:
-            "i am a dog. i like bonezo. blep. blep. blep. blep. blep. blep. blep. blep. blep. blep. blep. blep. blep. blep. blep. blep. blep. blep. blep. blep. blep. blep. blep. blep. blep. blep. blep. blep. blep. blep. blep. blep. blep. blep. blep. blep. blep. blep. blep. blep. blep. blep. blep. blep. blep. blep. blep. blep. blep. blep. blep. blep. blep. blep. blep. blep. blep.",
+            "I just wanted pasta, but I don't think I got what I was looking for here. They're kind of a lie, cause I mean look at all those hashtags with noodles in it dude. And there was like, one or two noodle dishes there when I came in and they did not. taste. good. I swear it to you by my adorable doggo, don't come here for noodles. Maybe for spinach if you want. I saw a lot of nasty cans of the good ol' Popeyes spinach man. Also, be careful of the people working here, I swear they were eyeing me up like they haven't had any payin' customers come in in a l o o n g time. I mean understandable, but please... It's genuinely kind of scary... Yeah idk. The deco was all wack too. There were like animal heads everywhere, and just, what? You're all about veggies and vegetarian and vegan and here I am just seeing massive amounts of dead animals staring at me with their blank dead eyes. Not inviting for an appetizing meal. Owner was chill though lmao.",
+          rating: 1,
           images: [
             "https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=80",
             "https://images.unsplash.com/photo-1506354666786-959d6d497f1a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
@@ -134,7 +136,8 @@ class RestaurantPage extends Component {
           },
           date: "6/6/6",
           content:
-            "HELLLLLLLOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO",
+            "Was pretty good. Made me feel better after I got fired, dumped, and then disowned. Probably the highlight of my day. I guess.",
+          rating: 4,
           images: [
             "https://images.unsplash.com/photo-1484723091739-30a097e8f929?ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80",
             "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
@@ -205,13 +208,13 @@ class RestaurantPage extends Component {
 
   own = () => {
     this.setState({
-      user: { username: "xxx", avatar: this.state.user.avatar },
+      user: { username: "A. Monge Owner", avatar: this.state.user.avatar },
     });
   };
 
   noOwn = () => {
     this.setState({
-      user: { username: "xxxy", avatar: this.state.user.avatar },
+      user: { username: "A. Monge", avatar: this.state.user.avatar },
     });
   };
 
@@ -241,6 +244,7 @@ class RestaurantPage extends Component {
             date={review.date}
             content={review.content}
             images={review.images}
+            rating={review.rating}
           ></Review>
           {/* <Divider full={true} /> */}
         </li>
@@ -259,7 +263,8 @@ class RestaurantPage extends Component {
           <div className="restaurant-page-carousel">
             <Carousel images={this.state.images} size={3} />
           </div>
-          <Divider full={true} />
+        </section>
+        <section className="restaurant-page-more">
           <section className="restaurant-page-description">
             <h2>Description</h2>
             <p>{this.state.description}</p>
@@ -270,11 +275,9 @@ class RestaurantPage extends Component {
               user={this.state.user.username}
               avatar={this.state.user.avatar}
             ></ReviewInput>
-            {/* <Divider full /> */}
           </section>
           <section className="restaurant-page-reviews">
             <h2>Reviews</h2>
-            {/* <Divider full /> */}
             <ul>{reviews}</ul>
           </section>
         </section>
@@ -373,101 +376,103 @@ class RestaurantPage extends Component {
           <form
             action=""
             method="put"
-            className="restaurant-page-main-manage"
+            // className="restaurant-page-main-manage"
             id="manage-restaurant"
           >
-            <fieldset form="manage-restaurant" className="restaurant-container">
-              <div className="restaurant-name">
-                <label htmlFor="name">
-                  <span>Edit Restaurant Name</span>
+            <div className="restaurant-page-main-manage">
+              <fieldset
+                form="manage-restaurant"
+                className="restaurant-container"
+              >
+                <div className="restaurant-name">
+                  <label htmlFor="name">
+                    <span>Edit Restaurant Name</span>
+                    {this.state.edit === "name" ? (
+                      <input
+                        type="text"
+                        name="name"
+                        id="name"
+                        required
+                        className="name"
+                        value={this.state.name}
+                      />
+                    ) : (
+                      <input
+                        type="text"
+                        name="name"
+                        id="name"
+                        required
+                        className="name"
+                        value={this.state.name}
+                        disabled
+                      />
+                    )}
+                  </label>
                   {this.state.edit === "name" ? (
-                    <input
-                      type="text"
-                      name="name"
-                      id="name"
-                      required
-                      className="name"
-                      value={this.state.name}
-                    />
+                    <button type="button" onClick={() => this.saveEdit("name")}>
+                      <AddIcon></AddIcon>
+                    </button>
                   ) : (
-                    <input
-                      type="text"
-                      name="name"
-                      id="name"
-                      required
-                      className="name"
-                      value={this.state.name}
-                      disabled
-                    />
+                    <button type="button" onClick={() => this.setEdit("name")}>
+                      <EditIcon></EditIcon>
+                    </button>
                   )}
-                </label>
-                {this.state.edit === "name" ? (
-                  <button type="button" onClick={() => this.saveEdit("name")}>
-                    <AddIcon></AddIcon>
-                  </button>
-                ) : (
-                  <button type="button" onClick={() => this.setEdit("name")}>
-                    <EditIcon></EditIcon>
-                  </button>
-                )}
-              </div>
-              <div className="restaurant-page-information">
-                <p>Opened {this.state.open}</p>
-                <p>Owned by {this.state.owner.username}</p>
-              </div>
-            </fieldset>
-            <fieldset form="manage-restaurant" className="restaurant-container">
-              <div className="restaurant-page-carousel">
-                <Carousel images={this.state.images} manage size={3} />
-              </div>
-              <Divider full={true} />
-            </fieldset>
-            <fieldset form="manage-restaurant" className="restaurant-container">
-              <div className="restaurant-description">
-                <label htmlFor="description">
-                  <span>Edit Restaurant Description</span>
+                </div>
+                <div className="restaurant-page-information">
+                  <p>Opened {this.state.open}</p>
+                  <p>Owned by {this.state.owner.username}</p>
+                </div>
+              </fieldset>
+              <fieldset
+                form="manage-restaurant"
+                className="restaurant-container"
+              >
+                <div className="restaurant-page-carousel">
+                  <Carousel images={this.state.images} manage size={3} />
+                </div>
+                <Divider full={true} />
+              </fieldset>
+              <fieldset
+                form="manage-restaurant"
+                className="restaurant-container"
+              >
+                <div className="restaurant-description">
+                  <label htmlFor="description">
+                    <span>Edit Restaurant Description</span>
+                    {this.state.edit === "description" ? (
+                      <textarea
+                        value={this.state.description}
+                        className="active"
+                      ></textarea>
+                    ) : (
+                      <textarea
+                        value={this.state.description}
+                        disabled
+                        className="inactive"
+                      ></textarea>
+                    )}
+                  </label>
                   {this.state.edit === "description" ? (
-                    <textarea
-                      value={this.state.description}
-                      className="active"
-                    ></textarea>
+                    <button
+                      type="button"
+                      onClick={() => this.saveEdit("description")}
+                    >
+                      <AddIcon></AddIcon>
+                    </button>
                   ) : (
-                    <textarea
-                      value={this.state.description}
-                      disabled
-                      className="inactive"
-                    ></textarea>
+                    <button
+                      type="button"
+                      onClick={() => this.setEdit("description")}
+                    >
+                      <EditIcon></EditIcon>
+                    </button>
                   )}
-                </label>
-                {this.state.edit === "description" ? (
-                  <button
-                    type="button"
-                    onClick={() => this.saveEdit("description")}
-                  >
-                    <AddIcon></AddIcon>
-                  </button>
-                ) : (
-                  <button
-                    type="button"
-                    onClick={() => this.setEdit("description")}
-                  >
-                    <EditIcon></EditIcon>
-                  </button>
-                )}
-              </div>
-            </fieldset>
+                </div>
+              </fieldset>
+            </div>
           </form>
-          <section className="restaurant-page-reviews">
-            <h2>Reviews</h2>
-            <ul>{reviews}</ul>
-          </section>
         </div>
-        <form
-          action=""
-          method="put"
-          id="manage-restaurant-extra"
-          className="restaurant-page-side"
-        >
+        <div className="restaurant-page-side">
           <div className="restaurant-page-side-contents">
             <fieldset form="manage-restaurant-extra">
               <div className="restaurant-page-tags">
@@ -475,6 +480,523 @@ class RestaurantPage extends Component {
               </div>
             </fieldset>
             {/* UHHHHHHHH FIGURE OUT A WAY TO SEND THIS LMAO */}
+            <section className="restaurant-page-map">
+              <h2>Google Maps</h2>
+              <MapContainer />
+            </section>
+            <div className="restaurant-page-others-container">
+              <div
+                form="manage-restaurant-extra"
+                className="restaurant-page-others"
+              >
+                <Tabs
+                  labels={["Details", "Menu", "Hours"]}
+                  content={[
+                    <fieldset form="restaurant-manage-extra">
+                      <div className="restaurant-page-details">
+                        <div className="restaurant-page-detail">
+                          <label htmlFor="parking">Parking</label>
+                          {this.state.edit === "parking" ? (
+                            <select
+                              name="parking"
+                              id="parking-select"
+                              className="active"
+                            >
+                              <option value="none" selected disabled hidden>
+                                Select an Option
+                              </option>
+                              <option value="free">Free</option>
+                              <option value="paid">Paid</option>
+                              <option value="unavailable">Unavailable</option>
+                            </select>
+                          ) : (
+                            <select
+                              name="parking"
+                              id="parking-select"
+                              className="inactive"
+                              disabled
+                            >
+                              <option value="none" selected disabled hidden>
+                                Select an Option
+                              </option>
+                              <option value="free">Free</option>
+                              <option value="paid">Paid</option>
+                              <option value="unavailable">Unavailable</option>
+                            </select>
+                          )}
+                          {this.state.edit === "parking" ? (
+                            <button
+                              type="button"
+                              onClick={() => this.saveEdit("parking")}
+                            >
+                              <AddIcon></AddIcon>
+                            </button>
+                          ) : (
+                            <button
+                              type="button"
+                              onClick={() => this.setEdit("parking")}
+                            >
+                              <EditIcon></EditIcon>
+                            </button>
+                          )}
+                        </div>
+                        <div className="restaurant-page-detail">
+                          <label>Wifi</label>
+                          {this.state.edit === "wifi" ? (
+                            <select
+                              name="wifi"
+                              id="wifi-select"
+                              className="active"
+                            >
+                              <option value="none" selected disabled hidden>
+                                Select an Option
+                              </option>
+                              <option value="available">Available</option>
+                              <option value="unavailable">Unavailable</option>
+                            </select>
+                          ) : (
+                            <select
+                              name="wifi"
+                              id="wifi-select"
+                              className="inactive"
+                              disabled
+                            >
+                              <option value="none" selected disabled hidden>
+                                Select an Option
+                              </option>
+                              <option value="available">Available</option>
+                              <option value="unavailable">Unavailable</option>
+                            </select>
+                          )}
+                          {this.state.edit === "wifi" ? (
+                            <button
+                              type="button"
+                              onClick={() => this.saveEdit("wifi")}
+                            >
+                              <AddIcon></AddIcon>
+                            </button>
+                          ) : (
+                            <button
+                              type="button"
+                              onClick={() => this.setEdit("wifi")}
+                            >
+                              <EditIcon></EditIcon>
+                            </button>
+                          )}
+                        </div>
+                        <div className="restaurant-page-detail">
+                          <label>Takeout</label>
+                          {this.state.edit === "takeout" ? (
+                            <select
+                              name="takeout"
+                              id="takeout-select"
+                              className="active"
+                            >
+                              <option value="none" selected disabled hidden>
+                                Select an Option
+                              </option>
+                              <option value="available">Available</option>
+                              <option value="unavailable">Unavailable</option>
+                            </select>
+                          ) : (
+                            <select
+                              name="takeout"
+                              id="takeout-select"
+                              className="inactive"
+                              disabled
+                            >
+                              <option value="none" selected disabled hidden>
+                                Select an Option
+                              </option>
+                              <option value="available">Available</option>
+                              <option value="unavailable">Unavailable</option>
+                            </select>
+                          )}
+                          {this.state.edit === "takeout" ? (
+                            <button
+                              type="button"
+                              onClick={() => this.saveEdit("takeout")}
+                            >
+                              <AddIcon></AddIcon>
+                            </button>
+                          ) : (
+                            <button
+                              type="button"
+                              onClick={() => this.setEdit("takeout")}
+                            >
+                              <EditIcon></EditIcon>
+                            </button>
+                          )}
+                        </div>
+                        <div className="restaurant-page-detail">
+                          <label>Reservations</label>
+                          {this.state.edit === "reservations" ? (
+                            <select
+                              name="reservations"
+                              id="reservations"
+                              className="active"
+                            >
+                              <option value="none" selected disabled hidden>
+                                Select an Option
+                              </option>
+                              <option value="available">Available</option>
+                              <option value="unavailable">Unavailable</option>
+                            </select>
+                          ) : (
+                            <select
+                              name="reservations"
+                              id="reservations-select"
+                              className="inactive"
+                              disabled
+                            >
+                              <option value="none" selected disabled hidden>
+                                Select an Option
+                              </option>
+                              <option value="available">Available</option>
+                              <option value="unavailable">Unavailable</option>
+                            </select>
+                          )}
+                          {this.state.edit === "reservations" ? (
+                            <button
+                              type="button"
+                              onClick={() => this.saveEdit("reservations")}
+                            >
+                              <AddIcon></AddIcon>
+                            </button>
+                          ) : (
+                            <button
+                              type="button"
+                              onClick={() => this.setEdit("reservations")}
+                            >
+                              <EditIcon></EditIcon>
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    </fieldset>,
+                    <fieldset form="restaurant-manage-extra">
+                      <Carousel
+                        className="restaurant-page-menu"
+                        images={this.state.menus}
+                        manage
+                        size={1}
+                      />
+                    </fieldset>,
+                    <fieldset form="restaurant-manage-extra">
+                      <div className="restaurant-page-details">
+                        <div className="restaurant-page-detail">
+                          <label htmlFor="sunday">Sunday</label>
+                          {this.state.edit === "sunday" ? (
+                            <input
+                              name="sunday"
+                              id="sunday-select"
+                              className="active"
+                              type="time"
+                              min="00:00"
+                              max="24:00"
+                              required
+                            ></input>
+                          ) : (
+                            <input
+                              name="sunday"
+                              id="sunday-select"
+                              className="inactive"
+                              type="time"
+                              min="00:00"
+                              max="24:00"
+                              required
+                              disabled
+                            ></input>
+                          )}
+                          {this.state.edit === "sunday" ? (
+                            <button
+                              type="button"
+                              onClick={() => this.saveEdit("sunday")}
+                            >
+                              <AddIcon></AddIcon>
+                            </button>
+                          ) : (
+                            <button
+                              type="button"
+                              onClick={() => this.setEdit("sunday")}
+                            >
+                              <EditIcon></EditIcon>
+                            </button>
+                          )}
+                        </div>
+                        <div className="restaurant-page-detail">
+                          <label>Monday</label>
+                          {this.state.edit === "monday" ? (
+                            <input
+                              name="monday"
+                              id="monday-select"
+                              className="active"
+                              type="time"
+                              min="00:00"
+                              max="24:00"
+                              required
+                            ></input>
+                          ) : (
+                            <input
+                              name="monday"
+                              id="monday-select"
+                              className="inactive"
+                              type="time"
+                              min="00:00"
+                              max="24:00"
+                              required
+                              disabled
+                            ></input>
+                          )}
+                          {this.state.edit === "monday" ? (
+                            <button
+                              type="button"
+                              onClick={() => this.saveEdit("monday")}
+                            >
+                              <AddIcon></AddIcon>
+                            </button>
+                          ) : (
+                            <button
+                              type="button"
+                              onClick={() => this.setEdit("monday")}
+                            >
+                              <EditIcon></EditIcon>
+                            </button>
+                          )}
+                        </div>
+                        <div className="restaurant-page-detail">
+                          <label>Tuesday</label>
+                          {this.state.edit === "tuesday" ? (
+                            <input
+                              name="tuesday"
+                              id="tuesday-select"
+                              className="active"
+                              type="time"
+                              min="00:00"
+                              max="24:00"
+                              required
+                            ></input>
+                          ) : (
+                            <input
+                              name="tuesday"
+                              id="tuesday-select"
+                              className="inactive"
+                              type="time"
+                              min="00:00"
+                              max="24:00"
+                              required
+                              disabled
+                            ></input>
+                          )}
+                          {this.state.edit === "tuesday" ? (
+                            <button
+                              type="button"
+                              onClick={() => this.saveEdit("tuesday")}
+                            >
+                              <AddIcon></AddIcon>
+                            </button>
+                          ) : (
+                            <button
+                              type="button"
+                              onClick={() => this.setEdit("tuesday")}
+                            >
+                              <EditIcon></EditIcon>
+                            </button>
+                          )}
+                        </div>
+                        <div className="restaurant-page-detail">
+                          <label>Wednesday</label>
+                          {this.state.edit === "wednesday" ? (
+                            <input
+                              name="wednesday"
+                              id="wednesday-select"
+                              className="active"
+                              type="time"
+                              min="00:00"
+                              max="24:00"
+                              required
+                            ></input>
+                          ) : (
+                            <input
+                              name="wednesday"
+                              id="wednesday-select"
+                              className="inactive"
+                              type="time"
+                              min="00:00"
+                              max="24:00"
+                              required
+                              disabled
+                            ></input>
+                          )}
+                          {this.state.edit === "wednesday" ? (
+                            <button
+                              type="button"
+                              onClick={() => this.saveEdit("wednesday")}
+                            >
+                              <AddIcon></AddIcon>
+                            </button>
+                          ) : (
+                            <button
+                              type="button"
+                              onClick={() => this.setEdit("wednesday")}
+                            >
+                              <EditIcon></EditIcon>
+                            </button>
+                          )}
+                        </div>
+                        <div className="restaurant-page-detail">
+                          <label>Thursday</label>
+                          {this.state.edit === "thursday" ? (
+                            <input
+                              name="thursday"
+                              id="thursday-select"
+                              className="active"
+                              type="time"
+                              min="00:00"
+                              max="24:00"
+                              required
+                            ></input>
+                          ) : (
+                            <input
+                              name="thursday"
+                              id="thursday-select"
+                              className="inactive"
+                              type="time"
+                              min="00:00"
+                              max="24:00"
+                              required
+                              disabled
+                            ></input>
+                          )}
+                          {this.state.edit === "thursday" ? (
+                            <button
+                              type="button"
+                              onClick={() => this.saveEdit("thursday")}
+                            >
+                              <AddIcon></AddIcon>
+                            </button>
+                          ) : (
+                            <button
+                              type="button"
+                              onClick={() => this.setEdit("thursday")}
+                            >
+                              <EditIcon></EditIcon>
+                            </button>
+                          )}
+                        </div>
+                        <div className="restaurant-page-detail">
+                          <label>Friday</label>
+                          {this.state.edit === "friday" ? (
+                            <input
+                              name="friday"
+                              id="friday-select"
+                              className="active"
+                              type="time"
+                              min="00:00"
+                              max="24:00"
+                              required
+                            ></input>
+                          ) : (
+                            <input
+                              name="friday"
+                              id="friday-select"
+                              className="inactive"
+                              type="time"
+                              min="00:00"
+                              max="24:00"
+                              required
+                              disabled
+                            ></input>
+                          )}
+                          {this.state.edit === "friday" ? (
+                            <button
+                              type="button"
+                              onClick={() => this.saveEdit("friday")}
+                            >
+                              <AddIcon></AddIcon>
+                            </button>
+                          ) : (
+                            <button
+                              type="button"
+                              onClick={() => this.setEdit("friday")}
+                            >
+                              <EditIcon></EditIcon>
+                            </button>
+                          )}
+                        </div>
+                        <div className="restaurant-page-detail">
+                          <label>Saturday</label>
+                          {this.state.edit === "saturday" ? (
+                            <input
+                              name="saturday"
+                              id="saturday-select"
+                              className="active"
+                              type="time"
+                              min="00:00"
+                              max="24:00"
+                              required
+                            ></input>
+                          ) : (
+                            <input
+                              name="saturday"
+                              id="saturday-select"
+                              className="inactive"
+                              type="time"
+                              min="00:00"
+                              max="24:00"
+                              required
+                              disabled
+                            ></input>
+                          )}
+                          {this.state.edit === "saturday" ? (
+                            <button
+                              type="button"
+                              onClick={() => this.saveEdit("saturday")}
+                            >
+                              <AddIcon></AddIcon>
+                            </button>
+                          ) : (
+                            <button
+                              type="button"
+                              onClick={() => this.setEdit("saturday")}
+                            >
+                              <EditIcon></EditIcon>
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    </fieldset>,
+                  ]}
+                ></Tabs>
+              </div>
+              <div className="temp">
+                <button type="button" onClick={this.own}>
+                  OWN
+                </button>
+                <button type="button" onClick={this.noOwn}>
+                  DISOWN
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <section className="restaurant-page-reviews">
+          <h2>Reviews</h2>
+          <ul>{reviews}</ul>
+        </section>
+        {/* <form
+          action=""
+          method="put"
+          id="manage-restaurant-extra"
+          className="restaurant-page-side"
+        > */}
+        {/* <div className="restaurant-page-side-contents">
+            <fieldset form="manage-restaurant-extra">
+              <div className="restaurant-page-tags">
+                <ul>{tags}</ul>
+              </div>
+            </fieldset>
+            UHHHHHHHH FIGURE OUT A WAY TO SEND THIS LMAO
             <section className="restaurant-page-map">
               <h2>Google Maps</h2>
               <MapContainer />
@@ -855,8 +1377,8 @@ class RestaurantPage extends Component {
                 </button>
               </div>
             </div>
-          </div>
-        </form>
+          </div> */}
+        {/* </form> */}
       </section>
       // <section className="restaurant-page-background">
       //   <form

@@ -20,7 +20,8 @@
 
   padding: 0.6rem;
 
-  background-color: rgb(245, 245, 245);
+  // background-color: rgb(245, 245, 245);
+  background-color: $light_beige;
   // display: grid;
   // grid-template-rows: max-content;
   // grid-template-areas: " input ";
@@ -93,6 +94,8 @@
       outline: none;
 
       background-color: transparent;
+      font-size: 1.1rem;
+      line-height: 1.5rem;
 
       padding: 0 0.5rem;
       margin: 0.5rem 0;

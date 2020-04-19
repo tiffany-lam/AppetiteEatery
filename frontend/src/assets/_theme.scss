@@ -19,6 +19,7 @@ $yellow_kournikova: #ffe96f;
 $green: #a3be8c;
 $green_shamrock: #50d19e;
 
+$light_beige: #fffbf1;
 $dark_beige: #efe4b0;
 $vegeta_green: #c1d9bc;
 $lime: $vegeta_green;
@@ -76,6 +77,8 @@ $lg_red: linear-gradient(60deg, #d44f4f 20%, #ec5353 80%);
 $light_box_shadow: 0 0 5px #c5c5c5;
 $default_box_shadow: 0 0 5px #6b6b6b;
 $strong_box_shadow: 0 0 5px #414141;
+
+$dark_beige_box_shadow: 0 0 5px $dark_beige;
 
 ///////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////
