@@ -76,7 +76,7 @@ const Carousel = (props) => {
     }
 
     urls.push(next);
-    console.log(urls);
+    // console.log(urls);
     return urls;
   };
 
@@ -99,10 +99,10 @@ const Carousel = (props) => {
               ? "img-container-one"
               : null
           }
+          key={imageIndex}
         >
           <img
             className={"img-displayed"}
-            key={imageIndex}
             src={url}
             alt="foodz"
             height="1000"
@@ -144,10 +144,10 @@ const Carousel = (props) => {
                 ? "img-container-one-hidden-left"
                 : null
             }
+            key={imageIndex}
           >
             <img
               className={"img-displayed"}
-              key={imageIndex}
               src={url}
               alt="foodz"
               height="1000"
@@ -178,10 +178,10 @@ const Carousel = (props) => {
                 ? "img-container-one-hidden-right"
                 : null
             }
+            key={imageIndex}
           >
             <img
               className={"img-displayed"}
-              key={imageIndex}
               src={url}
               alt="foodz"
               height="1000"
@@ -212,10 +212,10 @@ const Carousel = (props) => {
                 ? "img-container-one"
                 : null
             }
+            key={imageIndex}
           >
             <img
               className={"img-displayed"}
-              key={imageIndex}
               src={url}
               alt="foodz"
               height="1000"
@@ -232,13 +232,8 @@ const Carousel = (props) => {
             ) : null}
           </div>
         ) : (
-          <div className="img-container-hidden">
-            <img
-              className={"img-hidden"}
-              key={imageIndex}
-              src={url}
-              alt="foodz"
-            />
+          <div key={imageIndex} className="img-container-hidden">
+            <img className={"img-hidden"} src={url} alt="foodz" />
           </div>
         );
       }

@@ -237,7 +237,7 @@ class RestaurantPage extends Component {
 
     const reviews = this.state.reviews.map((review) => {
       return (
-        <li>
+        <li key={review.user.username}>
           <Review
             user={review.user.username}
             avatar={review.user.avatar}
