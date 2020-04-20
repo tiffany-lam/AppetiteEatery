@@ -16,7 +16,7 @@
   }
 
   .userContainer-inner {
-    margin: 15px;
+    margin: 20px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto;
@@ -43,40 +43,50 @@
     column-count: 2;
     padding: 50px;
   }
-
-  h1 {
-    font-size: 2.3em;
+  
+  // TEXT STYLING
+  h1, h2 {
     font-weight: bold;
-    color: #ff6b71;
     height: min-content;
     width: 100%;
     display: flex;
     justify-self: flex-start;
+    margin: 10px;
+  }
+
+  h1 {
+    font-size: 2.3em;
+    color: #ff6b71;
   }
 
   h2 {
     font-size: 1.5em;
-    font-weight: bold;
     color: $secondary;
-    height: min-content;
-    width: 100%;
-    display: flex;
-    justify-self: flex-start;
   }
 
   h3 {
     font-size: 1.3em;
     font-weight: bold;
-
   }
   
-  li {
+  .userContainer-inner li {
     font-size: 20px;
+    font-weight: 600;
     // color: white;
-    line-height: 2em;
+    line-height: 1.5em;
+    padding-bottom: 20px;
+  }
+
+  #favorites p {
+    font-style: italic;
   }
   
-  // Images
+  p {
+    line-height: 1.8;
+    font-size: 20px;
+  }
+  
+  // IMAGES
   .map-img {
     width: 400px;
     height: 300px;
@@ -94,10 +104,11 @@
   .profile-img {
     // float: left;
     grid-area: picture;
-    padding: 20px;
+    justify-self: left;
+    margin: 20px;
     width: 250px;
     height: 250px;
     object-fit: cover;
-    border-radius: 50%;
+    border-radius: 15%;
   }
 }
