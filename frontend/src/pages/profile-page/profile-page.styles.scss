@@ -1,62 +1,120 @@
 @import "../../assets/theme";
 
-.pageBackground {
-  padding: 25px;
-  margin: 2em 3em;
-}
 
-.userInfo {
-  background-color: $gray_alto;
-  border-radius: 25px;
-  margin: 13px;
-  // display: flex;
-  // flex-direction: column;
-}
+.profile-page-container {
+  // padding: 25px;
+  // margin: 2em 3em;
+  display: flex;
+  flex-direction: column;
+  // background-color: $primary;
+  // border-radius: 25px;
 
-.userInfo li {
-  color: black;
-}
+  .userContainer {
+    background-color: $background_dark;
+    border-radius: 15px;
+    margin: 13px;
+  }
 
-.container {
-  column-count: 2;
-  column-gap: 50px;
-  background-color: white;
-  border-radius: 25px;
-}
+  .userContainer-inner {
+    margin: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    grid-template-areas: 
+      "picture userInfo"
+      "favorites checkIn";
+  }
 
-.userReviews {
-  background: $secondary_dark;
-  border-radius: 25px;
-  column-count: 2;
-  padding: 50px;
-}
+  .userInfo {
+    grid-area: userInfo;
+  }
 
-// li {
-//   font-size: 20px;
-//   color: white;
-//   line-height: 2em;
-// }
+  #favorites {
+    grid-area: favorites;
+  }
 
-// Images
-.map-img {
-  width: 590px;
-  height: 315px;
-  object-fit: cover;
-  border-radius: 25px;
-  margin: 10px;
-}
+  #checkIn {
+    grid-area: checkIn;
+  }
+  
+  .userReviews {
+    // background: $primary;
+    // border-radius: 15px;
+    margin: 13px;
+    // column-count: 2
+  }
+  
+  .review {
+    background: $light_beige;
+    display: block;
+  }
 
-.review-img {
-  width: 400px;
-  height: 300px;
-  object-fit: cover;
-}
+  // TEXT STYLING
+  h1, h2 {
+    font-weight: bold;
+    height: min-content;
+    width: 100%;
+    // display: flex;
+    // justify-self: flex-start;
+    margin: 10px;
+  }
 
-.profile-img {
-  float: left;
-  padding: 20px;
-  width: 250px;
-  height: 250px;
-  object-fit: cover;
-  border-radius: 50%;
+  h1 {
+    font-size: 2.3em;
+    color: #ff6b71;
+  }
+
+  h2 {
+    font-size: 1.5em;
+    color: $secondary;
+  }
+
+  h3 {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: $secondary;
+  }
+  
+  .userContainer-inner li {
+    font-size: 20px;
+    font-weight: 600;
+    // color: white;
+    line-height: 1.5em;
+    padding-bottom: 20px;
+  }
+
+  #favorites p {
+    font-style: italic;
+  }
+
+  p {
+    line-height: 1.8;
+    font-size: 20px;
+  }
+  
+  // IMAGES
+  .map-img {
+    width: 400px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 25px;
+    margin: 10px;
+  }
+  
+  .review-img {
+    width: 400px;
+    height: 300px;
+    object-fit: cover;
+  }
+  
+  .profile-img {
+    // float: left;
+    grid-area: picture;
+    justify-self: left;
+    margin: 20px;
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 15%;
+  }
 }
