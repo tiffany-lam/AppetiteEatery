@@ -39,9 +39,7 @@
   
   .userReviews {
     // background: $secondary_dark;
-    border-radius: 25px;
-    column-count: 2;
-    padding: 50px;
+    // column-count: 2
   }
   
   // TEXT STYLING
@@ -67,6 +65,7 @@
   h3 {
     font-size: 1.3em;
     font-weight: bold;
+    color: $secondary;
   }
   
   .userContainer-inner li {
@@ -80,7 +79,7 @@
   #favorites p {
     font-style: italic;
   }
-  
+
   p {
     line-height: 1.8;
     font-size: 20px;
