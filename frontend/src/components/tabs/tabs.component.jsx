@@ -27,12 +27,20 @@ export default class Tabs extends Component {
     });
 
     return this.props.manage ? (
-      <div className="tabs">
+      <div
+        className={
+          this.props.className ? `${this.props.className} tabs` : "tabs"
+        }
+      >
         <ul>{tabs}</ul>
         {this.props.content[this.state.index]}
       </div>
     ) : (
-      <section className="tabs">
+      <section
+        className={
+          this.props.className ? `${this.props.className} tabs` : "tabs"
+        }
+      >
         <ul>{tabs}</ul>
         {this.props.content[this.state.index]}
       </section>

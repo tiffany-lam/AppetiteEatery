@@ -1,6 +1,11 @@
 import React from "react";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
-
+import { connect } from "react-redux";
+import {
+  setUserAuth,
+  setCurrentUser,
+  resetUserRedux,
+} from "./redux/user/user.actions";
 import "./App.scss";
 
 // custom components here:
@@ -16,7 +21,7 @@ import ContactUsPage from "./pages/contact-us-page/contact-us.component";
 import ErrorPage from "./pages/error-page/error-page.component";
 import ProfilePage from "./pages/profile-page/profile-page.component";
 
-function App() {
+function App(props) {
   return (
     <div className="App">
       <BrowserRouter>
@@ -24,6 +29,7 @@ function App() {
           <Navbar />
         </header>
         <main>
+          {console.log(props.userAuth)}
           <Switch>
             <Route exact path="/" component={HomePage} />
 
@@ -53,4 +59,14 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = ({ user }) => ({
+  userAuth: user.userAuth,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setUserAuth: (user) => dispatch(setUserAuth(user)),
+  setCurrentUser: (userId) => dispatch(setCurrentUser(userId)),
+  resetUserRedux: () => dispatch(resetUserRedux()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
