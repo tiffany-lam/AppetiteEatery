@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import firebaseAuth from "./components/auth/firebaseAuth";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
@@ -23,30 +23,41 @@ import ErrorPage from "./pages/error-page/error-page.component";
 import ProfilePage from "./pages/profile-page/profile-page.component";
 
 class App extends Component {
-  constructor(props){
+  unsubscribedFromAuth = null;
+  constructor(props) {
     super(props);
     this.state = {
-        user: {},
-
+      user: {},
     };
   }
   //after component is done rendering the first time
-  componentDidMount(){
+  componentDidMount() {
     this.authListener();
   }
-  authListener(){
-    firebaseAuth.auth().onAuthStateChanged((user) =>{
+
+  authListener() {
+    this.unsubscribedFromAuth = firebaseAuth
+      .auth()
+      .onAuthStateChanged((user) => {
         console.log(user);
-        if(user){
-            this.setState({user});  
+        console.log("app.js");
+        if (user) {
+          console.log("gggg");
+          this.setState({ user });
+          this.props.setUserAuth(user);
+        } else {
+          this.setState({ user: null });
+          this.props.setUserAuth(null);
         }
-        else{
-            this.setState({user:null});
-        }
-    });
+      });
   }
-  render(){
-    return(
+
+  componentWillUnmount() {
+    this.unsubscribedFromAuth();
+  }
+
+  render() {
+    return (
       <div className="App">
         <BrowserRouter>
           <header>
@@ -71,9 +82,12 @@ class App extends Component {
               <Route path="/test" component={Test} />
               {/* <Route path="/restaurant-page" component={RestaurantPage} /> */}
               {/* check to see if user is login, if not don't show */}
-              {/* {this.state.user ? 
-              <Route path="/profile" component={ProfilePage} /> : ""} */}
-              <Route path="/profile" component={ProfilePage} />
+              {this.state.user ? (
+                <Route path="/profile" component={ProfilePage} />
+              ) : (
+                ""
+              )}
+              {/* <Route path="/profile" component={ProfilePage} /> */}
               <Route to="*" component={ErrorPage} />
             </Switch>
           </main>
