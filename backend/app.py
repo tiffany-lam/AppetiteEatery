@@ -38,7 +38,7 @@ def home_page(name):
 @app.route("/api/restaurant/get/<_id>")
 def restaurant_get(_id):
     db = client["appetite-eatery-db"]
-    restaurant = db.restaurant.find_one({ "_id" : ObjectId(_id) })
+    restaurant = db.restaurants.find_one({ "_id" : ObjectId(_id) })
     return str(restaurant)
 
 @app.errorhandler(404)
