@@ -1,9 +1,12 @@
 @import "../../assets/theme";
 
-.register-form{
+.login-form{
     margin: 25px 30px;
     background-color: inherit;
-    
+    h1{
+        text-align: center;
+        font-size: 20px;
+    }
     .row1{
         display: flex;
         flex-wrap: wrap; 
@@ -16,25 +19,14 @@
     label{
         display: block;
         margin-top: 10px;
-        
-        .radio{
-            float:left;
-            clear:none;
-            padding: 0px 1em 0px 15px;
-            margin-top:none;
-        }
-        
+
     }
     input{
         display: block;
         border: none;
         transition-property: background-color, border-color;
+        margin-right: 4em;
         
-    }
-    input[type=radio]{
-        float: left;
-        clear: none;
-        margin: 2px 0px 0px 2px;
     }
     .error{
         font-size: 10px;
@@ -45,7 +37,7 @@
         align-items: center;
         justify-content: center;
     }
-    .registerBtn{
+    .loginBtn{
         text-align: center;
         cursor: pointer;
         margin-top: 5em;
@@ -54,7 +46,7 @@
         background-color: lightpink;
         border-radius: 2em;
     }
-    .registerBtn:hover{
+    .loginBtn:hover{
         background-color: lightskyblue
     }
 }

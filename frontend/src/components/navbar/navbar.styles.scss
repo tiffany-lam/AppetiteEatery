@@ -177,3 +177,35 @@
     }
   }
 }
+.modalForm{
+  height: 100%;
+  width: 100%;
+  background-color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  
+  ul {
+    margin: 0 0 1rem 0;
+    background-color: transparent;
+    li{
+      button{
+        width: 100%;
+        display: block;
+      }
+    }
+  }
+  button {
+    background-color: lightyellow;
+    width: 100%;
+    text-align: center;
+    margin: 10px;
+    cursor: pointer;
+  }
+  button:hover{
+    background-color: lightpink;
+  }
+  
+
+}

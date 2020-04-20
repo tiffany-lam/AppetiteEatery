@@ -37,7 +37,7 @@ const Navbar = ({ className }) => {
       {/* if showModal is true, then show the modal contents, else show nothing */}
       {showModal ? (
         <CustomModal toggleModal={toggleModal}>
-          <Tabs 
+          <Tabs className = "modalForm"
             labels ={["Login", "Register"]}
             content={[
             <LoginForm/>,

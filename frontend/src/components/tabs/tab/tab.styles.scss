@@ -4,16 +4,16 @@
   width: 5em;
   background-color: inherit;
   border: none;
-  border-bottom: 1px solid black;
+  border-bottom: 3px solid black;
 
   padding: 10px;
 }
 
 .tab-active {
   width: 5em;
-  background-color: inherit;
-  border: none;
-  border-bottom: 1px solid red;
-
+  background-color: lightcyan !important;
+  border-bottom: 3px solid transparent;
+  border-image-slice: 1;
+  border-image-source: linear-gradient(to right, rgb(233, 83, 108), rgb(252, 231, 50));
   padding: 10px;
 }
