@@ -43,8 +43,8 @@ class LoginForm extends Component {
       <div className="login-form">
         <h1>Login</h1>
         <form>
-          <div className="row1">
-            <div className="col1">
+          <div className="row2">
+            <div className="col2">
               {/* Email to register them by */}
               <div className="form-field">
                 <label>Email: </label>
@@ -60,7 +60,7 @@ class LoginForm extends Component {
                 />
               </div>
             </div>
-            <div className="col1">
+            <div className="col2">
               {/* Last name */}
               <div className="form-field">
                 <label>Password: </label>

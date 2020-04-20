@@ -15,9 +15,9 @@
     border-radius: 1em;
       // position: absolute;
     z-index: 5;
-    width: 40rem;
+    width: fit-content;
     height: 30rem;
-    background-color:  lightgrey;
+    background-color:  $background;
 }
 .content-container{
     z-index: 6; 
