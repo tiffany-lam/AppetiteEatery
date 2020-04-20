@@ -6,8 +6,8 @@
   // margin: 2em 3em;
   display: flex;
   flex-direction: column;
-  background-color: $primary;
-  border-radius: 25px;
+  // background-color: $primary;
+  // border-radius: 25px;
 
   .userContainer {
     background-color: $background_dark;
@@ -38,17 +38,24 @@
   }
   
   .userReviews {
-    // background: $secondary_dark;
+    // background: $primary;
+    // border-radius: 15px;
+    margin: 13px;
     // column-count: 2
   }
   
+  .review {
+    background: $light_beige;
+    display: block;
+  }
+
   // TEXT STYLING
   h1, h2 {
     font-weight: bold;
     height: min-content;
     width: 100%;
-    display: flex;
-    justify-self: flex-start;
+    // display: flex;
+    // justify-self: flex-start;
     margin: 10px;
   }
 

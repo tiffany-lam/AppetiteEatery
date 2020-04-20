@@ -133,30 +133,38 @@ class ProfilePage extends Component {
                         <h2>{this.state.name}'s Reviews</h2>
                         {/* <ul>{reviews}</ul> */}
                         <ul>
-                            <li section="review">
-                                <h2>Joe's</h2>
-                                <h3>Date Posted: 3/16/2020</h3>
-                                <h3>Review:</h3>
-                                <p>My favorite Wonton place in the whole wide world! Customer service is definitely top-notch whenever I visit. The pork dumplings are a MUST. You can have it as an appetizer or with some soup. They also accept Google Pay in case you forget your wallet!</p>
+                            <li>
+                                <section className="review">
+                                    <h2>Joe's</h2>
+                                    <h3>Date Posted: 3/16/2020</h3>
+                                    <h3>Review:</h3>
+                                    <p>My favorite Wonton place in the whole wide world! Customer service is definitely top-notch whenever I visit. The pork dumplings are a MUST. You can have it as an appetizer or with some soup. They also accept Google Pay in case you forget your wallet!</p>
+                                </section>
                             </li>
-                            <li>                            <li section="review">
-                                <h2>Prosperitis</h2>
-                                <h3>Date Posted: 9/21/2019</h3>
-                                <h3>Review:</h3>
-                                <p>Came here to fill my smoothie craving one day but left disappointed. Staff took forever to notice me walk in and take my order. I ordered a mango slush but saw that my cup was halfway full? I asked for a new drink but they told me I had to pay for a new one when it wasn't even my fault. The manager clearly needs to train their employees properly. Never coming here again.</p>
-                            </li></li>
-                            <li>                            <li section="review">
-                                <h2>Engrave</h2>
-                                <h3>Date Posted: 8/14/2019</h3>
-                                <h3>Review:</h3>
-                                <p>I ordered three chicken tacos for carryout. Complimentary chips and salsa were a plus, but I received my food cold. Hopefully next time it won't be like that.</p>
-                            </li></li>
-                            <li>                            <li section="review">
+                            <li>
+                                <section className="review">
+                                    <h2>Prosperitis</h2>
+                                    <h3>Date Posted: 9/21/2019</h3>
+                                    <h3>Review:</h3>
+                                    <p>Came here to fill my smoothie craving one day but left disappointed. Staff took forever to notice me walk in and take my order. I ordered a mango slush but saw that my cup was halfway full? I asked for a new drink but they told me I had to pay for a new one when it wasn't even my fault. The manager clearly needs to train their employees properly. Never coming here again.</p>
+                                </section>
+                            </li>
+                            <li>
+                                <section className="review">                      
+                                    <h2>Engrave</h2>
+                                    <h3>Date Posted: 8/14/2019</h3>
+                                    <h3>Review:</h3>
+                                    <p>I ordered three chicken tacos for carryout. Complimentary chips and salsa were a plus, but I received my food cold. Hopefully next time it won't be like that.</p>
+                                </section>
+                            </li>
+                            <li>
+                                <section className="review">
                                 <h2>Waffle House</h2>
                                 <h3>Date Posted: 6/3/2019</h3>
                                 <h3>Review:</h3>
                                 <p>Visited this place with some coworkers and ordered the Waffle House Special. It consisted of strawberries, powdered sugar, melted marshmellows, and chocolate syrup drizzled on top. Absolutely delicious!</p>
-                            </li></li>
+                                </section>
+                            </li>
                         </ul>
                     </section>
                 </section> 
