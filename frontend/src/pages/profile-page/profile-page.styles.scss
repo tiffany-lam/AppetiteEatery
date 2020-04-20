@@ -6,11 +6,19 @@
   // margin: 2em 3em;
   display: flex;
   flex-direction: column;
-  background-color: $secondary;
+  background-color: $primary;
   border-radius: 25px;
 
   .userContainer {
-    background-color: $gray_alto;
+    background-color: $background_dark;
+    border-radius: 25px;
+    margin: 13px;
+    //display: grid;
+    grid-template-columns: auto auto;
+  }
+
+  .userContainer-inner {
+    background-color: $background_dark;
     border-radius: 25px;
     margin: 13px;
     display: grid;
@@ -18,15 +26,35 @@
   }
   
   .userReviews {
-    background: $secondary_dark;
+    // background: $secondary_dark;
     border-radius: 25px;
     column-count: 2;
     padding: 50px;
   }
+
+  h1 {
+    font-size: 2.3em;
+    font-weight: bold;
+    color: #ff6b71;
+    height: min-content;
+    width: 100%;
+    display: flex;
+    justify-self: flex-start;
+  }
+
+  h2 {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: $secondary;
+    height: min-content;
+    width: 100%;
+    display: flex;
+    justify-self: flex-start;
+  }
   
   li {
     font-size: 20px;
-    color: white;
+    // color: white;
     line-height: 2em;
   }
   
