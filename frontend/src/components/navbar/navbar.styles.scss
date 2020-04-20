@@ -3,17 +3,8 @@
 .header-nav {
   // background-color: $background;
 
-  // box-sizing: border-box;
-  // position: fixed;
   z-index: 100;
   padding: 0.5rem 0;
-  // margin-right: $padding_small;
-  // margin-left: $padding_small;
-  // padding-bottom: 1rem;
-  // background-color: salmon;
-  // margin-bottom: 2rem;
-  // height: 4rem;
-  // width: 80%;
 
   display: flex;
   flex-direction: row;
@@ -25,7 +16,6 @@
     z-index: 1;
     flex-grow: 1;
     display: flex;
-    // justify-content: center;
     align-items: center;
 
     // background-color: red;
@@ -53,7 +43,7 @@
     display: flex;
     flex-direction: row;
 
-    background-color: $lime;
+    // background-color: $lime;
 
     li {
       cursor: pointer;

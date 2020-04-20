@@ -2,7 +2,10 @@ import React, { Component } from "react";
 
 import Rating from "../rating/rating.component";
 import FaceIcon from "@material-ui/icons/Face";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
+import StarsRoundedIcon from "@material-ui/icons/StarsRounded";
+import AddIcon from "@material-ui/icons/Add";
 import CloseIcon from "@material-ui/icons/Close";
 
 import "./review-input.styles.scss";
@@ -10,7 +13,7 @@ import "./review-input.styles.scss";
 class ReviewInput extends Component {
   constructor(props) {
     super(props);
-    this.state = { files: [] };
+    this.state = { files: [], rating: 0 };
   }
 
   handleChange = (e) => {
@@ -34,6 +37,10 @@ class ReviewInput extends Component {
 
   resetImg = (e) => {};
 
+  setRating = (rating) => {
+    this.setState({ rating: rating });
+  };
+
   render() {
     const preview = this.state.files.map((fileObj, index) => (
       <div className="review-preview">
@@ -56,12 +63,18 @@ class ReviewInput extends Component {
       <section className="review-input">
         <div className="review-extra">
           <div className="review-user">
-            <FaceIcon></FaceIcon>
+            <img src={this.props.avatar} alt="User" />
             {/* <p>{props.user}</p> */}
-            <p>me</p>
+            <p>{this.props.user}</p>
           </div>
           {/* <div className="review-rating"> */}
-          <Rating rating={3} />
+          <Rating
+            input
+            maxRating={5}
+            icon={<FavoriteIcon />}
+            // icon={<StarsRoundedIcon></StarsRoundedIcon>}
+            setRating={this.setRating}
+          />
           {/* </div> */}
         </div>
         <form className="review-form">
@@ -71,10 +84,12 @@ class ReviewInput extends Component {
             name="review-input"
             rows="8"
             cols="33"
+            placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt alias, minima, rem nemo, doloribus ullam impedit quia maiores repellendus perspiciatis accusantium dolorem quisquam laudantium corrupti. Architecto hic saepe natus consequatur."
           ></textarea>
           <div className="review-form-submit">
             <label htmlFor="upload-img">
-              <AddAPhotoIcon></AddAPhotoIcon>
+              {/* <AddAPhotoIcon></AddAPhotoIcon> */}
+              <AddIcon></AddIcon>
               <input
                 type="file"
                 id="upload-img"
@@ -85,7 +100,7 @@ class ReviewInput extends Component {
               />
             </label>
             <div className="review-preview-container">{preview}</div>
-            <input type="submit" value="Review!" />
+            <input type="submit" value="Post Review" />
           </div>
         </form>
       </section>

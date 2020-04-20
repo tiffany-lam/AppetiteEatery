@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+// redux:
+import { connect } from "react-redux";
+import {
+  setUserAuth,
+  setCurrentUser,
+  resetUserRedux,
+} from "../../redux/user/user.actions";
+
 // custom components:
 import Logo from "../logo/logo.component";
 import CircleButton from "../circle-btn/circle-btn.component";
@@ -18,10 +26,15 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 // custom stylesheet:
 import "./navbar.styles.scss";
 
-const Navbar = ({ className }) => {
+const Navbar = ({ className, ...otherProps }) => {
   const [hideNav, setHideNav] = useState(true);
   //function for showing and hiding our modal
   const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    console.log("YAAAAS");
+    otherProps.setUserAuth("the dog has land");
+  });
 
   const toggleNavBar = () => {
     setHideNav(!hideNav);
@@ -81,4 +94,14 @@ const Navbar = ({ className }) => {
   );
 };
 
-export default Navbar;
+const mapStateToProps = ({ user }) => ({
+  userAuth: user.userAuth,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setUserAuth: (user) => dispatch(setUserAuth(user)),
+  setCurrentUser: (userId) => dispatch(setCurrentUser(userId)),
+  resetUserRedux: () => dispatch(resetUserRedux()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

@@ -1,7 +1,12 @@
 import React, {Component} from "react";
 import firebaseAuth from "./components/auth/firebaseAuth";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
-
+import { connect } from "react-redux";
+import {
+  setUserAuth,
+  setCurrentUser,
+  resetUserRedux,
+} from "./redux/user/user.actions";
 import "./App.scss";
 
 // custom components here:
@@ -81,4 +86,14 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = ({ user }) => ({
+  userAuth: user.userAuth,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setUserAuth: (user) => dispatch(setUserAuth(user)),
+  setCurrentUser: (userId) => dispatch(setCurrentUser(userId)),
+  resetUserRedux: () => dispatch(resetUserRedux()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
