@@ -27,30 +27,34 @@ class ProfilePage extends Component {
         return (
             <React.Fragment>
                 <div className="profile-page-container">
-                    <div className="userContainer">
+                    <section className="userContainer">
                         <h1>{this.state.name}</h1>
                         <h2>@{this.state.userName}</h2>
-                        <img className="profile-img" src={this.state.profilePic} alt="user"/>
-                        <ul>
-                            <li>{this.state.location}</li>
-                            <li>Member Since: {this.state.joinDate}</li>
-                            <li>Places Visited: {this.state.placesVisited}</li>
-                            <li>Reviews: {this.state.reviews}</li>
-                        </ul>
-                        <h3>About</h3>
-                        <p>Tom Dumpling here. Programmer who loves wontons. I give my honest opinions in my reviews.</p>
                         <div className="userContainer-inner">
-                            <h3>Favorites</h3> {/* consider these as links in the future*/}
-                            <p>{this.state.favorites}</p>
-                            <span>
+                            <img className="profile-img" src={this.state.profilePic} alt="user"/>
+                            <div className="userInfo">
+                                <ul className="userInfo">
+                                    <li>{this.state.location}</li>
+                                    <li>Member Since: {this.state.joinDate}</li>
+                                    <li>Places Visited: {this.state.placesVisited}</li>
+                                    <li>Reviews: {this.state.reviews}</li>
+                                </ul>
+                                <h3>About</h3>
+                                <p>Tom Dumpling here. Programmer who loves wontons. I give my honest opinions in my reviews.</p>
+                            </div>
+                            <div id="favorites">
+                                <h3 id="favorites">Favorites</h3> {/* consider these as links in the future*/}
+                                <p id="favorites">{this.state.favorites}</p>
+                            </div>
+                            <span id="checkIn">
                                 <p>img goes here</p>
                                 {/* <img className="map-img" src={this.state.map} alt="map"/> */}
                             </span>
                         </div>
-                    </div>
+                    </section>
                     <Divider />
                     <h2>{this.state.name}'s Reviews</h2>
-                    <div className="userReviews">
+                    <section className="userReviews">
                         <ul>
                             <li>Restaurant: Joe's</li>
                             <li>Date Posted: 3/16/2020</li>
@@ -58,8 +62,6 @@ class ProfilePage extends Component {
                         </ul>
                         <p>My favorite Wonton place in the whole wide world! Customer service is definitely top-notch whenever I visit. The pork dumplings are a MUST. You can have it as an appetizer or with some soup. They also accept Google Pay in case you forget your wallet!</p>
                         {/* <li><img className="review-img" src={this.state.photo} alt="food"/></li> */}
-                    </div>
-                    <div className="userReviews">
                         <ul>
                             <li>Restaurant: Prosperitis</li>
                             <li>Date Posted: 9/21/2019</li>
@@ -67,8 +69,6 @@ class ProfilePage extends Component {
                         </ul>
                         <p>Came here to fill my smoothie craving one day but left disappointed. Staff took forever to notice me walk in and take my order. I ordered a mango slush but saw that my cup was halfway full? I asked for a new drink but they told me I had to pay for a new one when it wasn't even my fault. The manager clearly needs to train their employees properly. Never coming here again.</p>
                         {/* <li><img className="review-img" src={this.state.photo} alt="food"/></li> */}
-                    </div>
-                    <div className="userReviews">
                         <ul>
                             <li>Restaurant: Engrave</li>
                             <li>Date Posted: 8/14/2019</li>
@@ -76,8 +76,6 @@ class ProfilePage extends Component {
                         </ul>
                         <p>I ordered three chicken tacos for carryout. Complimentary chips and salsa were a plus, but I received my food cold. Hopefully next time it won't be like that.</p>
                         {/* <li><img className="review-img" src={this.state.photo} alt="food"/></li> */}
-                    </div>
-                    <div className="userReviews">
                         <ul>
                             <li>Restaurant: Waffle House</li>
                             <li>Date Posted: 6/3/2019</li>

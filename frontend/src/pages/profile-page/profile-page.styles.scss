@@ -13,14 +13,28 @@
     background-color: $background_dark;
     border-radius: 15px;
     margin: 13px;
-    //display: grid;
-    //grid-template-columns: auto auto;
   }
 
   .userContainer-inner {
     margin: 15px;
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    grid-template-areas: 
+      "picture userInfo"
+      "favorites checkIn";
+  }
+
+  .userInfo {
+    grid-area: userInfo;
+  }
+
+  #favorites {
+    grid-area: favorites;
+  }
+
+  #checkIn {
+    grid-area: checkIn;
   }
   
   .userReviews {
@@ -78,7 +92,8 @@
   }
   
   .profile-img {
-    float: left;
+    // float: left;
+    grid-area: picture;
     padding: 20px;
     width: 250px;
     height: 250px;
