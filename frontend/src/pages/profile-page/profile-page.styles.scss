@@ -11,18 +11,16 @@
 
   .userContainer {
     background-color: $background_dark;
-    border-radius: 25px;
+    border-radius: 15px;
     margin: 13px;
     //display: grid;
-    grid-template-columns: auto auto;
+    //grid-template-columns: auto auto;
   }
 
   .userContainer-inner {
-    background-color: $background_dark;
-    border-radius: 25px;
-    margin: 13px;
-    display: grid;
-    grid-template-columns: auto auto;
+    margin: 15px;
+    display: flex;
+    flex-direction: row;
   }
   
   .userReviews {
@@ -50,6 +48,12 @@
     width: 100%;
     display: flex;
     justify-self: flex-start;
+  }
+
+  h3 {
+    font-size: 1.3em;
+    font-weight: bold;
+
   }
   
   li {
