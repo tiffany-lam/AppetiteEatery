@@ -103,7 +103,7 @@ class RegisterForm extends Component {
         const {errors} = this.state;
         return (
             <div className="register-form">
-                
+                <h1>Register</h1> 
                 <form onSubmit={this.signup}>
                     <div className = "row1"> 
                         <div className="col1">

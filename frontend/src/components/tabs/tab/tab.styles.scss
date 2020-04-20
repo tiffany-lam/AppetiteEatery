@@ -15,10 +15,10 @@
 
 .tab-active {
   width: 5em;
-  background-color: lightcyan !important;
-  border-bottom: 3px solid transparent;
+  background-color: $primary !important;
+  border-bottom: 2px solid transparent;
   border-image-slice: 1;
-  border-image-source: linear-gradient(to right, rgb(233, 83, 108), rgb(252, 231, 50));
+  border-image-source: linear-gradient(to right,$lime, rgb(83, 240, 201));
   padding: 10px;
   // width: auto;
 
