@@ -1,6 +1,13 @@
 // IMPORT MAINS
 import React, { Component } from "react";
 
+import { connect } from "react-redux";
+import {
+  setUserAuth,
+  setCurrentUser,
+  resetUserRedux,
+} from "../../redux/user/user.actions";
+
 // IMPORT STYLES
 import "./restaurant-page.styles.scss";
 
@@ -1561,4 +1568,14 @@ class RestaurantPage extends Component {
   }
 }
 
-export default RestaurantPage;
+const mapStateToProps = ({ user }) => ({
+  userAuth: user.userAuth,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setUserAuth: (user) => dispatch(setUserAuth(user)),
+  setCurrentUser: (userId) => dispatch(setCurrentUser(userId)),
+  resetUserRedux: () => dispatch(resetUserRedux()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(RestaurantPage);
