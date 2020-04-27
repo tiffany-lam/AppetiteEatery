@@ -15,7 +15,8 @@ def add_review():
                         restaurant = request.form['restaurant'],
                         rating = request.form['rating'],
                         date = request.form['date'],
-                        content = request.form['content'])
+                        content = request.form['content'],
+                        images = request.form.getlist('images[]'))
 
         print(review.to_json())
         review.save()
