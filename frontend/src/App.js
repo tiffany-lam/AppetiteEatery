@@ -21,6 +21,7 @@ import RestaurantPage from "./pages/restaurant-page/restaurant-page.component";
 import ContactUsPage from "./pages/contact-us-page/contact-us.component";
 import ErrorPage from "./pages/error-page/error-page.component";
 import ProfilePage from "./pages/profile-page/profile-page.component";
+import ApplyPage from "./pages/apply-page/apply-page.component";
 
 class App extends Component {
   unsubscribedFromAuth = null;
@@ -68,8 +69,7 @@ class App extends Component {
               <Route exact path="/" component={HomePage} />
 
               {/* <Route path="/graduated" component={} /> */}
-              {/* <Route exact path="/" component={HomePage} /> */}
-              {/* EXAMPLE: */}
+
               <Route
                 exact
                 path="/restaurant/:restaurantId"
@@ -78,16 +78,17 @@ class App extends Component {
 
               {/* <Route path="/login" component={} /> */}
               {/* <Route path="/graduated" component={} /> */}
+
+              <Route path="/apply" component={ApplyPage} />
               <Route path="/contact-us" component={ContactUsPage} />
               <Route path="/test" component={Test} />
-              {/* <Route path="/restaurant-page" component={RestaurantPage} /> */}
+
               {/* check to see if user is login, if not don't show */}
               {this.state.user ? (
                 <Route path="/profile" component={ProfilePage} />
               ) : (
                 ""
               )}
-              {/* <Route path="/profile" component={ProfilePage} /> */}
               <Route to="*" component={ErrorPage} />
             </Switch>
           </main>

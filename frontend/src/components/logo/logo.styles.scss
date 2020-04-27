@@ -1,5 +1,6 @@
 @import "../../assets/theme";
-@keyframes spin {
+
+@keyframes spin2 {
   from {
     transform: rotate(0deg);
   }
@@ -7,6 +8,7 @@
     transform: rotate(360deg);
   }
 }
+
 .logo-container {
   cursor: pointer;
   display: flex;
@@ -15,15 +17,19 @@
   #ap-text {
     font-size: 2rem;
     font-weight: bold;
-    color: $primary;
+    color: $secondary_dark;
     // font-style: italic;
+    margin-left: 0.5rem;
   }
 
   #petite-text {
     font-size: 2rem;
     font-weight: bold;
     // font-style: italic;
-    color: $primary;
+    color: $secondary_dark;
+    margin-right: 0.5rem;
+
+    transition: color 150ms ease-out;
   }
 
   #eatery-text {
@@ -35,10 +41,13 @@
   }
 
   #fork-knife-icon {
-    background-color: transparent;
+    background-color: $primary;
+    border-radius: 0;
+    // margin-right: 0.5rem;
+    transition: none;
     svg {
       path {
-        fill: $secondary_dark;
+        fill: $background;
       }
     }
   }
@@ -65,10 +74,14 @@
         // background-color: yellow;
 
         path {
-          animation: spin 1s infinite linear;
+          animation: spin2 500ms forwards infinite linear;
           transform-origin: center;
         }
       }
+    }
+
+    #petite-text {
+      color: $primary;
     }
   }
 }

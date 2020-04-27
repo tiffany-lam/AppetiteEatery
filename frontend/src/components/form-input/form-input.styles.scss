@@ -1,0 +1,148 @@
+@import "../../assets/theme";
+
+@mixin shrinkLabel {
+  top: -1rem;
+  left: 0.1rem;
+
+  font-size: 0.8rem;
+
+  font-weight: bold;
+  color: $secondary_dark;
+
+  letter-spacing: 0;
+}
+
+.input-field {
+  position: relative;
+  outline: none;
+  margin-top: 1.2rem;
+  height: 2rem;
+
+  .form-input {
+    // background-color: $background_light;
+    // background-color: yellow;
+    // background-color: red;
+    // height: 2rem;
+    height: 100%;
+    width: 100%;
+    // box-sizing: border-box;
+    padding: 0 0.5rem;
+
+    // font-weight: bold;
+    color: $secondary_dark;
+    font-size: 1rem;
+    letter-spacing: 1px;
+
+    border: none;
+    // border-radius: 2px;
+    border: 1px solid lightgray;
+
+    &:focus {
+      outline: none;
+      border: 1px solid $secondary_dark;
+
+      // box-shadow: $light_box_shadow;
+    }
+
+    &:focus-within {
+      outline: none;
+      border: 1px solid $secondary_dark;
+    }
+
+    &:focus ~ .form-input-label {
+      outline: none;
+      @include shrinkLabel();
+    }
+
+    &:invalid {
+      outline: none;
+      // border: 1px solid $primary;
+      color: $soft_red;
+
+      color: $primary;
+    }
+
+    &:valid {
+      outline: none;
+      // box-shadow: 0 0 5px $lg_lightblue;
+      // border: 1px solid rgb(39, 182, 70);
+      // background-color: ;
+      color: $secondary_dark;
+    }
+
+    // &:required {
+    //   outline: none;
+    //   // color: $soft_red;
+    //   // border: 1px solid blue;
+    //   // border: none;
+    //   border: 1px solid $secondary_dark;
+    //   border: 1px solid lightgray;
+    // }
+  }
+
+  input[type="password"] {
+    letter-spacing: 0.1rem;
+  }
+
+  .form-input-label {
+    // background-color: red;
+    text-transform: uppercase;
+    color: $secondary_dark;
+
+    font-size: 1rem;
+
+    font-weight: normal;
+    letter-spacing: 0.05rem;
+
+    position: absolute;
+    pointer-events: none;
+    left: 0.6rem;
+    top: 0.45rem;
+
+    transition-property: top, left, font-size, font-weight, color,
+      letter-spacing;
+    transition-duration: 200ms;
+    transition-timing-function: ease;
+
+    .required {
+      font-weight: bold;
+      font-size: 1em;
+      color: red;
+    }
+
+    &.shrink {
+      @include shrinkLabel();
+    }
+  }
+
+  .visibility-container {
+    cursor: pointer;
+
+    height: 100%;
+
+    margin-right: 0.5rem;
+
+    position: absolute;
+    bottom: 0;
+    right: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+      background-color: $background_light;
+      path {
+        fill: $secondary_dark;
+      }
+    }
+
+    &:hover {
+      svg {
+        path {
+          fill: $primary;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,40 @@
+@import "../../assets/theme";
+
+.apply-page-container {
+  z-index: 0;
+  height: 100%;
+  // margin: 0 auto;
+  // height: 25rem;
+  // margin-right: $padding_small;
+  // margin-left: $padding_small;
+
+  display: flex;
+  flex-direction: column;
+
+  // background-color: rgb(26, 134, 116);
+
+  form {
+    .custom-version {
+      .form-input {
+        background-color: $secondary;
+        color: white;
+        font-weight: normal;
+        letter-spacing: 0.1rem;
+        border: none;
+      }
+
+      .form-input-label {
+        color: $background_light;
+      }
+
+      .visibility-container {
+        svg {
+          background-color: $secondary;
+          path {
+            fill: $background_light;
+          }
+        }
+      }
+    }
+  }
+}
