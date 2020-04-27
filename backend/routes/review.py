@@ -1,11 +1,11 @@
 from flask import Blueprint, Response, Request, jsonify
-from backend.models.review-model import Review
+from backend.models.reviewmodel import Review
 
 review = Blueprint('review', __name__)
 
 # /api/review/<id>
 @review.route('/<id>', methods=['GET'])
-def retrieve_review:
+def retrieve_review():
     if request.method == 'GET':
         review = request.form['review']
 
