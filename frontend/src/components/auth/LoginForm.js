@@ -84,6 +84,7 @@ class LoginForm extends Component {
               Login
             </button>
           </div>
+          <div><a href = "">Forget Password?</a></div>
         </form>
       </div>
     );

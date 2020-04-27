@@ -11,4 +11,8 @@ import firebase from 'firebase'
     measurementId: "G-PQSPFZV3G7"
   };
   const firebaseAuth = firebase.initializeApp(firebaseConfig);
+  const provider = new firebase.auth.GoogleAuthProvider();
+  export const signInWithGoogle = () => {
+    auth.signInWithPopup(provider);
+  };
   export default firebaseAuth; 

@@ -23,6 +23,7 @@ class RegisterForm extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.signup = this.signup.bind(this);
   }
+  
   validate = () => {
     let nameError = "";
     let emailError = "";
