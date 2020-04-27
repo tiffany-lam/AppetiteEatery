@@ -19,3 +19,4 @@ class Review(Document):
     rating = IntField(required=True, validation=_validate_rating)
     date = DateTimeField(required=True)
     content = StringField(required=True, max_length=1500)
+    images = ListField(URLField())

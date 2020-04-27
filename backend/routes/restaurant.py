@@ -15,7 +15,7 @@ def add_restaurant():
                     friday = request.form['friday'],
                     saturday = request.form['saturday'])
 
-        print(hours.to_json())
+        # print(hours.to_json())
 
         details = Details(parking = request.form['parking'],
                         reservation = request.form['reservation'],
@@ -24,25 +24,10 @@ def add_restaurant():
                         wifi = request.form['wifi'],
                         waitTime = request.form['waitTime'])
 
-        print(details.to_json())
-
-        print(request.form['restaurantName'])
-        print(request.form['restaurantTags'])
-        print(request.form['description'])
-        print(request.form['dateOpen'])
-        print(request.form['ownerid'])
-        print(request.form['address'])
-        print(request.form['city'])
-        print(request.form['zipcode'])
-        print(request.form['state'])
-        print(request.form['location'])
-        print(request.form['website'])
-        print(request.form['menu'])
-        print("Proceeding")
+        # print(details.to_json())
 
         restaurant = Restaurant(restaurantName = request.form['restaurantName'],
-                                # restaurantTags = request.form['restaurantTags'],
-                                restaurantTags = ["testtag1", "testtag2"],
+                                restaurantTags = request.form.getlist('restaurantTags[]'),
                                 description = request.form['description'],
                                 dateOpen = request.form['dateOpen'],
                                 ownerid = request.form['ownerid'],
@@ -50,13 +35,11 @@ def add_restaurant():
                                 city = request.form['city'],
                                 zipcode = request.form['zipcode'],
                                 state = request.form['state'],
-                                # location = request.form['location'],
-                                location = (-71.20, 41.19),
+                                location = [float(i) for i in request.form.getlist('location[]')],
                                 hours = hours,
                                 website = request.form['website'],
-                                # menu = request.form['menu'])
-                                menu = ["http://wwww.menu1.com", "http://wwww.menu2.com"])
+                                menu = request.form.getlist('menu[]'))
 
         restaurant.save()
-        print(restaurant.to_json())
+        # print(restaurant.to_json())
         return restaurant.to_json(), 200
