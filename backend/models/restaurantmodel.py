@@ -5,9 +5,6 @@ from mongoengine.fields import (
     LazyReferenceField, StringField, EmbeddedDocument, EmbeddedDocumentField,
     BooleanField
 )
-# from backend.models.reviewmodel import Review
-# from backend.models.usermodel import Owner
-
 
 PARKING = ("Free", "Paid", "Unavailable")
 

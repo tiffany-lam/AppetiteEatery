@@ -4,7 +4,7 @@ from backend.models.usermodel import Patron, Owner
 user = Blueprint('user', __name__)
 
 # /api/user/patron
-@user.route('/patron', methods=["POST"])
+@user.route('/patron', methods=['POST'])
 def add_patron():
     print(request.method)
     if request.method == 'POST':
@@ -21,7 +21,7 @@ def add_patron():
         return patron.to_json(), 200
 
 # /api/user/owner
-@user.route('/owner', methods=["POST"])
+@user.route('/owner', methods=['POST'])
 def add_owner():
     print(request.method)
     if request.method == 'POST':
