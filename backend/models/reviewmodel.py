@@ -6,8 +6,6 @@ from mongoengine.fields import (
     LazyReferenceField, StringField, EmbeddedDocument, EmbeddedDocumentField,
     BooleanField, ObjectIdField
 )
-# from backend.models.usermodel import Patron
-# from backend.models.restaurantmodel import Restaurant
 
 def _validate_rating(rating):
     if (rating < 1 and rating > 5):

@@ -10,6 +10,7 @@ review = Blueprint('review', __name__)
 def add_review():
     print(request.method)
     if request.method == 'POST':
+
         review = Review(user = request.form['user'], 
                         restaurant = request.form['restaurant'],
                         rating = request.form['rating'],
