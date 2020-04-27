@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Button, Modal } from "react-bootstrap";
-import firebaseAuth from "./firebaseAuth";
+import {firebaseAuth} from "./firebaseAuth";
 // import "bootstrap/dist/css/bootstrap.min.css";
 import "./login.styles.scss";
 class LoginForm extends Component {
