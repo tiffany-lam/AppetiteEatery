@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Button, Modal } from "react-bootstrap";
-import firebaseAuth from "./firebaseAuth";
+import {signInWithGoogle, firebaseAuth} from "./firebaseAuth";
 // import "bootstrap/dist/css/bootstrap.min.css";
 import "./register.styles.scss";
 class RegisterForm extends Component {
@@ -23,6 +23,7 @@ class RegisterForm extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.signup = this.signup.bind(this);
   }
+  
   validate = () => {
     let nameError = "";
     let emailError = "";
@@ -226,6 +227,16 @@ class RegisterForm extends Component {
           <div className="btnDiv">
             <button className="registerBtn" onClick={this.signup} type="submit">
               Register
+            </button>
+            <button className="googleBtn"
+              onClick={() => {
+                try {
+                  signInWithGoogle();
+                } catch (error) {
+                  console.error("Error signing in with Google", error);
+                }
+              }}>
+                Sign up with Google
             </button>
           </div>
         </div>

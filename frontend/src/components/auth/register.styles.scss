@@ -84,4 +84,16 @@
   .registerBtn:hover {
     background-color: $primary;
   }
+  .googleBtn {
+    text-align: center;
+    cursor: pointer;
+    width: 50%;
+    height: 32px;
+    background-color: $lime;
+    border-radius: 2em;
+  }
+  .googleBtn:hover {
+    background-color: $primary;
+  }
+
 }
