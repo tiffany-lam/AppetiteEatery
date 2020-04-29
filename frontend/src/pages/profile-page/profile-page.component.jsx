@@ -14,6 +14,7 @@ import "./profile-page.styles.scss";
 // Importing Other Components
 import Divider from "../../components/divider/divider.component";
 import Review from "../../components/review/review.component";
+import MapContainer from "../../components/map-container/map-container.component";
 
 class ProfilePage extends Component {
   constructor(props) {
@@ -150,10 +151,10 @@ class ProfilePage extends Component {
                 <h3>Favorites</h3> {/* consider these as links in the future */}
                 <p>{this.state.favorites}</p>
               </div>
-              <span id="checkIn"> {/* This is where the checkin map should go */}
-                {/* <p>img goes here</p> */}
-                {/* <img className="map-img" src={this.state.map} alt="map"/> */}
-              </span>
+              <div id="checkIn"> {/* This is where the checkin map should go */}
+                <h3>Check-Ins</h3>
+                <MapContainer />
+              </div>
             </div>
           </section>
           <section className="userReviews">
