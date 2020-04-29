@@ -24,13 +24,13 @@ class ProfilePage extends Component {
       location: "San Francisco, CA",
       joinDate: "1/27/2019",
       placesVisited: "54",
-      reviews: "14",
+      reviewCount: "14",
       favorites: "#wontons, #tacos, #ice-cream, #fruit-smoothies, #matcha",
       profilePic:
         "https://images.unsplash.com/photo-1489481039754-8701aeda983b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1955&q=80",
       // map: "https://www.massive.pr/wp-content/uploads/2018/01/shutterstock_127728257-1038x576-tender-1024x568.jpg",
       // photo: "https://images.unsplash.com/photo-1504544750208-dc0358e63f7f?ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80",
-      /* reviews: [
+      reviews: [
                 {
                     user: {
                         username: "@wontom",
@@ -87,7 +87,7 @@ class ProfilePage extends Component {
                         "https://images.unsplash.com/photo-1506354666786-959d6d497f1a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
                     ],
                 },
-            ], */
+            ],
     };
   }
 
@@ -97,7 +97,7 @@ class ProfilePage extends Component {
   }
 
   render() {
-    /* const reviews = this.state.reviews.map((review) => {
+      const reviews = this.state.reviews.map((review) => {
              return (
                <li key={review.user.username}>
                  <Review
@@ -108,10 +108,10 @@ class ProfilePage extends Component {
                    images={review.images}
                    rating={review.rating}
                  ></Review>
-                 {/* <Divider full={true} /> */
-    /*  </li>
+                 {/* <Divider full={true} /> */}
+                </li>
              );
-        }); */
+        });
 
     return (
       <React.Fragment>
@@ -138,19 +138,19 @@ class ProfilePage extends Component {
                   <li>{this.state.location}</li>
                   <li>Member Since: {this.state.joinDate}</li>
                   <li>Places Visited: {this.state.placesVisited}</li>
-                  <li>Reviews: {this.state.reviews}</li>
+                  <li>Reviews: {this.state.reviewCount}</li>
                 </ul>
                 <h3>About</h3>
                 <p>
-                  Tom Dumpling here. Programmer who loves wontons. I give my
-                  honest opinions in my reviews.
+                  Tom Dumpling here. Programmer who loves wontons. Making the world a better
+                  place one review at a time.
                 </p>
               </div>
               <div id="favorites">
                 <h3>Favorites</h3> {/* consider these as links in the future */}
                 <p>{this.state.favorites}</p>
               </div>
-              <span id="checkIn">
+              <span id="checkIn"> {/* This is where the checkin map should go */}
                 {/* <p>img goes here</p> */}
                 {/* <img className="map-img" src={this.state.map} alt="map"/> */}
               </span>
@@ -158,8 +158,8 @@ class ProfilePage extends Component {
           </section>
           <section className="userReviews">
             <h2>{this.state.name}'s Reviews</h2>
-            {/* <ul>{reviews}</ul> */}
-            <ul>
+            <ul>{reviews}</ul>
+            {/* <ul>
               <li>
                 <section className="review">
                   <h2>Joe's</h2>
@@ -215,7 +215,7 @@ class ProfilePage extends Component {
                   </p>
                 </section>
               </li>
-            </ul>
+            </ul> */}
           </section>
         </section>
       </React.Fragment>
