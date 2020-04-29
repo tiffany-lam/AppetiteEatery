@@ -1,4 +1,5 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
+from flask_cors import CORS
 # from pymongo import MongoClient
 from mongoengine import connect
 import os
@@ -17,6 +18,9 @@ from backend.routes.review import review
 
 app = Flask(__name__, static_url_path='',
             static_folder='build', template_folder='build')
+
+# For development only
+CORS(app)
 
 # Add Routes mounted at associated location - view routes with app.url_map
 app.register_blueprint(restaurant, url_prefix='/api/restaurant')
@@ -59,6 +63,17 @@ def add_test(name):
     test.save()
     return f"Check database for name: {name}"
 
+# Testing Route - Updates test document by query
+@app.route("/api/<name>", methods=['PUT'])
+def update_test(name):
+
+    test = Test.objects(name = name)
+
+    for key in request.args:
+        test.update(**{key: request.args[key]})
+
+    return "updated", 200
+
 # Testing Route - Prints all available urls
 @app.route("/api/urls")
 def view_routes():
@@ -69,6 +84,22 @@ def view_routes():
             urls[rule.rule] = app.view_functions[rule.endpoint].__doc__
 
     return jsonify(urls)
+
+@app.route("/fronttest", methods=['POST'])
+def test_frontend():
+    print(request)
+    print(request.json)
+    print(request.json['tester'])
+    print(request.json['testerarray'])
+    print(request.json['testernested']['testernested1'])
+    print(request.args)
+    for key in request.args:
+        print("key")
+        print(key)
+        print("value")
+        print(request.args[key])
+
+    return "i regret my life", 200
 
 # @app.route("/api/<name>")
 # def home_page(name):
