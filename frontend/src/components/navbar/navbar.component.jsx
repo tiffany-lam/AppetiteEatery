@@ -115,9 +115,25 @@ const Navbar = ({ className, userAuth, setUserAuth, ...otherProps }) => {
           <div className="nav-item-mask"></div>
           {/* <Link to="/login">Login</Link> */}
           {userAuth ? (
-            <a onClick={signOut}>Logout</a>
+            <Link
+              to="/"
+              onClick={(e) => {
+                e.preventDefault();
+                signOut();
+              }}
+            >
+              Logout
+            </Link>
           ) : (
-            <a onClick={toggleModal}>Login</a>
+            <Link
+              to="/"
+              onClick={(e) => {
+                e.preventDefault();
+                toggleModal();
+              }}
+            >
+              Login
+            </Link>
           )}
         </li>
       </ul>

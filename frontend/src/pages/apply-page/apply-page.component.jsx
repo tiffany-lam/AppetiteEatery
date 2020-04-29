@@ -8,6 +8,7 @@ import FormInput from "../../components/form-input/form-input.component";
 import CustomButton from "../../components/custom-button/custom-button.component";
 import ImageUploadInput from "../../components/img-upload-input/img-upload-inputcomponent";
 import SelectInput from "../../components/select-input/select-input.component";
+import HourRangeInput from "../../components/hour-range-input/hour-range.component";
 
 // custom stylesheet:
 import "./apply-page.styles.scss";
@@ -37,33 +38,25 @@ const ApplyPage = () => {
   });
 
   const [hours, setHours] = useState({
-    sunday: "",
-    monday: "",
-    tuesday: "",
-    wednesday: "",
-    thursday: "",
-    friday: "",
-    saturday: "",
+    sundayTo: "",
+    sundayFrom: "",
+    mondayTo: "",
+    mondayFrom: "",
+
+    tuesdayTo: "",
+    tuesdayFrom: "",
+
+    wednesdayTo: "",
+    wednesdayFrom: "",
+
+    thursdayTo: "",
+    thursdayFrom: "",
+
+    fridayTo: "",
+    fridayFrom: "",
+    saturdayTo: "",
+    saturdayFrom: "",
   });
-
-  const manageImageList = (e) => {
-    // e.target.files;
-    // setImages([...images, e.target.value]);
-    console.log(e.target.files);
-    // console.log(URL.createObjectURL(e.target.files));
-    // console.log(images);
-    // let newImageList = [];
-
-    // for (let i = 0; i < e.target.files.length; i++) {
-    //   newImageList.push(e.target.files[i]);
-    // }
-
-    // console.log(newImageList);
-    // setImages(newImageList);
-    // console.log(images);
-
-    setImages([...images, ...Array.from(e.target.files)]);
-  };
 
   return (
     <div className="apply-page-container">
@@ -276,90 +269,101 @@ const ApplyPage = () => {
           min="1"
           additionalInfo="(in hrs)"
         />
-        <h2 className="form-subtitle">Hours</h2>
 
-        <FormInput
-          required
-          type="time"
-          htmlFor="sunday-hours"
+        <h2
+          id="hours-header"
+          className="form-subtitle"
+          onClick={() => {
+            console.log(hours);
+          }}
+        >
+          Hours
+        </h2>
+
+        <HourRangeInput
           label="sunday"
-          value={hours.sunday}
-          handleChange={(e) => {
-            setHours({ ...hours, sunday: e.target.value });
+          className="time-range-input"
+          value1={hours.sundayTo}
+          value2={hours.sundayFrom}
+          handleChange1={(e) => {
+            setHours({ ...hours, sundayTo: e.target.value });
           }}
-          className="input-override hour-input"
+          handleChange2={(e) => {
+            setHours({ ...hours, sundayFrom: e.target.value });
+          }}
         />
 
-        <FormInput
-          required
-          type="time"
-          htmlFor="monday-hours"
+        <HourRangeInput
           label="monday"
-          value={hours.monday}
-          handleChange={(e) => {
-            setHours({ ...hours, monday: e.target.value });
+          className="time-range-input"
+          value1={hours.mondayTo}
+          value2={hours.mondayFrom}
+          handleChange1={(e) => {
+            setHours({ ...hours, mondayTo: e.target.value });
           }}
-          className="input-override hour-input"
+          handleChange2={(e) => {
+            setHours({ ...hours, mondayFrom: e.target.value });
+          }}
         />
-
-        <FormInput
-          required
-          type="time"
-          htmlFor="tuesday-hours"
+        <HourRangeInput
           label="tuesday"
-          value={hours.tuesday}
-          handleChange={(e) => {
-            setHours({ ...hours, tuesday: e.target.value });
+          className="time-range-input"
+          value1={hours.tuesdayTo}
+          value2={hours.tuesdayFrom}
+          handleChange1={(e) => {
+            setHours({ ...hours, tuesdayTo: e.target.value });
           }}
-          className="input-override hour-input"
+          handleChange2={(e) => {
+            setHours({ ...hours, tuesdayFrom: e.target.value });
+          }}
         />
-
-        <FormInput
-          required
-          type="time"
-          htmlFor="wednesday-hours"
+        <HourRangeInput
           label="wednesday"
-          value={hours.wednesday}
-          handleChange={(e) => {
-            setHours({ ...hours, wednesday: e.target.value });
+          className="time-range-input"
+          value1={hours.wednesdayTo}
+          value2={hours.wednesdayFrom}
+          handleChange1={(e) => {
+            setHours({ ...hours, wednesdayTo: e.target.value });
           }}
-          className="input-override hour-input"
+          handleChange2={(e) => {
+            setHours({ ...hours, wednesdayFrom: e.target.value });
+          }}
         />
-
-        <FormInput
-          required
-          type="time"
-          htmlFor="thursday-hours"
+        <HourRangeInput
           label="thursday"
-          value={hours.thursday}
-          handleChange={(e) => {
-            setHours({ ...hours, thursday: e.target.value });
+          className="time-range-input"
+          value1={hours.thursdayTo}
+          value2={hours.thursdayFrom}
+          handleChange1={(e) => {
+            setHours({ ...hours, thursdayTo: e.target.value });
           }}
-          className="input-override hour-input"
+          handleChange2={(e) => {
+            setHours({ ...hours, thursdayFrom: e.target.value });
+          }}
         />
-
-        <FormInput
-          required
-          type="time"
-          htmlFor="friday-hours"
+        <HourRangeInput
           label="friday"
-          value={hours.friday}
-          handleChange={(e) => {
-            setHours({ ...hours, friday: e.target.value });
+          className="time-range-input"
+          value1={hours.fridayTo}
+          value2={hours.fridayFrom}
+          handleChange1={(e) => {
+            setHours({ ...hours, fridayTo: e.target.value });
           }}
-          className="input-override hour-input"
+          handleChange2={(e) => {
+            setHours({ ...hours, fridayFrom: e.target.value });
+          }}
         />
-
-        <FormInput
-          required
-          type="time"
-          htmlFor="saturday-hours"
+        <HourRangeInput
           label="saturday"
-          value={hours.saturday}
-          handleChange={(e) => {
-            setHours({ ...hours, saturday: e.target.value });
+          className="time-range-input"
+          value1={hours.saturdayTo}
+          value2={hours.saturdayFrom}
+          handleChange1={(e) => {
+            setHours({ ...hours, saturdayTo: e.target.value });
           }}
-          className="input-override hour-input"
+          handleChange2={(e) => {
+            setHours({ ...hours, saturdayFrom: e.target.value });
+          }}
         />
 
         <h2 className="form-subtitle">Tags</h2>

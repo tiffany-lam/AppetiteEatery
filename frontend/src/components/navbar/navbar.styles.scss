@@ -106,8 +106,11 @@
         transition: color 200ms ease-in-out;
       }
 
-      &:hover {
+      &:hover,
+      &:focus,
+      &:focus-within {
         a {
+          outline: 0;
           color: $background;
           // font-weight: bold;
         }

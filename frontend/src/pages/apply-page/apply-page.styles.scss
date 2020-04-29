@@ -20,6 +20,14 @@
     max-width: 40rem;
   }
 
+  .time-range-input {
+    margin-bottom: 0.8rem;
+
+    span {
+      // width: 8rem;
+    }
+  }
+
   .apply-form-header {
     // margin-bottom: 1rem;
     padding: 0 0.5rem;
@@ -55,8 +63,10 @@
 
       display: flex;
 
+      // flex-wrap: wrap;
       #city-input {
         flex: 8;
+        min-width: 4.5rem;
       }
       #state-input {
         min-width: 4.5rem;
@@ -73,6 +83,10 @@
     .hour-input {
       // width: 2rem;
       flex-direction: row;
+    }
+
+    #hours-header {
+      margin-bottom: 1.6rem;
     }
   }
 }

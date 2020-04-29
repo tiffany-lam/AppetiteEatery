@@ -26,6 +26,7 @@ const ImageUploadInput = ({
 }) => {
   const [images, setImages] = useState([]);
   const inputRef = React.createRef();
+
   const manageImageList = (e) => {
     console.log(e.target.files);
     setImages([...images, ...Array.from(e.target.files)]);
@@ -65,33 +66,33 @@ const ImageUploadInput = ({
       <div className="img-list">
         {images.map((img, i) => (
           <div className="img-container">
-            <img
-              key={i}
-              src={URL.createObjectURL(img)}
+            <img key={i} src={URL.createObjectURL(img)}></img>
+
+            <div
+              className="img-delete"
               onClick={() => {
                 deleteImage(i);
               }}
-            ></img>
-
-            <div className="img-delete">
+            >
               <DeleteIcon />
             </div>
           </div>
         ))}
 
-        {images.length === 0 ? (
-          <button
-            type="button"
-            className="add-img-btn"
-            onClick={(e) => {
-              inputRef.current.click();
-            }}
-          >
-            <ImageIcon />
-          </button>
-        ) : (
-          ""
-        )}
+        {images.length === 0
+          ? [...Array(4)].map((el, i) => (
+              <button
+                key={i}
+                type="button"
+                className="add-img-btn"
+                onClick={(e) => {
+                  inputRef.current.click();
+                }}
+              >
+                <ImageIcon />
+              </button>
+            ))
+          : ""}
 
         <button
           type="button"
