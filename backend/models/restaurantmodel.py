@@ -49,5 +49,6 @@ class Restaurant(Document):
     details = EmbeddedDocumentField(Details)
     website = URLField()
     menu = ListField(URLField(required=True), required=True)
+    images = ListField(UrlField())
     
     limelightCondition = StringField(default="")
