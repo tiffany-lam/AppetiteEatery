@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import {firebaseAuth} from "./firebaseAuth";
+import {signInWithGoogle, firebaseAuth} from "./firebaseAuth";
 // import "bootstrap/dist/css/bootstrap.min.css";
 import "./selectUserType.styles.scss";
-class selectUserType extends Component {
+class SelectUserType extends Component {
   constructor(props) {
     super(props);
     // //bind method
@@ -12,15 +12,7 @@ class selectUserType extends Component {
         userType: ""
     };
   }
-  login = (e) => {
-    e.preventDefault();
-    firebaseAuth
-      .auth()
-      .signInWithEmailAndPassword(this.state.email, this.state.password)
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+
   handleChange = (e) => {
     const target = e.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
@@ -67,10 +59,21 @@ class selectUserType extends Component {
                 <label className="radio-label" for="restaurantOwner">
                   Owner
                 </label>
+                  <button className="googleBtn"
+                    onClick={() => {
+                      try {
+                        signInWithGoogle(); //from import (firebase)
+                      } catch (error) {
+                        console.error("Error signing in with Google", error);
+                      }           
+        
+              }}>
+                Sign up with Google
+            </button>
             </div>
         </form>
       </div>
     );
   }
 }
-export default selectUserType;
+export default SelectUserType;
