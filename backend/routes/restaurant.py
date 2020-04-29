@@ -38,7 +38,8 @@ def add_restaurant():
                                 location = [float(i) for i in request.form.getlist('location[]')],
                                 hours = hours,
                                 website = request.form['website'],
-                                menu = request.form.getlist('menu[]'))
+                                menu = request.form.getlist('menu[]')
+                                images = request.form.getlist('images[]'))
 
         restaurant.save()
         # print(restaurant.to_json())
