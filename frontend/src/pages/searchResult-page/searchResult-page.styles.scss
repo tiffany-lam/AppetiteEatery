@@ -3,5 +3,36 @@
 }
 .cardSize {
     width: 763px;
-    height: 200px;
+    height: auto;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    padding-bottom: 16px;
+    margin-bottom: 10px;
+    
+}
+
+.restaurantPhoto{
+    height: 150px !important;
+    width: 150px !important;
+    overflow: hidden;
+    padding-top: '56.25%'; // 16:9
+    float: left;
+}
+.cardInfo{
+    padding-left: 2em;
+    overflow: hidden;
+}
+#ratingPadding{
+    padding-left: 0.75em;
+}
+.iconBar{
+    float: right !important;
+    .favIcon:active{
+        color: red;
+    }
+}
+.pagination{
+    align-items: center;
+    text-align: center;
+    margin-top: 15px;
 }
