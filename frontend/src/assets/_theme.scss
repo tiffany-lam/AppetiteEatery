@@ -58,6 +58,13 @@ $gray_slightly_darker: #c5cad4;
 ///////////////////////////////////////////////////////////////
 // LINEAR GRADIENTS HERE:
 ///////////////////////////////////////////////////////////////
+@mixin bg_color_change {
+  transition: background-color 100ms linear;
+}
+
+///////////////////////////////////////////////////////////////
+// LINEAR GRADIENTS HERE:
+///////////////////////////////////////////////////////////////
 $lg_tan: linear-gradient(
   135deg,
   rgba(195, 173, 151, 1) 0%,
@@ -97,7 +104,10 @@ $secondary_light: #000;
 $secondary_dark: $deep_purple_brown;
 
 $background: $apple_beige;
-$background_light: $white;
+// $background: rgb(251, 220, 206);
+// $background: rgb(255, 234, 228);
+
+$background_light: white;
 $background_dark: $dark_beige;
 
 ///////////////////////////////////////////////////////////////
@@ -113,8 +123,8 @@ $background_dark: $dark_beige;
   color: $secondary_dark; // must be selected from MAIN REFERENCE
 }
 
-$page_width_L: 65%;
-$page_width_M: 80%;
+$page_width_L: 75%;
+$page_width_M: 90%;
 $page_width_S: 90%;
 $page_width_XS: 95%;
 
@@ -136,11 +146,28 @@ $page_width_XS: 95%;
 .restaurant-page,
 .contact-us-page-background,
 .profile-page-container,
-.pageBackground {
+.pageBackground,
+.apply-page-container {
   // background-color: black;
   width: $page_width_L;
   padding-bottom: 3rem;
   transition: width 200ms linear;
+}
+
+// WHEN SCREEN SIZE HITS 1024PX:
+@media (max-width: 1280px) {
+  .header-nav,
+  .footer-nav,
+  .error-page-container,
+  .home-page-container,
+  .restaurant-page,
+  .contact-us-page-background,
+  .profile-page-container,
+  .pageBackground,
+  .apply-page-container {
+    // background-color: purple;
+    width: $page_width_M;
+  }
 }
 
 // WHEN SCREEN SIZE HITS 1024PX:
@@ -152,9 +179,10 @@ $page_width_XS: 95%;
   .restaurant-page,
   .contact-us-page-background,
   .profile-page-container,
-  .pageBackground {
+  .pageBackground,
+  .apply-page-container {
     // background-color: purple;
-    width: $page_width_M;
+    width: $page_width_S;
   }
 }
 
@@ -167,8 +195,9 @@ $page_width_XS: 95%;
   .restaurant-page,
   .contact-us-page-background,
   .profile-page-container,
-  .pageBackground {
+  .pageBackground,
+  .apply-page-container {
     // background-color: yellow;
-    width: $page_width_S;
+    width: $page_width_XS;
   }
 }

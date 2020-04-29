@@ -19,7 +19,7 @@ import CustomModal from "../custom-modal/custom-modal.component";
 import Tabs from "../tabs/tabs.component";
 import RegisterForm from "../auth/RegisterForm";
 import LoginForm from "../auth/LoginForm";
-import Rating from "../rating/rating.component";
+import SearchBar from "../../components/search-bar/search-bar.component";
 
 // mui icons:
 import MenuIcon from "@material-ui/icons/Menu";
@@ -71,10 +71,15 @@ const Navbar = ({ className, userAuth, setUserAuth, ...otherProps }) => {
         </CustomModal>
       ) : // this is the else, show nothing
       null}
+
       <div className="logo-container-flex">
         <Link to="/">
           <Logo eVersion={1} uppercase={true} />
         </Link>
+      </div>
+
+      <div className="nav-item-searchbar">
+        <SearchBar />
       </div>
 
       <CircleButton id="menu-btn" onClick={toggleNavBar} hoverRotate={true}>
@@ -92,10 +97,16 @@ const Navbar = ({ className, userAuth, setUserAuth, ...otherProps }) => {
         </li>
 
         {userAuth ? (
-          <li>
-            <div className="nav-item-mask"></div>
-            <Link to="/profile">Profile</Link>{" "}
-          </li>
+          <React.Fragment>
+            <li>
+              <div className="nav-item-mask"></div>
+              <Link to="/profile">Profile</Link>
+            </li>
+            <li>
+              <div className="nav-item-mask"></div>
+              <Link to="/apply">open-shop</Link>
+            </li>
+          </React.Fragment>
         ) : (
           ""
         )}
@@ -104,9 +115,25 @@ const Navbar = ({ className, userAuth, setUserAuth, ...otherProps }) => {
           <div className="nav-item-mask"></div>
           {/* <Link to="/login">Login</Link> */}
           {userAuth ? (
-            <a onClick={signOut}>Logout</a>
+            <Link
+              to="/"
+              onClick={(e) => {
+                e.preventDefault();
+                signOut();
+              }}
+            >
+              Logout
+            </Link>
           ) : (
-            <a onClick={toggleModal}>Login</a>
+            <Link
+              to="/"
+              onClick={(e) => {
+                e.preventDefault();
+                toggleModal();
+              }}
+            >
+              Login
+            </Link>
           )}
         </li>
       </ul>

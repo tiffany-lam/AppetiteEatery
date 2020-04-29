@@ -1,0 +1,207 @@
+@import "../../assets/theme";
+
+@mixin shrinkLabel {
+  top: -1rem;
+  left: 0.1rem;
+
+  font-size: 0.8rem;
+  text-transform: uppercase;
+
+  font-weight: bold;
+  color: $secondary_dark;
+
+  letter-spacing: 0;
+}
+
+.input-field {
+  position: relative;
+  outline: none;
+  margin-top: 1.2rem;
+  height: 2rem;
+  min-width: 10rem;
+
+  .form-input-label {
+    // background-color: red;
+    // text-transform: uppercase;
+    text-transform: capitalize;
+    color: $secondary_dark;
+
+    font-size: 1rem;
+
+    font-weight: normal;
+    letter-spacing: 0.05rem;
+
+    position: absolute;
+    pointer-events: none;
+    left: 0.6rem;
+    top: 0.45rem;
+
+    transition-property: top, left, font-size, font-weight, color,
+      letter-spacing;
+    transition-duration: 200ms;
+    transition-timing-function: ease;
+
+    .required-asterisk {
+      font-weight: bold;
+      font-size: 1em;
+      color: red;
+    }
+
+    .additional-info {
+      font-size: 1em;
+
+      text-transform: lowercase;
+    }
+
+    &.shrink {
+      @include shrinkLabel();
+    }
+  }
+
+  .form-input {
+    // background-color: $background_light;
+    // background-color: yellow;
+    // background-color: red;
+    // height: 2rem;
+    height: 100%;
+    width: 100%;
+    // box-sizing: border-box;
+    padding: 0 0.5rem;
+
+    // font-weight: bold;
+    color: $secondary_dark;
+    font-size: 1rem;
+    letter-spacing: 1px;
+
+    border: none;
+    // border-radius: 2px;
+    border: 1px solid lightgray;
+
+    &:focus {
+      outline: none;
+      border: 1px solid $secondary_dark;
+      // box-shadow: $light_box_shadow;
+    }
+
+    &:focus-within {
+      outline: none;
+      border: 1px solid $secondary_dark;
+    }
+
+    &:invalid {
+      outline: none;
+      // border: 1px solid $primary;
+      // color: $soft_red;
+      color: $primary;
+    }
+
+    &:valid {
+      outline: none;
+      // box-shadow: 0 0 5px $lg_lightblue;
+      // border: 1px solid rgb(39, 182, 70);
+      // background-color: ;
+      color: $secondary_dark;
+    }
+
+    &:hover {
+      outline: none;
+      border: 1px solid $secondary_dark;
+      // box-shadow: $light_box_shadow;
+    }
+
+    // &:required {
+    //   outline: none;
+    //   // color: $soft_red;
+    //   // border: 1px solid blue;
+    //   // border: none;
+    //   border: 1px solid $secondary_dark;
+    //   border: 1px solid lightgray;
+    // }
+  }
+
+  input[type="password"] {
+    letter-spacing: 0.1rem;
+  }
+
+  input[type="time"] {
+    &:invalid {
+      color: white;
+    }
+
+    &:focus-within,
+    &:focus {
+      color: black;
+    }
+  }
+
+  input[type="date"] {
+    color: white;
+    // opacity: 0;
+
+    &:invalid {
+      color: white;
+    }
+
+    &:valid {
+      color: $secondary_dark;
+    }
+
+    &:hover {
+      // color: yellow;
+      // background-color: red;
+    }
+
+    &:focus-within,
+    &:focus {
+      color: black;
+    }
+  }
+
+  .visibility-container {
+    cursor: pointer;
+
+    height: 100%;
+
+    margin-right: 0.5rem;
+
+    position: absolute;
+    bottom: 0;
+    right: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+      background-color: $background_light;
+      path {
+        fill: $secondary_dark;
+      }
+    }
+
+    &:hover {
+      svg {
+        path {
+          fill: $primary;
+        }
+      }
+    }
+  }
+
+  // this is what makes the labal move:
+  &:focus-within,
+  &:focus {
+    .form-input-label {
+      @include shrinkLabel();
+    }
+  }
+}
+
+.textarea {
+  height: 10rem;
+
+  textarea {
+    padding: 0.5rem;
+    resize: none;
+  }
+}

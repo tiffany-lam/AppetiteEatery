@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import "./image-card.styles.scss";
+import { Link } from "react-router-dom";
+
 import Rating from "../../components/rating/rating.component";
+import "./image-card.styles.scss";
 
 const DEFAULT_IMAGE_URL =
   "https://images.unsplash.com/photo-1543362906-acfc16c67564?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2002&q=80";
@@ -10,6 +12,7 @@ const ImageCard = ({
   rating = 3,
   imageUrl = DEFAULT_IMAGE_URL,
   className,
+  to = "/",
   onMouseEnter,
   onMouseLeave,
 }) => {
@@ -21,7 +24,8 @@ const ImageCard = ({
   // });
 
   return (
-    <div
+    <Link
+      to={to}
       className={`image-container ${className}`}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
@@ -34,7 +38,7 @@ const ImageCard = ({
       </div>
       <div className="spotlight-mask"></div>
       <img src={`${imageUrl}`} alt=""></img>
-    </div>
+    </Link>
   );
 };
 
