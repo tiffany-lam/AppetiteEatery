@@ -8,14 +8,25 @@ from mongoengine.fields import (
 
 PARKING = ("Free", "Paid", "Unavailable")
 
+class Hour(EmbeddedDocument):
+    _from = StringField()
+    _to = StringField()
+
 class Hours(EmbeddedDocument):
-    sunday = StringField()
-    monday = StringField()
-    tuesday = StringField()
-    wednesday = StringField()
-    thursday = StringField()
-    friday = StringField()
-    saturday = StringField()
+    # sunday = StringField()
+    # monday = StringField()
+    # tuesday = StringField()
+    # wednesday = StringField()
+    # thursday = StringField()
+    # friday = StringField()
+    # saturday = StringField()
+    sunday = EmbeddedDocumentField(Hour)
+    monday = EmbeddedDocumentField(Hour)
+    tuesday = EmbeddedDocumentField(Hour)
+    wednesday = EmbeddedDocumentField(Hour)
+    thursday = EmbeddedDocumentField(Hour)
+    friday = EmbeddedDocumentField(Hour)
+    saturday = EmbeddedDocumentField(Hour)
 
 class Details(EmbeddedDocument):
     parking = StringField(choices=PARKING)
@@ -25,7 +36,8 @@ class Details(EmbeddedDocument):
     wifi = BooleanField()
     waitTime = StringField()
 
-DEFAULT_HOURS = Hours(sunday="", monday="", tuesday="", wednesday="", thursday="", friday="", saturday="")
+DEFAULT_HOUR = Hour(_from="", _to="")
+DEFAULT_HOURS = Hours(sunday=DEFAULT_HOUR, monday=DEFAULT_HOUR, tuesday=DEFAULT_HOUR, wednesday=DEFAULT_HOUR, thursday=DEFAULT_HOUR, friday=DEFAULT_HOUR, saturday=DEFAULT_HOUR)
 DEFAULT_DETAILS = Details(parking="Unavailable", reservation=False, petsAllowed=False, takeout=False, wifi=False, waitTime="")
 
 class Restaurant(Document):

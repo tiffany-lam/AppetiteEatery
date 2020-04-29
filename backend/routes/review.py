@@ -23,7 +23,7 @@ def add_review():
                 rating = request.json['rating'],
                 date = request.json['date'],
                 content = request.json['content'],
-                images = request.json['images[]'])
+                images = request.json['images'])
 
         print(review.to_json())
         review.save()
