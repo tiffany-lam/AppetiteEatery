@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Button, Modal } from "react-bootstrap";
-import {signInWithGoogle, firebaseAuth} from "./firebaseAuth";
+import {firebaseAuth} from "./firebaseAuth";
+import CustomModal from "../custom-modal/custom-modal.component";
+import SelectUserType from "./SelectUserType";
 // import "bootstrap/dist/css/bootstrap.min.css";
 import "./register.styles.scss";
 class RegisterForm extends Component {
@@ -13,6 +15,7 @@ class RegisterForm extends Component {
       password: "",
       confirmPass: "",
       userType: "",
+      showTypeSelection: false,
       //error validation messages
       errors: {
         email: "",
@@ -22,6 +25,7 @@ class RegisterForm extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.signup = this.signup.bind(this);
+    this.askUserType = this.askUserType.bind(this);
   }
   
   validate = () => {
@@ -86,6 +90,14 @@ class RegisterForm extends Component {
           console.log(error);
         });
     }
+  }
+  componentDidMount(){
+
+  }
+  askUserType (){
+    this.setState({
+      showTypeSelection: true
+    });
   }
 
   /*    handleClick = (e) => {
@@ -229,15 +241,18 @@ class RegisterForm extends Component {
               Register
             </button>
             <button className="googleBtn"
-              onClick={() => {
-                try {
-                  signInWithGoogle();
-                } catch (error) {
-                  console.error("Error signing in with Google", error);
-                }
-              }}>
+              onClick={this.askUserType}>
                 Sign up with Google
             </button>
+            {this.state.showTypeSelection ?
+              <CustomModal>
+              <SelectUserType/>
+              </CustomModal> :
+              null
+          
+            }
+          
+           
           </div>
         </div>
       </React.Fragment>
