@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Button, Modal } from "react-bootstrap";
 import {signInWithGoogle, firebaseAuth} from "./firebaseAuth";
+import CustomModal from "../custom-modal/custom-modal.component";
+import selectUserType from "./selectUserType";
 // import "bootstrap/dist/css/bootstrap.min.css";
 import "./register.styles.scss";
 class RegisterForm extends Component {
@@ -13,6 +15,7 @@ class RegisterForm extends Component {
       password: "",
       confirmPass: "",
       userType: "",
+      viewTypeSelection: false,
       //error validation messages
       errors: {
         email: "",
@@ -87,6 +90,14 @@ class RegisterForm extends Component {
         });
     }
   }
+  componentDidMount(){
+
+  }
+  askUserType =() =>(
+    <CustomModal>
+    <selectUserType></selectUserType>
+    </CustomModal>
+  );
 
   /*    handleClick = (e) => {
         //store the userType here, either Patron or RestaurantOwner
@@ -231,13 +242,32 @@ class RegisterForm extends Component {
             <button className="googleBtn"
               onClick={() => {
                 try {
-                  signInWithGoogle();
+                  signInWithGoogle(); //from import (firebase)
                 } catch (error) {
                   console.error("Error signing in with Google", error);
+                }
+                finally{
+                  this.setState({viewTypeSelection:true});
+                  return(
+                    
+                    <div>
+                        {console.log(this.props.viewTypeSelection)};
+                        {this.state.viewTypeSelection  ?(
+                        <CustomModal>
+                        <selectUserType></selectUserType>
+                        </CustomModal>
+                    ): ""
+                   
+                   }
+                    </div>
+                  
+                  );
+                  
                 }
               }}>
                 Sign up with Google
             </button>
+           
           </div>
         </div>
       </React.Fragment>
