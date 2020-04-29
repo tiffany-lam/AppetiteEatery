@@ -65,9 +65,12 @@
     @include base_font_stack;
   }
 
-  &:hover {
+  &:hover,
+  &:focus,
+  &:focus-within {
     // background-color: red;
     #fork-knife-icon {
+      outline: 0;
       // background-color: blue;
       // background-color: transparent;
       svg {

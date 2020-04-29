@@ -13,7 +13,6 @@ const ImageCard = ({
   imageUrl = DEFAULT_IMAGE_URL,
   className,
   to = "/",
-  key,
   onMouseEnter,
   onMouseLeave,
 }) => {
@@ -26,7 +25,6 @@ const ImageCard = ({
 
   return (
     <Link
-      key={key}
       to={to}
       className={`image-container ${className}`}
       onMouseEnter={onMouseEnter}

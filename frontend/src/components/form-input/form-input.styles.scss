@@ -103,6 +103,12 @@
       color: $secondary_dark;
     }
 
+    &:hover {
+      outline: none;
+      border: 1px solid $secondary_dark;
+      // box-shadow: $light_box_shadow;
+    }
+
     // &:required {
     //   outline: none;
     //   // color: $soft_red;
