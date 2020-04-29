@@ -1,0 +1,117 @@
+@import "../../assets/theme";
+
+@mixin shrinkLabel {
+  top: -1rem;
+  left: 0.1rem;
+
+  font-size: 0.8rem;
+  text-transform: uppercase;
+
+  font-weight: bold;
+  color: $secondary_dark;
+
+  letter-spacing: 0;
+}
+
+.hour-range-input-container {
+  position: relative;
+  // margin-top: 1.2rem;
+  // min-height: 2rem;
+  display: grid;
+  // flex-direction: column;
+
+  gap: 0.2rem;
+  grid-template-columns: 1fr 0fr 1fr 0fr 1fr;
+  grid-template-areas: "time-label label-from input-from label-to input-to";
+
+  .label-from {
+    grid-area: label-from;
+  }
+
+  .label-to {
+    grid-area: label-to;
+  }
+
+  .input-from {
+    grid-area: input-from;
+  }
+  .input-to {
+    grid-area: input-to;
+  }
+
+  .hour-range-input {
+    // flex: 1;
+    // position: relative;
+    // z-index: 0;
+    height: 2rem;
+    min-height: 2rem;
+
+    width: 7rem;
+
+    width: 100%;
+    height: 100%;
+
+    // margin: 0 0.2rem;
+    padding: 0 0.3rem;
+
+    border: 1px solid lightgray;
+
+    &:focus,
+    &:focus-within {
+      outline: none;
+      border: 1px solid $secondary_dark;
+    }
+  }
+
+  .hour-range-input-label {
+    grid-area: time-label;
+    background-color: #ececec;
+    border: 1px solid lightgray;
+
+    width: 100%;
+    height: 2rem;
+    min-height: 2rem;
+
+    text-transform: uppercase;
+    color: $secondary_dark;
+
+    font-size: 1rem;
+
+    font-weight: normal;
+    letter-spacing: 0.05rem;
+
+    // position: absolute;
+    // pointer-events: none;
+
+    padding: 0.5rem 1rem;
+    margin-right: 0.2rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .required-asterisk {
+      font-weight: bold;
+      font-size: 1em;
+      color: red;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .hour-range-input-container {
+    // background-color: red;
+    display: grid;
+
+    grid-template-columns: 0fr 1fr 0fr 1fr;
+    // grid-template-rows: 50px 100px;
+    gap: 0;
+
+    grid-template-areas:
+      "time-label time-label time-label time-label"
+      "label-from input-from label-to input-to";
+    .hour-range-input {
+      margin-left: 0;
+    }
+  }
+}

@@ -1,7 +1,7 @@
 @import "../../assets/theme";
 
 .footer-nav {
-  // padding: 0.3rem 0;
+  padding: 0.5rem 0;
   // position: fixed;
   margin: 0;
 
@@ -11,6 +11,16 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+
+  ul {
+    li {
+      a {
+        color: $background_light;
+        // color: $secondary_dark;
+        text-transform: uppercase;
+      }
+    }
+  }
 
   // width: 80%;
 

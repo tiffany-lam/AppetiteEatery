@@ -142,16 +142,23 @@ const HomePage = () => {
 
         {restaurants.map((restaurant, i) => (
           // <div className="gallery-item"></div>
-          <Link key={i} to={`/restaurant/${restaurant.id}`}>
-            <ImageCard
-              className="image-lights-up-limelight"
-              onMouseEnter={enableLimelightGlow}
-              onMouseLeave={disableLimeLightGlow}
-              name={restaurant.name}
-              rating={restaurant.rating}
-              imageUrl={restaurant.url}
-            />
-          </Link>
+          // <Link
+          //   key={i}
+          //   to={`/restaurant/${restaurant.id}`}
+          //   onFocus={enableLimelightGlow}
+          //   onBlur={disableLimeLightGlow}
+          // >
+          <ImageCard
+            key={i}
+            to={`/restaurant/${restaurant.id}`}
+            className="image-lights-up-limelight"
+            onMouseEnter={enableLimelightGlow}
+            onMouseLeave={disableLimeLightGlow}
+            name={restaurant.name}
+            rating={restaurant.rating}
+            imageUrl={restaurant.url}
+          />
+          // </Link>
         ))}
       </div>
     </div>

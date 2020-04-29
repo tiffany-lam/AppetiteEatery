@@ -1,0 +1,79 @@
+@import "../../assets/theme";
+
+@mixin shrinkLabel {
+  top: -1rem;
+  left: 0.1rem;
+
+  font-size: 0.8rem;
+  text-transform: uppercase;
+
+  font-weight: bold;
+  color: $secondary_dark;
+
+  letter-spacing: 0;
+}
+
+.select-input-container {
+  position: relative;
+
+  margin-top: 1.2rem;
+  height: 2rem;
+
+  display: flex;
+  flex-direction: column;
+
+  .select-input {
+    position: relative;
+    z-index: 0;
+    height: 2rem;
+    // padding-left: 0.25rem;
+    padding: 0 0.3rem;
+
+    border: 1px solid lightgray;
+
+    &:focus,
+    &:focus-within {
+      outline: none;
+      border: 1px solid $secondary_dark;
+    }
+  }
+
+  .select-input-label {
+    position: relative;
+    z-index: 100;
+    text-transform: capitalize;
+    color: $secondary_dark;
+
+    font-size: 1rem;
+
+    font-weight: normal;
+    letter-spacing: 0.05rem;
+
+    position: absolute;
+    pointer-events: none;
+    left: 0.6rem;
+    top: 0.45rem;
+
+    transition-property: top, left, font-size, font-weight, color,
+      letter-spacing;
+    transition-duration: 200ms;
+    transition-timing-function: ease;
+
+    .required-asterisk {
+      font-weight: bold;
+      font-size: 1em;
+      color: red;
+    }
+
+    &.shrink {
+      @include shrinkLabel();
+    }
+  }
+
+  &:focus-within,
+  &:focus {
+    .select-input-label {
+      @include shrinkLabel();
+    }
+  }
+}
