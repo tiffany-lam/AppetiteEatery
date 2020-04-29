@@ -65,8 +65,8 @@ const ImageUploadInput = ({
 
       <div className="img-list">
         {images.map((img, i) => (
-          <div className="img-container">
-            <img key={i} src={URL.createObjectURL(img)}></img>
+          <div key={i} className="img-container">
+            <img src={URL.createObjectURL(img)}></img>
 
             <div
               className="img-delete"

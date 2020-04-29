@@ -79,13 +79,15 @@ class App extends Component {
               {/* <Route path="/login" component={} /> */}
               {/* <Route path="/graduated" component={} /> */}
 
-              <Route path="/apply" component={ApplyPage} />
               <Route path="/contact-us" component={ContactUsPage} />
               <Route path="/test" component={Test} />
 
               {/* check to see if user is login, if not don't show */}
               {this.state.user ? (
-                <Route path="/profile" component={ProfilePage} />
+                <React.Fragment>
+                  <Route path="/apply" component={ApplyPage} />
+                  <Route path="/profile" component={ProfilePage} />
+                </React.Fragment>
               ) : (
                 ""
               )}
