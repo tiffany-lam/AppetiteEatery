@@ -6,13 +6,25 @@ const restaurantCard = props =>{
     } = props.restaurant || {}
 
     return(
-        <div>
-            <div>Restaurant title</div>
-            <div>Restaurant rating</div>
-            <div>Restaurant photo </div>
-            <div>Restaurant location</div>
+        <Card className = "cardSize">
+            <CardPrimaryContent className ="mdc-card_primary-action" tabindex="0">
+                 <CardMedia /> {/*restaurantPhoto here */}
+                 <div className = "card__primary">
+                     <Headline6 className = "card__title">Restaurant Name</Headline6>
+                     <Subtitle2 className = "card__subtitle">Address</Subtitle2>
+                 </div>
 
-        </div>
+            </CardPrimaryContent>
+            <CardActions>
+                <IconButton>
+                    <MaterialIcon icon='favorite_border' />
+                </IconButton>
+                <IconButton>
+                    <MaterialIcon icon='share' />
+                </IconButton>
+            </CardActions>
+
+        </Card>
 
     )
     

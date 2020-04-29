@@ -15,12 +15,14 @@ import Test from "./components/test/test.component";
 import RegisterModal from "./components/auth/RegisterForm";
 import FooterNav from "./components/footer-nav/footer-nav.component";
 
+
 // page components here:
 import HomePage from "./pages/home-page/home-page.component";
 import RestaurantPage from "./pages/restaurant-page/restaurant-page.component";
 import ContactUsPage from "./pages/contact-us-page/contact-us.component";
 import ErrorPage from "./pages/error-page/error-page.component";
 import ProfilePage from "./pages/profile-page/profile-page.component";
+import SearchResult from "./pages/searchResult-page/SearchResult";
 
 class App extends Component {
   unsubscribedFromAuth = null;
@@ -74,6 +76,11 @@ class App extends Component {
                 exact
                 path="/restaurant/:restaurantId"
                 component={RestaurantPage}
+              />
+              <Route
+                exact
+                path="/search"
+                component={SearchResult}
               />
 
               {/* <Route path="/login" component={} /> */}
