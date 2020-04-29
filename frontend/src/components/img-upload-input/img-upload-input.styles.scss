@@ -1,0 +1,110 @@
+@import "../../assets/theme";
+
+.img-upload-container {
+  display: flex;
+  flex-direction: column;
+
+  .img-upload-label {
+    // background-color: $secondary;
+    // margin-top: 0.8rem;
+    width: fit-content;
+    // padding: 0.5rem;
+
+    // color: $background_light;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    font-weight: bold;
+    // letter-spacing: 0.1rem;
+  }
+
+  .img-upload-input {
+    opacity: 0;
+    width: 0.1px;
+    height: 0.1px;
+  }
+
+  .img-list {
+    display: flex;
+    margin-top: 0.5rem;
+    flex-wrap: wrap;
+    width: 100%;
+    // background-color: red;
+
+    .img-container {
+      cursor: pointer;
+      position: relative;
+      width: 5rem;
+      height: 5rem;
+      margin-right: 0.25rem;
+      margin-bottom: 0.25rem;
+      object-fit: cover;
+      background-color: rgb(236, 236, 236);
+      border: 1px solid lightgray;
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+
+      .img-delete {
+        position: absolute;
+        display: none;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        // background-color: red;
+        background-color: rgba(white, 0.5);
+
+        svg {
+          path {
+            fill: red;
+          }
+        }
+      }
+
+      &:hover {
+        border: 1px solid $secondary_dark;
+
+        .img-delete {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+    }
+
+    .add-img-btn {
+      cursor: pointer;
+      width: 5rem;
+      height: 5rem;
+      margin-right: 0.25rem;
+      margin-bottom: 0.25rem;
+      object-fit: cover;
+      background-color: rgb(236, 236, 236);
+      border: 1px solid lightgray;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      svg {
+        path {
+          fill: gray;
+        }
+      }
+
+      &:hover,
+      &:focus-within {
+        outline: none;
+        border: 1px solid $secondary_dark;
+
+        svg {
+          path {
+            fill: $secondary_dark;
+          }
+        }
+      }
+    }
+  }
+}

@@ -5,6 +5,7 @@
   left: 0.1rem;
 
   font-size: 0.8rem;
+  text-transform: uppercase;
 
   font-weight: bold;
   color: $secondary_dark;
@@ -17,6 +18,44 @@
   outline: none;
   margin-top: 1.2rem;
   height: 2rem;
+
+  .form-input-label {
+    // background-color: red;
+    // text-transform: uppercase;
+    text-transform: capitalize;
+    color: $secondary_dark;
+
+    font-size: 1rem;
+
+    font-weight: normal;
+    letter-spacing: 0.05rem;
+
+    position: absolute;
+    pointer-events: none;
+    left: 0.6rem;
+    top: 0.45rem;
+
+    transition-property: top, left, font-size, font-weight, color,
+      letter-spacing;
+    transition-duration: 200ms;
+    transition-timing-function: ease;
+
+    .required-asterisk {
+      font-weight: bold;
+      font-size: 1em;
+      color: red;
+    }
+
+    .additional-info {
+      font-size: 1em;
+
+      text-transform: lowercase;
+    }
+
+    &.shrink {
+      @include shrinkLabel();
+    }
+  }
 
   .form-input {
     // background-color: $background_light;
@@ -40,7 +79,6 @@
     &:focus {
       outline: none;
       border: 1px solid $secondary_dark;
-
       // box-shadow: $light_box_shadow;
     }
 
@@ -49,16 +87,10 @@
       border: 1px solid $secondary_dark;
     }
 
-    &:focus ~ .form-input-label {
-      outline: none;
-      @include shrinkLabel();
-    }
-
     &:invalid {
       outline: none;
       // border: 1px solid $primary;
-      color: $soft_red;
-
+      // color: $soft_red;
       color: $primary;
     }
 
@@ -84,34 +116,37 @@
     letter-spacing: 0.1rem;
   }
 
-  .form-input-label {
-    // background-color: red;
-    text-transform: uppercase;
-    color: $secondary_dark;
-
-    font-size: 1rem;
-
-    font-weight: normal;
-    letter-spacing: 0.05rem;
-
-    position: absolute;
-    pointer-events: none;
-    left: 0.6rem;
-    top: 0.45rem;
-
-    transition-property: top, left, font-size, font-weight, color,
-      letter-spacing;
-    transition-duration: 200ms;
-    transition-timing-function: ease;
-
-    .required {
-      font-weight: bold;
-      font-size: 1em;
-      color: red;
+  input[type="time"] {
+    &:invalid {
+      color: white;
     }
 
-    &.shrink {
-      @include shrinkLabel();
+    &:focus-within,
+    &:focus {
+      color: black;
+    }
+  }
+
+  input[type="date"] {
+    color: white;
+    // opacity: 0;
+
+    &:invalid {
+      color: white;
+    }
+
+    &:valid {
+      color: $secondary_dark;
+    }
+
+    &:hover {
+      // color: yellow;
+      // background-color: red;
+    }
+
+    &:focus-within,
+    &:focus {
+      color: black;
     }
   }
 
@@ -144,5 +179,22 @@
         }
       }
     }
+  }
+
+  // this is what makes the labal move:
+  &:focus-within,
+  &:focus {
+    .form-input-label {
+      @include shrinkLabel();
+    }
+  }
+}
+
+.textarea {
+  height: 10rem;
+
+  textarea {
+    padding: 0.5rem;
+    resize: none;
   }
 }

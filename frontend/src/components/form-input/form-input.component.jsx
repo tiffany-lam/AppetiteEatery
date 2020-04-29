@@ -6,12 +6,15 @@ import VisibilityIcon from "@material-ui/icons/Visibility";
 import "./form-input.styles.scss";
 
 const FormInput = ({
+  id,
   handleChange,
   label,
   className,
   type,
+  htmlFor, // used for accessibility
   // required,
-  ...otherProps
+  additionalInfo,
+  ...props
 }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
@@ -26,29 +29,51 @@ const FormInput = ({
   };
 
   return (
-    <div className={`input-field ${className ? className : ""}`}>
-      <input
-        {...otherProps}
-        type={determineInputType()}
-        onChange={handleChange}
-        className="form-input"
-      ></input>
-
+    <div
+      id={id}
+      className={`input-field ${type === "textarea" ? " textarea" : ""} ${
+        className ? className : ""
+      }`}
+    >
       {label ? (
         <label
-          className={`${otherProps.value ? "shrink" : ""} form-input-label`}
+          htmlFor={htmlFor}
+          className={`${props.value ? "shrink" : ""} form-input-label`}
         >
-          {otherProps.required ? (
-            <React.Fragment>
-              {label}
-              <span className="required">*</span>
-            </React.Fragment>
-          ) : (
-            label
-          )}
+          <React.Fragment>
+            {label}
+            {props.required ? (
+              <span className="required-asterisk">*</span>
+            ) : null}
+            {additionalInfo ? (
+              <span className="additional-info">{` ${additionalInfo}`}</span>
+            ) : null}
+          </React.Fragment>
         </label>
       ) : null}
 
+      {/* render textarea element */}
+      {type === "textarea" ? (
+        <textarea
+          {...props}
+          id={htmlFor}
+          onChange={handleChange}
+          className="form-input"
+        ></textarea>
+      ) : null}
+
+      {/* render regular input types */}
+      {type !== "textarea" ? (
+        <input
+          {...props}
+          id={htmlFor}
+          type={determineInputType()}
+          onChange={handleChange}
+          className={`form-input`}
+        ></input>
+      ) : null}
+
+      {/* render password visibility icon */}
       {type === "password" ? (
         <div
           className="visibility-container"

@@ -10,31 +10,69 @@
 
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
   // background-color: rgb(26, 134, 116);
 
+  .input-override {
+    margin-top: 1.6rem;
+    max-width: 40rem;
+  }
+
+  .apply-form-header {
+    // margin-bottom: 1rem;
+    padding: 0 0.5rem;
+    width: 100%;
+    background-color: rgba(white, 0.2);
+
+    // border-bottom: 3px solid $secondary;
+    border-left: 2.5rem solid $secondary;
+
+    height: 2.5rem;
+
+    color: $secondary;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+
+    display: flex;
+    align-items: center;
+  }
+
   form {
-    .custom-version {
-      .form-input {
-        background-color: $secondary;
-        color: white;
-        font-weight: normal;
-        letter-spacing: 0.1rem;
-        border: none;
-      }
+    .form-subtitle {
+      color: $primary;
+      font-size: 1.2rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      margin-top: 1rem;
+    }
 
-      .form-input-label {
-        color: $background_light;
-      }
+    .city-state-zip-container {
+      width: 100%;
+      max-width: 40rem;
 
-      .visibility-container {
-        svg {
-          background-color: $secondary;
-          path {
-            fill: $background_light;
-          }
-        }
+      display: flex;
+
+      #city-input {
+        flex: 8;
       }
+      #state-input {
+        min-width: 4.5rem;
+        flex: 1;
+        margin-left: 1rem;
+      }
+      #zipcode-input {
+        min-width: 6rem;
+        flex: 1;
+        margin-left: 1rem;
+      }
+    }
+
+    .hour-input {
+      // width: 2rem;
+      flex-direction: row;
     }
   }
 }
