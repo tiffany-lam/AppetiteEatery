@@ -7,6 +7,9 @@ import os
 # from bson import ObjectId
 from flask import jsonify
 
+# S3
+import boto3
+
 # Testing Purposes Only
 from backend.models.testmodel import Test
 
@@ -18,6 +21,13 @@ from backend.routes.review import review
 
 app = Flask(__name__, static_url_path='',
             static_folder='build', template_folder='build')
+
+# S3 Bucket Configuration
+s3 = boto3.resource(
+    "s3",
+    aws_access_key_id=os.getenv('S3_ACCESS_KEY_ID'),
+    aws_secret_access_key=os.getenv('S3_SECRET_ACCESS_KEY')
+)
 
 # For development only
 CORS(app)
@@ -36,6 +46,9 @@ print('PRINTING ENVIRONMENT VARIABLES')
 print(f"MONGODB_URI={os.getenv('MONGODB_URI')}")
 print(f"FLASK_APP={os.getenv('FLASK_APP')}")
 print(f'CWD: {os.getcwd()}')
+print(f"S3_BUCKET={os.getenv('S3_BUCKET')}")
+print(f"S3_ACCESS_KEY_ID={os.getenv('S3_ACCESS_KEY_ID')}")
+print(f"S3_SECRET_ACCESS_KEY={os.getenv('S3_SECRET_ACCESS_KEY')}")
 print('---------------------------------------------------------------')
 
 

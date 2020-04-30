@@ -1,6 +1,10 @@
 from flask import Blueprint, Response, request, jsonify
 from backend.models.restaurantmodel import Restaurant, Details, Hours, Hour
 from bson import ObjectId
+
+import boto3
+from backend.config import S3_USERNAME, S3_BUCKET, S3_ACCESS_KEY_ID, S3_SECRET_ACCESS_KEY
+
 restaurant = Blueprint('restaurant', __name__)
 
 # /api/restaurant
@@ -9,6 +13,7 @@ def get_restaurant():
     # print(request.method)
     # print(request.json)
     if request.method == 'POST':
+
         # hours = Hours(sunday = request.form['sunday'],
         #             monday = request.form['monday'],
         #             tuesday = request.form['tuesday'],
@@ -71,8 +76,8 @@ def get_restaurant():
                                 hours = hours,
                                 details = details,
                                 website = request.json['website'],
-                                menu = request.json['menu'],
-                                images = request.json['images'])
+                                menu = request.json['menu'])
+                                # images = request.json['images'])
 
         restaurant.save()
         # print(restaurant.to_json())
@@ -114,5 +119,36 @@ def update_restaurant(id):
 
             return restaurant.to_json(), 200
 
+@restaurant.route('/img-upload/<_id>', methods=['POST', 'PUT'])
+def upload_images(_id):
+    print("Img upload called")
+    s3_resource = boto3.resource(
+        "s3",
+        aws_access_key_id = S3_ACCESS_KEY_ID,
+        aws_secret_access_key = S3_SECRET_ACCESS_KEY
+    )
 
-    
+    files = request.files.getlist("images[]")
+    filenames = []
+
+    for image in files:
+        print(f"Dealing with image {image.filename}")
+        s3_resource.Bucket(S3_BUCKET).put_object(Key=f'restaurants/{_id}/{image.filename}', Body=image)
+        filenames.append(f'restaurant/{_id}/{image.filename}')
+        print(f"Finished with image {image.filename}")
+
+    return jsonify(filenames)
+
+@restaurant.route('/img-get/<_id>', methods=['GET'])
+def get_image(_id):
+    print("Img get called")
+    s3_resource = boto3.resource(
+        "s3",
+        aws_access_key_id = S3_ACCESS_KEY_ID,
+        aws_secret_access_key = S3_SECRET_ACCESS_KEY
+    )
+
+    fileurl = request.args['url']
+
+    image = s3_resource.Object(S3_BUCKET, fileurl).get()
+    return image['Body'].read(), { "Content-Type": "image/png, image/jpg"}
