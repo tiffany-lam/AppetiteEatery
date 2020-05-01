@@ -24,6 +24,7 @@ class ProfilePage extends Component {
       fname: "Tom",
       lname: "Dumpling",
       userName: "@wontom",
+      type: "Restaurant Patron",
       placesVisited: "54",
       reviewCount: "4",
       tags: [
@@ -130,6 +131,7 @@ class ProfilePage extends Component {
       <React.Fragment>
         <section className="profile-page-container">
           <section className="userContainer">
+            <p id="accountType">{this.state.type}</p>
             <h1> {/* this is where the fname and lname should be */}
               {this.props.userAuth
                 ? this.props.userAuth.uid.slice(0, 8)
