@@ -77,8 +77,8 @@ def get_restaurant():
                                 location = request.json['location'],
                                 hours = hours,
                                 details = details,
-                                website = request.json['website'],
-                                menu = request.json['menu'])
+                                website = request.json['website'])
+                                # menu = request.json['menu'])
                                 # images = request.json['images'])
 
         restaurant.save()
@@ -97,17 +97,26 @@ def get_restaurant():
             aws_secret_access_key = S3_SECRET_ACCESS_KEY
         )
 
-        files = request.files.getlist("images[]")
-        filenames = []
+        imagefiles = request.files.getlist("images[]")
+        imageurls = []
 
-        for image in files:
+        for image in imagefiles:
             print(f"Dealing with image {image.filename}")
             s3_resource.Bucket(S3_BUCKET).put_object(Key=f'restaurants/{id}/{image.filename}', Body=image)
-            filenames.append(f'restaurant/{id}/{image.filename}')
+            imageurls.append(f'restaurant/{id}/{image.filename}')
             print(f"Finished with image {image.filename}")
 
+        menufiles = request.files.getlist("menu[]")
+        menuurls = []
+
+        for image in menufiles:
+            print(f"Dealing with image {image.filename}")
+            s3_resource.Bucket(S3_BUCKET).put_object(Key=f'restaurants/{id}/{image.filename}', Body=image)
+            menuurls.append(f'restaurant/{id}/{image.filename}')
+            print(f"Finished with image {image.filename}")
         
-        restaurant.update(images = filenames)
+        restaurant.update(images = imageurls)
+        restaurant.update(menu = menuurls)
 
         print(restaurant.to_json())
 
@@ -141,6 +150,8 @@ def update_restaurant(id):
                 updated_review = review.fetch().to_mongo().to_dict()
                 updated_review['user'] = review.fetch().user.fetch().to_mongo().to_dict()
                 updated_restaurant['reviews'].append(updated_review)
+
+            updated_restaurant['ownerid'] = restaurant.ownerid.fetch().to_mongo().to_dict()
 
             return json.dumps(updated_restaurant, default=str), 200
 
@@ -191,20 +202,10 @@ def update_restaurant(id):
 
         print("Called delete")
 
-        s3_resource.Bucket(S3_BUCKET).objects.filter(Prefix=f'restaurant/{id}').delete()
+        s3_resource.Bucket(S3_BUCKET).objects.filter(Prefix=f'restaurants/{id}').delete()
 
         restaurant = Restaurant.objects.with_id(id)
         restaurant.delete()
-
-        # for image in restaurant.images:
-        #     s3_resource.Bucket(S3_BUCKET).delete_objects(Key=image)
-        
-        # print(restaurant.reviews)
-        # dereferencedreviews = []
-        # for review in restaurant.reviews:
-        #     dereferencedreviews.append(review.fetch().to_json())
-
-        # print(dereferencedreviews)
 
         return f'{id} deleted successfully', 200
 
@@ -222,24 +223,19 @@ def upload_images(_id):
     )
 
     files = request.files.getlist("images[]")
-    # filenames = []
 
     restaurant = Restaurant.objects.with_id(_id)
 
     for image in files:
         print(f"Dealing with image {image.filename}")
         s3_resource.Bucket(S3_BUCKET).put_object(Key=f'restaurants/{_id}/{image.filename}', Body=image)
-        # filenames.append(f'restaurant/{_id}/{image.filename}')
         if f'restaurant/{_id}/{image.filename}' not in restaurant.images:
             restaurant.images.append(f'restaurant/{_id}/{image.filename}')
         print(f"Finished with image {image.filename}")
 
-    # print(filenames)
-    # restaurant.images.append(filenames)
     restaurant.save()
 
     print(restaurant.images)
-    # images = restaurant.images
 
     return restaurant.to_json(), 200
 

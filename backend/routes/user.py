@@ -67,6 +67,7 @@ def delete_client():
                 for review in client.reviews:
                     s3_resource.Bucket(S3_BUCKET).objects.filter(Prefix=f'restaurant/{review.fetch().restaurant}/reviews/{client._id}').delete()
             
+            s3_resource.Bucket(S3_BUCKET).objects.filter(Prefix=f'id/').delete()
             client.delete()
 
         elif client._cls == 'Client.Owner':
@@ -74,4 +75,5 @@ def delete_client():
                 for restaurant in client.restaurants:
                     s3_resource.Bucket(S3_BUCKET).objects.filter(Prefix=f'restaurant/{restaurant.fetch()._id}').delete()
 
-                client.delete()
+            s3_resource.Bucket(S3_BUCKET).objects.filter(Prefix=f'id/').delete()
+            client.delete()
