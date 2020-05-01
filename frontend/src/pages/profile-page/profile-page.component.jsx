@@ -131,7 +131,6 @@ class ProfilePage extends Component {
       <React.Fragment>
         <section className="profile-page-container">
           <section className="userContainer">
-            <p id="accountType">{this.state.type}</p>
             <h1> {/* this is where the fname and lname should be */}
               {this.props.userAuth
                 ? this.props.userAuth.uid.slice(0, 8)
@@ -142,6 +141,7 @@ class ProfilePage extends Component {
                 ? this.props.userAuth.email
                 : this.state.lname}
             </h2>
+            <p id="accountType">{this.state.type}</p>
             <div className="userContainer-inner">
                 <div id="col1">
                   <img
