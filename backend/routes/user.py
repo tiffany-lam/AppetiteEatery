@@ -1,5 +1,8 @@
 from flask import Blueprint, Response, request, jsonify
-from backend.models.usermodel import Patron, Owner
+from backend.models.usermodel import Client, Patron, Owner
+
+import boto3
+from backend.config import S3_USERNAME, S3_BUCKET, S3_ACCESS_KEY_ID, S3_SECRET_ACCESS_KEY
 
 user = Blueprint('user', __name__)
 
@@ -46,3 +49,29 @@ def add_owner():
         owner.save()
 
         return owner.to_json(), 200
+
+@user.route('/<id>', methods=['DELETE'])
+def delete_client():
+    print(request.method)
+    if request.method == 'DELETE':
+        client = Client.objects.objects.with_id(id)
+
+        s3_resource = boto3.resource(
+            "s3",
+            aws_access_key_id = S3_ACCESS_KEY_ID,
+            aws_secret_access_key = S3_SECRET_ACCESS_KEY
+        )
+
+        if client._cls == 'Client.Patron':
+            if client.reviews:
+                for review in client.reviews:
+                    s3_resource.Bucket(S3_BUCKET).objects.filter(Prefix=f'restaurant/{review.fetch().restaurant}/reviews/{client._id}').delete()
+            
+            client.delete()
+
+        elif client._cls == 'Client.Owner':
+            if client.restaurants:
+                for restaurant in client.restaurants:
+                    s3_resource.Bucket(S3_BUCKET).objects.filter(Prefix=f'restaurant/{restaurant.fetch()._id}').delete()
+
+                client.delete()

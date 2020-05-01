@@ -32,14 +32,14 @@ def add_review():
         review.save()
 
         files = request.files.getlist("images[]")
-        fileurls = upload_images(request.json['restaurant'], files)
+        fileurls = upload_images(request.restaurant, request.user, files)
 
         review.images = fileurls
         review.save()
 
         return review.to_json(), 200
 
-def upload_images(_id, files):
+def upload_images(restaurantid, userid, files):
     print("Img upload called")
     s3_resource = boto3.resource(
         "s3",
@@ -51,8 +51,8 @@ def upload_images(_id, files):
 
     for image in files:
         print(f"Dealing with image {image.filename}")
-        s3_resource.Bucket(S3_BUCKET).put_object(Key=f'restaurants/{_id}/{image.filename}', Body=image)
-        filenames.append(f'restaurant/{_id}/{image.filename}')
+        s3_resource.Bucket(S3_BUCKET).put_object(Key=f'restaurants/{restaurantid}/reviews/{userid}/{image.filename}', Body=image)
+        filenames.append(f'restaurants/{restaurantid}/reviews/{userid}/{image.filename}')
         print(f"Finished with image {image.filename}")
 
     return filenames

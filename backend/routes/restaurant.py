@@ -1,6 +1,6 @@
 from flask import Blueprint, Response, request, jsonify
 from backend.models.restaurantmodel import Restaurant, Details, Hours, Hour
-# from backend.models.usermodel import Client, Owner, Patron
+from backend.models.usermodel import Owner
 from bson import ObjectId
 import json
 
@@ -86,6 +86,10 @@ def get_restaurant():
 
         id = restaurant.id
         print(id)
+
+        owner = Owner.objects.objects.with_id(restaurant.ownerid)
+        owner.restaurant.append(id)
+        owner.save()
 
         s3_resource = boto3.resource(
             "s3",
@@ -207,7 +211,7 @@ def update_restaurant(id):
     else:
         return "API not found", 404
 
-
+#
 @restaurant.route('/img-upload/<_id>', methods=['POST', 'PUT'])
 def upload_images(_id):
     print("Img upload called")
@@ -218,25 +222,29 @@ def upload_images(_id):
     )
 
     files = request.files.getlist("images[]")
-    filenames = []
+    # filenames = []
+
+    restaurant = Restaurant.objects.with_id(_id)
 
     for image in files:
         print(f"Dealing with image {image.filename}")
         s3_resource.Bucket(S3_BUCKET).put_object(Key=f'restaurants/{_id}/{image.filename}', Body=image)
-        filenames.append(f'restaurant/{_id}/{image.filename}')
+        # filenames.append(f'restaurant/{_id}/{image.filename}')
+        if f'restaurant/{_id}/{image.filename}' not in restaurant.images:
+            restaurant.images.append(f'restaurant/{_id}/{image.filename}')
         print(f"Finished with image {image.filename}")
 
-    restaurant = Restaurant.objects.with_id(_id)
-
-    print(restaurant.images)
-
-    restaurant.images.append(filenames)
+    # print(filenames)
+    # restaurant.images.append(filenames)
     restaurant.save()
 
     print(restaurant.images)
+    # images = restaurant.images
 
-    return restaurant.images.to_json
+    return restaurant.to_json(), 200
 
+# /api/restaurant/img-get/<_id>
+# <img src="http://127.0.0.1:5000/api/restaurant/img-get/<_id>"
 @restaurant.route('/img-get/<_id>', methods=['GET'])
 def get_image(_id):
     print("Img get called")

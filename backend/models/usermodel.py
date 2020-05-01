@@ -15,4 +15,4 @@ class Patron(Client):
     reviews = ListField(LazyReferenceField('Review'))
 
 class Owner(Client):
-    restaurantid = ListField(LazyReferenceField('Restaurant'))
+    restaurants = ListField(LazyReferenceField('Restaurant'))
