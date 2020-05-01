@@ -1,8 +1,9 @@
 from datetime import datetime
 from mongoengine import Document
+from mongoengine import CASCADE
 from mongoengine.fields import (
     StringField, DateTimeField, IntField, ListField, GeoPointField, URLField, 
-    LazyReferenceField, StringField, EmbeddedDocument, EmbeddedDocumentField,
+    LazyReferenceField, ReferenceField, StringField, EmbeddedDocument, EmbeddedDocumentField,
     BooleanField
 )
 
@@ -48,8 +49,9 @@ class Restaurant(Document):
     description = StringField(required=True, max_length=2500)
     dateOpen = DateTimeField(required=True)
 
-    ownerid = LazyReferenceField('Owner', required=True)
+    ownerid = LazyReferenceField('Owner', required=True, reverse_delete_rule=CASCADE)
     reviews = ListField(LazyReferenceField('Review'), default=list)
+    # reviews = ListField(ReferenceField('Review'), default=list)
 
     address = StringField(required=True)
     city = StringField(required=True)
@@ -59,8 +61,13 @@ class Restaurant(Document):
 
     hours = EmbeddedDocumentField(Hours, required=True, default=DEFAULT_HOURS)
     details = EmbeddedDocumentField(Details)
-    website = URLField()
-    menu = ListField(URLField(required=True), required=True)
-    images = ListField(URLField())
+
+    website = StringField()
+    menu = ListField(StringField(required=True), required=True)
+    images = ListField(StringField())
+
+    # website = URLField()
+    # menu = ListField(URLField(required=True), required=True)
+    # images = ListField(URLField())
     
     limelightCondition = StringField(default="")

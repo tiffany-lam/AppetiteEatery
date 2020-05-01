@@ -8,6 +8,7 @@ class Client(Document):
     _id = ObjectIdField(primary_key=True)
     fname = StringField(required=True)
     lname = StringField(required=True)
+    avatar = StringField()
     email = EmailField(unique=True, required=True)
 
 class Patron(Client):

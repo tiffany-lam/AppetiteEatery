@@ -1,6 +1,8 @@
 from flask import Blueprint, Response, request, jsonify
 from backend.models.restaurantmodel import Restaurant, Details, Hours, Hour
+# from backend.models.usermodel import Client, Owner, Patron
 from bson import ObjectId
+import json
 
 import boto3
 from backend.config import S3_USERNAME, S3_BUCKET, S3_ACCESS_KEY_ID, S3_SECRET_ACCESS_KEY
@@ -80,7 +82,31 @@ def get_restaurant():
                                 # images = request.json['images'])
 
         restaurant.save()
-        # print(restaurant.to_json())
+        print(restaurant.to_json())
+
+        id = restaurant.id
+        print(id)
+
+        s3_resource = boto3.resource(
+            "s3",
+            aws_access_key_id = S3_ACCESS_KEY_ID,
+            aws_secret_access_key = S3_SECRET_ACCESS_KEY
+        )
+
+        files = request.files.getlist("images[]")
+        filenames = []
+
+        for image in files:
+            print(f"Dealing with image {image.filename}")
+            s3_resource.Bucket(S3_BUCKET).put_object(Key=f'restaurants/{id}/{image.filename}', Body=image)
+            filenames.append(f'restaurant/{id}/{image.filename}')
+            print(f"Finished with image {image.filename}")
+
+        
+        restaurant.update(images = filenames)
+
+        print(restaurant.to_json())
+
         return restaurant.to_json(), 200
 
     elif request.method == 'GET':
@@ -95,7 +121,7 @@ def get_restaurant():
             return restaurants_json, 200
 
 # /api/restaurant
-@restaurant.route('/<id>', methods=['GET', 'PUT'])
+@restaurant.route('/<id>', methods=['GET', 'PUT', 'DELETE'])
 def update_restaurant(id):
     if request.method == 'GET':
         restaurant = Restaurant.objects.with_id(id)
@@ -104,7 +130,15 @@ def update_restaurant(id):
             return str(restaurant), 404
 
         else:
-            return restaurant.to_json(), 200
+            updated_restaurant = restaurant.to_mongo().to_dict()
+            updated_restaurant['reviews'] = []
+
+            for review in restaurant.reviews:
+                updated_review = review.fetch().to_mongo().to_dict()
+                updated_review['user'] = review.fetch().user.fetch().to_mongo().to_dict()
+                updated_restaurant['reviews'].append(updated_review)
+
+            return json.dumps(updated_restaurant, default=str), 200
 
     elif request.method == 'PUT':
         restaurant = Restaurant.objects.with_id(id)
@@ -113,11 +147,66 @@ def update_restaurant(id):
             return str(restaurant), 404
 
         else: 
+
+            s3_resource = boto3.resource(
+                "s3",
+                aws_access_key_id = S3_ACCESS_KEY_ID,
+                aws_secret_access_key = S3_SECRET_ACCESS_KEY
+            )
+
+            if (request.files):
+                files = request.files.getlist("images[]")
+                filenames = []
+
+                for image in files:
+                    print(f"Dealing with image {image.filename}")
+                    s3_resource.Bucket(S3_BUCKET).put_object(Key=f'restaurants/{id}/{image.filename}', Body=image)
+                    filenames.append(f'restaurant/{id}/{image.filename}')
+                    print(f"Finished with image {image.filename}")
+
+                print(restaurant.images)
+
+                restaurant.images.append(filenames)
+                restaurant.save()
+
+            if (request.args["images"] and (request.args["images"] != restaurant.images)):
+                for image in restaurant.images not in request.args["images"]:
+                    s3_resource.Bucket(S3_BUCKET).delete_objects(Key=image)
             
             for key in request.args:
                 restaurant.update(**{key: request.args[key]})
 
             return restaurant.to_json(), 200
+
+    elif request.method == 'DELETE':
+        s3_resource = boto3.resource(
+            "s3",
+            aws_access_key_id = S3_ACCESS_KEY_ID,
+            aws_secret_access_key = S3_SECRET_ACCESS_KEY
+        )
+
+        print("Called delete")
+
+        s3_resource.Bucket(S3_BUCKET).objects.filter(Prefix=f'restaurant/{id}').delete()
+
+        restaurant = Restaurant.objects.with_id(id)
+        restaurant.delete()
+
+        # for image in restaurant.images:
+        #     s3_resource.Bucket(S3_BUCKET).delete_objects(Key=image)
+        
+        # print(restaurant.reviews)
+        # dereferencedreviews = []
+        # for review in restaurant.reviews:
+        #     dereferencedreviews.append(review.fetch().to_json())
+
+        # print(dereferencedreviews)
+
+        return f'{id} deleted successfully', 200
+
+    else:
+        return "API not found", 404
+
 
 @restaurant.route('/img-upload/<_id>', methods=['POST', 'PUT'])
 def upload_images(_id):
@@ -137,7 +226,16 @@ def upload_images(_id):
         filenames.append(f'restaurant/{_id}/{image.filename}')
         print(f"Finished with image {image.filename}")
 
-    return jsonify(filenames)
+    restaurant = Restaurant.objects.with_id(_id)
+
+    print(restaurant.images)
+
+    restaurant.images.append(filenames)
+    restaurant.save()
+
+    print(restaurant.images)
+
+    return restaurant.images.to_json
 
 @restaurant.route('/img-get/<_id>', methods=['GET'])
 def get_image(_id):
@@ -151,4 +249,5 @@ def get_image(_id):
     fileurl = request.args['url']
 
     image = s3_resource.Object(S3_BUCKET, fileurl).get()
+
     return image['Body'].read(), { "Content-Type": "image/png, image/jpg"}

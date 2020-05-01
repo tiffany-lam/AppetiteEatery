@@ -9,13 +9,10 @@ from backend.config import S3_USERNAME, S3_BUCKET, S3_ACCESS_KEY_ID, S3_SECRET_A
 review = Blueprint('review', __name__)
 
 # /api/review
-@review.route('', methods=['POST'])
+@review.route('', methods=['POST', 'GET', 'DELETE'])
 def add_review():
     print(request.method)
     if request.method == 'POST':
-
-        files = request.files.getlist("images[]")
-        fileurls = upload_images(request.json['restaurant'], files)
 
         # review = Review(user = request.form['user'], 
         #                 restaurant = request.form['restaurant'],
@@ -28,10 +25,16 @@ def add_review():
                 restaurant = request.json['restaurant'],
                 rating = request.json['rating'],
                 date = request.json['date'],
-                content = request.json['content'],
-                images = fileurls)
+                content = request.json['content'])
+                # images = fileurls)
 
         print(review.to_json())
+        review.save()
+
+        files = request.files.getlist("images[]")
+        fileurls = upload_images(request.json['restaurant'], files)
+
+        review.images = fileurls
         review.save()
 
         return review.to_json(), 200
@@ -67,3 +70,23 @@ def get_image(_id):
 
     image = s3_resource.Object(S3_BUCKET, fileurl).get()
     return image['Body'].read(), { "Content-Type": "image/png, image/jpg"}
+
+@review.route('<id>', methods=['DELETE'])
+def delete_review(id):
+    print(request.method)
+    if request.method == 'DELETE':
+        s3_resource = boto3.resource(
+            "s3",
+            aws_access_key_id = S3_ACCESS_KEY_ID,
+            aws_secret_access_key = S3_SECRET_ACCESS_KEY
+        )
+
+        print("Called delete")
+
+        review = Review.objects.with_id(id)
+
+        s3_resource.Bucket(S3_BUCKET).objects.filter(Prefix=f'{review.restaurant}/reviews/{id}' ).delete()
+
+        review.delete()
+
+        return f'{id} delete successfully', 200
