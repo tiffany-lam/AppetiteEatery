@@ -14,6 +14,7 @@ import "./profile-page.styles.scss";
 // Importing Other Components
 import Divider from "../../components/divider/divider.component";
 import Review from "../../components/review/review.component";
+import Tag from "../../components/tag/tag.component";
 import MapContainer from "../../components/map-container/map-container.component";
 
 class ProfilePage extends Component {
@@ -25,7 +26,13 @@ class ProfilePage extends Component {
       userName: "@wontom",
       placesVisited: "54",
       reviewCount: "14",
-      tags: "#wontons, #tacos, #ice-cream, #fruit-smoothies, #matcha",
+      tags: [
+        "Wontons",
+        "Tacos",
+        "Ice-Cream",
+        "Fruit-Smoothies", 
+        "Matcha",
+      ],
       profilePic:
         "https://images.unsplash.com/photo-1489481039754-8701aeda983b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1955&q=80",
       // map: "https://www.massive.pr/wp-content/uploads/2018/01/shutterstock_127728257-1038x576-tender-1024x568.jpg",
@@ -97,6 +104,12 @@ class ProfilePage extends Component {
   }
 
   render() {
+      const tags = this.state.tags.map((tag) => {
+        return (
+          <Tag key={tag}>{tag}</Tag>
+        );
+      });
+
       const reviews = this.state.reviews.map((review) => {
              return (
                <li key={review.user.username}>
@@ -128,27 +141,28 @@ class ProfilePage extends Component {
                 : this.state.lname}
             </h2>
             <div className="userContainer-inner">
-              <img
-                className="profile-img"
-                src={this.state.profilePic}
-                alt="user"
-              />
-                <div id="aboutMe">
-                <h3>About Me</h3> 
-                <p>
-                  Tom Dumpling here. Programmer who loves wontons. Making the world a better
-                  place one review at a time.
-                </p>
-              </div>
-              <div className="userInfo">
+                <div id="col1">
+                  <img
+                    className="profile-img"
+                    src={this.state.profilePic}
+                    alt="user"
+                  />
+                  <h3>Favorites:</h3>
+                  <ul id="favorites">{tags}</ul>
+                </div>
+                <div id="col2">
+                  <h3>About Me</h3> 
+                  <p>
+                    Tom Dumpling here. Programmer who loves wontons. Making the world a better
+                    place one review at a time.
+                  </p>
+                  <h3>Check-Ins</h3>
+                  <div id="checkIn"><MapContainer /></div>
+            </div>
+              {/* <div className="favorites">
                 <h3>Favorites:</h3>
                 <p>{this.state.tags}</p>
-                {/*<li>Places Visited: {this.state.placesVisited}</li>*/}
-              </div>
-              <div id="checkIn"> {/* This is where the checkin map should go */}
-                <h3>Check-Ins</h3>
-                <MapContainer />
-              </div>
+              </div> */}
             </div>
           </section>
           <section className="userReviews">
