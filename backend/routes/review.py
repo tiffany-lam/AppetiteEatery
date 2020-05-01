@@ -1,17 +1,22 @@
 from flask import Blueprint, Response, request, jsonify
+
+# Models
 from backend.models.reviewmodel import Review
 
+# JSON
 from flask import jsonify
 
+# S3 Access
 import boto3
 from backend.config import S3_USERNAME, S3_BUCKET, S3_ACCESS_KEY_ID, S3_SECRET_ACCESS_KEY
 
 review = Blueprint('review', __name__)
 
 # /api/review
-@review.route('', methods=['POST', 'GET', 'DELETE'])
+# POST - upload a new review
+@review.route('', methods=['POST'])
 def add_review():
-    print(request.method)
+    
     if request.method == 'POST':
 
         # review = Review(user = request.form['user'], 
@@ -28,48 +33,26 @@ def add_review():
                 content = request.json['content'])
                 # images = fileurls)
 
-        print(review.to_json())
         review.save()
 
-        files = request.files.getlist("images[]")
-        fileurls = upload_images(request.restaurant, request.user, files)
+        s3_resource = boto3.resource(
+            "s3",
+            aws_access_key_id = S3_ACCESS_KEY_ID,
+            aws_secret_access_key = S3_SECRET_ACCESS_KEY
+        )
 
-        review.images = fileurls
+        files = request.files.getlist("images[]")
+        id = review._id
+
+        for image in files:
+            # print(f'Dealing with image {image.filename}')
+            s3_resource.Bucket(S3_BUCKET).put_object(Key=f'restaurants/{review.restaurant}/reviews/{id}/{image.filename}', Body=image)
+            review.images.append(f'restaurant/{review.restaurant}/reviews/{id}/{image.filename}')
+            # print(f'Finished with image {image.filename}')
+
         review.save()
 
         return review.to_json(), 200
-
-def upload_images(restaurantid, userid, files):
-    print("Img upload called")
-    s3_resource = boto3.resource(
-        "s3",
-        aws_access_key_id = S3_ACCESS_KEY_ID,
-        aws_secret_access_key = S3_SECRET_ACCESS_KEY
-    )
-
-    filenames = []
-
-    for image in files:
-        print(f"Dealing with image {image.filename}")
-        s3_resource.Bucket(S3_BUCKET).put_object(Key=f'restaurants/{restaurantid}/reviews/{userid}/{image.filename}', Body=image)
-        filenames.append(f'restaurants/{restaurantid}/reviews/{userid}/{image.filename}')
-        print(f"Finished with image {image.filename}")
-
-    return filenames
-
-@review.route('/img-get/<_id>', methods=['GET'])
-def get_image(_id):
-    print("Img get called")
-    s3_resource = boto3.resource(
-        "s3",
-        aws_access_key_id = S3_ACCESS_KEY_ID,
-        aws_secret_access_key = S3_SECRET_ACCESS_KEY
-    )
-
-    fileurl = request.args['url']
-
-    image = s3_resource.Object(S3_BUCKET, fileurl).get()
-    return image['Body'].read(), { "Content-Type": "image/png, image/jpg"}
 
 @review.route('<id>', methods=['DELETE'])
 def delete_review(id):

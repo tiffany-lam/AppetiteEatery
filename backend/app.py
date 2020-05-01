@@ -2,32 +2,24 @@ from flask import Flask, render_template, request
 from flask_cors import CORS
 # from pymongo import MongoClient
 from mongoengine import connect
-import os
 
 # from bson import ObjectId
 from flask import jsonify
-
-# S3
-import boto3
 
 # Testing Purposes Only
 from backend.models.testmodel import Test
 
 # Route Imports
-
 from backend.routes.restaurant import restaurant
 from backend.routes.user import user
 from backend.routes.review import review
 
+# S3 Access
+import boto3
+from backend.config import S3_USERNAME, S3_BUCKET, S3_ACCESS_KEY_ID, S3_SECRET_ACCESS_KEY
+
 app = Flask(__name__, static_url_path='',
             static_folder='build', template_folder='build')
-
-# S3 Bucket Configuration
-s3 = boto3.resource(
-    "s3",
-    aws_access_key_id=os.getenv('S3_ACCESS_KEY_ID'),
-    aws_secret_access_key=os.getenv('S3_SECRET_ACCESS_KEY')
-)
 
 # For development only
 CORS(app)
@@ -119,6 +111,22 @@ def test_frontend():
 #     db = client["appetite-eatery-db"]
 #     db.test.insert_one({"name": name})
 #     return f"Check database for name: {name}"
+
+# /api/img-get
+# <img src="http://127.0.0.1:5000/api/img-get?url="
+# GET - return requested image
+@restaurant.route('/api/img-get', methods=['GET'])
+def get_image():
+    s3_resource = boto3.resource(
+        "s3",
+        aws_access_key_id = S3_ACCESS_KEY_ID,
+        aws_secret_access_key = S3_SECRET_ACCESS_KEY
+    )
+
+    fileurl = request.args['url']
+    image = s3_resource.Object(S3_BUCKET, fileurl).get()
+
+    return image['Body'].read(), { "Content-Type": "image/png, image/jpg"}
 
 @app.errorhandler(404)
 def page_not_found(e):

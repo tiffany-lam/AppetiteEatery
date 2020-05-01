@@ -1,19 +1,25 @@
 from flask import Blueprint, Response, request, jsonify
+
+# Models
 from backend.models.restaurantmodel import Restaurant, Details, Hours, Hour
 from backend.models.usermodel import Owner
+
+# JSON 
 from bson import ObjectId
 import json
 
+# S3 Access
 import boto3
 from backend.config import S3_USERNAME, S3_BUCKET, S3_ACCESS_KEY_ID, S3_SECRET_ACCESS_KEY
 
 restaurant = Blueprint('restaurant', __name__)
 
 # /api/restaurant
+# GET - returns all restaurants (unpopulated)
+# POST - save a restaurant with relevant data
 @restaurant.route('', methods=['GET', 'POST'])
-def get_restaurant():
-    # print(request.method)
-    # print(request.json)
+def add_restaurant():
+    
     if request.method == 'POST':
 
         # hours = Hours(sunday = request.form['sunday'],
@@ -82,10 +88,7 @@ def get_restaurant():
                                 # images = request.json['images'])
 
         restaurant.save()
-        print(restaurant.to_json())
-
         id = restaurant.id
-        print(id)
 
         owner = Owner.objects.objects.with_id(restaurant.ownerid)
         owner.restaurant.append(id)
@@ -101,24 +104,22 @@ def get_restaurant():
         imageurls = []
 
         for image in imagefiles:
-            print(f"Dealing with image {image.filename}")
+            # print(f"Dealing with image {image.filename}")
             s3_resource.Bucket(S3_BUCKET).put_object(Key=f'restaurants/{id}/{image.filename}', Body=image)
             imageurls.append(f'restaurant/{id}/{image.filename}')
-            print(f"Finished with image {image.filename}")
+            # print(f"Finished with image {image.filename}")
 
         menufiles = request.files.getlist("menu[]")
         menuurls = []
 
         for image in menufiles:
-            print(f"Dealing with image {image.filename}")
+            # print(f"Dealing with image {image.filename}")
             s3_resource.Bucket(S3_BUCKET).put_object(Key=f'restaurants/{id}/{image.filename}', Body=image)
             menuurls.append(f'restaurant/{id}/{image.filename}')
-            print(f"Finished with image {image.filename}")
+            # print(f"Finished with image {image.filename}")
         
         restaurant.update(images = imageurls)
         restaurant.update(menu = menuurls)
-
-        print(restaurant.to_json())
 
         return restaurant.to_json(), 200
 
@@ -132,10 +133,16 @@ def get_restaurant():
         else: 
             restaurants_json = restaurants_collection.to_json()
             return restaurants_json, 200
+    else:
+        return "API not found", 404
 
-# /api/restaurant
+
+# /api/restaurant/<id>
+# GET - return a specific restaurant's information deeply based on id
+# PUT - updated a specific restaurant's information
+# DELETE - delete a specific restaurant
 @restaurant.route('/<id>', methods=['GET', 'PUT', 'DELETE'])
-def update_restaurant(id):
+def modify_restaurant(id):
     if request.method == 'GET':
         restaurant = Restaurant.objects.with_id(id)
 
@@ -171,22 +178,29 @@ def update_restaurant(id):
 
             if (request.files):
                 files = request.files.getlist("images[]")
-                filenames = []
 
                 for image in files:
-                    print(f"Dealing with image {image.filename}")
-                    s3_resource.Bucket(S3_BUCKET).put_object(Key=f'restaurants/{id}/{image.filename}', Body=image)
-                    filenames.append(f'restaurant/{id}/{image.filename}')
-                    print(f"Finished with image {image.filename}")
+                    # print(f"Dealing with image {image.filename}")
+                    if f'restaurant/{id}/{image.filename}' not in restaurant.images:
+                        s3_resource.Bucket(S3_BUCKET).put_object(Key=f'restaurants/{id}/{image.filename}', Body=image)
+                        restaurant.images.append(f'restaurant/{id}/{image.filename}')
+                    # print(f"Finished with image {image.filename}")
 
-                print(restaurant.images)
-
-                restaurant.images.append(filenames)
                 restaurant.save()
+
+                files = request.files.getlist("menu[]")
+
+                for menu in files:
+                    # print(f"Dealing with menu {menu.filename}")
+                    if f'restaurant/{id}/{menu.filename}' not in restaurant.menu:
+                        s3_resource.Bucket(S3_BUCKET).put_object(Key=f'restaurant/{id}/{menu.filename}', Body=image)
+                        restaurant.menu.append(f'restaurant/{id}/{menu.filename}')
+                    # print(f"Finished with menu {menu.filename}")
 
             if (request.args["images"] and (request.args["images"] != restaurant.images)):
                 for image in restaurant.images not in request.args["images"]:
                     s3_resource.Bucket(S3_BUCKET).delete_objects(Key=image)
+
             
             for key in request.args:
                 restaurant.update(**{key: request.args[key]})
@@ -200,8 +214,6 @@ def update_restaurant(id):
             aws_secret_access_key = S3_SECRET_ACCESS_KEY
         )
 
-        print("Called delete")
-
         s3_resource.Bucket(S3_BUCKET).objects.filter(Prefix=f'restaurants/{id}').delete()
 
         restaurant = Restaurant.objects.with_id(id)
@@ -212,10 +224,10 @@ def update_restaurant(id):
     else:
         return "API not found", 404
 
-#
-@restaurant.route('/img-upload/<_id>', methods=['POST', 'PUT'])
-def upload_images(_id):
-    print("Img upload called")
+# /api/restaurant/img-upload/<id>
+# PUT, POST - update/upload a new image for a restaurant
+@restaurant.route('/img-upload/<id>', methods=['POST', 'PUT'])
+def upload_images(id):
     s3_resource = boto3.resource(
         "s3",
         aws_access_key_id = S3_ACCESS_KEY_ID,
@@ -223,35 +235,15 @@ def upload_images(_id):
     )
 
     files = request.files.getlist("images[]")
-
-    restaurant = Restaurant.objects.with_id(_id)
+    restaurant = Restaurant.objects.with_id(id)
 
     for image in files:
         print(f"Dealing with image {image.filename}")
-        s3_resource.Bucket(S3_BUCKET).put_object(Key=f'restaurants/{_id}/{image.filename}', Body=image)
-        if f'restaurant/{_id}/{image.filename}' not in restaurant.images:
-            restaurant.images.append(f'restaurant/{_id}/{image.filename}')
+        s3_resource.Bucket(S3_BUCKET).put_object(Key=f'restaurants/{id}/{image.filename}', Body=image)
+        if f'restaurant/{id}/{image.filename}' not in restaurant.images:
+            restaurant.images.append(f'restaurant/{id}/{image.filename}')
         print(f"Finished with image {image.filename}")
 
     restaurant.save()
 
-    print(restaurant.images)
-
     return restaurant.to_json(), 200
-
-# /api/restaurant/img-get/<_id>
-# <img src="http://127.0.0.1:5000/api/restaurant/img-get/<_id>"
-@restaurant.route('/img-get/<_id>', methods=['GET'])
-def get_image(_id):
-    print("Img get called")
-    s3_resource = boto3.resource(
-        "s3",
-        aws_access_key_id = S3_ACCESS_KEY_ID,
-        aws_secret_access_key = S3_SECRET_ACCESS_KEY
-    )
-
-    fileurl = request.args['url']
-
-    image = s3_resource.Object(S3_BUCKET, fileurl).get()
-
-    return image['Body'].read(), { "Content-Type": "image/png, image/jpg"}

@@ -50,9 +50,26 @@ def add_owner():
 
         return owner.to_json(), 200
 
+@user.route('/img-upload/<id>', methods=['POST', 'PUT'])
+def upload_images(id):
+    s3_resource = boto3.resource(
+        "s3",
+        aws_access_key_id = S3_ACCESS_KEY_ID,
+        aws_secret_access_key = S3_SECRET_ACCESS_KEY
+    )
+
+    avatar = request.files("avatar")
+    client = Client.objects.with_id(id)
+
+    s3_resource.Bucket(S3_BUCKET).put_object(Key=f'clients/{client._id}/{avatar.filename}', Body=image)
+
+    client.avatar = f'clients/{client._id}/{avatar.filename}'
+    client.save()
+
+    return client.to_json, 200
+
 @user.route('/<id>', methods=['DELETE'])
-def delete_client():
-    print(request.method)
+def delete_client(id):
     if request.method == 'DELETE':
         client = Client.objects.objects.with_id(id)
 
@@ -67,13 +84,20 @@ def delete_client():
                 for review in client.reviews:
                     s3_resource.Bucket(S3_BUCKET).objects.filter(Prefix=f'restaurant/{review.fetch().restaurant}/reviews/{client._id}').delete()
             
-            s3_resource.Bucket(S3_BUCKET).objects.filter(Prefix=f'id/').delete()
+            s3_resource.Bucket(S3_BUCKET).objects.filter(Prefix=f'clients/{client._id}/').delete()
             client.delete()
+
+            return f'{id} patron deleted successfully', 200
 
         elif client._cls == 'Client.Owner':
             if client.restaurants:
                 for restaurant in client.restaurants:
                     s3_resource.Bucket(S3_BUCKET).objects.filter(Prefix=f'restaurant/{restaurant.fetch()._id}').delete()
 
-            s3_resource.Bucket(S3_BUCKET).objects.filter(Prefix=f'id/').delete()
+            s3_resource.Bucket(S3_BUCKET).objects.filter(Prefix=f'clients/{client._id}/').delete()
             client.delete()
+
+            return f'{id} owner deleted successfully', 200
+
+        else:
+            return "Client delete failed", 200
