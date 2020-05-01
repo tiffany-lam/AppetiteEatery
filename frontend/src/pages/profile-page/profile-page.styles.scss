@@ -76,15 +76,17 @@
     padding-bottom: 5px;
   }
 
-  #col1 p {
-    font-style: italic;
-    cursor: pointer;
-  }
-
   #col2 p {
     padding-bottom: 10px;
   }
 
+  .userReviews h3 {
+    margin: 10px;
+  }
+  
+  .review-user-info p {
+    font-size: 15px;
+  }
   // p {
   //   line-height: 1.8;
   //   font-size: 20px;

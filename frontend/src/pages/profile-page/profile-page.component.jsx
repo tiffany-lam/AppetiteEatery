@@ -25,7 +25,7 @@ class ProfilePage extends Component {
       lname: "Dumpling",
       userName: "@wontom",
       placesVisited: "54",
-      reviewCount: "14",
+      reviewCount: "4",
       tags: [
         "Wontons",
         "Tacos",
