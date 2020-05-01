@@ -20,13 +20,12 @@ class ProfilePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "Tom Dumpling",
+      fname: "Tom",
+      lname: "Dumpling",
       userName: "@wontom",
-      location: "San Francisco, CA",
-      joinDate: "1/27/2019",
       placesVisited: "54",
       reviewCount: "14",
-      favorites: "#wontons, #tacos, #ice-cream, #fruit-smoothies, #matcha",
+      tags: "#wontons, #tacos, #ice-cream, #fruit-smoothies, #matcha",
       profilePic:
         "https://images.unsplash.com/photo-1489481039754-8701aeda983b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1955&q=80",
       // map: "https://www.massive.pr/wp-content/uploads/2018/01/shutterstock_127728257-1038x576-tender-1024x568.jpg",
@@ -118,15 +117,15 @@ class ProfilePage extends Component {
       <React.Fragment>
         <section className="profile-page-container">
           <section className="userContainer">
-            <h1>
+            <h1> {/* this is where the fname and lname should be */}
               {this.props.userAuth
                 ? this.props.userAuth.uid.slice(0, 8)
-                : this.state.name}
+                : this.state.fname}
             </h1>
             <h2>
               {this.props.userAuth
                 ? this.props.userAuth.email
-                : this.state.name}
+                : this.state.lname}
             </h2>
             <div className="userContainer-inner">
               <img
@@ -134,22 +133,17 @@ class ProfilePage extends Component {
                 src={this.state.profilePic}
                 alt="user"
               />
-              <div className="userInfo">
-                <ul className="userInfo">
-                  <li>{this.state.location}</li>
-                  <li>Member Since: {this.state.joinDate}</li>
-                  <li>Places Visited: {this.state.placesVisited}</li>
-                  <li>Reviews: {this.state.reviewCount}</li>
-                </ul>
-                <h3>About</h3>
+                <div id="aboutMe">
+                <h3>About Me</h3> 
                 <p>
                   Tom Dumpling here. Programmer who loves wontons. Making the world a better
                   place one review at a time.
                 </p>
               </div>
-              <div id="favorites">
-                <h3>Favorites</h3> {/* consider these as links in the future */}
-                <p>{this.state.favorites}</p>
+              <div className="userInfo">
+                <h3>Favorites:</h3>
+                <p>{this.state.tags}</p>
+                {/*<li>Places Visited: {this.state.placesVisited}</li>*/}
               </div>
               <div id="checkIn"> {/* This is where the checkin map should go */}
                 <h3>Check-Ins</h3>
@@ -158,7 +152,8 @@ class ProfilePage extends Component {
             </div>
           </section>
           <section className="userReviews">
-            <h2>{this.state.name}'s Reviews</h2>
+            <h2>{this.state.fname} {this.state.lname}'s Reviews</h2>
+            <h3>Total Reviews: {this.state.reviewCount}</h3>
             <ul>{reviews}</ul>
             {/* <ul>
               <li>
