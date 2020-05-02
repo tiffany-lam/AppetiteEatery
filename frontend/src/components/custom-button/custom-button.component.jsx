@@ -14,7 +14,7 @@ const CustomButton = ({
   return (
     <button
       {...otherProps}
-      type="button"
+      type={type}
       className={`custom-btn ${margin ? "btn-margin" : ""} ${
         minimal ? "btn-fit-content" : ""
       } ${className}`}
