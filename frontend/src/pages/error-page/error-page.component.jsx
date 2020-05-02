@@ -126,11 +126,6 @@ class ErrorPage extends React.Component {
     this.setState(rating)
   }
 
-  handleInput = async (e) => {
-    e.preventDefault(); 
-
-  }
-
   addPatron = async (e) => {
 
   }
@@ -190,6 +185,330 @@ class ErrorPage extends React.Component {
     };
 
 
+  }
+
+  handleInput = async (e) => {
+    e.preventDefault(); 
+
+  }
+
+  handleClientID = async (e) => {
+    e.preventDefault(); 
+    this.setState({ client_add: { form: { id: e.target.value } } })
+  }
+
+  handleClientFname = async (e) => {
+    e.preventDefault(); 
+    this.setState({ client_add: { form: { fname: e.target.value } } })
+  }
+
+  handleClientLname = async (e) => {
+    e.preventDefault(); 
+    this.setState({ client_add: { form: { lname: e.target.value } } })
+  }
+
+  handleClientEmail = async (e) => {
+    e.preventDefault(); 
+    this.setState({ client_add: { form: { email: e.target.value } } })
+  }
+
+  handleClientImageID = async (e) => {
+    e.preventDefault(); 
+    this.setState({ client_image: { form: { id: e.target.value } } })
+  }
+
+  handleClientImageFile = async (e) => {
+    e.preventDefault(); 
+    this.setState({ client_image: { file: e.target.files[0] } })
+  }
+
+  handleClientDelete = async (e) => {
+    e.preventDefault(); 
+    this.setState({ client_delete: { id: e.target.value } } )
+  }
+
+  handleReviewAddUser = async (e) => {
+    e.preventDefault(); 
+    this.setState({ review_add: { form: { user: e.target.value } } })
+  }
+
+  handleReviewAddRestaurant = async (e) => {
+    e.preventDefault(); 
+    this.setState({ review_add: { form: { restaurant: e.target.value } } })
+  }
+
+  handleReviewAddRating = async (e) => {
+    e.preventDefault(); 
+    this.setState({ review_add: { form: { rating: e.target.value } } })
+  }
+
+  handleReviewAddDate = async (e) => {
+    e.preventDefault(); 
+    this.setState({ review_add: { form: { date: e.target.value } } })
+  }
+
+  handleReviewAddContent = async (e) => {
+    e.preventDefault(); 
+    this.setState({ review_add: { form: { content: e.target.value } } })
+  }
+
+  handleReviewAddImages = async (e) => {
+    e.preventDefault(); 
+    let images = this.state.review_add.images;
+
+    for (let i = 0; i > e.target.files.length; i++) {
+      images.push(e.target.files[i])
+    }
+
+    this.setState({ review_add: { images: images } } )
+  }
+
+  handleReviewDelete = async (e) => {
+    e.preventDefault(); 
+    this.setState({ review_delete: { id: e.target.value } } )
+  }
+
+  handleNewRestaurantSundayFrom = async (e) => {
+    e.preventDefault(); 
+    this.setState({ restaurant_new: { form: { hours: { sunday: { from: e.target. value } } } } })
+  }
+
+  handleNewRestaurantSundayTo = async (e) => {
+    e.preventDefault(); 
+    this.setState({ restaurant_new: { form: { hours: { sunday: { to: e.target. value } } } } })
+  }
+
+  handleNewRestaurantMondayFrom = async (e) => {
+    e.preventDefault(); 
+    this.setState({ restaurant_new: { form: { hours: { monday: { from: e.target. value } } } } })
+  }
+
+  handleNewRestaurantMondayTo = async (e) => {
+    e.preventDefault(); 
+    this.setState({ restaurant_new: { form: { hours: { monday: { to: e.target. value } } } } })
+  }
+
+  handleNewRestaurantTuesdayFrom = async (e) => {
+    e.preventDefault(); 
+    this.setState({ restaurant_new: { form: { hours: { tuesday: { from: e.target. value } } } } })
+  }
+
+  handleNewRestaurantTuesdayTo = async (e) => {
+    e.preventDefault(); 
+    this.setState({ restaurant_new: { form: { hours: { tuesday: { to: e.target. value } } } } })
+  }
+
+  handleNewRestaurantWednesdayFrom = async (e) => {
+    e.preventDefault(); 
+    this.setState({ restaurant_new: { form: { hours: { wednesday: { from: e.target. value } } } } })
+  }
+
+  handleNewRestaurantWednesdayTo = async (e) => {
+    e.preventDefault(); 
+    this.setState({ restaurant_new: { form: { hours: { wednesday: { to: e.target. value } } } } })
+  }
+
+  handleNewRestaurantThursdayFrom = async (e) => {
+    e.preventDefault(); 
+    this.setState({ restaurant_new: { form: { hours: { thursday: { from: e.target. value } } } } })
+  }
+
+  handleNewRestaurantThursdayTo = async (e) => {
+    e.preventDefault(); 
+    this.setState({ restaurant_new: { form: { hours: { thursday: { to: e.target. value } } } } })
+  }
+
+  handleNewRestaurantFridayFrom = async (e) => {
+    e.preventDefault(); 
+    this.setState({ restaurant_new: { form: { hours: { friday: { from: e.target. value } } } } })
+  }
+
+  handleNewRestaurantFridayTo = async (e) => {
+    e.preventDefault(); 
+    this.setState({ restaurant_new: { form: { hours: { friday: { to: e.target. value } } } } })
+  }
+
+  handleNewRestaurantSaturdayFrom = async (e) => {
+    e.preventDefault(); 
+    this.setState({ restaurant_new: { form: { hours: { saturday: { from: e.target. value } } } } })
+  }
+
+  handleNewRestaurantSaturdayTo = async (e) => {
+    e.preventDefault(); 
+    this.setState({ restaurant_new: { form: { hours: { saturday: { to: e.target. value } } } } })
+  }
+
+  handleNewRestaurantDetailsParking = async (e) => {
+    e.preventDefault(); 
+    this.setState({ restaurant_new: { form: { details: { parking: e.target.value } } } })
+  }
+
+  handleNewRestaurantDetailsReservation = async (e) => {
+    e.preventDefault(); 
+    let newval = true;
+    if (e.target.value == "false") { newval = false };
+    if (e.target.value == "true" ) { newval = true };
+
+    this.setState({ restaurant_new: { form: { details: { parking: newval } } } })
+  }
+
+  handleNewRestaurantDetailsPetsAllowed = async (e) => {
+    e.preventDefault(); 
+    let newval = true;
+    if (e.target.value == "false") { newval = false };
+    if (e.target.value == "true" ) { newval = true };
+
+    this.setState({ restaurant_new: { form: { details: { petsAllowed: newval } } } })
+  }
+
+  handleNewRestaurantDetailsTakeout = async (e) => {
+    e.preventDefault(); 
+    let newval = true;
+    if (e.target.value == "false") { newval = false };
+    if (e.target.value == "true" ) { newval = true };
+
+    this.setState({ restaurant_new: { form: { details: { takeout: newval } } } })
+  }
+
+  handleNewRestaurantDetailsWifi = async (e) => {
+    e.preventDefault(); 
+    let newval = true;
+    if (e.target.value == "false") { newval = false };
+    if (e.target.value == "true" ) { newval = true };
+
+    this.setState({ restaurant_new: { form: { details: { wifi: newval } } } })
+  }
+
+  handleNewRestaurantDetailsWaitTime = async (e) => {
+    e.preventDefault(); TSTTHISTSGASDGASDG
+    this.setState({ restaurant_new: { form: { details: { waitTime: e.target.value } } } })
+  }
+
+  handleNewRestaurantName = async (e) => {
+    e.preventDefault(); 
+    this.setState({ restaurant_new: { form: { restaurantName: e.target.value } } })
+  }
+
+  handleNewRestaurantTags = async (e) => {
+    e.preventDefault();
+    let tags = this.state.restaurant_new.form.restaurantTags;
+    let newtags = tags.append(e.target.value);
+    this.setState({ restaurant_new: { form: { restaurantTags: newtags } } });
+    e.target.value = "";
+  }
+
+  handleNewRestaurantDescription = async (e) => {
+    e.preventDefault(); 
+    this.setState({ restaurant_new: { form: { description: e.target.value } } })
+  }
+
+  handleNewRestaurantDateOpen = async (e) => {
+    e.preventDefault(); 
+    this.setState({ restaurant_new: { form: { dateOpen: e.target.value } } })
+  }
+
+  handleNewRestaurantOwnerID = async (e) => {
+    e.preventDefault(); 
+    this.setState({ restaurant_new: { form: { ownerid: e.target.value } } })
+  }
+
+  handleNewRestaurantAddress = async (e) => {
+    e.preventDefault(); 
+    this.setState({ restaurant_new: { form: { address: e.target.value } } })
+  }
+
+  handleNewRestaurantCity = async (e) => {
+    e.preventDefault(); 
+    this.setState({ restaurant_new: { form: { city: e.target.value } } })
+  }
+
+  handleNewRestaurantZipcode = async (e) => {
+    e.preventDefault(); 
+    this.setState({ restaurant_new: { form: { zipcode: e.target.value } } })
+  }
+
+  handleNewRestaurantState = async (e) => {
+    e.preventDefault(); 
+    this.setState({ restaurant_new: { form: { state: e.target.value } } })
+  }
+
+  handleNewRestaurantLocationX = async (e) => {
+    e.preventDefault(); 
+    let location = this.state.restaurant_new.form.location;
+    location[0] =  e.target.value;
+    this.setState({ restaurant_new: { form: { location: location } } })
+  }
+
+  handleNewRestaurantLocationY = async (e) => {
+    e.preventDefault(); 
+    let location = this.state.restaurant_new.form.location;
+    location[1] =  e.target.value;
+    this.setState({ restaurant_new: { form: { location: location } } })
+  }
+
+  handleNewRestaurantWebsite = async (e) => {
+    e.preventDefault(); 
+    this.setState({ restaurant_new: { form: { website: e.target.value } } })
+  }
+
+  handleNewRestaurantImages = async (e) => {
+    e.preventDefault(); 
+    let menu = this.state.restaurant_new.images;
+    for (let i = 0; i < e.target.files.length; i++) {
+      images.append(e.target.files[i])
+    }
+
+    this.setState({ restaurant_new: { images: images } } )
+  }
+
+  handleNewRestaurantMenu = async (e) => {
+    e.preventDefault(); 
+    let menu = this.state.restaurant_new.menu;
+    for (let i = 0; i < e.target.files.length; i++) {
+      menu.append(e.target.files[i])
+    }
+
+    this.setState({ restaurant_new: { menu: menu } } )
+  }
+
+  handleARestaurant = async (e) => {
+    e.preventDefault(); 
+    this.setState({ a_restaurant: { id: e.target.value } } )
+  }
+
+  handleRestaurantUpdateID = async (e) => {
+    e.preventDefault(); 
+    this.setState({ restaurant_update: { id: e.target.value  } })
+  }
+
+  handleRestaurantUpdateQuery = async (e) => {
+    e.preventDefault(); 
+    this.setState({ restaurant_update: { query: e.target.value  } })
+  }
+
+  handleURestaurantUpdateImages = async (e) => {
+    e.preventDefault(); 
+    let images = this.state.restaurant_update.images;
+    for (let i = 0; i < e.target.files.length; i++) {
+      images.append(e.target.files[i])
+    }
+
+    this.setState({ restaurant_update: { images: images } } )
+  }
+
+  handleUpdateRestaurantMenu = async (e) => {
+    e.preventDefault(); 
+    let menu = this.state.restaurant_update.menu;
+    for (let i = 0; i < e.target.files.length; i++) {
+      menu.append(e.target.files[i])
+    }
+
+    this.setState({ restaurant_new: { menu: menu } } )
+  }
+
+  handleRestaurantDelete = async (e) => {
+    e.preventDefault(); 
+    this.setState({ restaurant_delete: { id: e.target.value } } )
   }
 
   render() {
@@ -291,7 +610,7 @@ class ErrorPage extends React.Component {
           </label>
           <input type="submit" value="submit" />
         </form>
-        <h2>Delete a reivew</h2>
+        <h2>Delete a review</h2>
         <form>
           <label>ID:
             <input type="text"></input>
@@ -393,7 +712,10 @@ class ErrorPage extends React.Component {
           <label>State:
             <input type="text"></input>
           </label>
-          <label>Location:
+          <label>LocationX:
+            <input type="text"></input>
+          </label>
+          <label>LocationY:
             <input type="text"></input>
           </label>
           <label>Website Url:
@@ -436,16 +758,6 @@ class ErrorPage extends React.Component {
         <form>
           <label>ID:
             <input type="text"></input>
-          </label>
-          <input type="submit" value="submit" />
-        </form>
-        <h2>Upload restaurant images</h2>
-        <form>
-          <label>ID:
-            <input type="text"></input>
-          </label>
-          <label>Images:
-            <input type="file" accept="image/jpeg, image/png" multiple></input>
           </label>
           <input type="submit" value="submit" />
         </form>
