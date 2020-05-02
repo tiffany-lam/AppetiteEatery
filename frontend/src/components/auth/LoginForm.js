@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Button, Modal } from "react-bootstrap";
 import {firebaseAuth} from "./firebaseAuth";
+
 // import "bootstrap/dist/css/bootstrap.min.css";
 import "./login.styles.scss";
 class LoginForm extends Component {
@@ -21,6 +22,8 @@ class LoginForm extends Component {
       .signInWithEmailAndPassword(this.state.email, this.state.password)
       .catch((error) => {
         console.log(error);
+        alert("Email or password incorrect. Please try again.");
+       
       });
   };
   handleChange = (e) => {
