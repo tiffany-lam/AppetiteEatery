@@ -1,9 +1,12 @@
 from flask import Blueprint, Response, request, jsonify
 
 # Models
-from ..models.reviewmodel import Review
-from ..models.usermodel import Patron
-from ..models.restaurantmodel import Restaurant
+# from ..models.reviewmodel import Review
+# from ..models.usermodel import Patron
+# from ..models.restaurantmodel import Restaurant
+from models.reviewmodel import Review
+from models.usermodel import Patron
+from models.restaurantmodel import Restaurant
 
 # JSON
 from flask import jsonify

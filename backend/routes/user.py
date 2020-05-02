@@ -1,8 +1,10 @@
 from flask import Blueprint, Response, request, jsonify
-from ..models.usermodel import Client, Patron, Owner
+# from ..models.usermodel import Client, Patron, Owner
+from models.usermodel import Client, Patron, Owner
 
 import boto3
-from ..config import S3_USERNAME, S3_BUCKET, S3_ACCESS_KEY_ID, S3_SECRET_ACCESS_KEY
+# from ..config import S3_USERNAME, S3_BUCKET, S3_ACCESS_KEY_ID, S3_SECRET_ACCESS_KEY
+from config import S3_USERNAME, S3_BUCKET, S3_ACCESS_KEY_ID, S3_SECRET_ACCESS_KEY
 
 user = Blueprint('user', __name__)
 

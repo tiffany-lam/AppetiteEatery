@@ -8,8 +8,10 @@ from mongoengine.fields import (
     BooleanField, ObjectIdField
 )
 
-from ..models.usermodel import Patron
-from ..models.restaurantmodel import Restaurant
+# from ..models.usermodel import Patron
+# from ..models.restaurantmodel import Restaurant
+from models.usermodel import Patron
+from models.restaurantmodel import Restaurant
 
 def _validate_rating(rating):
     if (rating < 1 and rating > 5):

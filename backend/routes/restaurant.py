@@ -1,8 +1,10 @@
 from flask import Blueprint, Response, request, jsonify
 
 # Models
-from ..models.restaurantmodel import Restaurant, Details, Hours, Hour
-from ..models.usermodel import Owner
+# from ..models.restaurantmodel import Restaurant, Details, Hours, Hour
+# from ..models.usermodel import Owner
+from models.restaurantmodel import Restaurant, Details, Hours, Hour
+from models.usermodel import Owner
 
 # JSON 
 from bson import ObjectId
