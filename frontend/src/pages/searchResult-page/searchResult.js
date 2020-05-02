@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-
+import { connect } from "react-redux";
+import { setSearchbarValue } from "../../redux/ui/ui.actions";
 //import card stuff
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -23,7 +24,8 @@ class searchResult extends Component {
         super(props);
         this.state = {
             page: 1,
-            total: undefined
+            total: undefined,
+            searchbarValue : "",
         };
     }
     // handleOnChange = pageValue =>{
@@ -302,4 +304,11 @@ class searchResult extends Component {
         );
     }
 }
-export default searchResult;
+const mapStateToProps = (state) => ({
+    searchbarValue: state.ui.searchbarValue,
+  });
+  
+  const mapDispatchToProps = (dispatch) => ({
+    setSearchbarValue: (uid) => dispatch(setSearchbarValue(uid)),
+  });
+export default connect(mapStateToProps, mapDispatchToProps) (searchResult);
