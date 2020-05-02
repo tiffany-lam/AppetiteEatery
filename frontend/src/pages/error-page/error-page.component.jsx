@@ -22,6 +22,7 @@ class ErrorPage extends React.Component {
     super(props);
     this.state = {
       rating: 0,
+      fieldValue: "",
       client_add: {
         id: "",
         fname: "",
@@ -625,17 +626,21 @@ class ErrorPage extends React.Component {
     console.log(this.state);
   }
 
+  handleFieldChange = e => {
+    this.setState({ fieldValue: e.target.value })
+  }
+
   render() {
     return (
       <div className="error-page-container">
         <h1>404 NOT FOUND</h1>
         <p>This page does not exist.</p>
         <p>Are you lost sweet summer child?</p>
-        <Rating input setRating={setRating} />
+        <Rating input setRating={this.setRating} />
         <FormInput
           label="test"
-          value={fieldValue}
-          handleChange={handleFieldChange}
+          value={this.state.fieldValue}
+          handleChange={this.handleFieldChange}
         />
         <CustomButton icon={<FavoriteIcon />} margin minimal>
           submit

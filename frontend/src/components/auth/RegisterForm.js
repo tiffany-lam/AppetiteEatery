@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Button, Modal } from "react-bootstrap";
 import {firebaseAuth} from "./firebaseAuth";
 import CustomModal from "../custom-modal/custom-modal.component";
-import SelectUserType from "./SelectUserType";
+import SelectUserType from "./selectUserType";
 // import "bootstrap/dist/css/bootstrap.min.css";
 import "./register.styles.scss";
 class RegisterForm extends Component {
