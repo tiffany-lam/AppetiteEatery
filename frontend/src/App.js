@@ -15,7 +15,6 @@ import Test from "./components/test/test.component";
 import RegisterModal from "./components/auth/RegisterForm";
 import FooterNav from "./components/footer-nav/footer-nav.component";
 
-
 // page components here:
 import HomePage from "./pages/home-page/home-page.component";
 import RestaurantPage from "./pages/restaurant-page/restaurant-page.component";
@@ -69,35 +68,27 @@ class App extends Component {
           <main>
             <Switch>
               <Route exact path="/" component={HomePage} />
-
-              {/* <Route path="/graduated" component={} /> */}
-
+              <Route exact path="/search" component={SearchResult} />
+              <Route path="/contact-us" component={ContactUsPage} />
               <Route
                 exact
                 path="/restaurant/:restaurantId"
                 component={RestaurantPage}
               />
-              <Route
-                exact
-                path="/search"
-                component={SearchResult}
-              />
 
               {/* <Route path="/login" component={} /> */}
               {/* <Route path="/graduated" component={} /> */}
 
-              <Route path="/contact-us" component={ContactUsPage} />
-              <Route path="/test" component={Test} />
+              {/* <Route path="/test" component={Test} /> */}
 
               {/* check to see if user is login, if not don't show */}
-              {this.state.user ? (
-                <React.Fragment>
-                  <Route path="/apply" component={ApplyPage} />
-                  <Route path="/profile" component={ProfilePage} />
-                </React.Fragment>
-              ) : (
-                ""
+              {this.props.userAuth && (
+                <Route exact path="/apply" component={ApplyPage} />
               )}
+              {this.props.userAuth && (
+                <Route exact path="/profile" component={ProfilePage} />
+              )}
+
               <Route to="*" component={ErrorPage} />
             </Switch>
           </main>
