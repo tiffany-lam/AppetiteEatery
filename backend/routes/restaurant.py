@@ -54,8 +54,8 @@ def add_restaurant():
         restaurant.save()
         id = restaurant.id
 
-        owner = Owner.objects.objects.with_id(restaurant.ownerid)
-        owner.restaurant.append(id)
+        owner = restaurant.ownerid.fetch()
+        owner.restaurants.append(id)
         owner.save()
 
         return restaurant.to_json(), 200
@@ -102,25 +102,24 @@ def modify_restaurant(id):
     elif request.method == 'PUT':
         restaurant = Restaurant.objects.with_id(id)
 
-        if (restaurant == None or len(request.args) == 0):
+        if (restaurant == None or (not bool(request.files) and len(request.args) == 0)):
             return str(restaurant), 404
 
         else: 
-
             s3_resource = boto3.resource(
                 "s3",
                 aws_access_key_id = S3_ACCESS_KEY_ID,
                 aws_secret_access_key = S3_SECRET_ACCESS_KEY
             )
-
-            if (request.files):
+            
+            if bool(request.files):
                 files = request.files.getlist("images[]")
 
                 for image in files:
                     # print(f"Dealing with image {image.filename}")
-                    if f'restaurant/{id}/{image.filename}' not in restaurant.images:
+                    if f'restaurants/{id}/{image.filename}' not in restaurant.images:
                         s3_resource.Bucket(S3_BUCKET).put_object(Key=f'restaurants/{id}/{image.filename}', Body=image)
-                        restaurant.images.append(f'restaurant/{id}/{image.filename}')
+                        restaurant.images.append(f'restaurants/{id}/{image.filename}')
                     # print(f"Finished with image {image.filename}")
 
                 restaurant.save()
@@ -128,19 +127,40 @@ def modify_restaurant(id):
                 files = request.files.getlist("menu[]")
 
                 for menu in files:
-                    # print(f"Dealing with menu {menu.filename}")
-                    if f'restaurant/{id}/{menu.filename}' not in restaurant.menu:
-                        s3_resource.Bucket(S3_BUCKET).put_object(Key=f'restaurant/{id}/{menu.filename}', Body=image)
-                        restaurant.menu.append(f'restaurant/{id}/{menu.filename}')
-                    # print(f"Finished with menu {menu.filename}")
+                    print(f"Dealing with menu {menu.filename}")
+                    if f'restaurants/{id}/{menu.filename}' not in restaurant.menu:
+                        s3_resource.Bucket(S3_BUCKET).put_object(Key=f'restaurants/{id}/{menu.filename}', Body=image)
+                        restaurant.menu.append(f'restaurants/{id}/{menu.filename}')
+                    print(f"Finished with menu {menu.filename}")
 
-            if (request.args["images"] and (request.args["images"] != restaurant.images)):
-                for image in restaurant.images not in request.args["images"]:
-                    s3_resource.Bucket(S3_BUCKET).delete_objects(Key=image)
+                restaurant.save()
 
-            
+            if ("images[]" in request.args and (request.args.getlist("images[]") != restaurant.images)):
+                images = request.args.getlist("images[]")
+                restaurantimages = restaurant.images
+                for image in restaurantimages:
+                    if image in images:
+                        print(f'deleting {image}')
+                        s3_resource.Object(S3_BUCKET, image).delete()
+                        restaurant.images.remove(image)
+
+                restaurant.save()
+
+            if ("menu[]" in request.args and (request.args.getlist("menu[]") != restaurant.menu)):
+                menu = request.args.getlist("menu[]")
+                restaurantmenu = restaurant.menu
+                for image in restaurantmenu:
+                    if image in menu:
+                        print(f'deleting {image}')
+                        s3_resource.Object(S3_BUCKET, image).delete()
+                        restaurant.menu.remove(image)
+
+                restaurant.save()
+                
+            print(request.args)
             for key in request.args:
-                restaurant.update(**{key: request.args[key]})
+                if (key != "images[]" and key != "menu[]"):
+                    restaurant.update(**{key: request.args[key]})
 
             return restaurant.to_json(), 200
 
@@ -154,6 +174,11 @@ def modify_restaurant(id):
         s3_resource.Bucket(S3_BUCKET).objects.filter(Prefix=f'restaurants/{id}').delete()
 
         restaurant = Restaurant.objects.with_id(id)
+
+        # owner = restaurant.ownerid.fetch()
+        # owner.restaurants.remove(id)
+
+        # owner.save()
         restaurant.delete()
 
         return f'{id} deleted successfully', 200
@@ -172,6 +197,7 @@ def upload_images(id):
     )
 
     files = request.files.getlist("images[]")
+    print(len(files))
     restaurant = Restaurant.objects.with_id(id)
 
     for image in files:
@@ -180,6 +206,15 @@ def upload_images(id):
         if f'restaurant/{id}/{image.filename}' not in restaurant.images:
             restaurant.images.append(f'restaurant/{id}/{image.filename}')
         print(f"Finished with image {image.filename}")
+
+    files = request.files.getlist("menu[]")
+    
+    for image in files: 
+        print(f'Dealing with image {image.filename}')
+        s3_resource.Bucket(S3_BUCKET).put_object(Key=f'restaurants/{id}/{image.filename}', Body=image)
+        if f'restaurant/{id}/{image.filename}' not in restaurant.menu:
+            restaurant.menu.append(f'restaurant/{id}/{image.filename}')
+        print(f'Finished with image {image.filename}')
 
     restaurant.save()
 

@@ -1,6 +1,10 @@
 from datetime import datetime
 from mongoengine import Document
+from mongoengine import PULL
 from mongoengine.fields import (StringField, ListField, LazyReferenceField,  ObjectIdField, EmailField)
+
+# from backend.models.reviewmodel import Review
+# from backend.models.restaurantmodel import Restaurant
 
 class Client(Document):
     meta = { 'collection': 'clients', 'allow_inheritance': True}
@@ -12,7 +16,12 @@ class Client(Document):
     email = EmailField(unique=True, required=True)
 
 class Patron(Client):
+    # reviews = ListField(LazyReferenceField('Review'), reverse_delete_rule=PULL)
     reviews = ListField(LazyReferenceField('Review'))
 
 class Owner(Client):
+    # restaurants = ListField(LazyReferenceField('Restaurant'), reverse_delete_rule=PULL)
     restaurants = ListField(LazyReferenceField('Restaurant'))
+
+# Review.register_delete_rule(Patron, 'reviews', PULL)
+# Restaurant.register_delete_rule(Owner, 'restaurants', PULL)

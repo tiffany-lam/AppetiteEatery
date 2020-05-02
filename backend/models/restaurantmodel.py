@@ -1,11 +1,15 @@
 from datetime import datetime
 from mongoengine import Document
 from mongoengine import CASCADE
+from mongoengine import PULL
+# from mongoengine import reverse_delete_rule
 from mongoengine.fields import (
     StringField, DateTimeField, IntField, ListField, GeoPointField, URLField, 
     LazyReferenceField, ReferenceField, StringField, EmbeddedDocument, EmbeddedDocumentField,
     BooleanField
 )
+
+from backend.models.usermodel import Owner
 
 PARKING = ("Free", "Paid", "Unavailable")
 
@@ -49,9 +53,10 @@ class Restaurant(Document):
     description = StringField(required=True, max_length=2500)
     dateOpen = DateTimeField(required=True)
 
+    # ownerid = LazyReferenceField('Owner', required=True, reverse_delete_rule=CASCADE)
+    # reviews = ListField(LazyReferenceField('Review', reverse_delete_rule=PULL), default=list)
     ownerid = LazyReferenceField('Owner', required=True, reverse_delete_rule=CASCADE)
     reviews = ListField(LazyReferenceField('Review'), default=list)
-    # reviews = ListField(ReferenceField('Review'), default=list)
 
     address = StringField(required=True)
     city = StringField(required=True)
@@ -63,7 +68,8 @@ class Restaurant(Document):
     details = EmbeddedDocumentField(Details)
 
     website = StringField()
-    menu = ListField(StringField(required=True), required=True)
+    # menu = ListField(StringField(required=True), required=True)
+    menu = ListField(StringField())
     images = ListField(StringField())
 
     # website = URLField()
@@ -71,3 +77,5 @@ class Restaurant(Document):
     # images = ListField(URLField())
     
     limelightCondition = StringField(default="")
+
+Restaurant.register_delete_rule(Owner, "restaurants", PULL)

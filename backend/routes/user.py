@@ -58,20 +58,21 @@ def upload_images(id):
         aws_secret_access_key = S3_SECRET_ACCESS_KEY
     )
 
-    avatar = request.files("avatar")
+    avatar = request.files["avatar"]
     client = Client.objects.with_id(id)
 
-    s3_resource.Bucket(S3_BUCKET).put_object(Key=f'clients/{client._id}/{avatar.filename}', Body=image)
+    s3_resource.Bucket(S3_BUCKET).objects.filter(Prefix=f'clients/{client._id}').delete()
+    s3_resource.Bucket(S3_BUCKET).put_object(Key=f'clients/{client._id}/{avatar.filename}', Body=avatar)
 
     client.avatar = f'clients/{client._id}/{avatar.filename}'
     client.save()
 
-    return client.to_json, 200
+    return client.to_json(), 200
 
 @user.route('/<id>', methods=['DELETE'])
 def delete_client(id):
     if request.method == 'DELETE':
-        client = Client.objects.objects.with_id(id)
+        client = Client.objects.with_id(id)
 
         s3_resource = boto3.resource(
             "s3",
@@ -82,9 +83,11 @@ def delete_client(id):
         if client._cls == 'Client.Patron':
             if client.reviews:
                 for review in client.reviews:
-                    s3_resource.Bucket(S3_BUCKET).objects.filter(Prefix=f'restaurant/{review.fetch().restaurant}/reviews/{client._id}').delete()
+                    s3_resource.Bucket(S3_BUCKET).objects.filter(Prefix=f'restaurant/{review.fetch().restaurant}/reviews/{client.id}').delete()
+                    # restaurant = review.restaurant.fetch()
+                    # restaurant.reviews.remove(review.id)
             
-            s3_resource.Bucket(S3_BUCKET).objects.filter(Prefix=f'clients/{client._id}/').delete()
+            s3_resource.Bucket(S3_BUCKET).objects.filter(Prefix=f'clients/{client.id}/').delete()
             client.delete()
 
             return f'{id} patron deleted successfully', 200
@@ -92,9 +95,9 @@ def delete_client(id):
         elif client._cls == 'Client.Owner':
             if client.restaurants:
                 for restaurant in client.restaurants:
-                    s3_resource.Bucket(S3_BUCKET).objects.filter(Prefix=f'restaurant/{restaurant.fetch()._id}').delete()
+                    s3_resource.Bucket(S3_BUCKET).objects.filter(Prefix=f'restaurant/{restaurant.fetch().id}').delete()
 
-            s3_resource.Bucket(S3_BUCKET).objects.filter(Prefix=f'clients/{client._id}/').delete()
+            s3_resource.Bucket(S3_BUCKET).objects.filter(Prefix=f'clients/{client.id}/').delete()
             client.delete()
 
             return f'{id} owner deleted successfully', 200
