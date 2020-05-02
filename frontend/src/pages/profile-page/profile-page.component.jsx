@@ -21,11 +21,18 @@ class ProfilePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      fname: "Tom",
-      lname: "Dumpling",
-      userName: "@wontom",
-      type: "Restaurant Patron",
-      placesVisited: "54",
+      patron: {
+        fname: "Tom",
+        lname: "Dumpling",
+        userName: "@wontom",
+        type: "Restaurant Patron",
+      },
+      owner: {
+        fname: "Tom",
+        lname: "Dumpling",
+        userName: "@wontom",
+        type: "Restaurant Owner",
+      },
       reviewCount: "4",
       tags: [
         "Wontons",
@@ -127,11 +134,11 @@ class ProfilePage extends Component {
              );
         });
 
-    return (
-      <React.Fragment>
-        <section className="profile-page-container">
+        {/* Patron's Profile */}
+        const patronView = (
+          <section className="profile-page-container">
           <section className="userContainer">
-            <h1> {/* this is where the fname and lname should be */}
+            <h1> {/* this is where the user's should be */}
               {this.props.userAuth
                 ? this.props.userAuth.uid.slice(0, 8)
                 : this.state.fname}
@@ -150,7 +157,7 @@ class ProfilePage extends Component {
                     alt="user"
                   />
                   <h3>Favorites:</h3>
-                  <ul id="favorites">{tags}</ul>
+                  <ul>{tags}</ul>
                 </div>
                 <div id="col2">
                   <h3>About Me</h3> 
@@ -160,11 +167,7 @@ class ProfilePage extends Component {
                   </p>
                   <h3>Check-Ins</h3>
                   <div id="checkIn"><MapContainer /></div>
-            </div>
-              {/* <div className="favorites">
-                <h3>Favorites:</h3>
-                <p>{this.state.tags}</p>
-              </div> */}
+                </div>
             </div>
           </section>
           <section className="userReviews">
@@ -230,6 +233,55 @@ class ProfilePage extends Component {
             </ul> */}
           </section>
         </section>
+        );
+
+        {/* Restaurant Owner Profile */}
+        const ownerView = (
+          <section className="profile-page-container">
+            <section className="userContainer">
+              <h1> {/* this is where the fname and lname should be */}
+                {this.props.userAuth
+                  ? this.props.userAuth.uid.slice(0, 8)
+                  : this.state.fname}
+              </h1>
+              <h2>
+                {this.props.userAuth
+                  ? this.props.userAuth.email
+                  : this.state.lname}
+              </h2>
+              <p id="accountType">{this.state.type}</p>
+              <div className="userContainer-inner">
+                  <div id="col1">
+                    <img
+                      className="profile-img"
+                      src={this.state.profilePic}
+                      alt="user"
+                    />
+                    <h3>Specialties:</h3>
+                    <ul>{tags}</ul>
+                  </div>
+                  <div id="col2">
+                    <h3>About Us</h3> 
+                    <p>
+                      Hi there! I started my own restaurant because I believe that wontons are the greatest food and should be enjoyed by all!
+                      Visit us today and enjoy the best dining experience we have to offer!
+                    </p>
+                    <h3>Visit Us</h3>
+                    <div id="checkIn"><MapContainer /></div>
+                  </div>
+              </div>
+            </section>
+            <section className="userReviews">
+              <h2>What People Are Saying About {this.state.fname} {this.state.lname}</h2>
+              <h3>Total Reviews: {this.state.reviewCount}</h3>
+              <ul>{reviews}</ul>
+            </section>
+          </section>
+        );
+
+    return (
+      <React.Fragment>
+        {this.state.owner.username === this.state.user.username ? patronView : ownerView}
       </React.Fragment>
     );
   }
