@@ -1,8 +1,8 @@
 from flask import Blueprint, Response, request, jsonify
 
 # Models
-from backend.models.restaurantmodel import Restaurant, Details, Hours, Hour
-from backend.models.usermodel import Owner
+from ..models.restaurantmodel import Restaurant, Details, Hours, Hour
+from ..models.usermodel import Owner
 
 # JSON 
 from bson import ObjectId
@@ -10,7 +10,7 @@ import json
 
 # S3 Access
 import boto3
-from backend.config import S3_USERNAME, S3_BUCKET, S3_ACCESS_KEY_ID, S3_SECRET_ACCESS_KEY
+from ..config import S3_USERNAME, S3_BUCKET, S3_ACCESS_KEY_ID, S3_SECRET_ACCESS_KEY
 
 restaurant = Blueprint('restaurant', __name__)
 

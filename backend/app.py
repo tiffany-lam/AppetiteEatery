@@ -8,12 +8,12 @@ import os
 from flask import jsonify
 
 # Testing Purposes Only
-from backend.models.testmodel import Test
+from .models.testmodel import Test
 
 # Route Imports
-from backend.routes.restaurant import restaurant
-from backend.routes.user import user
-from backend.routes.review import review
+from .routes.restaurant import restaurant
+from .routes.user import user
+from .routes.review import review
 
 # S3 Access
 import boto3

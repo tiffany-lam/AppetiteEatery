@@ -9,7 +9,7 @@ from mongoengine.fields import (
     BooleanField
 )
 
-from backend.models.usermodel import Owner
+from ..models.usermodel import Owner
 
 PARKING = ("Free", "Paid", "Unavailable")
 
