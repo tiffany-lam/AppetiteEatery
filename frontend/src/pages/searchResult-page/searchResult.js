@@ -1,23 +1,107 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import { connect } from "react-redux";
 import { setSearchbarValue } from "../../redux/ui/ui.actions";
-//import card stuff
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import IconButton from '@material-ui/core/IconButton';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import{Link} from 'react-router-dom';
 import Pagination from '@material-ui/lab/Pagination';
-import Avatar from '@material-ui/core/Avatar';
 //other components
 import Rating from "../../components/rating/rating.component";
 //import style
 import "./searchResult-page.styles.scss";
+import RestaurantCard from "../../components/restaurant-listing-card/restaurantCard.component";
+const restaurants = [
+    {
+      id: "lskdjf4568lds",
+      name: "Waffle House",
+      url:
+        "https://images.unsplash.com/photo-1484723091739-30a097e8f929?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1547&q=80",
+      rating: 4,
+      limelightCondition: "Offering 20% all bread items!!",
+    },
+  
+    {
+      id: "feffs45648dfsdf",
+  
+      name: "Auntie Maile's",
+      url:
+        "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80",
+      rating: 3,
+      limelightCondition: "Very close to graduating, don't miss out!",
+    },
+    {
+      id: "lskdsdfdsfe5468jflds",
+  
+      name: "Vegeta",
+      url:
+        "https://images.unsplash.com/photo-1543362906-acfc16c67564?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2002&q=80",
+      rating: 2,
+      limelightCondition: "",
+    },
+    {
+      id: "56864lsk546484djflds",
+  
+      name: "Joe's",
+      url:
+        "https://images.unsplash.com/photo-1476718406336-bb5a9690ee2a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2000&q=80",
+      rating: 5,
+      limelightCondition: "",
+    },
+    {
+      id: "sdfaghjjkfklskdj6548flds",
+  
+      name: "Prosperitis",
+      url:
+        "https://images.unsplash.com/photo-1546548970-71785318a17b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
+      rating: 2,
+      limelightCondition: "",
+    },
+    {
+      id: "sdfsdf5879elqieiflsdfees",
+  
+      name: "Lime and Lemons",
+      url:
+        "https://images.unsplash.com/photo-1478145046317-39f10e56b5e9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
+      rating: 1,
+      limelightCondition: "",
+    },
+    {
+      id: "dfffffffffffflskerdjflds",
+  
+      name: "Potato's Sack",
+      url:
+        "https://images.unsplash.com/photo-1432139555190-58524dae6a55?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1955&q=80",
+      rating: 4,
+      limelightCondition: "",
+    },
+    {
+      id: "668lskdj6888684flds",
+  
+      name: "Engrave",
+      url:
+        "https://images.unsplash.com/photo-1496412705862-e0088f16f791?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80",
+      rating: 3,
+      limelightCondition: "",
+    },
+    {
+      id: "aaaaerzzzfeksdf/fs8djflds",
+  
+      name: "To Eat or 2Eat",
+      url:
+        "https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80",
+      rating: 4,
+      limelightCondition: "",
+    },
+  ];
+
+const SearchResult = ({searchbarValue, ...}) =>{
+    
+    let source = axios. 
+    useEffect(() =>{
+        
+
+    }
+
+
+}
 
 class searchResult extends Component {
     constructor(props){
@@ -25,7 +109,7 @@ class searchResult extends Component {
         this.state = {
             page: 1,
             total: undefined,
-            searchbarValue : "",
+            searchbarValue : "asda",
         };
     }
     // handleOnChange = pageValue =>{
@@ -38,260 +122,18 @@ class searchResult extends Component {
         return(
             <div>
                 <div className = "filter"> 
-                    
+                    {this.props.setSearchbarValue}
                 </div>
-                 <Card className = "cardSize">
-                    <CardContent tabindex="0">
-                        <CardMedia 
-                        component = "img"
-                        className = "restaurantPhoto"
-                        image="https://images.unsplash.com/photo-1484723091739-30a097e8f929?ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"
-                        title ="restaurant photo"
-                         /> {/*restaurantPhoto here */}
-                         <div className = "cardInfo"> 
-                            <div className = "card__primary">
-                                <CardHeader 
-                                className = ""
-                                title ="Restaurant Name" 
-                                subheader = "Address"
-                                />
-                                <div id = "ratingPadding"> 
-                                    <Rating
-                                        rating={4}
-                                        maxRating={5}
-                                        icon={<FavoriteIcon />}
-                                    ></Rating>
-                                </div>
-                                
-                            </div>
+                {restaurants.map((restaurant, i) =>(
+                <RestaurantCard
+                    to={`/restaurant/${restaurant.id}`}
+                    restaurantName={restaurant.name}
+                    rating={restaurant.rating}
+                    imageUrl={restaurant.url}
+                    address={restaurant.address}
 
-                         </div>
-                       
-
-                    </CardContent>
-                    <CardActions className = "iconBar">
-                        <div className = "iconbar"> 
-                            <IconButton>
-                                <FavoriteIcon className = "favIcon" />
-                            </IconButton>
-                            <IconButton>
-                                <ShareIcon />
-                            </IconButton>
-                        </div>
-                        
-                    </CardActions>
-
-                </Card>
-                <Card className = "cardSize">
-                    <CardContent tabindex="0">
-                        <CardMedia 
-                        component = "img"
-                        className = "restaurantPhoto"
-                        image="https://images.unsplash.com/photo-1484723091739-30a097e8f929?ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"
-                        title ="restaurant photo"
-                         /> {/*restaurantPhoto here */}
-                         <div className = "cardInfo"> 
-                            <div className = "card__primary">
-                                <CardHeader 
-                                className = ""
-                                title ="Restaurant Name" 
-                                subheader = "Address"
-                                />
-                                <div id = "ratingPadding"> 
-                                    <Rating
-                                        rating={4}
-                                        maxRating={5}
-                                        icon={<FavoriteIcon />}
-                                    ></Rating>
-                                </div>
-                                
-                            </div>
-
-                         </div>
-                       
-
-                    </CardContent>
-                    <CardActions className = "iconBar">
-                        <div className = "iconbar"> 
-                            <IconButton>
-                                <FavoriteIcon className = "favIcon" />
-                            </IconButton>
-                            <IconButton>
-                                <ShareIcon />
-                            </IconButton>
-                        </div>
-                        
-                    </CardActions>
-
-                </Card>
-                <Card className = "cardSize">
-                    <CardContent tabindex="0">
-                        <CardMedia 
-                        component = "img"
-                        className = "restaurantPhoto"
-                        image="https://images.unsplash.com/photo-1484723091739-30a097e8f929?ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"
-                        title ="restaurant photo"
-                         /> {/*restaurantPhoto here */}
-                         <div className = "cardInfo"> 
-                            <div className = "card__primary">
-                                <CardHeader 
-                                className = ""
-                                title ="Restaurant Name" 
-                                subheader = "Address"
-                                />
-                                <div id = "ratingPadding"> 
-                                    <Rating
-                                        rating={4}
-                                        maxRating={5}
-                                        icon={<FavoriteIcon />}
-                                    ></Rating>
-                                </div>
-                                
-                            </div>
-
-                         </div>
-                       
-
-                    </CardContent>
-                    <CardActions className = "iconBar">
-                        <div className = "iconbar"> 
-                            <IconButton>
-                                <FavoriteIcon className = "favIcon" />
-                            </IconButton>
-                            <IconButton>
-                                <ShareIcon />
-                            </IconButton>
-                        </div>
-                        
-                    </CardActions>
-
-                </Card>
-                <Card className = "cardSize">
-                    <CardContent tabindex="0">
-                        <CardMedia 
-                        component = "img"
-                        className = "restaurantPhoto"
-                        image="https://images.unsplash.com/photo-1484723091739-30a097e8f929?ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"
-                        title ="restaurant photo"
-                         /> {/*restaurantPhoto here */}
-                         <div className = "cardInfo"> 
-                            <div className = "card__primary">
-                                <CardHeader 
-                                className = ""
-                                title ="Restaurant Name" 
-                                subheader = "Address"
-                                />
-                                <div id = "ratingPadding"> 
-                                    <Rating
-                                        rating={4}
-                                        maxRating={5}
-                                        icon={<FavoriteIcon />}
-                                    ></Rating>
-                                </div>
-                                
-                            </div>
-
-                         </div>
-                       
-
-                    </CardContent>
-                    <CardActions className = "iconBar">
-                        <div className = "iconbar"> 
-                            <IconButton>
-                                <FavoriteIcon className = "favIcon" />
-                            </IconButton>
-                            <IconButton>
-                                <ShareIcon />
-                            </IconButton>
-                        </div>
-                        
-                    </CardActions>
-
-                </Card>
-                <Card className = "cardSize">
-                    <CardContent tabindex="0">
-                        <CardMedia 
-                        component = "img"
-                        className = "restaurantPhoto"
-                        image="https://images.unsplash.com/photo-1484723091739-30a097e8f929?ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"
-                        title ="restaurant photo"
-                         /> {/*restaurantPhoto here */}
-                         <div className = "cardInfo"> 
-                            <div className = "card__primary">
-                                <CardHeader 
-                                className = ""
-                                title ="Restaurant Name" 
-                                subheader = "Address"
-                                />
-                                <div id = "ratingPadding"> 
-                                    <Rating
-                                        rating={4}
-                                        maxRating={5}
-                                        icon={<FavoriteIcon />}
-                                    ></Rating>
-                                </div>
-                                
-                            </div>
-
-                         </div>
-                       
-
-                    </CardContent>
-                    <CardActions className = "iconBar">
-                        <div className = "iconbar"> 
-                            <IconButton>
-                                <FavoriteIcon className = "favIcon" />
-                            </IconButton>
-                            <IconButton>
-                                <ShareIcon />
-                            </IconButton>
-                        </div>
-                        
-                    </CardActions>
-
-                </Card>
-                <Card className = "cardSize">
-                    <CardContent tabindex="0">
-                        <CardMedia 
-                        component = "img"
-                        className = "restaurantPhoto"
-                        image="https://images.unsplash.com/photo-1484723091739-30a097e8f929?ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"
-                        title ="restaurant photo"
-                         /> {/*restaurantPhoto here */}
-                         <div className = "cardInfo"> 
-                            <div className = "card__primary">
-                                <CardHeader 
-                                className = ""
-                                title ="Restaurant Name" 
-                                subheader = "Address"
-                                />
-                                <div id = "ratingPadding"> 
-                                    <Rating
-                                        rating={4}
-                                        maxRating={5}
-                                        icon={<FavoriteIcon />}
-                                    ></Rating>
-                                </div>
-                                
-                            </div>
-
-                         </div>
-                       
-
-                    </CardContent>
-                    <CardActions className = "iconBar">
-                        <div className = "iconbar"> 
-                            <IconButton>
-                                <FavoriteIcon className = "favIcon" />
-                            </IconButton>
-                            <IconButton>
-                                <ShareIcon />
-                            </IconButton>
-                        </div>
-                        
-                    </CardActions>
-
-                </Card>
+                />
+                ))}
                 <Pagination
                     className = "pagination"
                     total ={this.state.total}
