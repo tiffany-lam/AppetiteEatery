@@ -1,6 +1,7 @@
 // import React from "react";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 // custom components:
 import ImageCard from "../../components/image-card/image-card.component";
@@ -21,10 +22,11 @@ const ApplyPage = () => {
   const [address2, setAddress2] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
-  const [zipCode, setZipCode] = useState("");
+  const [zipcode, setZipCode] = useState("");
   const [country, setCountry] = useState("USA");
+  const [location, setLocation] = useState([152.5, 152.5]);
 
-  const [tags, setTags] = useState([]);
+  const [tags, setTags] = useState(["sdf", "hey tag here"]);
   const [images, setImages] = useState([]);
   const [menus, setMenus] = useState([]);
 
@@ -38,25 +40,50 @@ const ApplyPage = () => {
   });
 
   const [hours, setHours] = useState({
-    sundayTo: "",
-    sundayFrom: "",
-    mondayTo: "",
-    mondayFrom: "",
-
-    tuesdayTo: "",
-    tuesdayFrom: "",
-
-    wednesdayTo: "",
-    wednesdayFrom: "",
-
-    thursdayTo: "",
-    thursdayFrom: "",
-
-    fridayTo: "",
-    fridayFrom: "",
-    saturdayTo: "",
-    saturdayFrom: "",
+    sunday: { to: "", from: "" },
+    monday: { to: "", from: "" },
+    tuesday: { to: "", from: "" },
+    wednesday: { to: "", from: "" },
+    thursday: { to: "", from: "" },
+    friday: { to: "", from: "" },
+    saturday: { to: "", from: "" },
   });
+
+  const submitForm = async (e) => {
+    console.log("submitted");
+
+    e.preventDefault();
+    const textData = {
+      ownerid: "5ead3201520a017539dfa306",
+      // owner: userAuth.uid,
+      website: "http://www.website.com",
+
+      restaurantName,
+      description,
+      dateOpen: dateOpened,
+      address: address1,
+      address2,
+      city,
+      state,
+      zipcode,
+      country,
+      location,
+      restaurantTags: tags,
+      details,
+      hours,
+    };
+
+    axios
+      .post(`http://127.0.0.1:5000/api/restaurant`, textData)
+      .then((res) => {
+        console.log("SUBMITTEEEEEEDD");
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(textData);
+        console.error(err);
+      });
+  };
 
   return (
     <div className="apply-page-container">
@@ -64,7 +91,7 @@ const ApplyPage = () => {
         Submit your restaurant!
       </h1>
 
-      <form action="">
+      <form onSubmit={submitForm}>
         <h2 className="form-subtitle">Basic Information</h2>
         <FormInput
           required
@@ -161,7 +188,7 @@ const ApplyPage = () => {
             type="text" // not number because zipcodes are best treated as strings
             htmlFor="zipcode"
             label="zip code"
-            value={zipCode}
+            value={zipcode}
             handleChange={(e) => {
               setZipCode(e.target.value);
             }}
@@ -203,17 +230,27 @@ const ApplyPage = () => {
           className="input-override"
         />
 
-        <h2 className="form-subtitle">Details</h2>
+        <h2
+          className="form-subtitle"
+          onClick={() => {
+            console.log(details);
+          }}
+        >
+          Details
+        </h2>
 
         <SelectInput
           required
           label="parking"
           htmlFor="parking"
           className="input-override"
+          handleChange={(e) => {
+            setDetails({ ...details, parking: e.target.value });
+          }}
         >
-          <option value="free">Free</option>
-          <option value="paid">Paid</option>
-          <option value="unavailable">Unavailable</option>
+          <option value="Free">Free</option>
+          <option value="Paid">Paid</option>
+          <option value="Unavailable">Unavailable</option>
         </SelectInput>
 
         <SelectInput
@@ -221,6 +258,9 @@ const ApplyPage = () => {
           label="reservation"
           htmlFor="reservation"
           className="input-override"
+          handleChange={(e) => {
+            setDetails({ ...details, reservation: e.target.value });
+          }}
         >
           <option value={true}>Yes</option>
           <option value={false}>No</option>
@@ -231,6 +271,9 @@ const ApplyPage = () => {
           label="pets allowed"
           htmlFor="pets-allowed"
           className="input-override"
+          handleChange={(e) => {
+            setDetails({ ...details, petsAllowed: e.target.value });
+          }}
         >
           <option value={true}>Yes</option>
           <option value={false}>No</option>
@@ -241,6 +284,9 @@ const ApplyPage = () => {
           label="takeout"
           htmlFor="takeout"
           className="input-override"
+          handleChange={(e) => {
+            setDetails({ ...details, takeout: e.target.value });
+          }}
         >
           <option value={true}>Yes</option>
           <option value={false}>No</option>
@@ -251,6 +297,9 @@ const ApplyPage = () => {
           label="wifi"
           htmlFor="wifi"
           className="input-override"
+          handleChange={(e) => {
+            setDetails({ ...details, wifi: e.target.value });
+          }}
         >
           <option value={true}>Yes</option>
           <option value={false}>No</option>
@@ -283,92 +332,134 @@ const ApplyPage = () => {
         <HourRangeInput
           label="sunday"
           className="time-range-input"
-          value1={hours.sundayTo}
-          value2={hours.sundayFrom}
-          handleChange1={(e) => {
-            setHours({ ...hours, sundayTo: e.target.value });
-          }}
+          value2={hours.sunday.to}
+          value1={hours.sunday.from}
           handleChange2={(e) => {
-            setHours({ ...hours, sundayFrom: e.target.value });
+            setHours({
+              ...hours,
+              sunday: { from: hours.sunday.from, to: e.target.value },
+            });
+          }}
+          handleChange1={(e) => {
+            setHours({
+              ...hours,
+              sunday: { to: hours.sunday.to, from: e.target.value },
+            });
           }}
         />
 
         <HourRangeInput
           label="monday"
           className="time-range-input"
-          value1={hours.mondayTo}
-          value2={hours.mondayFrom}
-          handleChange1={(e) => {
-            setHours({ ...hours, mondayTo: e.target.value });
-          }}
+          value2={hours.monday.to}
+          value1={hours.monday.from}
           handleChange2={(e) => {
-            setHours({ ...hours, mondayFrom: e.target.value });
+            setHours({
+              ...hours,
+              monday: { from: hours.monday.from, to: e.target.value },
+            });
+          }}
+          handleChange1={(e) => {
+            setHours({
+              ...hours,
+              monday: { to: hours.monday.to, from: e.target.value },
+            });
           }}
         />
         <HourRangeInput
           label="tuesday"
           className="time-range-input"
-          value1={hours.tuesdayTo}
-          value2={hours.tuesdayFrom}
-          handleChange1={(e) => {
-            setHours({ ...hours, tuesdayTo: e.target.value });
-          }}
+          value2={hours.tuesday.to}
+          value1={hours.tuesday.from}
           handleChange2={(e) => {
-            setHours({ ...hours, tuesdayFrom: e.target.value });
+            setHours({
+              ...hours,
+              tuesday: { from: hours.tuesday.from, to: e.target.value },
+            });
+          }}
+          handleChange1={(e) => {
+            setHours({
+              ...hours,
+              tuesday: { to: hours.tuesday.to, from: e.target.value },
+            });
           }}
         />
         <HourRangeInput
           label="wednesday"
           className="time-range-input"
-          value1={hours.wednesdayTo}
-          value2={hours.wednesdayFrom}
-          handleChange1={(e) => {
-            setHours({ ...hours, wednesdayTo: e.target.value });
-          }}
+          value2={hours.wednesday.to}
+          value1={hours.wednesday.from}
           handleChange2={(e) => {
-            setHours({ ...hours, wednesdayFrom: e.target.value });
+            setHours({
+              ...hours,
+              wednesday: { from: hours.wednesday.from, to: e.target.value },
+            });
+          }}
+          handleChange1={(e) => {
+            setHours({
+              ...hours,
+              wednesday: { to: hours.wednesday.to, from: e.target.value },
+            });
           }}
         />
         <HourRangeInput
           label="thursday"
           className="time-range-input"
-          value1={hours.thursdayTo}
-          value2={hours.thursdayFrom}
-          handleChange1={(e) => {
-            setHours({ ...hours, thursdayTo: e.target.value });
-          }}
+          value2={hours.thursday.to}
+          value1={hours.thursday.from}
           handleChange2={(e) => {
-            setHours({ ...hours, thursdayFrom: e.target.value });
+            setHours({
+              ...hours,
+              thursday: { from: hours.thursday.from, to: e.target.value },
+            });
+          }}
+          handleChange1={(e) => {
+            setHours({
+              ...hours,
+              thursday: { to: hours.thursday.to, from: e.target.value },
+            });
           }}
         />
         <HourRangeInput
           label="friday"
           className="time-range-input"
-          value1={hours.fridayTo}
-          value2={hours.fridayFrom}
-          handleChange1={(e) => {
-            setHours({ ...hours, fridayTo: e.target.value });
-          }}
+          value2={hours.friday.to}
+          value1={hours.friday.from}
           handleChange2={(e) => {
-            setHours({ ...hours, fridayFrom: e.target.value });
+            setHours({
+              ...hours,
+              friday: { from: hours.friday.from, to: e.target.value },
+            });
+          }}
+          handleChange1={(e) => {
+            setHours({
+              ...hours,
+              friday: { to: hours.friday.to, from: e.target.value },
+            });
           }}
         />
         <HourRangeInput
           label="saturday"
           className="time-range-input"
-          value1={hours.saturdayTo}
-          value2={hours.saturdayFrom}
-          handleChange1={(e) => {
-            setHours({ ...hours, saturdayTo: e.target.value });
-          }}
+          value2={hours.saturday.to}
+          value1={hours.saturday.from}
           handleChange2={(e) => {
-            setHours({ ...hours, saturdayFrom: e.target.value });
+            setHours({
+              ...hours,
+              saturday: { from: hours.saturday.from, to: e.target.value },
+            });
+          }}
+          handleChange1={(e) => {
+            setHours({
+              ...hours,
+              saturday: { to: hours.saturday.to, from: e.target.value },
+            });
           }}
         />
 
         <h2 className="form-subtitle">Tags</h2>
 
-        <CustomButton className="input-override" margin>
+        <CustomButton type="submit" className="input-override" margin>
           submit
         </CustomButton>
       </form>

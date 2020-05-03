@@ -35,9 +35,11 @@ const SelectInput = ({
         className="select-input"
         name="pets"
         id={htmlFor}
-        onChange={(e) => {
-          setOption(e.target.value);
-        }}
+        onChange={handleChange}
+
+        // onChange={(e) => {
+        //   setOption(e.target.value);
+        // }}
       >
         <option value=""></option>
         {children}
