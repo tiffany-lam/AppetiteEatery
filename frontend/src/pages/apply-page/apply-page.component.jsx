@@ -14,6 +14,63 @@ import HourRangeInput from "../../components/hour-range-input/hour-range.compone
 // custom stylesheet:
 import "./apply-page.styles.scss";
 
+// state abbreviations provided by usps:
+// https://about.usps.com/who-we-are/postal-history/state-abbreviations.htm
+const stateAbbreviations = [
+  "al",
+  "ak",
+  "az",
+  "ar",
+  "ca",
+  "co",
+  "ct",
+  "de",
+  "dc",
+  "fl",
+  "ga",
+  "hi",
+  "id",
+  "il",
+  "in",
+  "ia",
+  "ks",
+  "ky",
+  "la",
+  "me",
+  "md",
+  "ma",
+  "mi",
+  "mn",
+  "ms",
+  "mo",
+  "mt",
+  "nb",
+  "nv",
+  "nh",
+  "nj",
+  "nm",
+  "ny",
+  "nc",
+  "nd",
+  "oh",
+  "ok",
+  "or",
+  "pa",
+  "pr",
+  "ri",
+  "sc",
+  "sd",
+  "tn",
+  "tx",
+  "ut",
+  "vt",
+  "va",
+  "wa",
+  "wv",
+  "wi",
+  "wy",
+];
+
 const ApplyPage = () => {
   const [restaurantName, setRestaurantName] = useState("");
   const [description, setDescription] = useState("");
@@ -170,18 +227,22 @@ const ApplyPage = () => {
             id="city-input"
           />
 
-          <FormInput
+          <SelectInput
             required
-            type="text"
-            htmlFor="state"
             label="state"
-            value={state}
+            htmlFor="state"
             handleChange={(e) => {
               setState(e.target.value);
             }}
             className="input-override"
             id="state-input"
-          />
+          >
+            {stateAbbreviations.map((state, i) => (
+              <option key={i} value={state}>
+                {state.toUpperCase()}
+              </option>
+            ))}
+          </SelectInput>
 
           <FormInput
             required
@@ -248,9 +309,9 @@ const ApplyPage = () => {
             setDetails({ ...details, parking: e.target.value });
           }}
         >
-          <option value="Free">Free</option>
-          <option value="Paid">Paid</option>
-          <option value="Unavailable">Unavailable</option>
+          <option value="free">Free</option>
+          <option value="paid">Paid</option>
+          <option value="unavailable">Unavailable</option>
         </SelectInput>
 
         <SelectInput
@@ -337,13 +398,13 @@ const ApplyPage = () => {
           handleChange2={(e) => {
             setHours({
               ...hours,
-              sunday: { from: hours.sunday.from, to: e.target.value },
+              sunday: { ...hours.sunday, to: e.target.value },
             });
           }}
           handleChange1={(e) => {
             setHours({
               ...hours,
-              sunday: { to: hours.sunday.to, from: e.target.value },
+              sunday: { ...hours.sunday, from: e.target.value },
             });
           }}
         />
@@ -356,13 +417,13 @@ const ApplyPage = () => {
           handleChange2={(e) => {
             setHours({
               ...hours,
-              monday: { from: hours.monday.from, to: e.target.value },
+              monday: { ...hours.monday, to: e.target.value },
             });
           }}
           handleChange1={(e) => {
             setHours({
               ...hours,
-              monday: { to: hours.monday.to, from: e.target.value },
+              monday: { ...hours.monday, from: e.target.value },
             });
           }}
         />
@@ -374,13 +435,13 @@ const ApplyPage = () => {
           handleChange2={(e) => {
             setHours({
               ...hours,
-              tuesday: { from: hours.tuesday.from, to: e.target.value },
+              tuesday: { ...hours.tuesday, to: e.target.value },
             });
           }}
           handleChange1={(e) => {
             setHours({
               ...hours,
-              tuesday: { to: hours.tuesday.to, from: e.target.value },
+              tuesday: { ...hours.tuesday, from: e.target.value },
             });
           }}
         />
@@ -392,13 +453,13 @@ const ApplyPage = () => {
           handleChange2={(e) => {
             setHours({
               ...hours,
-              wednesday: { from: hours.wednesday.from, to: e.target.value },
+              wednesday: { ...hours.wednesday, to: e.target.value },
             });
           }}
           handleChange1={(e) => {
             setHours({
               ...hours,
-              wednesday: { to: hours.wednesday.to, from: e.target.value },
+              wednesday: { ...hours.wednesday, from: e.target.value },
             });
           }}
         />
@@ -410,13 +471,13 @@ const ApplyPage = () => {
           handleChange2={(e) => {
             setHours({
               ...hours,
-              thursday: { from: hours.thursday.from, to: e.target.value },
+              thursday: { ...hours.thursday, to: e.target.value },
             });
           }}
           handleChange1={(e) => {
             setHours({
               ...hours,
-              thursday: { to: hours.thursday.to, from: e.target.value },
+              thursday: { ...hours.thursday, from: e.target.value },
             });
           }}
         />
@@ -428,13 +489,13 @@ const ApplyPage = () => {
           handleChange2={(e) => {
             setHours({
               ...hours,
-              friday: { from: hours.friday.from, to: e.target.value },
+              friday: { ...hours.friday, to: e.target.value },
             });
           }}
           handleChange1={(e) => {
             setHours({
               ...hours,
-              friday: { to: hours.friday.to, from: e.target.value },
+              friday: { ...hours.friday, from: e.target.value },
             });
           }}
         />
@@ -446,13 +507,13 @@ const ApplyPage = () => {
           handleChange2={(e) => {
             setHours({
               ...hours,
-              saturday: { from: hours.saturday.from, to: e.target.value },
+              saturday: { ...hours.saturday, to: e.target.value },
             });
           }}
           handleChange1={(e) => {
             setHours({
               ...hours,
-              saturday: { to: hours.saturday.to, from: e.target.value },
+              saturday: { ...hours.saturday, from: e.target.value },
             });
           }}
         />
