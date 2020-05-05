@@ -1,10 +1,8 @@
-import React, { Component, useEffect } from "react";
+import React, { Component, useEffect, useState} from "react";
 import { connect } from "react-redux";
 import { setSearchbarValue } from "../../redux/ui/ui.actions";
-import{Link} from 'react-router-dom';
+import axios from "axios";
 import Pagination from '@material-ui/lab/Pagination';
-//other components
-import Rating from "../../components/rating/rating.component";
 //import style
 import "./searchResult-page.styles.scss";
 import RestaurantCard from "../../components/restaurant-listing-card/restaurantCard.component";
@@ -92,18 +90,67 @@ const restaurants = [
     },
   ];
 
-const SearchResult = ({searchbarValue, ...}) =>{
-    
-    let source = axios. 
-    useEffect(() =>{
-        
+const SearchResult = ({searchbarValue, userAuth, ...otherProps}) =>{
+  const [results, setResults] = useState({restaurants: [], tags: []});
+  const [filter, setFilter] = useState("none");
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(5);
 
-    }
+     
+    useEffect(() =>{
+      let source = axios.CancelToken.source();
+      const fetchData = async() =>{
+        try{
+          const res = await axios.get("http://127.0.0.1:5000/api/restaurant")
+          .then(res => {
+            console.log("Retrieved all data \n");
+            console.log(res.data);
+          })
+          .catch(error => console.error(error));
+
+          setResults(res.data);
+        }
+        catch(e){
+          console.error(e);
+        }
+    };
+    if(searchbarValue !== "") fetchData();
+    return () =>{
+      source.cancel();
+    };
+  }, searchbarValue);
+
+  useEffect(() => {});
+    return(
+      <div>
+          <div className = "filter"> 
+              {/* {this.props.setSearchbarValue} */}
+          </div>
+          {restaurants.map((restaurant, i) =>(
+          <RestaurantCard
+              to={`/restaurant/${restaurant.id}`}
+              restaurantName={restaurant.name}
+              rating={restaurant.rating}
+              imageUrl={restaurant.url}
+              address={restaurant.address}
+
+          />
+          ))}
+          {/* <Pagination
+              className = "pagination"
+              total =
+              page = {this.state.page}
+              pageWindowLength={5}
+              onChange = {this.handleOnChange}
+          /> */}
+      </div>
+     
+    );
 
 
 }
 
-class searchResult extends Component {
+/* class searchResult extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -145,7 +192,7 @@ class searchResult extends Component {
            
         );
     }
-}
+} */
 const mapStateToProps = (state) => ({
     searchbarValue: state.ui.searchbarValue,
   });
@@ -153,4 +200,4 @@ const mapStateToProps = (state) => ({
   const mapDispatchToProps = (dispatch) => ({
     setSearchbarValue: (uid) => dispatch(setSearchbarValue(uid)),
   });
-export default connect(mapStateToProps, mapDispatchToProps) (searchResult);
+export default connect(mapStateToProps, mapDispatchToProps) (SearchResult);
