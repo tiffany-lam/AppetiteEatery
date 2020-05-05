@@ -4,7 +4,7 @@ from flask import Blueprint, Response, request, jsonify
 from ..models.restaurantmodel import Restaurant, Details, Hours, Hour
 from ..models.usermodel import Owner
 
-# JSON 
+# JSON
 from bson import ObjectId
 import json
 
@@ -19,37 +19,42 @@ restaurant = Blueprint('restaurant', __name__)
 # POST - save a restaurant with relevant data
 @restaurant.route('', methods=['GET', 'POST'])
 def add_restaurant():
-    
+
     if request.method == 'POST':
 
-        hours = Hours(sunday = Hour(_from=request.json['hours']['sunday']['from'], _to=request.json['hours']['sunday']['to']),
-            monday = Hour(_from=request.json['hours']['monday']['from'], _to=request.json['hours']['monday']['to']),
-            tuesday = Hour(_from=request.json['hours']['tuesday']['from'], _to=request.json['hours']['tuesday']['to']),
-            wednesday = Hour(_from=request.json['hours']['wednesday']['from'], _to=request.json['hours']['wednesday']['to']),
-            thursday = Hour(_from=request.json['hours']['thursday']['from'], _to=request.json['hours']['thursday']['to']),
-            friday = Hour(_from=request.json['hours']['friday']['from'], _to=request.json['hours']['friday']['to']),
-            saturday = Hour(_from=request.json['hours']['saturday']['from'], _to=request.json['hours']['saturday']['to']))
+        hours = Hours(sunday=Hour(_from=request.json['hours']['sunday']['from'], _to=request.json['hours']['sunday']['to']),
+                      monday=Hour(
+                          _from=request.json['hours']['monday']['from'], _to=request.json['hours']['monday']['to']),
+                      tuesday=Hour(
+                          _from=request.json['hours']['tuesday']['from'], _to=request.json['hours']['tuesday']['to']),
+                      wednesday=Hour(
+                          _from=request.json['hours']['wednesday']['from'], _to=request.json['hours']['wednesday']['to']),
+                      thursday=Hour(
+                          _from=request.json['hours']['thursday']['from'], _to=request.json['hours']['thursday']['to']),
+                      friday=Hour(
+                          _from=request.json['hours']['friday']['from'], _to=request.json['hours']['friday']['to']),
+                      saturday=Hour(_from=request.json['hours']['saturday']['from'], _to=request.json['hours']['saturday']['to']))
 
-        details = Details(parking = request.json['details']['parking'],
-                        reservation = request.json['details']['reservation'],
-                        petsAllowed = request.json['details']['petsAllowed'],
-                        takeout = request.json['details']['takeout'],
-                        wifi = request.json['details']['wifi'],
-                        waitTime = request.json['details']['waitTime'])
+        details = Details(parking=request.json['details']['parking'],
+                          reservation=request.json['details']['reservation'],
+                          petsAllowed=request.json['details']['petsAllowed'],
+                          takeout=request.json['details']['takeout'],
+                          wifi=request.json['details']['wifi'],
+                          waitTime=request.json['details']['waitTime'])
 
-        restaurant = Restaurant(restaurantName = request.json['restaurantName'],
-                                restaurantTags = request.json['restaurantTags'],
-                                description = request.json['description'],
-                                dateOpen = request.json['dateOpen'],
-                                ownerid = request.json['ownerid'],
-                                address = request.json['address'],
-                                city = request.json['city'],
-                                zipcode = request.json['zipcode'],
-                                state = request.json['state'],
-                                location = request.json['location'],
-                                hours = hours,
-                                details = details,
-                                website = request.json['website'])
+        restaurant = Restaurant(restaurantName=request.json['restaurantName'],
+                                restaurantTags=request.json['restaurantTags'],
+                                description=request.json['description'],
+                                dateOpen=request.json['dateOpen'],
+                                ownerid=request.json['ownerid'],
+                                address=request.json['address'],
+                                city=request.json['city'],
+                                zipcode=request.json['zipcode'],
+                                state=request.json['state'],
+                                location=request.json['location'],
+                                hours=hours,
+                                details=details,
+                                website=request.json['website'])
 
         restaurant.save()
         id = restaurant.id
@@ -67,7 +72,7 @@ def add_restaurant():
         if (restaurants_collection == None):
             return str(restaurants_collection), 404
 
-        else: 
+        else:
             restaurants_json = restaurants_collection.to_json()
             return restaurants_json, 200
     else:
@@ -92,10 +97,12 @@ def modify_restaurant(id):
 
             for review in restaurant.reviews:
                 updated_review = review.fetch().to_mongo().to_dict()
-                updated_review['user'] = review.fetch().user.fetch().to_mongo().to_dict()
+                updated_review['user'] = review.fetch(
+                ).user.fetch().to_mongo().to_dict()
                 updated_restaurant['reviews'].append(updated_review)
 
-            updated_restaurant['ownerid'] = restaurant.ownerid.fetch().to_mongo().to_dict()
+            updated_restaurant['ownerid'] = restaurant.ownerid.fetch(
+            ).to_mongo().to_dict()
 
             return json.dumps(updated_restaurant, default=str), 200
 
@@ -105,21 +112,23 @@ def modify_restaurant(id):
         if (restaurant == None or (not bool(request.files) and len(request.args) == 0)):
             return str(restaurant), 404
 
-        else: 
+        else:
             s3_resource = boto3.resource(
                 "s3",
-                aws_access_key_id = S3_ACCESS_KEY_ID,
-                aws_secret_access_key = S3_SECRET_ACCESS_KEY
+                aws_access_key_id=S3_ACCESS_KEY_ID,
+                aws_secret_access_key=S3_SECRET_ACCESS_KEY
             )
-            
+
             if bool(request.files):
                 files = request.files.getlist("images[]")
 
                 for image in files:
                     # print(f"Dealing with image {image.filename}")
                     if f'restaurants/{id}/{image.filename}' not in restaurant.images:
-                        s3_resource.Bucket(S3_BUCKET).put_object(Key=f'restaurants/{id}/{image.filename}', Body=image)
-                        restaurant.images.append(f'restaurants/{id}/{image.filename}')
+                        s3_resource.Bucket(S3_BUCKET).put_object(
+                            Key=f'restaurants/{id}/{image.filename}', Body=image)
+                        restaurant.images.append(
+                            f'restaurants/{id}/{image.filename}')
                     # print(f"Finished with image {image.filename}")
 
                 restaurant.save()
@@ -129,8 +138,10 @@ def modify_restaurant(id):
                 for menu in files:
                     print(f"Dealing with menu {menu.filename}")
                     if f'restaurants/{id}/{menu.filename}' not in restaurant.menu:
-                        s3_resource.Bucket(S3_BUCKET).put_object(Key=f'restaurants/{id}/{menu.filename}', Body=image)
-                        restaurant.menu.append(f'restaurants/{id}/{menu.filename}')
+                        s3_resource.Bucket(S3_BUCKET).put_object(
+                            Key=f'restaurants/{id}/{menu.filename}', Body=image)
+                        restaurant.menu.append(
+                            f'restaurants/{id}/{menu.filename}')
                     print(f"Finished with menu {menu.filename}")
 
                 restaurant.save()
@@ -156,7 +167,7 @@ def modify_restaurant(id):
                         restaurant.menu.remove(image)
 
                 restaurant.save()
-                
+
             print(request.args)
             for key in request.args:
                 if (key != "images[]" and key != "menu[]"):
@@ -167,11 +178,12 @@ def modify_restaurant(id):
     elif request.method == 'DELETE':
         s3_resource = boto3.resource(
             "s3",
-            aws_access_key_id = S3_ACCESS_KEY_ID,
-            aws_secret_access_key = S3_SECRET_ACCESS_KEY
+            aws_access_key_id=S3_ACCESS_KEY_ID,
+            aws_secret_access_key=S3_SECRET_ACCESS_KEY
         )
 
-        s3_resource.Bucket(S3_BUCKET).objects.filter(Prefix=f'restaurants/{id}').delete()
+        s3_resource.Bucket(S3_BUCKET).objects.filter(
+            Prefix=f'restaurants/{id}').delete()
 
         restaurant = Restaurant.objects.with_id(id)
 
@@ -192,8 +204,8 @@ def modify_restaurant(id):
 def upload_images(id):
     s3_resource = boto3.resource(
         "s3",
-        aws_access_key_id = S3_ACCESS_KEY_ID,
-        aws_secret_access_key = S3_SECRET_ACCESS_KEY
+        aws_access_key_id=S3_ACCESS_KEY_ID,
+        aws_secret_access_key=S3_SECRET_ACCESS_KEY
     )
 
     files = request.files.getlist("images[]")
@@ -202,16 +214,18 @@ def upload_images(id):
 
     for image in files:
         print(f"Dealing with image {image.filename}")
-        s3_resource.Bucket(S3_BUCKET).put_object(Key=f'restaurants/{id}/{image.filename}', Body=image)
+        s3_resource.Bucket(S3_BUCKET).put_object(
+            Key=f'restaurants/{id}/{image.filename}', Body=image)
         if f'restaurant/{id}/{image.filename}' not in restaurant.images:
             restaurant.images.append(f'restaurant/{id}/{image.filename}')
         print(f"Finished with image {image.filename}")
 
     files = request.files.getlist("menu[]")
-    
-    for image in files: 
+
+    for image in files:
         print(f'Dealing with image {image.filename}')
-        s3_resource.Bucket(S3_BUCKET).put_object(Key=f'restaurants/{id}/{image.filename}', Body=image)
+        s3_resource.Bucket(S3_BUCKET).put_object(
+            Key=f'restaurants/{id}/{image.filename}', Body=image)
         if f'restaurant/{id}/{image.filename}' not in restaurant.menu:
             restaurant.menu.append(f'restaurant/{id}/{image.filename}')
         print(f'Finished with image {image.filename}')
