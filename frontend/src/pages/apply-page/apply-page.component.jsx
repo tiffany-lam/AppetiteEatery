@@ -10,6 +10,8 @@ import CustomButton from "../../components/custom-button/custom-button.component
 import ImageUploadInput from "../../components/img-upload-input/img-upload-inputcomponent";
 import SelectInput from "../../components/select-input/select-input.component";
 import HourRangeInput from "../../components/hour-range-input/hour-range.component";
+import Tag from "../../components/tag/tag-v2.component";
+import AddTagInput from "../../components/add-tag-input/add-tag-input.component";
 
 // custom stylesheet:
 import "./apply-page.styles.scss";
@@ -427,6 +429,7 @@ const ApplyPage = () => {
             });
           }}
         />
+
         <HourRangeInput
           label="tuesday"
           className="time-range-input"
@@ -445,6 +448,7 @@ const ApplyPage = () => {
             });
           }}
         />
+
         <HourRangeInput
           label="wednesday"
           className="time-range-input"
@@ -519,6 +523,13 @@ const ApplyPage = () => {
         />
 
         <h2 className="form-subtitle">Tags</h2>
+
+        <ul>
+          <Tag value="text" />
+          <Tag type="input" value="text" />
+        </ul>
+
+        <AddTagInput />
 
         <CustomButton type="submit" className="input-override" margin>
           submit
