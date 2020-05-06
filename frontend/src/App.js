@@ -17,7 +17,8 @@ import FooterNav from "./components/footer-nav/footer-nav.component";
 
 // page components here:
 import HomePage from "./pages/home-page/home-page.component";
-import RestaurantPage from "./pages/restaurant-page/restaurant-page.component";
+// import RestaurantPage from "./pages/restaurant-page/restaurant-page.component";
+import RestaurantPage from "./pages/restaurant-page/restaurant-pagev2.component";
 import ContactUsPage from "./pages/contact-us-page/contact-us.component";
 import ErrorPage from "./pages/error-page/error-page.component";
 import ProfilePage from "./pages/profile-page/profile-page.component";
@@ -88,7 +89,8 @@ class App extends Component {
               {this.props.userAuth && (
                 <Route exact path="/profile" component={ProfilePage} />
               )}
-
+              {/* Temporary */}
+              <Route to="/error-page" component={ErrorPage} />
               <Route to="*" component={ErrorPage} />
             </Switch>
           </main>
