@@ -14,9 +14,10 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 import Avatar from '@material-ui/core/Avatar';
-
+import "./restaurant-card.styles.scss"
 const DEFAULT_IMAGE_URL =
   "https://images.unsplash.com/photo-1543362906-acfc16c67564?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2002&q=80";
+
 const RestaurantCard = ({
     restaurantName = "none",
     rating = 4,
@@ -25,6 +26,10 @@ const RestaurantCard = ({
     address = "",
     to = "/"
 }) =>{
+    const[isFavorited, setFavorite] = useState("");
+    const handleFavorited = (e) =>{
+        
+    }
     return(
         <Link 
             to = {to}
@@ -60,7 +65,7 @@ const RestaurantCard = ({
                     </CardContent>
                     <CardActions className = "iconBar">
                         <div className = "iconbar"> 
-                            <IconButton>
+                            <IconButton color = "default" onClick={color = 'secondary'}>
                                 <FavoriteIcon className = "favIcon" />
                             </IconButton>
                             <IconButton>

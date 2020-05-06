@@ -2,13 +2,17 @@
     fill: green;
 }
 .cardSize {
-    width: 763px;
     height: auto;
     flex-direction: column;
     flex-wrap: nowrap;
     padding-bottom: 16px;
     margin-bottom: 10px;
-    
+    .MuiIconButton-colorPrimary{
+        color: grey;
+    }
+    .MuiIconButton-colorSecondary{
+        color: red; 
+    }
 }
 
 .restaurantPhoto{
