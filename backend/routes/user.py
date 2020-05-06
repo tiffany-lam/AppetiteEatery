@@ -69,6 +69,16 @@ def upload_images(id):
 
     return client.to_json(), 200
 
+@user.route('/test/<id>', methods=['GET'])
+def get_client(id):
+    client = Client.objects.with_id(id)
+
+    print(client.to_json())
+    for review in client.reviews:
+        print(review.fetch().to_json())
+
+    return "safjaksdf", 200
+
 @user.route('/<id>', methods=['DELETE'])
 def delete_client(id):
     if request.method == 'DELETE':

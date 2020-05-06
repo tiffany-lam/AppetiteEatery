@@ -79,7 +79,6 @@ def add_restaurant():
     else:
         return "API not found", 404
 
-
 # /api/restaurant/<id>
 # GET - return a specific restaurant's information deeply based on id
 # PUT - updated a specific restaurant's information
@@ -175,6 +174,49 @@ def modify_restaurant(id):
                     restaurant.update(**{key: request.args[key]})
 
             return restaurant.to_json(), 200
+
+    elif request.method == 'POST':
+        restaurant = Restaurant.objects.with_id(id)
+
+        restaurant.restaurantName = request.json['restaurantName']
+        restaurant.restaurantTags=request.json['restaurantTags'],
+        restaurant.description=request.json['description'],
+        restaurant.dateOpen=request.json['dateOpen'],
+        restaurant.ownerid=request.json['ownerid'],
+        restaurant.address=request.json['address'],
+        restaurant.address2=request.json['address2'],
+        restaurant.city=request.json['city'],
+        restaurant.zipcode=request.json['zipcode'],
+        restaurant.state=request.json['state'],
+        restaurant.location=request.json['location'],
+        restaurant.website=request.json['website']
+
+        restaurant.hours.sunday._from = request.json['hours']['sunday']['_from']
+        restaurant.hours.sunday._to = request.json['hours']['sunday']['_to']
+        restaurant.hours.monday._from = request.json['hours']['monday]['_from']
+        restaurant.hours.monday._to = request.json['hours']['monday]['_to']
+        restaurant.hours.tuesday._from = request.json['hours']['tuesday']['_from']
+        restaurant.hours.tuesday._to = request.json['hours']['tuesday']['_to']
+        restaurant.hours.wednesday._from = request.json['hours']['wednesday']['_from']
+        restaurant.hours.wednesday._to = request.json['hours']['wednesday']['_to']
+        restaurant.hours.thursay._from = request.json['hours']['thursay']['_from']
+        restaurant.hours.thursay._to = request.json['hours']['thursay']['_to']
+        restaurant.hours.friday._from = request.json['hours']['friday']['_from']
+        restaurant.hours.friday._to = request.json['hours']['friday']['_to']
+        restaurant.hours.saturday._from = request.json['hours']['saturday']['_from']
+        restaurant.hours.saturday._to = request.json['hours']['saturday']['_to']
+
+        restaurant.details.parking = request.json['details']['parking']
+        restaurant.details.reservation = request.json['details']['reservation']
+        restaurant.details.petsAllowed = request.json['details']['petsAllowed']
+        restaurant.details.takeout = request.json['details']['takeout']
+        restaurant.details.wifi = request.json['details']['wifi']
+        restaurant.details.waitTime = request.json['details']['waitTime']
+
+        restaurant.save()
+
+        return restaurant.to_json(), 200
+
 
     elif request.method == 'DELETE':
         s3_resource = boto3.resource(
