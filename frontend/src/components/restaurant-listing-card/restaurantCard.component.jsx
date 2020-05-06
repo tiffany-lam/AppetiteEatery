@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Link} from "react-router-dom";
 import Rating from "../../components/rating/rating.component";
 //import card stuff
@@ -26,16 +26,24 @@ const RestaurantCard = ({
     address = "",
     to = "/"
 }) =>{
-    const[isFavorited, setFavorite] = useState("");
+    //toggle the favorite button
+    const[isFavorite, setFavorite] = useState(false);
+    const favoriteSwitch = () => setFavorite(isFavorite => !isFavorite);
     const handleFavorited = (e) =>{
-        
+        if(isFavorite === false){
+            setFavorite = true; 
+        }
+        else{
+            setFavorite = false; 
+        }
     }
     return(
-        <Link 
-            to = {to}
-            className = {`card-view ${className}`}
-        >
+        
             <Card className = "cardSize">
+                <Link 
+                    to = {to}
+                    className = {`card-view ${className}`}
+                >
                     <CardContent tabindex="0">
                         <CardMedia 
                         component = "img"
@@ -63,18 +71,34 @@ const RestaurantCard = ({
                          </div>
                        
                     </CardContent>
+                    </Link>
                     <CardActions className = "iconBar">
-                        <div className = "iconbar"> 
-                            <IconButton color = "default" onClick={color = 'secondary'}>
-                                <FavoriteIcon className = "favIcon" />
+                        {/* change the color of the button if on/off */}
+                        <div>
+                            {isFavorite ? ( 
+                            <IconButton color = "primary">
+                                <FavoriteIcon className = "favIcon" 
+                                onClick={favoriteSwitch}
+                                
+                                />
                             </IconButton>
+                            )
+                            :(
+                            <IconButton color = "secondary">
+                                <FavoriteIcon className = "favIcon" 
+                                onClick={favoriteSwitch}
+                                
+                                />
+                            </IconButton> 
+                            )}
+                        </div>   
                             <IconButton>
                                 <ShareIcon />
                             </IconButton>
-                        </div>   
+                        
                     </CardActions>
                 </Card>
-            </Link>
+            
 
     );
     

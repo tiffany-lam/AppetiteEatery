@@ -233,3 +233,8 @@ def upload_images(id):
     restaurant.save()
 
     return restaurant.to_json(), 200
+
+@restaurant.route('/search/<searchvalue>', methods=['GET'])
+def search(searchvalue):
+    restaurants_collection = Restaurant.objects()
+    
