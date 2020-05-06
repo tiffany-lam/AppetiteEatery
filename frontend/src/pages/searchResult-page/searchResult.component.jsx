@@ -91,7 +91,8 @@ const restaurants = [
   ];
 
 const SearchResult = ({searchbarValue, userAuth, ...otherProps}) =>{
-  const [results, setResults] = useState({restaurants: [], tags: []});
+  //[] is the initial value of results
+  const [results, setResults] = useState([]);
   const [filter, setFilter] = useState("none");
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(5);
@@ -101,14 +102,17 @@ const SearchResult = ({searchbarValue, userAuth, ...otherProps}) =>{
       let source = axios.CancelToken.source();
       const fetchData = async() =>{
         try{
-          const res = await axios.get(`http://127.0.0.1:5000/api/restaurant/search/${searchbarValue}`)
+          
+          const res = axios.get(`http://127.0.0.1:5000/api/restaurant/search/${searchbarValue}`)
           .then(res => {
             console.log("Retrieved all data \n");
-            console.log(res.data);
+            
+            setResults(res.data.search_results);
+            //console.log(res.data.search_results);
           })
           .catch(error => console.error(error));
 
-          setResults(res.data);
+         
         }
         catch(e){
           console.error(e);
@@ -118,24 +122,30 @@ const SearchResult = ({searchbarValue, userAuth, ...otherProps}) =>{
     return () =>{
       source.cancel();
     };
-  }, searchbarValue);
+  }, [searchbarValue]);
 
-  useEffect(() => {});
     return(
       <div>
           <div className = "filter"> 
               {/* {this.props.setSearchbarValue} */}
           </div>
-          {restaurants.map((restaurant, i) =>(
-          <RestaurantCard
-              to={`/restaurant/${restaurant.id}`}
-              restaurantName={restaurant.name}
-              rating={restaurant.rating}
-              imageUrl={restaurant.url}
-              address={restaurant.address}
+          {/* {console.log("results: ", results)}
+          {console.log("search_results: ", results.search_results)} */}
+          {results.length === 0 ? (<h1>No results</h1>):(
+            <div>
+              {results.map((restaurant, i) =>(
+                <RestaurantCard
+                    to={`/restaurant/${restaurant.id}`}
+                    restaurantName={restaurant.restaurantName}
+                    // rating={restaurant.rating}
+                    imageUrl={restaurant.url}
+                    address={restaurant.address}
 
-          />
-          ))}
+                />
+              
+              ))}
+            </div>
+          )}
           {/* <Pagination
               className = "pagination"
               total =
