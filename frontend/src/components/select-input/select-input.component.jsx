@@ -13,10 +13,12 @@ const SelectInput = ({
   type,
   htmlFor, // used for accessibility
   // required,
+  selected,
   children,
+  disabled,
   ...props
 }) => {
-  const [option, setOption] = useState("");
+  const [option, setOption] = useState(selected ? selected : "");
 
   return (
     <div className={`select-input-container ${className}`}>
@@ -38,6 +40,7 @@ const SelectInput = ({
         onChange={(e) => {
           setOption(e.target.value);
         }}
+        disabled={disabled}
       >
         <option value=""></option>
         {children}

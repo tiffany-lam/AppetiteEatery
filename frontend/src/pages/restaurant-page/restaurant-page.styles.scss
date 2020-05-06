@@ -277,10 +277,15 @@
           display: flex;
           //   flex-direction: row;
           //   flex-wrap: nowrap;
+          width: 100%;
           align-content: center;
-          select {
-            height: 100%;
-            // align-self: center;
+          // select {
+          //   height: 100%;
+          //   // align-self: center;
+          // }
+
+          div {
+            width: 100%;
           }
           button {
             svg {
@@ -352,7 +357,12 @@
       flex-direction: row;
       // justify-content: space-between;
 
-      margin-bottom: 1rem;
+      margin-bottom: 0.1rem;
+      width: 100%;
+
+      div {
+        width: 100%;
+      }
 
       label {
         width: 100%;
@@ -392,19 +402,9 @@
       }
 
       textarea {
-        height: 7em;
         width: 100%;
 
         background-color: $light_beige;
-
-        resize: none;
-
-        border: none;
-        border-radius: 5px;
-
-        padding: 1rem;
-
-        box-sizing: border-box;
       }
     }
 

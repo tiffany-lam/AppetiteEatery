@@ -15,7 +15,7 @@ const HourRangeInput = ({
   className,
   type,
   htmlFor = "", // used for accessibility
-
+  disabled,
   ...props
 }) => {
   const inputRef = React.createRef();
@@ -42,6 +42,7 @@ const HourRangeInput = ({
         value={value1}
         onChange={handleChange1}
         ref={inputRef}
+        disabled={disabled}
       ></input>
 
       <label className="label-to" htmlFor={label + "-to"}></label>
@@ -53,6 +54,7 @@ const HourRangeInput = ({
         id={label + "-to"}
         value={value2}
         onChange={handleChange2}
+        disabled={disabled}
       ></input>
     </div>
   );
