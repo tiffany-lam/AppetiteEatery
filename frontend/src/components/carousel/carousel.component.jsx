@@ -83,7 +83,9 @@ const Carousel = (props) => {
   // const displayedImages = displayed();
   // console.log(displayed());
 
-  const carouselImages = images.map((url, imageIndex) => {
+  const carouselImages = images.map((route, imageIndex) => {
+    let url = `http://52.201.241.142/api/img-get?url=${route}`;
+    console.log(url);
     let displayedImages = displayed();
     if (images.length <= props.size) {
       return displayed().includes(imageIndex) ? (
