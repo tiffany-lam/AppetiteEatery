@@ -203,17 +203,17 @@ def upload_images(id):
     for image in files:
         print(f"Dealing with image {image.filename}")
         s3_resource.Bucket(S3_BUCKET).put_object(Key=f'restaurants/{id}/{image.filename}', Body=image)
-        if f'restaurant/{id}/{image.filename}' not in restaurant.images:
-            restaurant.images.append(f'restaurant/{id}/{image.filename}')
+        if f'restaurants/{id}/{image.filename}' not in restaurant.images:
+            restaurant.images.append(f'restaurants/{id}/{image.filename}')
         print(f"Finished with image {image.filename}")
 
     files = request.files.getlist("menu[]")
     
     for image in files: 
         print(f'Dealing with image {image.filename}')
-        s3_resource.Bucket(S3_BUCKET).put_object(Key=f'restaurants/{id}/{image.filename}', Body=image)
-        if f'restaurant/{id}/{image.filename}' not in restaurant.menu:
-            restaurant.menu.append(f'restaurant/{id}/{image.filename}')
+        s3_resource.Bucket(S3_BUCKET).put_object(Key=f'restaurantss/{id}/{image.filename}', Body=image)
+        if f'restaurants/{id}/{image.filename}' not in restaurant.menu:
+            restaurant.menu.append(f'restaurants/{id}/{image.filename}')
         print(f'Finished with image {image.filename}')
 
     restaurant.save()
