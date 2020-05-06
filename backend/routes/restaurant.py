@@ -48,6 +48,7 @@ def add_restaurant():
                                 dateOpen=request.json['dateOpen'],
                                 ownerid=request.json['ownerid'],
                                 address=request.json['address'],
+                                address2=request.json['address2'],
                                 city=request.json['city'],
                                 zipcode=request.json['zipcode'],
                                 state=request.json['state'],
@@ -238,3 +239,15 @@ def upload_images(id):
 def search(searchvalue):
     restaurants_collection = Restaurant.objects()
     
+
+@restaurant.route('/owner/<id>', methods=['GET'])
+def getOwnerRestaurants(id):
+    ownerObjects = Owner.objects.with_id(id)
+
+    resultObject = dict()
+    resultObject["results"] = []
+
+    for test in ownerObjects['restaurants']:
+        resultObject['results'].append(test.fetch().to_mongo().to_dict())
+
+    return json.dumps(resultObject, default=str), 200
