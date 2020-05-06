@@ -12,6 +12,7 @@ import {
 
 // custom components:
 import RestaurantCard from "../../components/restaurant-listing-card/restaurantCard.component";
+import CustomButton from "../../components/custom-button/custom-button.component";
 
 // custom stylesheet:
 import "./owner-restaurant-page.styles.scss";
@@ -22,7 +23,6 @@ const OwnerRestaurantPage = ({ userAuth, ...props }) => {
   const id = "5ead3201520a017539dfa306";
 
   useEffect(() => {
-    console.log("restaurant page");
     let source = axios.CancelToken.source();
     const validateAcess = async () => {
       setLoading(true);
@@ -60,12 +60,18 @@ const OwnerRestaurantPage = ({ userAuth, ...props }) => {
           console.log(ownersRestaurants);
         }}
       >
-        <div className="">OWNERS RES PAGE</div>
+        <h1 className="owner-header">Your Restaurants</h1>
         {ownersRestaurants.map((restaurant, i) => (
-          <RestaurantCard key={i} restaurant={restaurant} />
+          <Link key={i} to={`/restaurant/${restaurant._id}`}>
+            <RestaurantCard restaurant={restaurant} className="card-margin" />
+          </Link>
         ))}
 
-        <Link to="/apply">Button</Link>
+        <Link to="/apply">
+          <CustomButton className="submit-res-btn">
+            Submit a new restaurant!
+          </CustomButton>
+        </Link>
       </div>
     );
   else
