@@ -97,6 +97,7 @@ class ErrorPage extends React.Component {
           dateOpen: "",
           ownerid: "",
           address: "",
+          address2: "",
           city: "",
           zipcode: "",
           state: "",
