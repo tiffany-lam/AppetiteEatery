@@ -1,33 +1,41 @@
 @import "../../../assets/theme";
 
-.tab-inactive {
-  // width: auto;
-  background-color: transparent;
-  border: none;
-  border-bottom: 3px solid black;
-  // outline: none;
-  // color: $secondary;
+.tab-btn {
+  flex: 1;
 
-  font-weight: bold;
+  button {
+    width: 100%;
+    padding: 0.25rem;
+  }
+  .tab-inactive {
+    // width: auto;
+    background-color: transparent;
+    // border: none;
+    // border-bottom: 3px solid black;
+    // outline: none;
+    // color: $secondary;
 
-  padding: 0.4rem 0.3rem 0.4rem 0.3rem;
-}
+    // font-weight: bold;
 
-.tab-active {
-  width: 5em;
-  background-color: $primary !important;
-  border-bottom: 2px solid transparent;
-  border-image-slice: 1;
-  border-image-source: linear-gradient(to right,$lime, rgb(83, 240, 201));
-  padding: 10px;
-  // width: auto;
+    // padding: 0.4rem 0.3rem 0.4rem 0.3rem;
+  }
 
-  // background-color: transparent;
-  // border: none;
-  // outline: none;
-  // color: $primary;
+  .tab-active {
+    // width: 5em;
+    background-color: $primary !important;
+    // border-bottom: 2px solid transparent;
+    // border-image-slice: 1;
+    // border-image-source: linear-gradient(to right, $lime, rgb(83, 240, 201));
+    // padding: 10px;
+    // width: auto;
 
-  // font-weight: bold;
+    // background-color: transparent;
+    // border: none;
+    // outline: none;
+    // color: $primary;
 
-  // padding: 0.2rem 0.3rem 0 0.3rem;
+    // font-weight: bold;
+
+    // padding: 0.2rem 0.3rem 0 0.3rem;
+  }
 }

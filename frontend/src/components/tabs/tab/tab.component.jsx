@@ -7,7 +7,7 @@ export default function Tab(props) {
     props.setTab(props.index);
   };
   return (
-    <li className={props.className ? `${props.className}` : ""}>
+    <li className={`tab-btn ${props.className ? `${props.className}` : ""}`}>
       <button
         type="button"
         onClick={setActive}

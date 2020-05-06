@@ -33,6 +33,7 @@ const OwnerRestaurantPage = ({ userAuth, ...props }) => {
             cancelToken: source.token,
           }
         );
+        console.log(res.data);
 
         setLoading(false);
         setOwnersRestaurants(res.data.results);
@@ -61,6 +62,7 @@ const OwnerRestaurantPage = ({ userAuth, ...props }) => {
         }}
       >
         <h1 className="owner-header">Your Restaurants</h1>
+
         {ownersRestaurants.map((restaurant, i) => (
           <Link key={i} to={`/restaurant/${restaurant._id}`}>
             <RestaurantCard restaurant={restaurant} className="card-margin" />
