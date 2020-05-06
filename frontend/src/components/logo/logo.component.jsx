@@ -24,16 +24,14 @@ const Logo = ({ className, eVersion = 0, uppercase = false }) => {
       className={`logo-container ${className} ${uppercase ? "uppercase" : ""}`}
     >
       {/* <LocalDiningIcon id="fork-knife-icon" /> */}
-
+      <CircleButton id="fork-knife-icon">
+        <LocalDiningIcon />
+      </CircleButton>
       <span id="ap-text">ap</span>
       <span id="petite-text">p{letterE[eVersion]}tite</span>
 
-      <CircleButton hoverRotate={true} id="fork-knife-icon">
-        <LocalDiningIcon />
-      </CircleButton>
-
       {/* <FiberManualRecordIcon id="small-dot-icon" /> */}
-      <span id="eatery-text">eatery</span>
+      {/* <span id="eatery-text">eatery</span> */}
     </p>
   );
 };

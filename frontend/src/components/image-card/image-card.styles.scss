@@ -71,7 +71,10 @@
     object-fit: cover;
   }
 
-  &:hover {
+  &:hover,
+  &:focus-within,
+  &:focus {
+    outline: 0;
     cursor: pointer;
 
     .pop-up-details-container {
