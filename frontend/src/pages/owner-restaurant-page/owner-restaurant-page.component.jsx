@@ -11,14 +11,8 @@ import {
 } from "../../redux/user/user.actions";
 
 // custom components:
-import ImageCard from "../../components/image-card/image-card.component";
-import FormInput from "../../components/form-input/form-input.component";
+import RestaurantCard from "../../components/restaurant-listing-card/restaurantCard.component";
 import CustomButton from "../../components/custom-button/custom-button.component";
-import ImageUploadInput from "../../components/img-upload-input/img-upload-inputcomponent";
-import SelectInput from "../../components/select-input/select-input.component";
-import HourRangeInput from "../../components/hour-range-input/hour-range.component";
-import Tag from "../../components/tag/tag-v2.component";
-import AddTagInput from "../../components/add-tag-input/add-tag-input.component";
 
 // custom stylesheet:
 import "./owner-restaurant-page.styles.scss";
@@ -29,17 +23,17 @@ const OwnerRestaurantPage = ({ userAuth, ...props }) => {
   const id = "5ead3201520a017539dfa306";
 
   useEffect(() => {
-    console.log("restaurant page");
     let source = axios.CancelToken.source();
     const validateAcess = async () => {
       setLoading(true);
       try {
         const res = await axios.get(
-          `http://127.0.0.1:5000/api/restaurant/owner/${id}`,
+          `http://127.0.0.1:5000/api/restaurant/owner/${userAuth.uid}`,
           {
             cancelToken: source.token,
           }
         );
+        console.log(res.data);
 
         setLoading(false);
         setOwnersRestaurants(res.data.results);
@@ -67,8 +61,19 @@ const OwnerRestaurantPage = ({ userAuth, ...props }) => {
           console.log(ownersRestaurants);
         }}
       >
-        <div className="">OWNERS RES PAGE</div>
-        <Link to="/apply">Button</Link>
+        <h1 className="owner-header">Your Restaurants</h1>
+
+        {ownersRestaurants.map((restaurant, i) => (
+          <Link key={i} to={`/restaurant/${restaurant._id}`}>
+            <RestaurantCard restaurant={restaurant} className="card-margin" />
+          </Link>
+        ))}
+
+        <Link to="/apply">
+          <CustomButton className="submit-res-btn">
+            Submit a new restaurant!
+          </CustomButton>
+        </Link>
       </div>
     );
   else

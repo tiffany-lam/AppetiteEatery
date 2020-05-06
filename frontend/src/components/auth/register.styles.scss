@@ -1,99 +1,105 @@
 @import "../../assets/theme";
 
-.register-form {
+.register-form-container {
   margin: 0.5em 30px;
   background-color: inherit;
   display: flex;
   flex-direction: column;
+
   h1 {
     text-align: center;
     font-size: 2em;
     font-weight: bolder;
     color: $primary;
     margin-top: none;
-    padding-bottom: 0.5em;
-  }
-  .col1 {
-    width: 50%;
+    // padding-bottom: 0.5em;
   }
 
-  form {
+  .register-form {
     display: flex;
-    .register-col-1 {
+    flex-direction: column;
+    // background-color: red;
+    .input-gap {
+      margin-bottom: 0.5rem;
+    }
+
+    button {
+      margin-top: 1rem;
+    }
+
+    .user-type-container {
+      width: 100%;
       display: flex;
-      flex-direction: column;
-      margin: 0.5rem;
-    }
-    .register-col-2 {
-      display: flex;
-      flex-direction: column;
-      margin: 0.5rem;
+      justify-content: center;
+      align-items: center;
+      .radio {
+        flex: 1;
+        .user-type-label {
+        }
+        input[type="radio"] {
+        }
+      }
     }
   }
 
-  .row1 {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
+  // label {
+  //   display: block;
+  //   margin-bottom: 10px;
+  //   padding-right: 2em;
 
-  label {
-    display: block;
-    margin-bottom: 10px;
-    padding-right: 2em;
+  //   .radio {
+  //     float: left;
+  //     clear: none;
+  //     //top, right, bottom, left
+  //     padding: 0px 1em 0px 15px;
+  //     margin-top: none;
+  //   }
+  // }
 
-    .radio {
-      float: left;
-      clear: none;
-      //top, right, bottom, left
-      padding: 0px 1em 0px 15px;
-      margin-top: none;
-    }
-  }
-  input {
-    display: block;
-    border: none;
-    outline: none;
-    border-radius: 5px;
-    background-color: $light_beige;
-    margin-bottom: 1em;
-    padding: 0.3rem;
-  }
-  input[type="radio"] {
-    float: left;
-    clear: none;
-    margin: 2px 0px 0px 2px;
-  }
+  // input {
+  //   display: block;
+  //   border: none;
+  //   outline: none;
+  //   // border-radius: 5px;
+  //   background-color: $light_beige;
+  //   margin-bottom: 1em;
+  //   padding: 0.3rem;
+  // }
+
+  // input[type="radio"] {
+  //   float: left;
+  //   clear: none;
+  //   margin: 2px 0px 0px 2px;
+  // }
+
   .error {
     font-size: 10px;
     color: #d76666;
   }
-  .btnDiv {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .registerBtn {
-    text-align: center;
-    cursor: pointer;
-    width: 20%;
-    height: 32px;
-    background-color: $lime;
-    border-radius: 2em;
-  }
-  .registerBtn:hover {
-    background-color: $primary;
-  }
-  .googleBtn {
-    text-align: center;
-    cursor: pointer;
-    width: 50%;
-    height: 32px;
-    background-color: $lime;
-    border-radius: 2em;
-  }
-  .googleBtn:hover {
-    background-color: $primary;
-  }
 
+  // .registerBtn {
+  //   text-align: center;
+  //   cursor: pointer;
+  //   width: 20%;
+  //   height: 32px;
+  //   background-color: $lime;
+  //   border-radius: 2em;
+  // }
+
+  // .registerBtn:hover {
+  //   background-color: $primary;
+  // }
+
+  // .googleBtn {
+  //   text-align: center;
+  //   cursor: pointer;
+  //   width: 50%;
+  //   height: 32px;
+  //   background-color: $lime;
+  //   border-radius: 2em;
+  // }
+
+  // .googleBtn:hover {
+  //   background-color: $primary;
+  // }
 }
