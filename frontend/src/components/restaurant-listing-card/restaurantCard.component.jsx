@@ -78,7 +78,7 @@ const RestaurantCard = ({
                             {isFavorite ? ( 
                             <IconButton color = "primary">
                                 <FavoriteIcon className = "favIcon" 
-                                onClick={favoriteSwitch}
+                                
                                 
                                 />
                             </IconButton>
@@ -86,7 +86,7 @@ const RestaurantCard = ({
                             :(
                             <IconButton color = "secondary">
                                 <FavoriteIcon className = "favIcon" 
-                                onClick={favoriteSwitch}
+                               
                                 
                                 />
                             </IconButton> 

@@ -237,7 +237,23 @@ def upload_images(id):
 
 @restaurant.route('/search/<searchvalue>', methods=['GET'])
 def search(searchvalue):
-    restaurants_collection = Restaurant.objects()
+    #restaurants_collection = Restaurant.objects()
+    resultObject = dict()
+    #all the results that we want 
+    resultObject["search_results"] = [] 
+    
+    #restaurant_collection is an array of restaurants 
+    #for restaurant in restaurants_collection:
+        #if the restaurant list contains (case insensitive) the search value
+        #if (restaurant['restaurantName']).lower() in searchvalue.lower():  
+            #print(restaurant['restaurantName'])
+            #resultObject['search_results'].append(restaurant.to_mongo().to_dict())
+    for restaurant in Restaurant.objects(restaurantName__icontains=searchvalue):
+        resultObject['search_results'].append(restaurant.to_mongo().to_dict())
+
+    return json.dumps(resultObject, default=str), 200
+        
+
     
 
 @restaurant.route('/owner/<id>', methods=['GET'])
