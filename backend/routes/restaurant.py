@@ -257,7 +257,8 @@ def upload_images(id):
 
     for image in files:
         print(f"Dealing with image {image.filename}")
-        s3_resource.Bucket(S3_BUCKET).put_object(Key=f'restaurants/{id}/{image.filename}', Body=image)
+        s3_resource.Bucket(S3_BUCKET).put_object(
+            Key=f'restaurants/{id}/{image.filename}', Body=image)
         if f'restaurants/{id}/{image.filename}' not in restaurant.images:
             restaurant.images.append(f'restaurants/{id}/{image.filename}')
         print(f"Finished with image {image.filename}")
@@ -266,7 +267,8 @@ def upload_images(id):
 
     for image in files:
         print(f'Dealing with image {image.filename}')
-        s3_resource.Bucket(S3_BUCKET).put_object(Key=f'restaurantss/{id}/{image.filename}', Body=image)
+        s3_resource.Bucket(S3_BUCKET).put_object(
+            Key=f'restaurantss/{id}/{image.filename}', Body=image)
         if f'restaurants/{id}/{image.filename}' not in restaurant.menu:
             restaurant.menu.append(f'restaurants/{id}/{image.filename}')
         print(f'Finished with image {image.filename}')
@@ -275,9 +277,30 @@ def upload_images(id):
 
     return restaurant.to_json(), 200
 
+@restaurant.route('/search/<searchvalue>', methods=['GET'])
+def search(searchvalue):
+    #restaurants_collection = Restaurant.objects()
+    resultObject = dict()
+    #all the results that we want 
+    resultObject["search_results"] = [] 
+    
+    #restaurant_collection is an array of restaurants 
+    #for restaurant in restaurants_collection:
+        #if the restaurant list contains (case insensitive) the search value
+        #if (restaurant['restaurantName']).lower() in searchvalue.lower():  
+            #print(restaurant['restaurantName'])
+            #resultObject['search_results'].append(restaurant.to_mongo().to_dict())
+    for restaurant in Restaurant.objects(restaurantName__icontains=searchvalue):
+        resultObject['search_results'].append(restaurant.to_mongo().to_dict())
+
+    return json.dumps(resultObject, default=str), 200
+        
+
+    
 
 @restaurant.route('/owner/<id>', methods=['GET'])
 def getOwnerRestaurants(id):
+
     ownerObjects = Owner.objects.with_id(id)
 
     resultObject = dict()

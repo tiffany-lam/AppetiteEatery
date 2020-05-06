@@ -7,8 +7,12 @@ export const UserActionTypes = {
 export const INITIAL_STATE = {
   userAuth: null,
   currentUser: {
-    userId: "",
-    photoUrl: "",
-    pinnedRestaurant: "",
+    _id: "",
+    _cls: "",
+    email: "",
+    fname: "",
+    lname: "",
+    reviews: [],
+    restaurants: [],
   },
 };

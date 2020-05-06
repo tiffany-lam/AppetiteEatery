@@ -1,6 +1,7 @@
 // import React from "react";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 import axios from "axios";
 
 // custom components:
@@ -73,7 +74,7 @@ const stateAbbreviations = [
   "wy",
 ];
 
-const ApplyPage = () => {
+const ApplyPage = ({ userAuth, ...props }) => {
   const [restaurantName, setRestaurantName] = useState("");
   const [description, setDescription] = useState("");
   const [dateOpened, setDateOpened] = useState("");
@@ -114,8 +115,8 @@ const ApplyPage = () => {
 
     e.preventDefault();
     const textData = {
-      ownerid: "5ead3201520a017539dfa306",
-      // owner: userAuth.uid,
+      // ownerid: "5ead3201520a017539dfa306",
+      ownerid: userAuth.uid,
       website,
       restaurantName,
       description,
@@ -605,4 +606,8 @@ const ApplyPage = () => {
   );
 };
 
-export default ApplyPage;
+const mapStateToProps = ({ user }) => ({
+  userAuth: user.userAuth,
+});
+
+export default connect(mapStateToProps)(ApplyPage);
