@@ -1,6 +1,7 @@
 // import React from "react";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 // custom components:
 import ImageCard from "../../components/image-card/image-card.component";
@@ -9,20 +10,81 @@ import CustomButton from "../../components/custom-button/custom-button.component
 import ImageUploadInput from "../../components/img-upload-input/img-upload-inputcomponent";
 import SelectInput from "../../components/select-input/select-input.component";
 import HourRangeInput from "../../components/hour-range-input/hour-range.component";
+import Tag from "../../components/tag/tag-v2.component";
+import AddTagInput from "../../components/add-tag-input/add-tag-input.component";
 
 // custom stylesheet:
 import "./apply-page.styles.scss";
+
+// state abbreviations provided by usps:
+// https://about.usps.com/who-we-are/postal-history/state-abbreviations.htm
+const stateAbbreviations = [
+  "al",
+  "ak",
+  "az",
+  "ar",
+  "ca",
+  "co",
+  "ct",
+  "de",
+  "dc",
+  "fl",
+  "ga",
+  "hi",
+  "id",
+  "il",
+  "in",
+  "ia",
+  "ks",
+  "ky",
+  "la",
+  "me",
+  "md",
+  "ma",
+  "mi",
+  "mn",
+  "ms",
+  "mo",
+  "mt",
+  "nb",
+  "nv",
+  "nh",
+  "nj",
+  "nm",
+  "ny",
+  "nc",
+  "nd",
+  "oh",
+  "ok",
+  "or",
+  "pa",
+  "pr",
+  "ri",
+  "sc",
+  "sd",
+  "tn",
+  "tx",
+  "ut",
+  "vt",
+  "va",
+  "wa",
+  "wv",
+  "wi",
+  "wy",
+];
 
 const ApplyPage = () => {
   const [restaurantName, setRestaurantName] = useState("");
   const [description, setDescription] = useState("");
   const [dateOpened, setDateOpened] = useState("");
+  const [website, setWebsite] = useState("");
   const [address1, setAddress1] = useState("");
   const [address2, setAddress2] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
-  const [zipCode, setZipCode] = useState("");
+  const [zipcode, setZipCode] = useState("");
   const [country, setCountry] = useState("USA");
+  const [location, setLocation] = useState([152.5, 152.5]);
 
   const [tags, setTags] = useState([]);
   const [images, setImages] = useState([]);
@@ -38,25 +100,70 @@ const ApplyPage = () => {
   });
 
   const [hours, setHours] = useState({
-    sundayTo: "",
-    sundayFrom: "",
-    mondayTo: "",
-    mondayFrom: "",
-
-    tuesdayTo: "",
-    tuesdayFrom: "",
-
-    wednesdayTo: "",
-    wednesdayFrom: "",
-
-    thursdayTo: "",
-    thursdayFrom: "",
-
-    fridayTo: "",
-    fridayFrom: "",
-    saturdayTo: "",
-    saturdayFrom: "",
+    sunday: { to: "", from: "" },
+    monday: { to: "", from: "" },
+    tuesday: { to: "", from: "" },
+    wednesday: { to: "", from: "" },
+    thursday: { to: "", from: "" },
+    friday: { to: "", from: "" },
+    saturday: { to: "", from: "" },
   });
+
+  const submitForm = async (e) => {
+    console.log("submitted");
+
+    e.preventDefault();
+    const textData = {
+      ownerid: "5ead3201520a017539dfa306",
+      // owner: userAuth.uid,
+      website,
+      restaurantName,
+      description,
+      dateOpen: dateOpened,
+      address: address1,
+      address2,
+      city,
+      state,
+      zipcode,
+      country,
+      location,
+      restaurantTags: tags,
+      details,
+      hours,
+    };
+
+    axios
+      .post(`http://127.0.0.1:5000/api/restaurant`, textData)
+      .then((res) => {
+        console.log("SUBMITTEEEEEEDD");
+        console.log(res.data);
+
+        // let id = res.data._id.$oid;
+        submitImages(res.data._id.$oid);
+      })
+      .catch((err) => {
+        console.log(textData);
+        console.error(err);
+      });
+  };
+
+  const submitImages = async (restaurantId) => {
+    let formData = new FormData();
+
+    //  console.log(this.state.restaurant_new.images.length)
+    for (let i = 0; i < images.length; i++) {
+      formData.append("images[]", images[i]);
+    }
+    //  console.log(this.state.restaurant_new.menu.length)
+    for (let i = 0; i < menus.length; i++) {
+      formData.append("menu[]", menus[i]);
+    }
+
+    return await axios.post(
+      `http://127.0.0.1:5000/api/restaurant/img-upload/${restaurantId}`,
+      formData
+    );
+  };
 
   return (
     <div className="apply-page-container">
@@ -64,7 +171,7 @@ const ApplyPage = () => {
         Submit your restaurant!
       </h1>
 
-      <form action="">
+      <form onSubmit={submitForm}>
         <h2 className="form-subtitle">Basic Information</h2>
         <FormInput
           required
@@ -91,6 +198,17 @@ const ApplyPage = () => {
         />
 
         <FormInput
+          type="text"
+          htmlFor="website"
+          label="website"
+          value={website}
+          handleChange={(e) => {
+            setWebsite(e.target.value);
+          }}
+          className="input-override"
+        />
+
+        <FormInput
           required
           type="textarea"
           htmlFor="restaurant-description"
@@ -104,7 +222,26 @@ const ApplyPage = () => {
           additionalInfo="(max length: 500 characters)"
         />
 
-        <h2 className="form-subtitle">Address</h2>
+        <h2
+          className="form-subtitle"
+          onClick={() => {
+            axios
+              .get("https://maps.googleapis.com/maps/api/geocode/json", {
+                params: {
+                  key: "",
+                  address: "14524 Halldale Ave, Gardena, CA 90247, USA",
+                },
+              })
+              .then((res) => {
+                console.log(res);
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          }}
+        >
+          Address
+        </h2>
         <FormInput
           required
           type="text"
@@ -143,25 +280,29 @@ const ApplyPage = () => {
             id="city-input"
           />
 
-          <FormInput
+          <SelectInput
             required
-            type="text"
-            htmlFor="state"
             label="state"
-            value={state}
+            htmlFor="state"
             handleChange={(e) => {
               setState(e.target.value);
             }}
             className="input-override"
             id="state-input"
-          />
+          >
+            {stateAbbreviations.map((state, i) => (
+              <option key={i} value={state}>
+                {state.toUpperCase()}
+              </option>
+            ))}
+          </SelectInput>
 
           <FormInput
             required
             type="text" // not number because zipcodes are best treated as strings
             htmlFor="zipcode"
             label="zip code"
-            value={zipCode}
+            value={zipcode}
             handleChange={(e) => {
               setZipCode(e.target.value);
             }}
@@ -183,7 +324,15 @@ const ApplyPage = () => {
           }}
           className="input-override"
         />
-        <h2 className="form-subtitle">Images</h2>
+        <h2
+          className="form-subtitle"
+          onClick={() => {
+            console.log(images);
+            console.log(menus);
+          }}
+        >
+          Images
+        </h2>
 
         <ImageUploadInput
           label="Restaurant Images"
@@ -203,13 +352,23 @@ const ApplyPage = () => {
           className="input-override"
         />
 
-        <h2 className="form-subtitle">Details</h2>
+        <h2
+          className="form-subtitle"
+          onClick={() => {
+            console.log(details);
+          }}
+        >
+          Details
+        </h2>
 
         <SelectInput
           required
           label="parking"
           htmlFor="parking"
           className="input-override"
+          handleChange={(e) => {
+            setDetails({ ...details, parking: e.target.value });
+          }}
         >
           <option value="free">Free</option>
           <option value="paid">Paid</option>
@@ -221,6 +380,9 @@ const ApplyPage = () => {
           label="reservation"
           htmlFor="reservation"
           className="input-override"
+          handleChange={(e) => {
+            setDetails({ ...details, reservation: e.target.value });
+          }}
         >
           <option value={true}>Yes</option>
           <option value={false}>No</option>
@@ -231,6 +393,9 @@ const ApplyPage = () => {
           label="pets allowed"
           htmlFor="pets-allowed"
           className="input-override"
+          handleChange={(e) => {
+            setDetails({ ...details, petsAllowed: e.target.value });
+          }}
         >
           <option value={true}>Yes</option>
           <option value={false}>No</option>
@@ -241,6 +406,9 @@ const ApplyPage = () => {
           label="takeout"
           htmlFor="takeout"
           className="input-override"
+          handleChange={(e) => {
+            setDetails({ ...details, takeout: e.target.value });
+          }}
         >
           <option value={true}>Yes</option>
           <option value={false}>No</option>
@@ -251,6 +419,9 @@ const ApplyPage = () => {
           label="wifi"
           htmlFor="wifi"
           className="input-override"
+          handleChange={(e) => {
+            setDetails({ ...details, wifi: e.target.value });
+          }}
         >
           <option value={true}>Yes</option>
           <option value={false}>No</option>
@@ -283,92 +454,150 @@ const ApplyPage = () => {
         <HourRangeInput
           label="sunday"
           className="time-range-input"
-          value1={hours.sundayTo}
-          value2={hours.sundayFrom}
-          handleChange1={(e) => {
-            setHours({ ...hours, sundayTo: e.target.value });
-          }}
+          value2={hours.sunday.to}
+          value1={hours.sunday.from}
           handleChange2={(e) => {
-            setHours({ ...hours, sundayFrom: e.target.value });
+            setHours({
+              ...hours,
+              sunday: { ...hours.sunday, to: e.target.value },
+            });
+          }}
+          handleChange1={(e) => {
+            setHours({
+              ...hours,
+              sunday: { ...hours.sunday, from: e.target.value },
+            });
           }}
         />
 
         <HourRangeInput
           label="monday"
           className="time-range-input"
-          value1={hours.mondayTo}
-          value2={hours.mondayFrom}
-          handleChange1={(e) => {
-            setHours({ ...hours, mondayTo: e.target.value });
-          }}
+          value2={hours.monday.to}
+          value1={hours.monday.from}
           handleChange2={(e) => {
-            setHours({ ...hours, mondayFrom: e.target.value });
+            setHours({
+              ...hours,
+              monday: { ...hours.monday, to: e.target.value },
+            });
+          }}
+          handleChange1={(e) => {
+            setHours({
+              ...hours,
+              monday: { ...hours.monday, from: e.target.value },
+            });
           }}
         />
+
         <HourRangeInput
           label="tuesday"
           className="time-range-input"
-          value1={hours.tuesdayTo}
-          value2={hours.tuesdayFrom}
-          handleChange1={(e) => {
-            setHours({ ...hours, tuesdayTo: e.target.value });
-          }}
+          value2={hours.tuesday.to}
+          value1={hours.tuesday.from}
           handleChange2={(e) => {
-            setHours({ ...hours, tuesdayFrom: e.target.value });
+            setHours({
+              ...hours,
+              tuesday: { ...hours.tuesday, to: e.target.value },
+            });
+          }}
+          handleChange1={(e) => {
+            setHours({
+              ...hours,
+              tuesday: { ...hours.tuesday, from: e.target.value },
+            });
           }}
         />
+
         <HourRangeInput
           label="wednesday"
           className="time-range-input"
-          value1={hours.wednesdayTo}
-          value2={hours.wednesdayFrom}
-          handleChange1={(e) => {
-            setHours({ ...hours, wednesdayTo: e.target.value });
-          }}
+          value2={hours.wednesday.to}
+          value1={hours.wednesday.from}
           handleChange2={(e) => {
-            setHours({ ...hours, wednesdayFrom: e.target.value });
+            setHours({
+              ...hours,
+              wednesday: { ...hours.wednesday, to: e.target.value },
+            });
+          }}
+          handleChange1={(e) => {
+            setHours({
+              ...hours,
+              wednesday: { ...hours.wednesday, from: e.target.value },
+            });
           }}
         />
         <HourRangeInput
           label="thursday"
           className="time-range-input"
-          value1={hours.thursdayTo}
-          value2={hours.thursdayFrom}
-          handleChange1={(e) => {
-            setHours({ ...hours, thursdayTo: e.target.value });
-          }}
+          value2={hours.thursday.to}
+          value1={hours.thursday.from}
           handleChange2={(e) => {
-            setHours({ ...hours, thursdayFrom: e.target.value });
+            setHours({
+              ...hours,
+              thursday: { ...hours.thursday, to: e.target.value },
+            });
+          }}
+          handleChange1={(e) => {
+            setHours({
+              ...hours,
+              thursday: { ...hours.thursday, from: e.target.value },
+            });
           }}
         />
         <HourRangeInput
           label="friday"
           className="time-range-input"
-          value1={hours.fridayTo}
-          value2={hours.fridayFrom}
-          handleChange1={(e) => {
-            setHours({ ...hours, fridayTo: e.target.value });
-          }}
+          value2={hours.friday.to}
+          value1={hours.friday.from}
           handleChange2={(e) => {
-            setHours({ ...hours, fridayFrom: e.target.value });
+            setHours({
+              ...hours,
+              friday: { ...hours.friday, to: e.target.value },
+            });
+          }}
+          handleChange1={(e) => {
+            setHours({
+              ...hours,
+              friday: { ...hours.friday, from: e.target.value },
+            });
           }}
         />
         <HourRangeInput
           label="saturday"
           className="time-range-input"
-          value1={hours.saturdayTo}
-          value2={hours.saturdayFrom}
-          handleChange1={(e) => {
-            setHours({ ...hours, saturdayTo: e.target.value });
-          }}
+          value2={hours.saturday.to}
+          value1={hours.saturday.from}
           handleChange2={(e) => {
-            setHours({ ...hours, saturdayFrom: e.target.value });
+            setHours({
+              ...hours,
+              saturday: { ...hours.saturday, to: e.target.value },
+            });
+          }}
+          handleChange1={(e) => {
+            setHours({
+              ...hours,
+              saturday: { ...hours.saturday, from: e.target.value },
+            });
           }}
         />
 
-        <h2 className="form-subtitle">Tags</h2>
+        <h2
+          className="form-subtitle"
+          onClick={() => {
+            console.log(tags);
+          }}
+        >
+          Tags
+        </h2>
 
-        <CustomButton className="input-override" margin>
+        {/* <ul>
+          <Tag value="text" />
+          <Tag type="input" value="text" />
+        </ul> */}
+
+        <AddTagInput handleAnyChange={setTags} />
+
+        <CustomButton type="submit" className="input-override" margin>
           submit
         </CustomButton>
       </form>

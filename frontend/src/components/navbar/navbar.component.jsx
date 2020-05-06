@@ -104,7 +104,7 @@ const Navbar = ({ className, userAuth, setUserAuth, ...otherProps }) => {
             </li>
             <li>
               <div className="nav-item-mask"></div>
-              <Link to="/apply">open-shop</Link>
+              <Link to="/my-restaurants">My Restaurants</Link>
             </li>
           </React.Fragment>
         ) : (

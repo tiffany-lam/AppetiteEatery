@@ -4,18 +4,20 @@ from mongoengine import CASCADE
 from mongoengine import PULL
 # from mongoengine import reverse_delete_rule
 from mongoengine.fields import (
-    StringField, DateTimeField, IntField, ListField, GeoPointField, URLField, 
+    StringField, DateTimeField, IntField, ListField, GeoPointField, URLField,
     LazyReferenceField, ReferenceField, StringField, EmbeddedDocument, EmbeddedDocumentField,
     BooleanField
 )
 
 from ..models.usermodel import Owner
 
-PARKING = ("Free", "Paid", "Unavailable")
+PARKING = ("free", "paid", "unavailable")
+
 
 class Hour(EmbeddedDocument):
     _from = StringField()
     _to = StringField()
+
 
 class Hours(EmbeddedDocument):
     # sunday = StringField()
@@ -33,6 +35,7 @@ class Hours(EmbeddedDocument):
     friday = EmbeddedDocumentField(Hour)
     saturday = EmbeddedDocumentField(Hour)
 
+
 class Details(EmbeddedDocument):
     parking = StringField(choices=PARKING)
     reservation = BooleanField()
@@ -41,26 +44,33 @@ class Details(EmbeddedDocument):
     wifi = BooleanField()
     waitTime = StringField()
 
+
 DEFAULT_HOUR = Hour(_from="", _to="")
-DEFAULT_HOURS = Hours(sunday=DEFAULT_HOUR, monday=DEFAULT_HOUR, tuesday=DEFAULT_HOUR, wednesday=DEFAULT_HOUR, thursday=DEFAULT_HOUR, friday=DEFAULT_HOUR, saturday=DEFAULT_HOUR)
-DEFAULT_DETAILS = Details(parking="Unavailable", reservation=False, petsAllowed=False, takeout=False, wifi=False, waitTime="")
+DEFAULT_HOURS = Hours(sunday=DEFAULT_HOUR, monday=DEFAULT_HOUR, tuesday=DEFAULT_HOUR,
+                      wednesday=DEFAULT_HOUR, thursday=DEFAULT_HOUR, friday=DEFAULT_HOUR, saturday=DEFAULT_HOUR)
+DEFAULT_DETAILS = Details(parking="unavailable", reservation=False,
+                          petsAllowed=False, takeout=False, wifi=False, waitTime="")
+
 
 class Restaurant(Document):
-    meta = { 'collection': 'restaurants'}
+    meta = {'collection': 'restaurants'}
 
     restaurantName = StringField(required=True)
-    restaurantTags = ListField(StringField(required=True, max_length=50), required=True)
+    restaurantTags = ListField(StringField(
+        required=True, max_length=50), required=True)
     description = StringField(required=True, max_length=2500)
     dateOpen = DateTimeField(required=True)
 
-    # ownerid = LazyReferenceField('Owner', required=True, reverse_delete_rule=CASCADE)
-    # reviews = ListField(LazyReferenceField('Review', reverse_delete_rule=PULL), default=list)
-    ownerid = LazyReferenceField('Owner', required=True, reverse_delete_rule=CASCADE)
+
+    ownerid = LazyReferenceField(
+        'Owner', required=True, reverse_delete_rule=CASCADE)
     reviews = ListField(LazyReferenceField('Review'), default=list)
 
     address = StringField(required=True)
+    address2 = StringField()
+
     city = StringField(required=True)
-    zipcode = IntField(required=True)
+    zipcode = StringField(required=True)
     state = StringField(required=True)
     location = GeoPointField(required=True)
 
@@ -68,14 +78,10 @@ class Restaurant(Document):
     details = EmbeddedDocumentField(Details)
 
     website = StringField()
-    # menu = ListField(StringField(required=True), required=True)
     menu = ListField(StringField())
     images = ListField(StringField())
 
-    # website = URLField()
-    # menu = ListField(URLField(required=True), required=True)
-    # images = ListField(URLField())
-    
     limelightCondition = StringField(default="")
+
 
 Restaurant.register_delete_rule(Owner, "restaurants", PULL)
