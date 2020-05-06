@@ -65,7 +65,12 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div
+        className="App"
+        onClick={() => {
+          console.log(process.env);
+        }}
+      >
         <BrowserRouter>
           <header>
             <Navbar />
