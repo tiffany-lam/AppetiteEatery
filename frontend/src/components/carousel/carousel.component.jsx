@@ -116,8 +116,10 @@ const Carousel = (props) => {
             <button
               className="button"
               type="button"
-              onClick={() => {
-                console.log(`deleted image at ${url}`);
+              onClick={(e) => {
+                e.preventDefault();
+                props.deleteImage(route);
+                console.log(`deleted image at ${route}`);
               }}
             >
               <CloseIcon></CloseIcon>
@@ -163,8 +165,10 @@ const Carousel = (props) => {
               <button
                 className="button"
                 type="button"
-                onClick={() => {
-                  console.log(`deleted image at ${url}`);
+                onClick={(e) => {
+                  e.preventDefault();
+                  props.deleteImage(route);
+                  console.log(`deleted image at ${route}`);
                 }}
               >
                 <CloseIcon></CloseIcon>
@@ -199,8 +203,10 @@ const Carousel = (props) => {
               <button
                 className="button"
                 type="button"
-                onClick={() => {
-                  console.log(`deleted image at ${url}`);
+                onClick={(e) => {
+                  e.preventDefault();
+                  props.deleteImage(route);
+                  console.log(`deleted image at ${route}`);
                 }}
               >
                 <CloseIcon></CloseIcon>
@@ -235,8 +241,13 @@ const Carousel = (props) => {
               <button
                 className="button"
                 type="button"
-                onClick={() => {
-                  console.log(`deleted image at ${url}`);
+                // onClick={() => {
+                //   console.log(`deleted image at ${url}`);
+                // }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  props.deleteImage(route);
+                  console.log(`deleted image at ${route}`);
                 }}
               >
                 <CloseIcon></CloseIcon>

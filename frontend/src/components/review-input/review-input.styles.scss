@@ -15,16 +15,39 @@
   height: 100%;
   width: 100%;
 
-  // border: 1px solid $secondary;
-  border-radius: 5px;
-
   padding: 0.6rem;
 
-  // background-color: rgb(245, 245, 245);
-  background-color: $light_beige;
-  // display: grid;
-  // grid-template-rows: max-content;
-  // grid-template-areas: " input ";
+  background-color: $background_light;
+  color: $secondary_dark;
+
+  border: none;
+  border: 1px solid lightgray;
+
+  &:focus {
+    outline: none;
+    border: 1px solid $secondary_dark;
+  }
+
+  &:focus-within {
+    outline: none;
+    border: 1px solid $secondary_dark;
+  }
+
+  &:invalid {
+    outline: none;
+    color: $primary;
+  }
+
+  &:valid {
+    outline: none;
+    color: $secondary_dark;
+  }
+
+  &:hover {
+    outline: none;
+    border: 1px solid $secondary_dark;
+    // box-shadow: $light_box_shadow;
+  }
 
   .review-extra {
     height: min-content;
@@ -36,15 +59,8 @@
   }
 
   .review-user {
-    // grid-area: input;
     height: min-content;
     width: 100%;
-
-    // z-index: 1;
-    // height: min-content;
-    // width: 100%;
-
-    // float: left;
     display: flex;
     flex-direction: row;
     align-content: center;
@@ -52,6 +68,7 @@
     p {
       margin-left: 0.5rem;
       font-weight: bolder;
+      letter-spacing: 0.05rem;
     }
 
     img {
@@ -63,17 +80,7 @@
     }
   }
 
-  // .review-rating {
-  //   // grid-area: input;
-
-  //   // z-index: 1;
-
-  //   // float: right;
-  // }
-
   .review-form {
-    // grid-area: input;
-
     height: 100%;
     width: 100%;
 
@@ -89,13 +96,13 @@
       width: 100%;
 
       border: none;
-      // border-top: 1px solid $secondary;
-      // border-bottom: 1px solid $secondary;
       outline: none;
 
       background-color: transparent;
+      color: $secondary_dark;
       font-size: 1.1rem;
       line-height: 1.5rem;
+      letter-spacing: 1px;
 
       padding: 0 0.5rem;
       margin: 0.5rem 0;
@@ -112,9 +119,6 @@
       }
 
       .review-preview-container {
-        // height: min-content;
-        // width: min-content;
-
         overflow-x: auto;
 
         display: flex;
@@ -190,17 +194,26 @@
         margin-left: auto;
 
         background: none;
-        background-color: $primary;
+        // background-color: $primary;
+        background-color: $secondary;
         outline: none;
+        border: none;
 
         font-size: 1em;
         font-weight: bold;
         color: white;
 
-        border: 1px solid $primary;
-        border-radius: 5px;
+        // border: 1px solid $primary;
+        // border-radius: 5px;
+
+        cursor: pointer;
 
         padding: 0.6rem;
+      }
+
+      input[type="submit"]:hover,
+      input[type="submit"]:focus {
+        background-color: $primary;
       }
     }
   }

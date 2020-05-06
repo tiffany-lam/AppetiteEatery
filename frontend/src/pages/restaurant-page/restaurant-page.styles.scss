@@ -357,7 +357,7 @@
       flex-direction: row;
       // justify-content: space-between;
 
-      margin-bottom: 0.1rem;
+      margin-bottom: 0.5rem;
       width: 100%;
 
       div {
@@ -403,8 +403,8 @@
 
       textarea {
         width: 100%;
-
-        background-color: $light_beige;
+        background-color: $background_light;
+        padding: 1rem;
       }
     }
 

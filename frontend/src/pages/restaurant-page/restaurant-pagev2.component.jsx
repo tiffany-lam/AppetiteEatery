@@ -9,7 +9,7 @@ import "./restaurant-page.styles.scss";
 
 // IMPORT COMPONENTS
 import Divider from "../../components/divider/divider.component";
-import Tag from "../../components/tag/tag.component";
+import Tag from "../../components/tag/tag-v2.component";
 import Carousel from "../../components/carousel/carousel.component";
 import Review from "../../components/review/review.component";
 import ReviewInput from "../../components/review-input/review-input.component";
@@ -137,6 +137,16 @@ const RestaurantPage = ({ match, ...props }) => {
     setRestaurant({ ...restaurant, restaurantTags: newTags });
   };
 
+  const deleteImage = (deletedImage) => {
+    let newImages = restaurant.images.filter((image) => image !== deletedImage);
+    setRestaurant({ ...restaurant, images: newImages });
+  };
+
+  const deleteMenu = (deletedMenu) => {
+    let newMenu = restaurant.menu.filter((menu) => menu !== deletedMenu);
+    setRestaurant({ ...restaurant, menu: newMenu });
+  };
+
   const handleChange = (e) => {
     console.log(e.target.name);
     console.log(e.target.value);
@@ -173,11 +183,12 @@ const RestaurantPage = ({ match, ...props }) => {
   const tags = restaurant
     ? restaurant.restaurantTags.map((tag) => {
         return editable ? (
-          <Tag type="delete" key={tag} delete={deleteTag}>
-            {tag}
-          </Tag>
+          // <Tag type="delete" key={tag} delete={deleteTag}>
+          //   {tag}
+          // </Tag>
+          <Tag key={tag} value={tag}></Tag>
         ) : (
-          <Tag key={tag}>{tag}</Tag>
+          <Tag key={tag} value={tag}></Tag>
         );
       })
     : null;
@@ -251,7 +262,7 @@ const RestaurantPage = ({ match, ...props }) => {
                 )}
               </div>
               <div className="restaurant-page-information">
-                <p>Opened {restaurant.dateOpen}</p>
+                <p>Opened {restaurant.dateOpen.split(" ")[0]}</p>
                 <p>
                   Owned by {restaurant.ownerid.fname} {restaurant.ownerid.lname}
                 </p>
@@ -259,7 +270,12 @@ const RestaurantPage = ({ match, ...props }) => {
             </fieldset>
             <fieldset form="manage-restaurant" className="restaurant-container">
               <div className="restaurant-page-carousel">
-                <Carousel images={restaurant.images} manage size={3} />
+                <Carousel
+                  images={restaurant.images}
+                  manage
+                  size={3}
+                  deleteImage={deleteImage}
+                />
               </div>
               <Divider full={true} />
             </fieldset>
@@ -326,7 +342,8 @@ const RestaurantPage = ({ match, ...props }) => {
                             label="parking"
                             htmlFor="parking"
                             disabled={editInput !== "parking"}
-                            selected={restaurant.details.parking}
+                            // defaultValue={restaurant.details.parking}
+                            value={restaurant.details.parking}
                             handleChange={(e) => {
                               setRestaurant({
                                 ...restaurant,
@@ -337,26 +354,9 @@ const RestaurantPage = ({ match, ...props }) => {
                               });
                             }}
                           >
-                            <option
-                              value="free"
-                              selected={restaurant.details.parking === "Free"}
-                            >
-                              Free
-                            </option>
-                            <option
-                              value="paid"
-                              selected={restaurant.details.parking === "Paid"}
-                            >
-                              Paid
-                            </option>
-                            <option
-                              value="unavailable"
-                              selected={
-                                restaurant.details.parking === "Unavailable"
-                              }
-                            >
-                              Unavailable
-                            </option>
+                            <option value="free">Free</option>
+                            <option value="paid">Paid</option>
+                            <option value="unavailable">Unavailable</option>
                           </SelectInput>
                           {editInput === "parking" ? (
                             <button
@@ -381,7 +381,8 @@ const RestaurantPage = ({ match, ...props }) => {
                             label="wifi"
                             htmlFor="wifi"
                             disabled={editInput !== "wifi"}
-                            selected={restaurant.details.wifi}
+                            // defaultValue={restaurant.details.wifi}
+                            value={restaurant.details.wifi}
                             handleChange={(e) => {
                               setRestaurant({
                                 ...restaurant,
@@ -392,18 +393,8 @@ const RestaurantPage = ({ match, ...props }) => {
                               });
                             }}
                           >
-                            <option
-                              value={true}
-                              selected={restaurant.details.wifi === true}
-                            >
-                              Yes
-                            </option>
-                            <option
-                              value={false}
-                              selected={restaurant.details.wifi === false}
-                            >
-                              No
-                            </option>
+                            <option value={true}>Yes</option>
+                            <option value={false}>No</option>
                           </SelectInput>
                           {editInput === "wifi" ? (
                             <button
@@ -429,7 +420,8 @@ const RestaurantPage = ({ match, ...props }) => {
                               label="takeout"
                               htmlFor="takeout"
                               disabled={editInput !== "takeout"}
-                              selected={restaurant.details.takeout}
+                              // defaultValue={restaurant.details.takeout}
+                              value={restaurant.details.takeout}
                               handleChange={(e) => {
                                 setRestaurant({
                                   ...restaurant,
@@ -440,18 +432,8 @@ const RestaurantPage = ({ match, ...props }) => {
                                 });
                               }}
                             >
-                              <option
-                                value={true}
-                                selected={restaurant.details.takeout === true}
-                              >
-                                Yes
-                              </option>
-                              <option
-                                value={false}
-                                selected={restaurant.details.takeout === false}
-                              >
-                                No
-                              </option>
+                              <option value={true}>Yes</option>
+                              <option value={false}>No</option>
                             </SelectInput>
 
                             {editInput === "takeout" ? (
@@ -478,7 +460,8 @@ const RestaurantPage = ({ match, ...props }) => {
                             label="reservation"
                             htmlFor="reservation"
                             disabled={editInput !== "reservation"}
-                            selected={restaurant.details.reservation}
+                            // defaultValue={restaurant.details.reservation}
+                            value={restaurant.details.reservation}
                             handleChange={(e) => {
                               setRestaurant({
                                 ...restaurant,
@@ -489,20 +472,8 @@ const RestaurantPage = ({ match, ...props }) => {
                               });
                             }}
                           >
-                            <option
-                              value={true}
-                              selected={restaurant.details.reservation === true}
-                            >
-                              Yes
-                            </option>
-                            <option
-                              value={false}
-                              selected={
-                                restaurant.details.reservation === false
-                              }
-                            >
-                              No
-                            </option>
+                            <option value={true}>Yes</option>
+                            <option value={false}>No</option>
                           </SelectInput>
                           {editInput === "reservations" ? (
                             <button
@@ -529,6 +500,7 @@ const RestaurantPage = ({ match, ...props }) => {
                       images={restaurant.menu}
                       manage
                       size={1}
+                      deleteImage={deleteMenu}
                     />
                   </fieldset>,
                   <fieldset form="restaurant-manage-extra">
@@ -899,7 +871,7 @@ const RestaurantPage = ({ match, ...props }) => {
       <section className="restaurant-page-main">
         <h1>{restaurant.restaurantName}</h1>
         <div className="restaurant-page-information">
-          <p>Opened {restaurant.dateOpen}</p>
+          <p>Opened {restaurant.dateOpen.split(" ")[0]}</p>
           <p>
             Owned by {restaurant.ownerid.fname} {restaurant.ownerid.lname}
           </p>
