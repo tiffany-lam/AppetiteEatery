@@ -83,7 +83,7 @@ def add_restaurant():
 # GET - return a specific restaurant's information deeply based on id
 # PUT - updated a specific restaurant's information
 # DELETE - delete a specific restaurant
-@restaurant.route('/<id>', methods=['GET', 'PUT', 'DELETE'])
+@restaurant.route('/<id>', methods=['GET', 'PUT', 'POST', 'DELETE'])
 def modify_restaurant(id):
     if request.method == 'GET':
         restaurant = Restaurant.objects.with_id(id)
@@ -177,20 +177,21 @@ def modify_restaurant(id):
 
     elif request.method == 'POST':
         restaurant = Restaurant.objects.with_id(id)
+        print("here")
 
         restaurant.restaurantName = request.json['restaurantName']
-        restaurant.restaurantTags = request.json['restaurantTags'],
-        restaurant.description = request.json['description'],
-        restaurant.dateOpen = request.json['dateOpen'],
-        restaurant.ownerid = request.json['ownerid'],
-        restaurant.address = request.json['address'],
-        restaurant.address2 = request.json['address2'],
-        restaurant.city = request.json['city'],
-        restaurant.zipcode = request.json['zipcode'],
-        restaurant.state = request.json['state'],
-        restaurant.location = request.json['location'],
+        restaurant.restaurantTags = request.json['restaurantTags']
+        restaurant.description = request.json['description']
+        # restaurant.dateOpen = request.json['dateOpen'],
+        # restaurant.ownerid = request.json['ownerid'],
+        # restaurant.address = request.json['address'],
+        # restaurant.address2 = request.json['address2'],
+        # restaurant.city = request.json['city'],
+        # restaurant.zipcode = request.json['zipcode'],
+        # restaurant.state = request.json['state'],
+        # restaurant.location = request.json['location'],
         restaurant.website = request.json['website']
-
+        print("here2")
         restaurant.hours.sunday._from = request.json['hours']['sunday']['_from']
         restaurant.hours.sunday._to = request.json['hours']['sunday']['_to']
         restaurant.hours.monday._from = request.json['hours']['monday']['_from']
@@ -199,13 +200,13 @@ def modify_restaurant(id):
         restaurant.hours.tuesday._to = request.json['hours']['tuesday']['_to']
         restaurant.hours.wednesday._from = request.json['hours']['wednesday']['_from']
         restaurant.hours.wednesday._to = request.json['hours']['wednesday']['_to']
-        restaurant.hours.thursay._from = request.json['hours']['thursay']['_from']
-        restaurant.hours.thursay._to = request.json['hours']['thursay']['_to']
+        restaurant.hours.thursday._from = request.json['hours']['thursday']['_from']
+        restaurant.hours.thursday._to = request.json['hours']['thursday']['_to']
         restaurant.hours.friday._from = request.json['hours']['friday']['_from']
         restaurant.hours.friday._to = request.json['hours']['friday']['_to']
         restaurant.hours.saturday._from = request.json['hours']['saturday']['_from']
         restaurant.hours.saturday._to = request.json['hours']['saturday']['_to']
-
+        print("here4")
         restaurant.details.parking = request.json['details']['parking']
         restaurant.details.reservation = request.json['details']['reservation']
         restaurant.details.petsAllowed = request.json['details']['petsAllowed']

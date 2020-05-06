@@ -144,7 +144,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
 
         // let id = res.data._id.$oid;
         submitImages(res.data._id.$oid).then(() => {
-          browserHistory.push("/my-restaurant");
+          // browserHistory.push("/my-restaurant");
         });
       })
       .catch((err) => {

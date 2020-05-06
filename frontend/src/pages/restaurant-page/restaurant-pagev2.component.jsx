@@ -40,6 +40,7 @@ const RestaurantPage = ({ match, ...props }) => {
     },
     reviews: [],
     address: "",
+    address2: "",
     city: "",
     zipcode: "",
     state: "",
@@ -177,7 +178,7 @@ const RestaurantPage = ({ match, ...props }) => {
       .then(async (res) => {
         console.log("Restaurant updated: \n");
         console.log(res.data);
-        setRestaurant({ ...restaurant, ...res.data });
+        // setRestaurant({ ...restaurant, ...res.data });
       })
       .catch((error) => console.error(error));
   };
@@ -386,11 +387,12 @@ const RestaurantPage = ({ match, ...props }) => {
                             // defaultValue={restaurant.details.wifi}
                             value={restaurant.details.wifi}
                             handleChange={(e) => {
+                              let val = e.target.value === "true" ? true : false;
                               setRestaurant({
                                 ...restaurant,
                                 details: {
                                   ...restaurant.details,
-                                  wifi: e.target.value,
+                                  wifi: val,
                                 },
                               });
                             }}
@@ -425,11 +427,12 @@ const RestaurantPage = ({ match, ...props }) => {
                               // defaultValue={restaurant.details.takeout}
                               value={restaurant.details.takeout}
                               handleChange={(e) => {
+                                let val = e.target.value === "true" ? true : false;
                                 setRestaurant({
                                   ...restaurant,
                                   details: {
                                     ...restaurant.details,
-                                    takeout: e.target.value,
+                                    takeout: val,
                                   },
                                 });
                               }}
@@ -465,11 +468,12 @@ const RestaurantPage = ({ match, ...props }) => {
                             // defaultValue={restaurant.details.reservation}
                             value={restaurant.details.reservation}
                             handleChange={(e) => {
+                              let val = e.target.value === "true" ? true : false;
                               setRestaurant({
                                 ...restaurant,
                                 details: {
                                   ...restaurant.details,
-                                  reservation: e.target.value,
+                                  reservation: val,
                                 },
                               });
                             }}
@@ -856,8 +860,11 @@ const RestaurantPage = ({ match, ...props }) => {
               ></Tabs>
             </div>
             <div className="temp">
-              <button type="button" onClick={() => setEditable(false)}>
-                SAVE
+              <button type="button" onClick={() => { 
+                saveAll();
+                setEditable(false);
+                }}>
+                SAVE YOUR CHANGES TO DATABASE
               </button>
             </div>
           </div>
