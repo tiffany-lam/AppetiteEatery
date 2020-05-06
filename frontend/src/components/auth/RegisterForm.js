@@ -3,6 +3,7 @@ import { Button, Modal } from "react-bootstrap";
 import {firebaseAuth} from "./firebaseAuth";
 import CustomModal from "../custom-modal/custom-modal.component";
 import SelectUserType from "./selectUserType";
+import axios from "axios";
 // import "bootstrap/dist/css/bootstrap.min.css";
 import "./register.styles.scss";
 class RegisterForm extends Component {
@@ -73,26 +74,76 @@ class RegisterForm extends Component {
       [name]: value,
     });
   };
-  signup(e) {
+  signup = async (e)=> {
     const { password, confirmPass } = this.state;
     //prevent the register button from submitting the form
     e.preventDefault();
-    const isValid = this.validate();
-    // perform all neccassary validations
+   // perform all neccassary validations
     if (password !== confirmPass) {
       alert("Passwords don't match");
     } else {
-      // make API call
-      firebaseAuth
+      
+      if(this.state.userType === "owner"){
+        // make API call
+        firebaseAuth
         .auth()
         .createUserWithEmailAndPassword(this.state.email, this.state.password)
+        .then(data => {
+          const userData = {
+            _id: data.user.getIdToken(),
+            fname: this.state.fname,
+            lname: this.state.lname,
+            email: this.state.email,
+          };
+          //pass the token and create the owner in mongo
+          axios
+          .post("http://127.0.0.1:5000/api/user/owner", userData)
+          .then((res) => {
+            console.log("Returned New Owner: \n");
+            console.log(res.data);
+          })
+          //catch errors with mongo
+          .catch((error) => console.error(error));
+        })
+        //catch errors with firebase
         .catch((error) => {
           console.log(error);
         });
+
+      }
+      if(this.state.userType === "patron"){
+        // make API call
+        firebaseAuth
+        .auth()
+        .createUserWithEmailAndPassword(this.state.email, this.state.password)
+        .then(data => {
+          const userData = {
+            _id: data.user.getIdToken(),
+            fname: this.state.fname,
+            lname: this.state.lname,
+            email: this.state.email,
+          };
+          //send patron token to mongo
+          axios
+          .post("http://127.0.0.1:5000/api/user/patron", userData)
+          .then((res) => {
+            console.log("Returned New Patron: \n");
+            console.log(res.data);
+          })
+          //catch mongo error
+          .catch((error) => console.error(error));
+        })
+        //catch firebase error
+        .catch((error) => {
+          console.log(error);
+        });
+      }
     }
   }
-  componentDidMount(){
-
+  handleRadioButton(value){
+    this.setState({
+        userType: value
+    });
   }
   askUserType (){
     this.setState({
@@ -100,11 +151,6 @@ class RegisterForm extends Component {
     });
   }
 
-  /*    handleClick = (e) => {
-        //store the userType here, either Patron or RestaurantOwner
-        console.log("case 1, ", e.target.value);
-        this.setState({ userType: e.target.value, modalShow: true });
-    }; */
 
   render() {
     const { errors } = this.state;
@@ -183,11 +229,12 @@ class RegisterForm extends Component {
                 <label>Account Type</label>
                 {/* Radio button for Patron */}
                 <input
-                  value={this.state.userType}
+                  value={"patron"}
                   type="radio"
                   id="patron"
-                  name="userType"
-                  onChange={this.handleChange}
+                  name="patron"
+                  checked={this.state.userType === "patron"}
+                  onChange={()=>this.handleRadioButton("patron")}
                   required={true}
                 />
                 <label className="radio-label" for="patron">
@@ -195,11 +242,12 @@ class RegisterForm extends Component {
                 </label>
                 {/* Radio button for Restaurant Owner */}
                 <input
-                  value={this.state.userType}
                   type="radio"
                   id="restaurantOwner"
-                  name="userType"
-                  onChange={this.handleChange}
+                  name="owner"
+                  value={"owner"}
+                  checked={this.state.userType === "owner"}
+                  onChange={()=>this.handleRadioButton("owner")}
                   required={true}
                 />
                 <label className="radio-label" for="restaurantOwner">

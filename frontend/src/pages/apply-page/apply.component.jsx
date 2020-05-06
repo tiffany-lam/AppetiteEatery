@@ -77,6 +77,7 @@ const ApplyPage = () => {
   const [restaurantName, setRestaurantName] = useState("");
   const [description, setDescription] = useState("");
   const [dateOpened, setDateOpened] = useState("");
+  const [website, setWebsite] = useState("");
   const [address1, setAddress1] = useState("");
   const [address2, setAddress2] = useState("");
   const [city, setCity] = useState("");
@@ -85,7 +86,7 @@ const ApplyPage = () => {
   const [country, setCountry] = useState("USA");
   const [location, setLocation] = useState([152.5, 152.5]);
 
-  const [tags, setTags] = useState(["sdf", "hey tag here"]);
+  const [tags, setTags] = useState([]);
   const [images, setImages] = useState([]);
   const [menus, setMenus] = useState([]);
 
@@ -115,8 +116,7 @@ const ApplyPage = () => {
     const textData = {
       ownerid: "5ead3201520a017539dfa306",
       // owner: userAuth.uid,
-      website: "http://www.website.com",
-
+      website,
       restaurantName,
       description,
       dateOpen: dateOpened,
@@ -137,11 +137,32 @@ const ApplyPage = () => {
       .then((res) => {
         console.log("SUBMITTEEEEEEDD");
         console.log(res.data);
+
+        // let id = res.data._id.$oid;
+        submitImages(res.data._id.$oid);
       })
       .catch((err) => {
         console.log(textData);
         console.error(err);
       });
+  };
+
+  const submitImages = async (restaurantId) => {
+    let formData = new FormData();
+
+    //  console.log(this.state.restaurant_new.images.length)
+    for (let i = 0; i < images.length; i++) {
+      formData.append("images[]", images[i]);
+    }
+    //  console.log(this.state.restaurant_new.menu.length)
+    for (let i = 0; i < menus.length; i++) {
+      formData.append("menu[]", menus[i]);
+    }
+
+    return await axios.post(
+      `http://127.0.0.1:5000/api/restaurant/img-upload/${restaurantId}`,
+      formData
+    );
   };
 
   return (
@@ -177,6 +198,17 @@ const ApplyPage = () => {
         />
 
         <FormInput
+          type="text"
+          htmlFor="website"
+          label="website"
+          value={website}
+          handleChange={(e) => {
+            setWebsite(e.target.value);
+          }}
+          className="input-override"
+        />
+
+        <FormInput
           required
           type="textarea"
           htmlFor="restaurant-description"
@@ -190,7 +222,26 @@ const ApplyPage = () => {
           additionalInfo="(max length: 500 characters)"
         />
 
-        <h2 className="form-subtitle">Address</h2>
+        <h2
+          className="form-subtitle"
+          onClick={() => {
+            axios
+              .get("https://maps.googleapis.com/maps/api/geocode/json", {
+                params: {
+                  key: "",
+                  address: "14524 Halldale Ave, Gardena, CA 90247, USA",
+                },
+              })
+              .then((res) => {
+                console.log(res);
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          }}
+        >
+          Address
+        </h2>
         <FormInput
           required
           type="text"
@@ -273,7 +324,15 @@ const ApplyPage = () => {
           }}
           className="input-override"
         />
-        <h2 className="form-subtitle">Images</h2>
+        <h2
+          className="form-subtitle"
+          onClick={() => {
+            console.log(images);
+            console.log(menus);
+          }}
+        >
+          Images
+        </h2>
 
         <ImageUploadInput
           label="Restaurant Images"
@@ -522,14 +581,21 @@ const ApplyPage = () => {
           }}
         />
 
-        <h2 className="form-subtitle">Tags</h2>
+        <h2
+          className="form-subtitle"
+          onClick={() => {
+            console.log(tags);
+          }}
+        >
+          Tags
+        </h2>
 
-        <ul>
+        {/* <ul>
           <Tag value="text" />
           <Tag type="input" value="text" />
-        </ul>
+        </ul> */}
 
-        <AddTagInput />
+        <AddTagInput handleAnyChange={setTags} />
 
         <CustomButton type="submit" className="input-override" margin>
           submit
