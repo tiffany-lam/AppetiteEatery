@@ -144,6 +144,32 @@ const RestaurantPage = ({ match, ...props }) => {
     setRestaurant({ ...restaurant, [e.target.name]: value });
   };
 
+  const convertTime = (time) => {
+    time = time.match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
+
+    if (time.length > 1) {
+      time = time.slice(1);
+      time[5] = +time[0] < 12 ? " AM" : " PM";
+      time[0] = +time[0] % 12 || 12;
+    }
+
+    return time.join("");
+  };
+
+  const saveAll = async (e) => {
+    await axios
+      .post(
+        `http://127.0.0.1:5000/api/restaurant/${match.params.restaurantId}`,
+        restaurant
+      )
+      .then(async (res) => {
+        console.log("Restaurant updated: \n");
+        console.log(res.data);
+        setRestaurant({ ...restaurant, ...res.data });
+      })
+      .catch((error) => console.error(error));
+  };
+
   const tags = restaurant
     ? restaurant.restaurantTags.map((tag) => {
         return editable ? (
@@ -301,21 +327,30 @@ const RestaurantPage = ({ match, ...props }) => {
                             htmlFor="parking"
                             disabled={editInput !== "parking"}
                             selected={restaurant.details.parking}
+                            handleChange={(e) => {
+                              setRestaurant({
+                                ...restaurant,
+                                details: {
+                                  ...restaurant.details,
+                                  parking: e.target.value,
+                                },
+                              });
+                            }}
                           >
                             <option
-                              value="Free"
+                              value="free"
                               selected={restaurant.details.parking === "Free"}
                             >
                               Free
                             </option>
                             <option
-                              value="Paid"
+                              value="paid"
                               selected={restaurant.details.parking === "Paid"}
                             >
                               Paid
                             </option>
                             <option
-                              value="Unavailable"
+                              value="unavailable"
                               selected={
                                 restaurant.details.parking === "Unavailable"
                               }
@@ -347,6 +382,15 @@ const RestaurantPage = ({ match, ...props }) => {
                             htmlFor="wifi"
                             disabled={editInput !== "wifi"}
                             selected={restaurant.details.wifi}
+                            handleChange={(e) => {
+                              setRestaurant({
+                                ...restaurant,
+                                details: {
+                                  ...restaurant.details,
+                                  wifi: e.target.value,
+                                },
+                              });
+                            }}
                           >
                             <option
                               value={true}
@@ -386,16 +430,25 @@ const RestaurantPage = ({ match, ...props }) => {
                               htmlFor="takeout"
                               disabled={editInput !== "takeout"}
                               selected={restaurant.details.takeout}
+                              handleChange={(e) => {
+                                setRestaurant({
+                                  ...restaurant,
+                                  details: {
+                                    ...restaurant.details,
+                                    takeout: e.target.value,
+                                  },
+                                });
+                              }}
                             >
                               <option
                                 value={true}
-                                selected={restaurant.details.wifi === true}
+                                selected={restaurant.details.takeout === true}
                               >
                                 Yes
                               </option>
                               <option
                                 value={false}
-                                selected={restaurant.details.wifi === false}
+                                selected={restaurant.details.takeout === false}
                               >
                                 No
                               </option>
@@ -426,16 +479,27 @@ const RestaurantPage = ({ match, ...props }) => {
                             htmlFor="reservation"
                             disabled={editInput !== "reservation"}
                             selected={restaurant.details.reservation}
+                            handleChange={(e) => {
+                              setRestaurant({
+                                ...restaurant,
+                                details: {
+                                  ...restaurant.details,
+                                  reservation: e.target.value,
+                                },
+                              });
+                            }}
                           >
                             <option
                               value={true}
-                              selected={restaurant.details.wifi === true}
+                              selected={restaurant.details.reservation === true}
                             >
                               Yes
                             </option>
                             <option
                               value={false}
-                              selected={restaurant.details.wifi === false}
+                              selected={
+                                restaurant.details.reservation === false
+                              }
                             >
                               No
                             </option>
@@ -443,14 +507,14 @@ const RestaurantPage = ({ match, ...props }) => {
                           {editInput === "reservations" ? (
                             <button
                               type="button"
-                              onClick={() => saveEdit("reservations")}
+                              onClick={() => saveEdit("reservation")}
                             >
                               <AddIcon></AddIcon>
                             </button>
                           ) : (
                             <button
                               type="button"
-                              onClick={() => setEditInput("reservations")}
+                              onClick={() => setEditInput("reservation")}
                             >
                               <EditIcon></EditIcon>
                             </button>
@@ -472,10 +536,10 @@ const RestaurantPage = ({ match, ...props }) => {
                       <div className="restaurant-page-detail">
                         <div className="restaurant-page-detail-buttons">
                           <HourRangeInput
-                            label="sunday"
-                            value1={restaurant.hours.sunday._to}
-                            value2={restaurant.hours.sunday._from}
-                            handleChange1={(e) => {
+                            label="su"
+                            value1={restaurant.hours.sunday._from}
+                            value2={restaurant.hours.sunday._to}
+                            handleChange2={(e) => {
                               setRestaurant({
                                 ...restaurant,
                                 hours: {
@@ -487,7 +551,7 @@ const RestaurantPage = ({ match, ...props }) => {
                                 },
                               });
                             }}
-                            handleChange2={(e) => {
+                            handleChange1={(e) => {
                               setRestaurant({
                                 ...restaurant,
                                 hours: {
@@ -521,10 +585,10 @@ const RestaurantPage = ({ match, ...props }) => {
                       <div className="restaurant-page-detail">
                         <div className="restaurant-page-detail-buttons">
                           <HourRangeInput
-                            label="monday"
-                            value1={restaurant.hours.monday._to}
-                            value2={restaurant.hours.monday._from}
-                            handleChange1={(e) => {
+                            label="mo"
+                            value1={restaurant.hours.monday._from}
+                            value2={restaurant.hours.monday._to}
+                            handleChange2={(e) => {
                               setRestaurant({
                                 ...restaurant,
                                 hours: {
@@ -536,7 +600,7 @@ const RestaurantPage = ({ match, ...props }) => {
                                 },
                               });
                             }}
-                            handleChange2={(e) => {
+                            handleChange1={(e) => {
                               setRestaurant({
                                 ...restaurant,
                                 hours: {
@@ -570,10 +634,10 @@ const RestaurantPage = ({ match, ...props }) => {
                       <div className="restaurant-page-detail">
                         <div className="restaurant-page-detail-buttons">
                           <HourRangeInput
-                            label="tuesday"
-                            value1={restaurant.hours.tuesday._to}
-                            value2={restaurant.hours.tuesday._from}
-                            handleChange1={(e) => {
+                            label="tu"
+                            value1={restaurant.hours.tuesday._from}
+                            value2={restaurant.hours.tuesday._to}
+                            handleChange2={(e) => {
                               setRestaurant({
                                 ...restaurant,
                                 hours: {
@@ -585,7 +649,7 @@ const RestaurantPage = ({ match, ...props }) => {
                                 },
                               });
                             }}
-                            handleChange2={(e) => {
+                            handleChange1={(e) => {
                               setRestaurant({
                                 ...restaurant,
                                 hours: {
@@ -619,10 +683,10 @@ const RestaurantPage = ({ match, ...props }) => {
                       <div className="restaurant-page-detail">
                         <div className="restaurant-page-detail-buttons">
                           <HourRangeInput
-                            label="wednesday"
-                            value1={restaurant.hours.wednesday._to}
-                            value2={restaurant.hours.wednesday._from}
-                            handleChange1={(e) => {
+                            label="we"
+                            value1={restaurant.hours.wednesday._from}
+                            value2={restaurant.hours.wednesday._to}
+                            handleChange2={(e) => {
                               setRestaurant({
                                 ...restaurant,
                                 hours: {
@@ -634,7 +698,7 @@ const RestaurantPage = ({ match, ...props }) => {
                                 },
                               });
                             }}
-                            handleChange2={(e) => {
+                            handleChange1={(e) => {
                               setRestaurant({
                                 ...restaurant,
                                 hours: {
@@ -668,10 +732,10 @@ const RestaurantPage = ({ match, ...props }) => {
                       <div className="restaurant-page-detail">
                         <div className="restaurant-page-detail-buttons">
                           <HourRangeInput
-                            label="thursday"
-                            value1={restaurant.hours.thursday._to}
-                            value2={restaurant.hours.thursday._from}
-                            handleChange1={(e) => {
+                            label="th"
+                            value1={restaurant.hours.thursday._from}
+                            value2={restaurant.hours.thursday._to}
+                            handleChange2={(e) => {
                               setRestaurant({
                                 ...restaurant,
                                 hours: {
@@ -683,7 +747,7 @@ const RestaurantPage = ({ match, ...props }) => {
                                 },
                               });
                             }}
-                            handleChange2={(e) => {
+                            handleChange1={(e) => {
                               setRestaurant({
                                 ...restaurant,
                                 hours: {
@@ -717,10 +781,10 @@ const RestaurantPage = ({ match, ...props }) => {
                       <div className="restaurant-page-detail">
                         <div className="restaurant-page-detail-buttons">
                           <HourRangeInput
-                            label="friday"
-                            value1={restaurant.hours.friday._to}
-                            value2={restaurant.hours.friday._from}
-                            handleChange1={(e) => {
+                            label="fr"
+                            value1={restaurant.hours.friday._from}
+                            value2={restaurant.hours.friday._to}
+                            handleChange2={(e) => {
                               setRestaurant({
                                 ...restaurant,
                                 hours: {
@@ -732,7 +796,7 @@ const RestaurantPage = ({ match, ...props }) => {
                                 },
                               });
                             }}
-                            handleChange2={(e) => {
+                            handleChange1={(e) => {
                               setRestaurant({
                                 ...restaurant,
                                 hours: {
@@ -766,10 +830,10 @@ const RestaurantPage = ({ match, ...props }) => {
                       <div className="restaurant-page-detail">
                         <div className="restaurant-page-detail-buttons">
                           <HourRangeInput
-                            label="saturday"
-                            value1={restaurant.hours.saturday._to}
-                            value2={restaurant.hours.saturday._from}
-                            handleChange1={(e) => {
+                            label="sa"
+                            value1={restaurant.hours.saturday._from}
+                            value2={restaurant.hours.saturday._to}
+                            handleChange2={(e) => {
                               setRestaurant({
                                 ...restaurant,
                                 hours: {
@@ -781,7 +845,7 @@ const RestaurantPage = ({ match, ...props }) => {
                                 },
                               });
                             }}
-                            handleChange2={(e) => {
+                            handleChange1={(e) => {
                               setRestaurant({
                                 ...restaurant,
                                 hours: {
@@ -908,50 +972,50 @@ const RestaurantPage = ({ match, ...props }) => {
                     <div className="restaurant-page-detail">
                       <dt>Sunday</dt>
                       <dd>
-                        {restaurant.hours.sunday._from} -{" "}
-                        {restaurant.hours.sunday._to}
+                        {convertTime(restaurant.hours.sunday._from)} -{" "}
+                        {convertTime(restaurant.hours.sunday._to)}
                       </dd>
                     </div>
                     <div className="restaurant-page-detail">
                       <dt>Monday</dt>
                       <dd>
-                        {restaurant.hours.monday._from} -{" "}
-                        {restaurant.hours.monday._to}}
+                        {convertTime(restaurant.hours.monday._from)} -{" "}
+                        {convertTime(restaurant.hours.monday._to)}
                       </dd>
                     </div>
                     <div className="restaurant-page-detail">
                       <dt>Tuesday</dt>
                       <dd>
-                        {restaurant.hours.tuesday._from} -{" "}
-                        {restaurant.hours.tuesday._to}
+                        {convertTime(restaurant.hours.tuesday._from)} -{" "}
+                        {convertTime(restaurant.hours.tuesday._to)}
                       </dd>
                     </div>
                     <div className="restaurant-page-detail">
                       <dt>Wednesday</dt>
                       <dd>
-                        {restaurant.hours.wednesday._from} -{" "}
-                        {restaurant.hours.wednesday._to}
+                        {convertTime(restaurant.hours.wednesday._from)} -{" "}
+                        {convertTime(restaurant.hours.wednesday._to)}
                       </dd>
                     </div>
                     <div className="restaurant-page-detail">
                       <dt>Thursday</dt>
                       <dd>
-                        {restaurant.hours.thursday._from} -{" "}
-                        {restaurant.hours.thursday._to}
+                        {convertTime(restaurant.hours.thursday._from)} -{" "}
+                        {convertTime(restaurant.hours.thursday._to)}
                       </dd>
                     </div>
                     <div className="restaurant-page-detail">
                       <dt>Friday</dt>
                       <dd>
-                        {restaurant.hours.friday._from} -{" "}
-                        {restaurant.hours.friday._to}
+                        {convertTime(restaurant.hours.friday._from)} -{" "}
+                        {convertTime(restaurant.hours.friday._to)}
                       </dd>
                     </div>
                     <div className="restaurant-page-detail">
                       <dt>Saturday</dt>
                       <dd>
-                        {restaurant.hours.saturday._from} -{" "}
-                        {restaurant.hours.saturday._to}
+                        {convertTime(restaurant.hours.saturday._from)} -{" "}
+                        {convertTime(restaurant.hours.saturday._to)}
                       </dd>
                     </div>
                   </dl>,
