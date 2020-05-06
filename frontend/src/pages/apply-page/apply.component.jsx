@@ -10,14 +10,74 @@ import CustomButton from "../../components/custom-button/custom-button.component
 import ImageUploadInput from "../../components/img-upload-input/img-upload-inputcomponent";
 import SelectInput from "../../components/select-input/select-input.component";
 import HourRangeInput from "../../components/hour-range-input/hour-range.component";
+import Tag from "../../components/tag/tag-v2.component";
+import AddTagInput from "../../components/add-tag-input/add-tag-input.component";
 
 // custom stylesheet:
 import "./apply-page.styles.scss";
+
+// state abbreviations provided by usps:
+// https://about.usps.com/who-we-are/postal-history/state-abbreviations.htm
+const stateAbbreviations = [
+  "al",
+  "ak",
+  "az",
+  "ar",
+  "ca",
+  "co",
+  "ct",
+  "de",
+  "dc",
+  "fl",
+  "ga",
+  "hi",
+  "id",
+  "il",
+  "in",
+  "ia",
+  "ks",
+  "ky",
+  "la",
+  "me",
+  "md",
+  "ma",
+  "mi",
+  "mn",
+  "ms",
+  "mo",
+  "mt",
+  "nb",
+  "nv",
+  "nh",
+  "nj",
+  "nm",
+  "ny",
+  "nc",
+  "nd",
+  "oh",
+  "ok",
+  "or",
+  "pa",
+  "pr",
+  "ri",
+  "sc",
+  "sd",
+  "tn",
+  "tx",
+  "ut",
+  "vt",
+  "va",
+  "wa",
+  "wv",
+  "wi",
+  "wy",
+];
 
 const ApplyPage = () => {
   const [restaurantName, setRestaurantName] = useState("");
   const [description, setDescription] = useState("");
   const [dateOpened, setDateOpened] = useState("");
+  const [website, setWebsite] = useState("");
   const [address1, setAddress1] = useState("");
   const [address2, setAddress2] = useState("");
   const [city, setCity] = useState("");
@@ -26,7 +86,7 @@ const ApplyPage = () => {
   const [country, setCountry] = useState("USA");
   const [location, setLocation] = useState([152.5, 152.5]);
 
-  const [tags, setTags] = useState(["sdf", "hey tag here"]);
+  const [tags, setTags] = useState([]);
   const [images, setImages] = useState([]);
   const [menus, setMenus] = useState([]);
 
@@ -56,8 +116,7 @@ const ApplyPage = () => {
     const textData = {
       ownerid: "5ead3201520a017539dfa306",
       // owner: userAuth.uid,
-      website: "http://www.website.com",
-
+      website,
       restaurantName,
       description,
       dateOpen: dateOpened,
@@ -78,11 +137,32 @@ const ApplyPage = () => {
       .then((res) => {
         console.log("SUBMITTEEEEEEDD");
         console.log(res.data);
+
+        // let id = res.data._id.$oid;
+        submitImages(res.data._id.$oid);
       })
       .catch((err) => {
         console.log(textData);
         console.error(err);
       });
+  };
+
+  const submitImages = async (restaurantId) => {
+    let formData = new FormData();
+
+    //  console.log(this.state.restaurant_new.images.length)
+    for (let i = 0; i < images.length; i++) {
+      formData.append("images[]", images[i]);
+    }
+    //  console.log(this.state.restaurant_new.menu.length)
+    for (let i = 0; i < menus.length; i++) {
+      formData.append("menu[]", menus[i]);
+    }
+
+    return await axios.post(
+      `http://127.0.0.1:5000/api/restaurant/img-upload/${restaurantId}`,
+      formData
+    );
   };
 
   return (
@@ -118,6 +198,17 @@ const ApplyPage = () => {
         />
 
         <FormInput
+          type="text"
+          htmlFor="website"
+          label="website"
+          value={website}
+          handleChange={(e) => {
+            setWebsite(e.target.value);
+          }}
+          className="input-override"
+        />
+
+        <FormInput
           required
           type="textarea"
           htmlFor="restaurant-description"
@@ -131,7 +222,26 @@ const ApplyPage = () => {
           additionalInfo="(max length: 500 characters)"
         />
 
-        <h2 className="form-subtitle">Address</h2>
+        <h2
+          className="form-subtitle"
+          onClick={() => {
+            axios
+              .get("https://maps.googleapis.com/maps/api/geocode/json", {
+                params: {
+                  key: "",
+                  address: "14524 Halldale Ave, Gardena, CA 90247, USA",
+                },
+              })
+              .then((res) => {
+                console.log(res);
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          }}
+        >
+          Address
+        </h2>
         <FormInput
           required
           type="text"
@@ -170,18 +280,22 @@ const ApplyPage = () => {
             id="city-input"
           />
 
-          <FormInput
+          <SelectInput
             required
-            type="text"
-            htmlFor="state"
             label="state"
-            value={state}
+            htmlFor="state"
             handleChange={(e) => {
               setState(e.target.value);
             }}
             className="input-override"
             id="state-input"
-          />
+          >
+            {stateAbbreviations.map((state, i) => (
+              <option key={i} value={state}>
+                {state.toUpperCase()}
+              </option>
+            ))}
+          </SelectInput>
 
           <FormInput
             required
@@ -210,7 +324,15 @@ const ApplyPage = () => {
           }}
           className="input-override"
         />
-        <h2 className="form-subtitle">Images</h2>
+        <h2
+          className="form-subtitle"
+          onClick={() => {
+            console.log(images);
+            console.log(menus);
+          }}
+        >
+          Images
+        </h2>
 
         <ImageUploadInput
           label="Restaurant Images"
@@ -248,9 +370,9 @@ const ApplyPage = () => {
             setDetails({ ...details, parking: e.target.value });
           }}
         >
-          <option value="Free">Free</option>
-          <option value="Paid">Paid</option>
-          <option value="Unavailable">Unavailable</option>
+          <option value="free">Free</option>
+          <option value="paid">Paid</option>
+          <option value="unavailable">Unavailable</option>
         </SelectInput>
 
         <SelectInput
@@ -337,13 +459,13 @@ const ApplyPage = () => {
           handleChange2={(e) => {
             setHours({
               ...hours,
-              sunday: { from: hours.sunday.from, to: e.target.value },
+              sunday: { ...hours.sunday, to: e.target.value },
             });
           }}
           handleChange1={(e) => {
             setHours({
               ...hours,
-              sunday: { to: hours.sunday.to, from: e.target.value },
+              sunday: { ...hours.sunday, from: e.target.value },
             });
           }}
         />
@@ -356,16 +478,17 @@ const ApplyPage = () => {
           handleChange2={(e) => {
             setHours({
               ...hours,
-              monday: { from: hours.monday.from, to: e.target.value },
+              monday: { ...hours.monday, to: e.target.value },
             });
           }}
           handleChange1={(e) => {
             setHours({
               ...hours,
-              monday: { to: hours.monday.to, from: e.target.value },
+              monday: { ...hours.monday, from: e.target.value },
             });
           }}
         />
+
         <HourRangeInput
           label="tuesday"
           className="time-range-input"
@@ -374,16 +497,17 @@ const ApplyPage = () => {
           handleChange2={(e) => {
             setHours({
               ...hours,
-              tuesday: { from: hours.tuesday.from, to: e.target.value },
+              tuesday: { ...hours.tuesday, to: e.target.value },
             });
           }}
           handleChange1={(e) => {
             setHours({
               ...hours,
-              tuesday: { to: hours.tuesday.to, from: e.target.value },
+              tuesday: { ...hours.tuesday, from: e.target.value },
             });
           }}
         />
+
         <HourRangeInput
           label="wednesday"
           className="time-range-input"
@@ -392,13 +516,13 @@ const ApplyPage = () => {
           handleChange2={(e) => {
             setHours({
               ...hours,
-              wednesday: { from: hours.wednesday.from, to: e.target.value },
+              wednesday: { ...hours.wednesday, to: e.target.value },
             });
           }}
           handleChange1={(e) => {
             setHours({
               ...hours,
-              wednesday: { to: hours.wednesday.to, from: e.target.value },
+              wednesday: { ...hours.wednesday, from: e.target.value },
             });
           }}
         />
@@ -410,13 +534,13 @@ const ApplyPage = () => {
           handleChange2={(e) => {
             setHours({
               ...hours,
-              thursday: { from: hours.thursday.from, to: e.target.value },
+              thursday: { ...hours.thursday, to: e.target.value },
             });
           }}
           handleChange1={(e) => {
             setHours({
               ...hours,
-              thursday: { to: hours.thursday.to, from: e.target.value },
+              thursday: { ...hours.thursday, from: e.target.value },
             });
           }}
         />
@@ -428,13 +552,13 @@ const ApplyPage = () => {
           handleChange2={(e) => {
             setHours({
               ...hours,
-              friday: { from: hours.friday.from, to: e.target.value },
+              friday: { ...hours.friday, to: e.target.value },
             });
           }}
           handleChange1={(e) => {
             setHours({
               ...hours,
-              friday: { to: hours.friday.to, from: e.target.value },
+              friday: { ...hours.friday, from: e.target.value },
             });
           }}
         />
@@ -446,18 +570,32 @@ const ApplyPage = () => {
           handleChange2={(e) => {
             setHours({
               ...hours,
-              saturday: { from: hours.saturday.from, to: e.target.value },
+              saturday: { ...hours.saturday, to: e.target.value },
             });
           }}
           handleChange1={(e) => {
             setHours({
               ...hours,
-              saturday: { to: hours.saturday.to, from: e.target.value },
+              saturday: { ...hours.saturday, from: e.target.value },
             });
           }}
         />
 
-        <h2 className="form-subtitle">Tags</h2>
+        <h2
+          className="form-subtitle"
+          onClick={() => {
+            console.log(tags);
+          }}
+        >
+          Tags
+        </h2>
+
+        {/* <ul>
+          <Tag value="text" />
+          <Tag type="input" value="text" />
+        </ul> */}
+
+        <AddTagInput handleAnyChange={setTags} />
 
         <CustomButton type="submit" className="input-override" margin>
           submit

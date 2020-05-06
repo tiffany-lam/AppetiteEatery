@@ -27,6 +27,10 @@ const ImageUploadInput = ({
   const [images, setImages] = useState([]);
   const inputRef = React.createRef();
 
+  useEffect(() => {
+    handleChange(images);
+  }, [images]);
+
   const manageImageList = (e) => {
     console.log(e.target.files);
     setImages([...images, ...Array.from(e.target.files)]);
