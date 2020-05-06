@@ -78,6 +78,8 @@ const stateAbbreviations = [
 ];
 
 const ApplyPage = ({ userAuth, ...props }) => {
+  const browserHistory = useHistory();
+
   const [restaurantName, setRestaurantName] = useState("");
   const [description, setDescription] = useState("");
   const [dateOpened, setDateOpened] = useState("");
@@ -143,9 +145,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
         console.log(res.data);
 
         // let id = res.data._id.$oid;
-        submitImages(res.data._id.$oid).then(() => {
-          browserHistory.push("/my-restaurant");
-        });
+        submitImages(res.data._id.$oid);
       })
       .catch((err) => {
         console.log(textData);
@@ -165,14 +165,23 @@ const ApplyPage = ({ userAuth, ...props }) => {
       formData.append("menu[]", menus[i]);
     }
 
-    return await axios.post(
+    let res = await axios.post(
       `${BASE_API_URL}/restaurant/img-upload/${restaurantId}`,
       formData
     );
+
+    browserHistory.push("/my-restaurants");
+
+    return res;
   };
 
   return (
-    <div className="apply-page-container">
+    <div
+      className="apply-page-container"
+      // onClick={() => {
+      //   browserHistory.push("/my-restaurants");
+      // }}
+    >
       <h1 className="apply-form-header input-override">
         Submit your restaurant!
       </h1>
