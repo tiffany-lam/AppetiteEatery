@@ -234,3 +234,16 @@ def upload_images(id):
     restaurant.save()
 
     return restaurant.to_json(), 200
+
+
+@restaurant.route('/owner/<id>', methods=['GET'])
+def getOwnerRestaurants(id):
+    ownerObjects = Owner.objects.with_id(id)
+
+    resultObject = dict()
+    resultObject["results"] = []
+
+    for test in ownerObjects['restaurants']:
+        resultObject['results'].append(test.fetch().to_mongo().to_dict())
+
+    return json.dumps(resultObject, default=str), 200
