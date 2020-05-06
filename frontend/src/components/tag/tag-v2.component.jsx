@@ -23,7 +23,7 @@ const Tag = ({
       <li className={`tag-container ${className ? className : ""}`}>
         <label htmlFor={`${htmlFor}-${index}`} className="hidden"></label>
         <input
-          placeHolder="add a tag..."
+          placeholder="add a tag..."
           id={`${htmlFor}-${index}`}
           className="tag-input"
           value={value}

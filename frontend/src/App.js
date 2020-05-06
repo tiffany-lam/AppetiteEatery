@@ -22,7 +22,8 @@ import ContactUsPage from "./pages/contact-us-page/contact-us.component";
 import ErrorPage from "./pages/error-page/error-page.component";
 import ProfilePage from "./pages/profile-page/profile-page.component";
 import SearchResult from "./pages/searchResult-page/searchResult";
-import ApplyPage from "./pages/apply-page/apply-page.component";
+import ApplyPage from "./pages/apply-page/apply.component";
+import OwnerRestaurantPage from "./pages/owner-restaurant-page/owner-restaurant-page.component";
 
 class App extends Component {
   unsubscribedFromAuth = null;
@@ -84,6 +85,14 @@ class App extends Component {
               {/* check to see if user is login, if not don't show */}
               {this.props.userAuth && (
                 <Route exact path="/apply" component={ApplyPage} />
+              )}
+
+              {this.props.userAuth && (
+                <Route
+                  exact
+                  path="/my-restaurants"
+                  component={OwnerRestaurantPage}
+                />
               )}
               {this.props.userAuth && (
                 <Route exact path="/profile" component={ProfilePage} />

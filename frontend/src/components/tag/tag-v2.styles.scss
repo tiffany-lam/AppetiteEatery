@@ -2,6 +2,8 @@
 
 .tag-container {
   width: fit-content;
+  height: fit-content;
+  max-height: fit-content;
   padding: 0.1rem 0.5rem;
   background-color: $secondary;
   margin: 2px;
@@ -21,7 +23,7 @@
     // background-color: rgba(white, 0.1);
     background-color: transparent;
 
-    width: 5rem;
+    width: 7rem;
 
     border-radius: 0;
     outline: 0;
