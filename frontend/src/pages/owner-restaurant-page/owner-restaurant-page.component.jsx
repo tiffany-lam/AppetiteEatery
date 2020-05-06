@@ -28,7 +28,7 @@ const OwnerRestaurantPage = ({ userAuth, ...props }) => {
       setLoading(true);
       try {
         const res = await axios.get(
-          `http://127.0.0.1:5000/api/restaurant/owner/${id}`,
+          `http://127.0.0.1:5000/api/restaurant/owner/${userAuth.uid}`,
           {
             cancelToken: source.token,
           }

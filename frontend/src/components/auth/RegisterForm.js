@@ -98,6 +98,7 @@ class RegisterForm extends Component {
         .createUserWithEmailAndPassword(this.state.email, this.state.password)
         .then(async (data) => {
           console.log("successfully created firebased user");
+
           const userData = {
             id: data.user.uid,
             fname: this.state.fname,
@@ -105,10 +106,7 @@ class RegisterForm extends Component {
             email: this.state.email,
           };
 
-          console.log(data.user.getIdToken());
-          console.log(data.user.uid);
           //pass the token and create the owner in mongo
-
           let apiUrl = "http://127.0.0.1:5000/api/user";
           console.log("api", `${apiUrl}/${this.state.userType}`);
           axios
@@ -118,10 +116,15 @@ class RegisterForm extends Component {
               console.log(res.data);
             })
             //catch errors with mongo
-            .catch((error) => console.error(error));
+            .catch((error) => {
+              console.log("from here");
+              console.error(error);
+            });
         })
         //catch errors with firebase
         .catch((error) => {
+          console.log("hello here");
+
           console.log(error);
         });
     }
