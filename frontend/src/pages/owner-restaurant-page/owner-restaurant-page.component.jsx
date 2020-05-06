@@ -1,6 +1,14 @@
 // import React from "react";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+
+import {
+  setUserAuth,
+  setCurrentUser,
+  resetUserRedux,
+} from "../../redux/user/user.actions";
+
 import axios from "axios";
 
 // custom components:
@@ -16,13 +24,33 @@ import AddTagInput from "../../components/add-tag-input/add-tag-input.component"
 // custom stylesheet:
 import "./owner-restaurant-page.styles.scss";
 
-const OwnerRestaurantPage = ({ ...props }) => {
-  return (
-    <div className="owner-restaurant-page">
-      <div className="">OWNERS RES PAGE</div>
-      <Link to="/apply">Button</Link>
-    </div>
-  );
+const OwnerRestaurantPage = ({ userAuth, ...props }) => {
+  const [ownersRestaurants, setOwnersRestaurants] = useState([]);
+
+  useEffect(() => {}, []);
+
+  if (ownersRestaurants.length !== 0)
+    return (
+      <div className="owner-restaurant-page">
+        <div className="">OWNERS RES PAGE</div>
+        <Link to="/apply">Button</Link>
+      </div>
+    );
+  else
+    return <div className="owner-restaurant-page">you have no restaurants</div>;
 };
 
-export default OwnerRestaurantPage;
+const mapStateToProps = ({ user }) => ({
+  userAuth: user.userAuth,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setUserAuth: (user) => dispatch(setUserAuth(user)),
+  setCurrentUser: (userId) => dispatch(setCurrentUser(userId)),
+  resetUserRedux: () => dispatch(resetUserRedux()),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(OwnerRestaurantPage);

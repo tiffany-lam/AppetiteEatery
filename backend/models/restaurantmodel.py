@@ -61,15 +61,16 @@ class Restaurant(Document):
     description = StringField(required=True, max_length=2500)
     dateOpen = DateTimeField(required=True)
 
-    # ownerid = LazyReferenceField('Owner', required=True, reverse_delete_rule=CASCADE)
-    # reviews = ListField(LazyReferenceField('Review', reverse_delete_rule=PULL), default=list)
+
     ownerid = LazyReferenceField(
         'Owner', required=True, reverse_delete_rule=CASCADE)
     reviews = ListField(LazyReferenceField('Review'), default=list)
 
     address = StringField(required=True)
+    address2 = StringField()
+
     city = StringField(required=True)
-    zipcode = IntField(required=True)
+    zipcode = StringField(required=True)
     state = StringField(required=True)
     location = GeoPointField(required=True)
 
@@ -77,13 +78,8 @@ class Restaurant(Document):
     details = EmbeddedDocumentField(Details)
 
     website = StringField()
-    # menu = ListField(StringField(required=True), required=True)
     menu = ListField(StringField())
     images = ListField(StringField())
-
-    # website = URLField()
-    # menu = ListField(URLField(required=True), required=True)
-    # images = ListField(URLField())
 
     limelightCondition = StringField(default="")
 

@@ -48,6 +48,7 @@ def add_restaurant():
                                 dateOpen=request.json['dateOpen'],
                                 ownerid=request.json['ownerid'],
                                 address=request.json['address'],
+                                address2=request.json['address2'],
                                 city=request.json['city'],
                                 zipcode=request.json['zipcode'],
                                 state=request.json['state'],
