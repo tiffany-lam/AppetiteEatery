@@ -20,5 +20,7 @@ print('---------------------------------------------------------------')
 
 logging.basicConfig(stream=sys.stderr)
 sys.path.insert(0,"/var/www/html/appetite-eatery/")
+sys.path.append('/var/www/html/appetite-eatery/models')
+sys.path.append('/var/www/html/appetite-eatery/routes')
 
 from app import app as application
