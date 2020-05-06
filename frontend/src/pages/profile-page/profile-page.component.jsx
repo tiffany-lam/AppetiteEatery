@@ -21,6 +21,7 @@ import MapContainer from "../../components/map-container/map-container.component
 import CustomButton from "../../components/custom-button/custom-button.component"
 
 import CreateIcon from "@material-ui/icons/Create";
+import DoneIcon from "@material-ui/icons/Done";
 
 class ProfilePage extends Component {
   constructor(props) {
@@ -109,6 +110,10 @@ class ProfilePage extends Component {
     // this.setState({ userName: this.props.userAuth.uid });
   }
 
+  // reveal() {
+  //   document.getElementsById("hidden").style.display = "inline";
+  // }
+
   render() {
       const tags = this.state.tags.map((tag) => {
         return (
@@ -144,11 +149,11 @@ class ProfilePage extends Component {
             <CustomButton type="button" icon={<CreateIcon />} className="profile-button">
               Edit My Info
             </CustomButton>
-            <h2>
+            <h2 id="toggle-mini">
               {this.props.userAuth
                 ? this.props.userAuth.email
                 : this.state.lname}
-            </h2>
+             <CustomButton type="button" icon={<CreateIcon />} className="mini-icon"></CustomButton></h2>
             <p id="accountType">{this.state.type}</p>
             <div className="userContainer-inner">
                 <div id="col1">
@@ -157,7 +162,8 @@ class ProfilePage extends Component {
                     src={this.state.profilePic}
                     alt="user"
                   />
-                  <h3>Favorites:</h3>
+                  <h3 id="toggle-mini">Favorites:
+                  <CustomButton type="button" icon={<CreateIcon />} className="mini-icon"></CustomButton></h3>
                   <ul id="favorites">{tags}</ul>
                 </div>
                 <div id="col2">
@@ -168,12 +174,15 @@ class ProfilePage extends Component {
                   </p>
                   <h3>Check-Ins</h3>
                   <div id="checkIn"><MapContainer /></div>
-            </div>
+                </div>
               {/* <div className="favorites">
                 <h3>Favorites:</h3>
                 <p>{this.state.tags}</p>
               </div> */}
             </div>
+            <CustomButton type="button" icon={<DoneIcon />} className="profile-save-button" id="hidden">
+              Save Changes
+            </CustomButton>
           </section>
           <section className="userReviews">
             <h2>{this.state.fname} {this.state.lname}'s Reviews</h2>
