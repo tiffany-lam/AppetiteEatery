@@ -172,7 +172,7 @@ const RestaurantPage = ({ match, ...props }) => {
   const saveAll = async (e) => {
     await axios
       .post(
-        `http://127.0.0.1:5000/api/restaurant/${match.params.restaurantId}`,
+        `${BASE_API_URL}/restaurant/${match.params.restaurantId}`,
         restaurant
       )
       .then(async (res) => {

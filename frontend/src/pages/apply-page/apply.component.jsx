@@ -145,13 +145,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
         console.log(res.data);
 
         // let id = res.data._id.$oid;
-<<<<<<< HEAD
-        submitImages(res.data._id.$oid).then(() => {
-          // browserHistory.push("/my-restaurant");
-        });
-=======
         submitImages(res.data._id.$oid);
->>>>>>> 926fe5c02ee07e4230655cbce721d16abf249fd2
       })
       .catch((err) => {
         console.log(textData);
