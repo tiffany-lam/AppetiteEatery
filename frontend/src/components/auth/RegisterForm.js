@@ -9,8 +9,10 @@ import SelectUserType from "./selectUserType";
 import FormInput from "../form-input/form-input.component";
 import CustomBotton from "../custom-button/custom-button.component";
 
-// import "bootstrap/dist/css/bootstrap.min.css";
+import { BASE_API_URL } from "../../utils";
+
 import "./register.styles.scss";
+
 class RegisterForm extends Component {
   constructor(props) {
     super(props);
@@ -107,7 +109,7 @@ class RegisterForm extends Component {
           };
 
           //pass the token and create the owner in mongo
-          let apiUrl = "http://127.0.0.1:5000/api/user";
+          let apiUrl = `${BASE_API_URL}/user`;
           console.log("api", `${apiUrl}/${this.state.userType}`);
           axios
             .post(`${apiUrl}/${this.state.userType}`, userData)

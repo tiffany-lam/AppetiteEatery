@@ -72,7 +72,7 @@ def upload_images(id):
 
     return client.to_json(), 200
 
-<<<<<<< HEAD
+
 @user.route('/test/<id>', methods=['GET'])
 def get_client(id):
     client = Client.objects.with_id(id)
@@ -83,11 +83,8 @@ def get_client(id):
 
     return "safjaksdf", 200
 
-@user.route('/<id>', methods=['DELETE'])
-=======
 
 @user.route('/<id>', methods=['DELETE', 'GET'])
->>>>>>> c02d8a4bd9b858358593df6f2b3f2b366bde5b23
 def delete_client(id):
     if request.method == 'DELETE':
         client = Client.objects.with_id(id)
@@ -127,7 +124,7 @@ def delete_client(id):
         else:
             return "Client delete failed", 200
     elif request.method == 'GET':
-        print(id)
+        print(f'ID {id}')
         client = Client.objects.with_id(id)
         print(client)
         print(client.to_json())

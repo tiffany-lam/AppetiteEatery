@@ -1,8 +1,11 @@
 // import React from "react";
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import axios from "axios";
+import { BASE_API_URL } from "../../utils";
 
 // custom components:
 import ImageCard from "../../components/image-card/image-card.component";
@@ -134,13 +137,15 @@ const ApplyPage = ({ userAuth, ...props }) => {
     };
 
     axios
-      .post(`http://127.0.0.1:5000/api/restaurant`, textData)
+      .post(`${BASE_API_URL}/restaurant`, textData)
       .then((res) => {
         console.log("SUBMITTEEEEEEDD");
         console.log(res.data);
 
         // let id = res.data._id.$oid;
-        submitImages(res.data._id.$oid);
+        submitImages(res.data._id.$oid).then(() => {
+          browserHistory.push("/my-restaurant");
+        });
       })
       .catch((err) => {
         console.log(textData);
@@ -161,7 +166,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
     }
 
     return await axios.post(
-      `http://127.0.0.1:5000/api/restaurant/img-upload/${restaurantId}`,
+      `${BASE_API_URL}/restaurant/img-upload/${restaurantId}`,
       formData
     );
   };

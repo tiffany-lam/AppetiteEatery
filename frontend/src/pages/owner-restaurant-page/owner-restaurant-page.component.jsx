@@ -17,6 +17,8 @@ import CustomButton from "../../components/custom-button/custom-button.component
 // custom stylesheet:
 import "./owner-restaurant-page.styles.scss";
 
+import { BASE_API_URL } from "../../utils";
+
 const OwnerRestaurantPage = ({ userAuth, ...props }) => {
   const [ownersRestaurants, setOwnersRestaurants] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -28,7 +30,7 @@ const OwnerRestaurantPage = ({ userAuth, ...props }) => {
       setLoading(true);
       try {
         const res = await axios.get(
-          `http://127.0.0.1:5000/api/restaurant/owner/${userAuth.uid}`,
+          `${BASE_API_URL}/restaurant/owner/${userAuth.uid}`,
           {
             cancelToken: source.token,
           }
@@ -79,8 +81,14 @@ const OwnerRestaurantPage = ({ userAuth, ...props }) => {
   else
     return (
       <div className="owner-restaurant-page">
-        <p>you have no restaurants</p>
-        <Link to="/apply">Button</Link>
+        <h1 className="owner-header">
+          You have not submitted a restaurant to our website :(
+        </h1>
+        <Link to="/apply">
+          <CustomButton className="submit-res-btn">
+            Submit a new restaurant!
+          </CustomButton>
+        </Link>
       </div>
     );
 };

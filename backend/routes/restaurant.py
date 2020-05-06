@@ -179,22 +179,22 @@ def modify_restaurant(id):
         restaurant = Restaurant.objects.with_id(id)
 
         restaurant.restaurantName = request.json['restaurantName']
-        restaurant.restaurantTags=request.json['restaurantTags'],
-        restaurant.description=request.json['description'],
-        restaurant.dateOpen=request.json['dateOpen'],
-        restaurant.ownerid=request.json['ownerid'],
-        restaurant.address=request.json['address'],
-        restaurant.address2=request.json['address2'],
-        restaurant.city=request.json['city'],
-        restaurant.zipcode=request.json['zipcode'],
-        restaurant.state=request.json['state'],
-        restaurant.location=request.json['location'],
-        restaurant.website=request.json['website']
+        restaurant.restaurantTags = request.json['restaurantTags'],
+        restaurant.description = request.json['description'],
+        restaurant.dateOpen = request.json['dateOpen'],
+        restaurant.ownerid = request.json['ownerid'],
+        restaurant.address = request.json['address'],
+        restaurant.address2 = request.json['address2'],
+        restaurant.city = request.json['city'],
+        restaurant.zipcode = request.json['zipcode'],
+        restaurant.state = request.json['state'],
+        restaurant.location = request.json['location'],
+        restaurant.website = request.json['website']
 
         restaurant.hours.sunday._from = request.json['hours']['sunday']['_from']
         restaurant.hours.sunday._to = request.json['hours']['sunday']['_to']
-        restaurant.hours.monday._from = request.json['hours']['monday]['_from']
-        restaurant.hours.monday._to = request.json['hours']['monday]['_to']
+        restaurant.hours.monday._from = request.json['hours']['monday']['_from']
+        restaurant.hours.monday._to = request.json['hours']['monday']['_to']
         restaurant.hours.tuesday._from = request.json['hours']['tuesday']['_from']
         restaurant.hours.tuesday._to = request.json['hours']['tuesday']['_to']
         restaurant.hours.wednesday._from = request.json['hours']['wednesday']['_from']
@@ -216,7 +216,6 @@ def modify_restaurant(id):
         restaurant.save()
 
         return restaurant.to_json(), 200
-
 
     elif request.method == 'DELETE':
         s3_resource = boto3.resource(
@@ -277,26 +276,25 @@ def upload_images(id):
 
     return restaurant.to_json(), 200
 
+
 @restaurant.route('/search/<searchvalue>', methods=['GET'])
 def search(searchvalue):
     #restaurants_collection = Restaurant.objects()
     resultObject = dict()
-    #all the results that we want 
-    resultObject["search_results"] = [] 
-    
-    #restaurant_collection is an array of restaurants 
-    #for restaurant in restaurants_collection:
-        #if the restaurant list contains (case insensitive) the search value
-        #if (restaurant['restaurantName']).lower() in searchvalue.lower():  
-            #print(restaurant['restaurantName'])
-            #resultObject['search_results'].append(restaurant.to_mongo().to_dict())
+    # all the results that we want
+    resultObject["search_results"] = []
+
+    # restaurant_collection is an array of restaurants
+    # for restaurant in restaurants_collection:
+    # if the restaurant list contains (case insensitive) the search value
+    # if (restaurant['restaurantName']).lower() in searchvalue.lower():
+    # print(restaurant['restaurantName'])
+    # resultObject['search_results'].append(restaurant.to_mongo().to_dict())
     for restaurant in Restaurant.objects(restaurantName__icontains=searchvalue):
         resultObject['search_results'].append(restaurant.to_mongo().to_dict())
 
     return json.dumps(resultObject, default=str), 200
-        
 
-    
 
 @restaurant.route('/owner/<id>', methods=['GET'])
 def getOwnerRestaurants(id):

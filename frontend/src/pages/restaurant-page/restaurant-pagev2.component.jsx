@@ -18,6 +18,8 @@ import Tabs from "../../components/tabs/tabs.component";
 import EditIcon from "@material-ui/icons/Edit";
 import AddIcon from "@material-ui/icons/Add";
 
+import { BASE_API_URL } from "../../utils";
+
 const RestaurantPage = ({ match, ...props }) => {
   const [editable, setEditable] = useState(false);
   const [editInput, setEditInput] = useState("");
@@ -102,7 +104,7 @@ const RestaurantPage = ({ match, ...props }) => {
 
       try {
         const response = await axios.get(
-          `http://52.201.241.142/api/restaurant/${match.params.restaurantId}`,
+          `${BASE_API_URL}/restaurant/${match.params.restaurantId}`,
           { cancelToken: source.token }
         );
 

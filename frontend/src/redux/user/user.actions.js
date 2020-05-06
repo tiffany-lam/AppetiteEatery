@@ -1,4 +1,5 @@
 import { UserActionTypes, INITIAL_STATE } from "./user.types";
+import { BASE_API_URL } from "../../utils";
 import axios from "axios";
 
 export const resetUserRedux = () => ({
@@ -19,7 +20,7 @@ export const setCurrentUser = (user) => ({
 export const updateCurrentUser = (userID) => {
   return (dispatch) => {
     axios
-      .get(`http://127.0.0.1:5000/api/user/${userID}`)
+      .get(`${BASE_API_URL}/user/${userID}`)
       .then((res) => {
         dispatch(setCurrentUser(res.data));
       })

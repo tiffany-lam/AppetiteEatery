@@ -4,6 +4,7 @@ import { setSearchbarValue } from "../../redux/ui/ui.actions";
 import axios from "axios";
 import Pagination from "@material-ui/lab/Pagination";
 import { Link } from "react-router-dom";
+import { BASE_API_URL } from "../../utils";
 //import style
 import "./searchResult-page.styles.scss";
 import RestaurantCard from "../../components/restaurant-listing-card/restaurantCard.component";
@@ -20,7 +21,7 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
     const fetchData = async () => {
       try {
         const res = axios
-          .get(`http://127.0.0.1:5000/api/restaurant/search/${searchbarValue}`)
+          .get(`${BASE_API_URL}/restaurant/search/${searchbarValue}`)
           .then((res) => {
             console.log("Retrieved all data \n");
 

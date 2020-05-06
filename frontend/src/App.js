@@ -55,6 +55,7 @@ class App extends Component {
         } else {
           this.setState({ user: null });
           this.props.setUserAuth(null);
+          this.props.resetUserRedux();
         }
       });
   }
@@ -65,12 +66,7 @@ class App extends Component {
 
   render() {
     return (
-      <div
-        className="App"
-        onClick={() => {
-          console.log(process.env);
-        }}
-      >
+      <div className="App">
         <BrowserRouter>
           <header>
             <Navbar />
