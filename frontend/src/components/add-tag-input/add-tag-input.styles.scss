@@ -1,0 +1,82 @@
+@import "../../assets/theme";
+
+.add-tag-list {
+  // background-color: lightblue;
+
+  display: flex;
+  flex-wrap: wrap;
+
+  max-width: 40rem;
+
+  .tag-item {
+    margin: 2px 0 2px 2px;
+  }
+
+  .add-tag-btn {
+    height: 1.15rem;
+    padding: 0;
+    width: 9.45rem;
+    margin: 2px;
+
+    background-color: $background_light;
+    border: 1px solid lightgray;
+
+    svg {
+      path {
+        fill: rgba($secondary_dark, 0.5);
+      }
+    }
+
+    &:hover,
+    &:focus,
+    &:focus-within {
+      border: 1px solid $secondary_dark;
+      svg {
+        path {
+          fill: $secondary_dark;
+        }
+      }
+    }
+  }
+
+  .delete-tag-btn {
+    cursor: pointer;
+    padding: 0;
+    height: 1.15rem;
+    width: 1.15rem;
+    max-height: 1.15rem;
+    max-width: 1.15rem;
+
+    margin: 2px 2px 2px 0;
+
+    background-color: $primary;
+    // border: 1px solid lightgray;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    // background-color: red;
+
+    svg {
+      width: 0.8rem;
+      height: 0.8rem;
+
+      path {
+        fill: $secondary_dark;
+      }
+    }
+
+    &:hover,
+    &:focus,
+    &:focus-within {
+      outline: 0;
+      border: 1px solid $secondary_dark;
+      svg {
+        path {
+          fill: $secondary_dark;
+        }
+      }
+    }
+  }
+}

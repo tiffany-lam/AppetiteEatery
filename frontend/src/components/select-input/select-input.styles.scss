@@ -14,6 +14,7 @@
 }
 
 .select-input-container {
+  background-color: $background_light;
   position: relative;
 
   margin-top: 1.2rem;
@@ -31,6 +32,9 @@
 
     border: 1px solid lightgray;
 
+    background-color: transparent;
+
+    &:hover,
     &:focus,
     &:focus-within {
       outline: none;

@@ -60,6 +60,24 @@ def hello():
 def boring():
     print("random")
 
+# /api/img-get
+# <img src="http://127.0.0.1:5000/api/img-get?url="
+# GET - return requested image
+@app.route('/api/img-get', methods=['GET'])
+def get_image():
+    print("me")
+    s3_resource = boto3.resource(
+        "s3",
+        aws_access_key_id = S3_ACCESS_KEY_ID,
+        aws_secret_access_key = S3_SECRET_ACCESS_KEY
+    )
+
+    fileurl = request.args['url']
+    image = s3_resource.Object(S3_BUCKET, fileurl).get()
+
+    return image['Body'].read(), { "Content-Type": "image/png, image/jpg"}
+
+
 # Testing Route - Print all test documents
 @app.route("/api/test")
 def test():
@@ -119,22 +137,6 @@ def test_frontend():
 #     db = client["appetite-eatery-db"]
 #     db.test.insert_one({"name": name})
 #     return f"Check database for name: {name}"
-
-# /api/img-get
-# <img src="http://127.0.0.1:5000/api/img-get?url="
-# GET - return requested image
-@restaurant.route('/api/img-get', methods=['GET'])
-def get_image():
-    s3_resource = boto3.resource(
-        "s3",
-        aws_access_key_id = S3_ACCESS_KEY_ID,
-        aws_secret_access_key = S3_SECRET_ACCESS_KEY
-    )
-
-    fileurl = request.args['url']
-    image = s3_resource.Object(S3_BUCKET, fileurl).get()
-
-    return image['Body'].read(), { "Content-Type": "image/png, image/jpg"}
 
 @app.errorhandler(404)
 def page_not_found(e):

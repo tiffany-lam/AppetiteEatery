@@ -19,7 +19,7 @@ const SelectInput = ({
   const [option, setOption] = useState("");
 
   return (
-    <div className={`select-input-container ${className}`}>
+    <div id={id} className={`select-input-container ${className}`}>
       <label
         className={`select-input-label ${option !== "" ? "shrink" : ""}`}
         htmlFor={htmlFor}
@@ -37,7 +37,12 @@ const SelectInput = ({
         id={htmlFor}
         onChange={(e) => {
           setOption(e.target.value);
+          handleChange(e);
         }}
+
+        // onChange={(e) => {
+        //   setOption(e.target.value);
+        // }}
       >
         <option value=""></option>
         {children}
