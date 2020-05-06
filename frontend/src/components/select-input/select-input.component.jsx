@@ -13,10 +13,13 @@ const SelectInput = ({
   type,
   htmlFor, // used for accessibility
   // required,
+  defaultValue,
+  value,
   children,
+  disabled,
   ...props
 }) => {
-  const [option, setOption] = useState("");
+  const [option, setOption] = useState(value ? value : "");
 
   return (
     <div id={id} className={`select-input-container ${className}`}>
@@ -39,6 +42,9 @@ const SelectInput = ({
           setOption(e.target.value);
           handleChange(e);
         }}
+        defaultValue={defaultValue}
+        value={value}
+        disabled={disabled}
 
         // onChange={(e) => {
         //   setOption(e.target.value);

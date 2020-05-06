@@ -9,7 +9,7 @@ import "./restaurant-page.styles.scss";
 
 // IMPORT COMPONENTS
 import Divider from "../../components/divider/divider.component";
-import Tag from "../../components/tag/tag.component";
+import Tag from "../../components/tag/tag-v2.component";
 import Carousel from "../../components/carousel/carousel.component";
 import Review from "../../components/review/review.component";
 import ReviewInput from "../../components/review-input/review-input.component";
@@ -17,6 +17,9 @@ import MapContainer from "../../components/map-container/map-container.component
 import Tabs from "../../components/tabs/tabs.component";
 import EditIcon from "@material-ui/icons/Edit";
 import AddIcon from "@material-ui/icons/Add";
+import HourRangeInput from "../../components/hour-range-input/hour-range.component";
+import SelectInput from "../../components/select-input/select-input.component";
+import FormInput from "../../components/form-input/form-input.component";
 
 import { BASE_API_URL } from "../../utils";
 
@@ -24,7 +27,6 @@ const RestaurantPage = ({ match, ...props }) => {
   const [editable, setEditable] = useState(false);
   const [editInput, setEditInput] = useState("");
   const [loading, setLoading] = useState(true);
-  const [wtf, setWTF] = useState({ name: "" });
   const [restaurant, setRestaurant] = useState({
     restaurantName: "",
     restaurantTags: [],
@@ -137,14 +139,58 @@ const RestaurantPage = ({ match, ...props }) => {
     setRestaurant({ ...restaurant, restaurantTags: newTags });
   };
 
+  const deleteImage = (deletedImage) => {
+    let newImages = restaurant.images.filter((image) => image !== deletedImage);
+    setRestaurant({ ...restaurant, images: newImages });
+  };
+
+  const deleteMenu = (deletedMenu) => {
+    let newMenu = restaurant.menu.filter((menu) => menu !== deletedMenu);
+    setRestaurant({ ...restaurant, menu: newMenu });
+  };
+
+  const handleChange = (e) => {
+    console.log(e.target.name);
+    console.log(e.target.value);
+    const value = e.target.value;
+    setRestaurant({ ...restaurant, [e.target.name]: value });
+  };
+
+  const convertTime = (time) => {
+    time = time.match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
+
+    if (time.length > 1) {
+      time = time.slice(1);
+      time[5] = +time[0] < 12 ? " AM" : " PM";
+      time[0] = +time[0] % 12 || 12;
+    }
+
+    return time.join("");
+  };
+
+  const saveAll = async (e) => {
+    await axios
+      .post(
+        `http://127.0.0.1:5000/api/restaurant/${match.params.restaurantId}`,
+        restaurant
+      )
+      .then(async (res) => {
+        console.log("Restaurant updated: \n");
+        console.log(res.data);
+        setRestaurant({ ...restaurant, ...res.data });
+      })
+      .catch((error) => console.error(error));
+  };
+
   const tags = restaurant
     ? restaurant.restaurantTags.map((tag) => {
         return editable ? (
-          <Tag type="delete" key={tag} delete={deleteTag}>
-            {tag}
-          </Tag>
+          // <Tag type="delete" key={tag} delete={deleteTag}>
+          //   {tag}
+          // </Tag>
+          <Tag key={tag} value={tag}></Tag>
         ) : (
-          <Tag key={tag}>{tag}</Tag>
+          <Tag key={tag} value={tag}></Tag>
         );
       })
     : null;
@@ -176,44 +222,36 @@ const RestaurantPage = ({ match, ...props }) => {
         }}
       >
         RESTAURANT
-      </button>{" "}
+      </button>
     </div>
   ) : editable && restaurant ? (
     <section className="restaurant-page">
-      <button
-        onClick={() => {
-          console.log(restaurant);
-        }}
-      >
-        RESTAURANT
-      </button>
       <div className="restaurant-page-main">
         <form action="" method="put" id="manage-restaurant">
           <div className="restaurant-page-main-manage">
             <fieldset form="manage-restaurant" className="restaurant-container">
               <div className="restaurant-name">
-                <label htmlFor="name">
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    console.log(restaurant);
+                  }}
+                >
+                  RESTAURANT
+                </button>
+                <label htmlFor="restaurantName">
                   <span>Edit Restaurant Name</span>
-                  {editInput === "name" ? (
-                    <input
-                      type="text"
-                      name="name"
-                      id="name"
-                      required
-                      className="name"
-                      value={restaurant.restaurantName}
-                    />
-                  ) : (
-                    <input
-                      type="text"
-                      name="name"
-                      id="name"
-                      required
-                      className="name"
-                      value={restaurant.restaurantName}
-                      disabled
-                    />
-                  )}
+                  <input
+                    type="text"
+                    name="restaurantName"
+                    id="name"
+                    required
+                    className="name"
+                    value={restaurant.restaurantName}
+                    onChange={handleChange}
+                    disabled={editInput !== "name"}
+                  />
                 </label>
                 {editInput === "name" ? (
                   <button type="button" onClick={() => saveEdit("name")}>
@@ -226,7 +264,7 @@ const RestaurantPage = ({ match, ...props }) => {
                 )}
               </div>
               <div className="restaurant-page-information">
-                <p>Opened {restaurant.dateOpen}</p>
+                <p>Opened {restaurant.dateOpen.split(" ")[0]}</p>
                 <p>
                   Owned by {restaurant.ownerid.fname} {restaurant.ownerid.lname}
                 </p>
@@ -234,27 +272,32 @@ const RestaurantPage = ({ match, ...props }) => {
             </fieldset>
             <fieldset form="manage-restaurant" className="restaurant-container">
               <div className="restaurant-page-carousel">
-                <Carousel images={restaurant.images} manage size={3} />
+                <Carousel
+                  images={restaurant.images}
+                  manage
+                  size={3}
+                  deleteImage={deleteImage}
+                />
               </div>
               <Divider full={true} />
             </fieldset>
             <fieldset form="manage-restaurant" className="restaurant-container">
               <div className="restaurant-description">
-                <label htmlFor="description">
-                  <span>Edit Restaurant Description</span>
-                  {editInput === "description" ? (
-                    <textarea
-                      value={restaurant.description}
-                      className="active"
-                    ></textarea>
-                  ) : (
-                    <textarea
-                      value={restaurant.description}
-                      disabled
-                      className="inactive"
-                    ></textarea>
-                  )}
-                </label>
+                <FormInput
+                  type="textarea"
+                  htmlFor="description"
+                  label="description"
+                  value={restaurant.description}
+                  handleChange={(e) => {
+                    setRestaurant({
+                      ...restaurant,
+                      description: e.target.value,
+                    });
+                  }}
+                  maxLength="500"
+                  additionalInfo="(max length: 500 characters"
+                  disabled={editInput !== "description"}
+                />
                 {editInput === "description" ? (
                   <button type="button" onClick={() => saveEdit("description")}>
                     <AddIcon></AddIcon>
@@ -282,7 +325,7 @@ const RestaurantPage = ({ match, ...props }) => {
           </fieldset>
           {/* UHHHHHHHH FIGURE OUT A WAY TO SEND THIS LMAO */}
           <section className="restaurant-page-map">
-            <h2>Google Maps</h2>
+            {/* <h2>Google Maps</h2> */}
             <MapContainer />
           </section>
           <div className="restaurant-page-others-container">
@@ -296,36 +339,27 @@ const RestaurantPage = ({ match, ...props }) => {
                   <fieldset form="restaurant-manage-extra">
                     <div className="restaurant-page-details">
                       <div className="restaurant-page-detail">
-                        <label htmlFor="parking">Parking</label>
                         <div className="restaurant-page-detail-buttons">
-                          {editInput === "parking" ? (
-                            <select
-                              name="parking"
-                              id="parking-select"
-                              className="active"
-                            >
-                              <option value="none" selected disabled hidden>
-                                Select an Option
-                              </option>
-                              <option value="free">Free</option>
-                              <option value="paid">Paid</option>
-                              <option value="unavailable">Unavailable</option>
-                            </select>
-                          ) : (
-                            <select
-                              name="parking"
-                              id="parking-select"
-                              className="inactive"
-                              disabled
-                            >
-                              <option value="none" selected disabled hidden>
-                                Select an Option
-                              </option>
-                              <option value="free">Free</option>
-                              <option value="paid">Paid</option>
-                              <option value="unavailable">Unavailable</option>
-                            </select>
-                          )}
+                          <SelectInput
+                            label="parking"
+                            htmlFor="parking"
+                            disabled={editInput !== "parking"}
+                            // defaultValue={restaurant.details.parking}
+                            value={restaurant.details.parking}
+                            handleChange={(e) => {
+                              setRestaurant({
+                                ...restaurant,
+                                details: {
+                                  ...restaurant.details,
+                                  parking: e.target.value,
+                                },
+                              });
+                            }}
+                          >
+                            <option value="free">Free</option>
+                            <option value="paid">Paid</option>
+                            <option value="unavailable">Unavailable</option>
+                          </SelectInput>
                           {editInput === "parking" ? (
                             <button
                               type="button"
@@ -344,34 +378,26 @@ const RestaurantPage = ({ match, ...props }) => {
                         </div>
                       </div>
                       <div className="restaurant-page-detail">
-                        <label>Wifi</label>
                         <div className="restaurant-page-detail-buttons">
-                          {editInput === "wifi" ? (
-                            <select
-                              name="wifi"
-                              id="wifi-select"
-                              className="active"
-                            >
-                              <option value="none" selected disabled hidden>
-                                Select an Option
-                              </option>
-                              <option value="available">Available</option>
-                              <option value="unavailable">Unavailable</option>
-                            </select>
-                          ) : (
-                            <select
-                              name="wifi"
-                              id="wifi-select"
-                              className="inactive"
-                              disabled
-                            >
-                              <option value="none" selected disabled hidden>
-                                Select an Option
-                              </option>
-                              <option value="available">Available</option>
-                              <option value="unavailable">Unavailable</option>
-                            </select>
-                          )}
+                          <SelectInput
+                            label="wifi"
+                            htmlFor="wifi"
+                            disabled={editInput !== "wifi"}
+                            // defaultValue={restaurant.details.wifi}
+                            value={restaurant.details.wifi}
+                            handleChange={(e) => {
+                              setRestaurant({
+                                ...restaurant,
+                                details: {
+                                  ...restaurant.details,
+                                  wifi: e.target.value,
+                                },
+                              });
+                            }}
+                          >
+                            <option value={true}>Yes</option>
+                            <option value={false}>No</option>
+                          </SelectInput>
                           {editInput === "wifi" ? (
                             <button
                               type="button"
@@ -390,35 +416,28 @@ const RestaurantPage = ({ match, ...props }) => {
                         </div>
                       </div>
                       <div className="restaurant-page-detail">
-                        <label>Takeout</label>
                         <div className="restaurant-page-detail-buttons">
                           <div className="restaurant-page-detail-buttons">
-                            {editInput === "takeout" ? (
-                              <select
-                                name="takeout"
-                                id="takeout-select"
-                                className="active"
-                              >
-                                <option value="none" selected disabled hidden>
-                                  Select an Option
-                                </option>
-                                <option value="available">Available</option>
-                                <option value="unavailable">Unavailable</option>
-                              </select>
-                            ) : (
-                              <select
-                                name="takeout"
-                                id="takeout-select"
-                                className="inactive"
-                                disabled
-                              >
-                                <option value="none" selected disabled hidden>
-                                  Select an Option
-                                </option>
-                                <option value="available">Available</option>
-                                <option value="unavailable">Unavailable</option>
-                              </select>
-                            )}
+                            <SelectInput
+                              label="takeout"
+                              htmlFor="takeout"
+                              disabled={editInput !== "takeout"}
+                              // defaultValue={restaurant.details.takeout}
+                              value={restaurant.details.takeout}
+                              handleChange={(e) => {
+                                setRestaurant({
+                                  ...restaurant,
+                                  details: {
+                                    ...restaurant.details,
+                                    takeout: e.target.value,
+                                  },
+                                });
+                              }}
+                            >
+                              <option value={true}>Yes</option>
+                              <option value={false}>No</option>
+                            </SelectInput>
+
                             {editInput === "takeout" ? (
                               <button
                                 type="button"
@@ -438,45 +457,37 @@ const RestaurantPage = ({ match, ...props }) => {
                         </div>
                       </div>
                       <div className="restaurant-page-detail">
-                        <label>Reservations</label>
                         <div className="restaurant-page-detail-buttons">
-                          {editInput === "reservations" ? (
-                            <select
-                              name="reservations"
-                              id="reservations"
-                              className="active"
-                            >
-                              <option value="none" selected disabled hidden>
-                                Select an Option
-                              </option>
-                              <option value="available">Available</option>
-                              <option value="unavailable">Unavailable</option>
-                            </select>
-                          ) : (
-                            <select
-                              name="reservations"
-                              id="reservations-select"
-                              className="inactive"
-                              disabled
-                            >
-                              <option value="none" selected disabled hidden>
-                                Select an Option
-                              </option>
-                              <option value="available">Available</option>
-                              <option value="unavailable">Unavailable</option>
-                            </select>
-                          )}
+                          <SelectInput
+                            label="reservation"
+                            htmlFor="reservation"
+                            disabled={editInput !== "reservation"}
+                            // defaultValue={restaurant.details.reservation}
+                            value={restaurant.details.reservation}
+                            handleChange={(e) => {
+                              setRestaurant({
+                                ...restaurant,
+                                details: {
+                                  ...restaurant.details,
+                                  reservation: e.target.value,
+                                },
+                              });
+                            }}
+                          >
+                            <option value={true}>Yes</option>
+                            <option value={false}>No</option>
+                          </SelectInput>
                           {editInput === "reservations" ? (
                             <button
                               type="button"
-                              onClick={() => saveEdit("reservations")}
+                              onClick={() => saveEdit("reservation")}
                             >
                               <AddIcon></AddIcon>
                             </button>
                           ) : (
                             <button
                               type="button"
-                              onClick={() => setEditInput("reservations")}
+                              onClick={() => setEditInput("reservation")}
                             >
                               <EditIcon></EditIcon>
                             </button>
@@ -491,35 +502,43 @@ const RestaurantPage = ({ match, ...props }) => {
                       images={restaurant.menu}
                       manage
                       size={1}
+                      deleteImage={deleteMenu}
                     />
                   </fieldset>,
                   <fieldset form="restaurant-manage-extra">
                     <div className="restaurant-page-details">
                       <div className="restaurant-page-detail">
-                        <label htmlFor="sunday">Sunday</label>
                         <div className="restaurant-page-detail-buttons">
-                          {editInput === "sunday" ? (
-                            <input
-                              name="sunday"
-                              id="sunday-select"
-                              className="active"
-                              type="time"
-                              min="00:00"
-                              max="24:00"
-                              required
-                            ></input>
-                          ) : (
-                            <input
-                              name="sunday"
-                              id="sunday-select"
-                              className="inactive"
-                              type="time"
-                              min="00:00"
-                              max="24:00"
-                              required
-                              disabled
-                            ></input>
-                          )}
+                          <HourRangeInput
+                            label="su"
+                            value1={restaurant.hours.sunday._from}
+                            value2={restaurant.hours.sunday._to}
+                            handleChange2={(e) => {
+                              setRestaurant({
+                                ...restaurant,
+                                hours: {
+                                  ...restaurant.hours,
+                                  sunday: {
+                                    ...restaurant.hours.sunday,
+                                    _to: e.target.value,
+                                  },
+                                },
+                              });
+                            }}
+                            handleChange1={(e) => {
+                              setRestaurant({
+                                ...restaurant,
+                                hours: {
+                                  ...restaurant.hours,
+                                  sunday: {
+                                    ...restaurant.hours.sunday,
+                                    _from: e.target.value,
+                                  },
+                                },
+                              });
+                            }}
+                            disabled={editInput !== "sunday"}
+                          />
                           {editInput === "sunday" ? (
                             <button
                               type="button"
@@ -538,41 +557,48 @@ const RestaurantPage = ({ match, ...props }) => {
                         </div>
                       </div>
                       <div className="restaurant-page-detail">
-                        <label>Monday</label>
                         <div className="restaurant-page-detail-buttons">
-                          {editInput === "monday" ? (
-                            <input
-                              name="monday"
-                              id="monday-select"
-                              className="active"
-                              type="time"
-                              min="00:00"
-                              max="24:00"
-                              required
-                            ></input>
-                          ) : (
-                            <input
-                              name="monday"
-                              id="monday-select"
-                              className="inactive"
-                              type="time"
-                              min="00:00"
-                              max="24:00"
-                              required
-                              disabled
-                            ></input>
-                          )}
+                          <HourRangeInput
+                            label="mo"
+                            value1={restaurant.hours.monday._from}
+                            value2={restaurant.hours.monday._to}
+                            handleChange2={(e) => {
+                              setRestaurant({
+                                ...restaurant,
+                                hours: {
+                                  ...restaurant.hours,
+                                  monday: {
+                                    ...restaurant.hours.sunday,
+                                    _to: e.target.value,
+                                  },
+                                },
+                              });
+                            }}
+                            handleChange1={(e) => {
+                              setRestaurant({
+                                ...restaurant,
+                                hours: {
+                                  ...restaurant.hours,
+                                  monday: {
+                                    ...restaurant.hours.sunday,
+                                    _from: e.target.value,
+                                  },
+                                },
+                              });
+                            }}
+                            disabled={editInput !== "monday"}
+                          />
                           {editInput === "monday" ? (
                             <button
                               type="button"
-                              onClick={() => this.saveEdit("monday")}
+                              onClick={() => saveEdit("monday")}
                             >
                               <AddIcon></AddIcon>
                             </button>
                           ) : (
                             <button
                               type="button"
-                              onClick={() => this.setEdit("monday")}
+                              onClick={() => setEditInput("monday")}
                             >
                               <EditIcon></EditIcon>
                             </button>
@@ -580,30 +606,37 @@ const RestaurantPage = ({ match, ...props }) => {
                         </div>
                       </div>
                       <div className="restaurant-page-detail">
-                        <label>Tuesday</label>
                         <div className="restaurant-page-detail-buttons">
-                          {editInput === "tuesday" ? (
-                            <input
-                              name="tuesday"
-                              id="tuesday-select"
-                              className="active"
-                              type="time"
-                              min="00:00"
-                              max="24:00"
-                              required
-                            ></input>
-                          ) : (
-                            <input
-                              name="tuesday"
-                              id="tuesday-select"
-                              className="inactive"
-                              type="time"
-                              min="00:00"
-                              max="24:00"
-                              required
-                              disabled
-                            ></input>
-                          )}
+                          <HourRangeInput
+                            label="tu"
+                            value1={restaurant.hours.tuesday._from}
+                            value2={restaurant.hours.tuesday._to}
+                            handleChange2={(e) => {
+                              setRestaurant({
+                                ...restaurant,
+                                hours: {
+                                  ...restaurant.hours,
+                                  tuesday: {
+                                    ...restaurant.hours.tuesday,
+                                    _to: e.target.value,
+                                  },
+                                },
+                              });
+                            }}
+                            handleChange1={(e) => {
+                              setRestaurant({
+                                ...restaurant,
+                                hours: {
+                                  ...restaurant.hours,
+                                  tuesday: {
+                                    ...restaurant.hours.tuesday,
+                                    _from: e.target.value,
+                                  },
+                                },
+                              });
+                            }}
+                            disabled={editInput !== "tuesday"}
+                          />
                           {editInput === "tuesday" ? (
                             <button
                               type="button"
@@ -622,30 +655,37 @@ const RestaurantPage = ({ match, ...props }) => {
                         </div>
                       </div>
                       <div className="restaurant-page-detail">
-                        <label>Wednesday</label>
                         <div className="restaurant-page-detail-buttons">
-                          {editInput === "wednesday" ? (
-                            <input
-                              name="wednesday"
-                              id="wednesday-select"
-                              className="active"
-                              type="time"
-                              min="00:00"
-                              max="24:00"
-                              required
-                            ></input>
-                          ) : (
-                            <input
-                              name="wednesday"
-                              id="wednesday-select"
-                              className="inactive"
-                              type="time"
-                              min="00:00"
-                              max="24:00"
-                              required
-                              disabled
-                            ></input>
-                          )}
+                          <HourRangeInput
+                            label="we"
+                            value1={restaurant.hours.wednesday._from}
+                            value2={restaurant.hours.wednesday._to}
+                            handleChange2={(e) => {
+                              setRestaurant({
+                                ...restaurant,
+                                hours: {
+                                  ...restaurant.hours,
+                                  wednesday: {
+                                    ...restaurant.hours.wednesday,
+                                    _to: e.target.value,
+                                  },
+                                },
+                              });
+                            }}
+                            handleChange1={(e) => {
+                              setRestaurant({
+                                ...restaurant,
+                                hours: {
+                                  ...restaurant.hours,
+                                  wednesday: {
+                                    ...restaurant.hours.wednesday,
+                                    _from: e.target.value,
+                                  },
+                                },
+                              });
+                            }}
+                            disabled={editInput !== "wednesday"}
+                          />
                           {editInput === "wednesday" ? (
                             <button
                               type="button"
@@ -664,30 +704,37 @@ const RestaurantPage = ({ match, ...props }) => {
                         </div>
                       </div>
                       <div className="restaurant-page-detail">
-                        <label>Thursday</label>
                         <div className="restaurant-page-detail-buttons">
-                          {editInput === "thursday" ? (
-                            <input
-                              name="thursday"
-                              id="thursday-select"
-                              className="active"
-                              type="time"
-                              min="00:00"
-                              max="24:00"
-                              required
-                            ></input>
-                          ) : (
-                            <input
-                              name="thursday"
-                              id="thursday-select"
-                              className="inactive"
-                              type="time"
-                              min="00:00"
-                              max="24:00"
-                              required
-                              disabled
-                            ></input>
-                          )}
+                          <HourRangeInput
+                            label="th"
+                            value1={restaurant.hours.thursday._from}
+                            value2={restaurant.hours.thursday._to}
+                            handleChange2={(e) => {
+                              setRestaurant({
+                                ...restaurant,
+                                hours: {
+                                  ...restaurant.hours,
+                                  thursday: {
+                                    ...restaurant.hours.thursday,
+                                    _to: e.target.value,
+                                  },
+                                },
+                              });
+                            }}
+                            handleChange1={(e) => {
+                              setRestaurant({
+                                ...restaurant,
+                                hours: {
+                                  ...restaurant.hours,
+                                  thursday: {
+                                    ...restaurant.hours.thursday,
+                                    _from: e.target.value,
+                                  },
+                                },
+                              });
+                            }}
+                            disabled={editInput !== "thursday"}
+                          />
                           {editInput === "thursday" ? (
                             <button
                               type="button"
@@ -706,30 +753,37 @@ const RestaurantPage = ({ match, ...props }) => {
                         </div>
                       </div>
                       <div className="restaurant-page-detail">
-                        <label>Friday</label>
                         <div className="restaurant-page-detail-buttons">
-                          {editInput === "friday" ? (
-                            <input
-                              name="friday"
-                              id="friday-select"
-                              className="active"
-                              type="time"
-                              min="00:00"
-                              max="24:00"
-                              required
-                            ></input>
-                          ) : (
-                            <input
-                              name="friday"
-                              id="friday-select"
-                              className="inactive"
-                              type="time"
-                              min="00:00"
-                              max="24:00"
-                              required
-                              disabled
-                            ></input>
-                          )}
+                          <HourRangeInput
+                            label="fr"
+                            value1={restaurant.hours.friday._from}
+                            value2={restaurant.hours.friday._to}
+                            handleChange2={(e) => {
+                              setRestaurant({
+                                ...restaurant,
+                                hours: {
+                                  ...restaurant.hours,
+                                  friday: {
+                                    ...restaurant.hours.friday,
+                                    _to: e.target.value,
+                                  },
+                                },
+                              });
+                            }}
+                            handleChange1={(e) => {
+                              setRestaurant({
+                                ...restaurant,
+                                hours: {
+                                  ...restaurant.hours,
+                                  friday: {
+                                    ...restaurant.hours.friday,
+                                    _from: e.target.value,
+                                  },
+                                },
+                              });
+                            }}
+                            disabled={editInput !== "friday"}
+                          />
                           {editInput === "friday" ? (
                             <button
                               type="button"
@@ -748,30 +802,37 @@ const RestaurantPage = ({ match, ...props }) => {
                         </div>
                       </div>
                       <div className="restaurant-page-detail">
-                        <label>Saturday</label>
                         <div className="restaurant-page-detail-buttons">
-                          {editInput === "saturday" ? (
-                            <input
-                              name="saturday"
-                              id="saturday-select"
-                              className="active"
-                              type="time"
-                              min="00:00"
-                              max="24:00"
-                              required
-                            ></input>
-                          ) : (
-                            <input
-                              name="saturday"
-                              id="saturday-select"
-                              className="inactive"
-                              type="time"
-                              min="00:00"
-                              max="24:00"
-                              required
-                              disabled
-                            ></input>
-                          )}
+                          <HourRangeInput
+                            label="sa"
+                            value1={restaurant.hours.saturday._from}
+                            value2={restaurant.hours.saturday._to}
+                            handleChange2={(e) => {
+                              setRestaurant({
+                                ...restaurant,
+                                hours: {
+                                  ...restaurant.hours,
+                                  sunday: {
+                                    ...restaurant.hours.saturday,
+                                    _to: e.target.value,
+                                  },
+                                },
+                              });
+                            }}
+                            handleChange1={(e) => {
+                              setRestaurant({
+                                ...restaurant,
+                                hours: {
+                                  ...restaurant.hours,
+                                  sunday: {
+                                    ...restaurant.hours.saturday,
+                                    _from: e.target.value,
+                                  },
+                                },
+                              });
+                            }}
+                            disabled={editInput !== "saturday"}
+                          />
                           {editInput === "saturday" ? (
                             <button
                               type="button"
@@ -812,7 +873,7 @@ const RestaurantPage = ({ match, ...props }) => {
       <section className="restaurant-page-main">
         <h1>{restaurant.restaurantName}</h1>
         <div className="restaurant-page-information">
-          <p>Opened {restaurant.dateOpen}</p>
+          <p>Opened {restaurant.dateOpen.split(" ")[0]}</p>
           <p>
             Owned by {restaurant.ownerid.fname} {restaurant.ownerid.lname}
           </p>
@@ -885,50 +946,50 @@ const RestaurantPage = ({ match, ...props }) => {
                     <div className="restaurant-page-detail">
                       <dt>Sunday</dt>
                       <dd>
-                        {restaurant.hours.sunday._from} -{" "}
-                        {restaurant.hours.sunday._to}
+                        {convertTime(restaurant.hours.sunday._from)} -{" "}
+                        {convertTime(restaurant.hours.sunday._to)}
                       </dd>
                     </div>
                     <div className="restaurant-page-detail">
                       <dt>Monday</dt>
                       <dd>
-                        {restaurant.hours.monday._from} -{" "}
-                        {restaurant.hours.monday._to}}
+                        {convertTime(restaurant.hours.monday._from)} -{" "}
+                        {convertTime(restaurant.hours.monday._to)}
                       </dd>
                     </div>
                     <div className="restaurant-page-detail">
                       <dt>Tuesday</dt>
                       <dd>
-                        {restaurant.hours.tuesday._from} -{" "}
-                        {restaurant.hours.tuesday._to}
+                        {convertTime(restaurant.hours.tuesday._from)} -{" "}
+                        {convertTime(restaurant.hours.tuesday._to)}
                       </dd>
                     </div>
                     <div className="restaurant-page-detail">
                       <dt>Wednesday</dt>
                       <dd>
-                        {restaurant.hours.wednesday._from} -{" "}
-                        {restaurant.hours.wednesday._to}
+                        {convertTime(restaurant.hours.wednesday._from)} -{" "}
+                        {convertTime(restaurant.hours.wednesday._to)}
                       </dd>
                     </div>
                     <div className="restaurant-page-detail">
                       <dt>Thursday</dt>
                       <dd>
-                        {restaurant.hours.thursday._from} -{" "}
-                        {restaurant.hours.thursday._to}
+                        {convertTime(restaurant.hours.thursday._from)} -{" "}
+                        {convertTime(restaurant.hours.thursday._to)}
                       </dd>
                     </div>
                     <div className="restaurant-page-detail">
                       <dt>Friday</dt>
                       <dd>
-                        {restaurant.hours.friday._from} -{" "}
-                        {restaurant.hours.friday._to}
+                        {convertTime(restaurant.hours.friday._from)} -{" "}
+                        {convertTime(restaurant.hours.friday._to)}
                       </dd>
                     </div>
                     <div className="restaurant-page-detail">
                       <dt>Saturday</dt>
                       <dd>
-                        {restaurant.hours.saturday._from} -{" "}
-                        {restaurant.hours.saturday._to}
+                        {convertTime(restaurant.hours.saturday._from)} -{" "}
+                        {convertTime(restaurant.hours.saturday._to)}
                       </dd>
                     </div>
                   </dl>,

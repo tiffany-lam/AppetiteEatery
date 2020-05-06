@@ -24,7 +24,7 @@
 
   display: grid;
   grid-template-columns: auto auto;
-  grid-template-rows: auto auto;
+  grid-template-rows: auto auto auto;
   grid-template-areas:
     " main side "
     " min-side side "
@@ -185,7 +185,7 @@
     position: -webkit-sticky;
     position: sticky;
 
-    max-height: 80vh;
+    // max-height: 80vh;
 
     top: 8%;
     // top: 2%;
@@ -277,10 +277,15 @@
           display: flex;
           //   flex-direction: row;
           //   flex-wrap: nowrap;
+          width: 100%;
           align-content: center;
-          select {
-            height: 100%;
-            // align-self: center;
+          // select {
+          //   height: 100%;
+          //   // align-self: center;
+          // }
+
+          div {
+            width: 100%;
           }
           button {
             svg {
@@ -352,7 +357,12 @@
       flex-direction: row;
       // justify-content: space-between;
 
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
+      width: 100%;
+
+      div {
+        width: 100%;
+      }
 
       label {
         width: 100%;
@@ -392,19 +402,9 @@
       }
 
       textarea {
-        height: 7em;
         width: 100%;
-
-        background-color: $light_beige;
-
-        resize: none;
-
-        border: none;
-        border-radius: 5px;
-
+        background-color: $background_light;
         padding: 1rem;
-
-        box-sizing: border-box;
       }
     }
 
@@ -810,7 +810,7 @@
   }
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 600px) {
   .restaurant-page-side {
     // display: none;
     grid-area: min-side;
@@ -818,8 +818,8 @@
     max-width: 100%;
 
     .restaurant-page-side-contents {
-      display: flex;
-      flex-direction: column;
+      // display: flex;
+      // flex-direction: column;
 
       // fieldset {
       //   height: min-content;
