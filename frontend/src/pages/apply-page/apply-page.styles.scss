@@ -1,0 +1,95 @@
+@import "../../assets/theme";
+
+.apply-page-container {
+  z-index: 0;
+  height: 100%;
+  // margin: 0 auto;
+  // height: 25rem;
+  // margin-right: $padding_small;
+  // margin-left: $padding_small;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  // background-color: rgb(26, 134, 116);
+
+  .input-override {
+    margin-top: 1.6rem;
+    max-width: 40rem;
+  }
+
+  .time-range-input {
+    margin-bottom: 0.8rem;
+
+    span {
+      // width: 8rem;
+    }
+  }
+
+  .apply-form-header {
+    // margin-bottom: 1rem;
+    padding: 0 0.5rem;
+    width: 100%;
+    background-color: rgba(white, 0.2);
+
+    // border-bottom: 3px solid $secondary;
+    border-left: 2.5rem solid $secondary;
+
+    height: 2.5rem;
+
+    color: $secondary;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+
+    display: flex;
+    align-items: center;
+  }
+
+  form {
+    // background-color: red;
+    // width: 100%;
+    // max-width: 100%;
+    .form-subtitle {
+      color: $primary;
+      font-size: 1.2rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      margin-top: 1rem;
+    }
+
+    .city-state-zip-container {
+      width: 100%;
+      max-width: 40rem;
+
+      display: flex;
+
+      // flex-wrap: wrap;
+      #city-input {
+        flex: 8;
+        min-width: 4.5rem;
+      }
+      #state-input {
+        min-width: 4.5rem;
+        flex: 1;
+        margin-left: 1rem;
+      }
+      #zipcode-input {
+        min-width: 6rem;
+        flex: 1;
+        margin-left: 1rem;
+      }
+    }
+
+    .hour-input {
+      // width: 2rem;
+      flex-direction: row;
+    }
+
+    #hours-header {
+      margin-bottom: 1.6rem;
+    }
+  }
+}

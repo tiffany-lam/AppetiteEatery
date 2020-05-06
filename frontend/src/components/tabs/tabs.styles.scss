@@ -8,18 +8,22 @@
   display: flex;
   flex-direction: column;
 
+  // background-color: red;
+
   li {
     display: inline;
   }
 
   ul {
-    margin: 0 0 1rem 0;
+    // margin: 0 0 1rem 0;
     //border-bottom: 1px solid $secondary;
+
+    display: flex;
   }
 
   button {
     // background-color: inherit;
     cursor: pointer;
-    width: 33%;
+    // width: 33%;
   }
 }

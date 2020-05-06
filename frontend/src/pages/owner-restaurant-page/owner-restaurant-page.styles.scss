@@ -1,0 +1,42 @@
+@import "../../assets/theme";
+
+.owner-restaurant-page {
+  height: 100%;
+
+  // margin: 0 auto;
+  // height: 25rem;
+  // margin-right: $padding_small;
+  // margin-left: $padding_small;
+
+  // background-color: red;
+
+  display: flex;
+  flex-direction: column;
+  // justify-content: center;
+  align-items: center;
+
+  // background-color: rgb(26, 134, 116);
+
+  .card-margin {
+    margin-bottom: 1rem;
+  }
+
+  .owner-header {
+    font-size: 2rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+  }
+
+  .submit-res-btn {
+    width: 40rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .owner-restaurant-page {
+    .submit-res-btn {
+      width: 20rem;
+    }
+  }
+}

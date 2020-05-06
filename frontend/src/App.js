@@ -17,10 +17,14 @@ import FooterNav from "./components/footer-nav/footer-nav.component";
 
 // page components here:
 import HomePage from "./pages/home-page/home-page.component";
-import RestaurantPage from "./pages/restaurant-page/restaurant-page.component";
+// import RestaurantPage from "./pages/restaurant-page/restaurant-page.component";
+import RestaurantPage from "./pages/restaurant-page/restaurant-pagev2.component";
 import ContactUsPage from "./pages/contact-us-page/contact-us.component";
 import ErrorPage from "./pages/error-page/error-page.component";
 import ProfilePage from "./pages/profile-page/profile-page.component";
+import SearchResult from "./pages/searchResult-page/searchResult";
+import ApplyPage from "./pages/apply-page/apply.component";
+import OwnerRestaurantPage from "./pages/owner-restaurant-page/owner-restaurant-page.component";
 
 class App extends Component {
   unsubscribedFromAuth = null;
@@ -66,10 +70,8 @@ class App extends Component {
           <main>
             <Switch>
               <Route exact path="/" component={HomePage} />
-
-              {/* <Route path="/graduated" component={} /> */}
-              {/* <Route exact path="/" component={HomePage} /> */}
-              {/* EXAMPLE: */}
+              <Route exact path="/search" component={SearchResult} />
+              <Route path="/contact-us" component={ContactUsPage} />
               <Route
                 exact
                 path="/restaurant/:restaurantId"
@@ -78,16 +80,26 @@ class App extends Component {
 
               {/* <Route path="/login" component={} /> */}
               {/* <Route path="/graduated" component={} /> */}
-              <Route path="/contact-us" component={ContactUsPage} />
-              <Route path="/test" component={Test} />
-              {/* <Route path="/restaurant-page" component={RestaurantPage} /> */}
+
+              {/* <Route path="/test" component={Test} /> */}
+
               {/* check to see if user is login, if not don't show */}
-              {this.state.user ? (
-                <Route path="/profile" component={ProfilePage} />
-              ) : (
-                ""
+              {this.props.userAuth && (
+                <Route exact path="/apply" component={ApplyPage} />
               )}
-              {/* <Route path="/profile" component={ProfilePage} /> */}
+
+              {this.props.userAuth && (
+                <Route
+                  exact
+                  path="/my-restaurants"
+                  component={OwnerRestaurantPage}
+                />
+              )}
+              {this.props.userAuth && (
+                <Route exact path="/profile" component={ProfilePage} />
+              )}
+              {/* Temporary */}
+              <Route to="/error-page" component={ErrorPage} />
               <Route to="*" component={ErrorPage} />
             </Switch>
           </main>

@@ -1,0 +1,43 @@
+@import "../../assets/theme";
+
+.tag-container {
+  width: fit-content;
+  height: fit-content;
+  max-height: fit-content;
+  padding: 0.1rem 0.5rem;
+  background-color: $secondary;
+  margin: 2px;
+
+  color: $background_light;
+  font-weight: bold;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+
+  border-left: 5px solid $primary;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .tag-input {
+    // background-color: rgba(white, 0.1);
+    background-color: transparent;
+
+    width: 7rem;
+
+    border-radius: 0;
+    outline: 0;
+    border: 0;
+
+    color: $background_light;
+    font-weight: bold;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+  }
+
+  .hidden {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+  }
+}

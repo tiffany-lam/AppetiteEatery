@@ -1,0 +1,47 @@
+@import "../../assets/theme";
+
+.custom-btn {
+  cursor: pointer;
+  height: 2.5rem;
+  padding: 0 0.5rem;
+
+  width: 100%;
+
+  // border-radius: 5rem;
+  background-color: $secondary;
+
+  font-size: 0.8rem;
+  // font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: $background_light;
+
+  @include bg_color_change();
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  svg {
+    // background-color: red;
+    width: 1rem;
+    margin-right: 0.25rem;
+    path {
+      fill: $background_light;
+    }
+  }
+
+  &:hover {
+    background-color: $primary;
+  }
+}
+
+// a default padding:
+.btn-margin {
+  margin: 1rem 0;
+}
+
+.btn-fit-content {
+  width: fit-content;
+  width: -moz-fit-content;
+}
