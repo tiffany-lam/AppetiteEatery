@@ -8,6 +8,8 @@ import {
   resetUserRedux,
 } from "../../redux/user/user.actions";
 
+import axios from "axios";
+
 // Custom Style Sheet
 import "./profile-page.styles.scss";
 
@@ -16,6 +18,9 @@ import Divider from "../../components/divider/divider.component";
 import Review from "../../components/review/review.component";
 import Tag from "../../components/tag/tag.component";
 import MapContainer from "../../components/map-container/map-container.component";
+import CustomButton from "../../components/custom-button/custom-button.component"
+
+import CreateIcon from "@material-ui/icons/Create";
 
 class ProfilePage extends Component {
   constructor(props) {
@@ -136,6 +141,9 @@ class ProfilePage extends Component {
                 ? this.props.userAuth.uid.slice(0, 8)
                 : this.state.fname}
             </h1>
+            <CustomButton type="button" icon={<CreateIcon />} className="profile-button">
+              Edit My Info
+            </CustomButton>
             <h2>
               {this.props.userAuth
                 ? this.props.userAuth.email

@@ -1,0 +1,6 @@
+export FLASK_APP=app.py
+export MONGODB_URI=mongodb://sam:nonenone@34.229.246.80:27017/?authSource=admin
+export S3_USERNAME=appetite-eatery-web-server
+export S3_BUCKET=appetite.eatery
+export S3_ACCESS_KEY_ID=AKIA54UBRATGIH5GG5PU
+export S3_SECRET_ACCESS_KEY=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
