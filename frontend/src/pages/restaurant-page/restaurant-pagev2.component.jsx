@@ -130,10 +130,15 @@ const RestaurantPage = ({ match, ...props }) => {
     setEditInput("");
   };
 
+  const deleteTag = (deletedTag) => {
+    let newTags = restaurant.restaurantTags.filter((tag) => tag !== deletedTag);
+    setRestaurant({ ...restaurant, restaurantTags: newTags });
+  };
+
   const tags = restaurant
     ? restaurant.restaurantTags.map((tag) => {
         return editable ? (
-          <Tag type="delete" key={tag} delete={this.deleteTag}>
+          <Tag type="delete" key={tag} delete={deleteTag}>
             {tag}
           </Tag>
         ) : (
@@ -145,9 +150,9 @@ const RestaurantPage = ({ match, ...props }) => {
   const reviews = restaurant
     ? restaurant.reviews.map((review) => {
         return (
-          <li key={review.user.username}>
+          <li key={review.user._id}>
             <Review
-              user={review.user.username}
+              user={review.user.fname}
               avatar={review.user.avatar}
               date={review.date}
               content={review.content}
@@ -187,7 +192,7 @@ const RestaurantPage = ({ match, ...props }) => {
               <div className="restaurant-name">
                 <label htmlFor="name">
                   <span>Edit Restaurant Name</span>
-                  {this.state.edit === "name" ? (
+                  {editInput === "name" ? (
                     <input
                       type="text"
                       name="name"
@@ -929,7 +934,7 @@ const RestaurantPage = ({ match, ...props }) => {
               ></Tabs>
             </div>
             <div className="temp">
-              <button type="button" onClick={() => setEditable(false)}>
+              <button type="button" onClick={() => setEditable(true)}>
                 EDIT
               </button>
             </div>
