@@ -11,14 +11,7 @@ import {
 } from "../../redux/user/user.actions";
 
 // custom components:
-import ImageCard from "../../components/image-card/image-card.component";
-import FormInput from "../../components/form-input/form-input.component";
-import CustomButton from "../../components/custom-button/custom-button.component";
-import ImageUploadInput from "../../components/img-upload-input/img-upload-inputcomponent";
-import SelectInput from "../../components/select-input/select-input.component";
-import HourRangeInput from "../../components/hour-range-input/hour-range.component";
-import Tag from "../../components/tag/tag-v2.component";
-import AddTagInput from "../../components/add-tag-input/add-tag-input.component";
+import RestaurantCard from "../../components/restaurant-listing-card/restaurantCard.component";
 
 // custom stylesheet:
 import "./owner-restaurant-page.styles.scss";
@@ -68,6 +61,10 @@ const OwnerRestaurantPage = ({ userAuth, ...props }) => {
         }}
       >
         <div className="">OWNERS RES PAGE</div>
+        {ownersRestaurants.map((restaurant, i) => (
+          <RestaurantCard key={i} restaurant={restaurant} />
+        ))}
+
         <Link to="/apply">Button</Link>
       </div>
     );

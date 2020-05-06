@@ -1,31 +1,33 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 
-const restaurantCard = props =>{
-    const{
+import "./restaurantCard.styles.scss";
 
-    } = props.restaurant || {}
+const INITIAL_STATE = {
+  ownerid: "",
+  website: "",
+  restaurantName: "",
+  description: "",
+  dateOpen: "",
+  address: "",
+  address2: "",
+  city: "",
+  state: "",
+  zipcode: "",
+  country: "",
+  location: [],
+  restaurantTags: [],
+  details: {},
+  hours: {},
+  images: [],
+  menu: [],
+  limelightCondition: "",
+};
+const RestaurantCard = ({ restaurant = INITIAL_STATE, ...props }) => {
+  return (
+    <section className="restaurant-card-container">
+      {restaurant.restaurantName}
+    </section>
+  );
+};
 
-    return(
-        <Card className = "cardSize">
-            <CardPrimaryContent className ="mdc-card_primary-action" tabindex="0">
-                 <CardMedia /> {/*restaurantPhoto here */}
-                 <div className = "card__primary">
-                     <Headline6 className = "card__title">Restaurant Name</Headline6>
-                     <Subtitle2 className = "card__subtitle">Address</Subtitle2>
-                 </div>
-
-            </CardPrimaryContent>
-            <CardActions>
-                <IconButton>
-                    <MaterialIcon icon='favorite_border' />
-                </IconButton>
-                <IconButton>
-                    <MaterialIcon icon='share' />
-                </IconButton>
-            </CardActions>
-
-        </Card>
-
-    )
-    
-}
+export default RestaurantCard;
