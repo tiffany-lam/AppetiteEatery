@@ -9,7 +9,8 @@ from mongoengine.fields import (StringField, ListField, LazyReferenceField,  Obj
 class Client(Document):
     meta = { 'collection': 'clients', 'allow_inheritance': True}
 
-    _id = ObjectIdField(primary_key=True)
+    # _id = ObjectIdField(primary_key=True)
+    _id = StringField(primary_key=True, required=True)
     fname = StringField(required=True)
     lname = StringField(required=True)
     avatar = StringField()
