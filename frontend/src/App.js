@@ -23,7 +23,7 @@ import RestaurantPage from "./pages/restaurant-page/restaurant-pagev2.component"
 import ContactUsPage from "./pages/contact-us-page/contact-us.component";
 import ErrorPage from "./pages/error-page/error-page.component";
 import ProfilePage from "./pages/profile-page/profile-page.component";
-import SearchResult from "./pages/searchResult-page/searchResult";
+import SearchResult from "./pages/searchResult-page/searchResult.component";
 import ApplyPage from "./pages/apply-page/apply.component";
 import OwnerRestaurantPage from "./pages/owner-restaurant-page/owner-restaurant-page.component";
 import axios from "axios";

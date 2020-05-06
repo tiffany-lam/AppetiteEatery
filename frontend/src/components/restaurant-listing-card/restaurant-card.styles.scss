@@ -1,0 +1,42 @@
+.favIcon{
+    fill: green;
+}
+.cardSize {
+    height: auto;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    padding-bottom: 16px;
+    margin-bottom: 10px;
+    .MuiIconButton-colorPrimary{
+        color: grey;
+    }
+    .MuiIconButton-colorSecondary{
+        color: green; 
+    }
+}
+
+.restaurantPhoto{
+    height: 150px !important;
+    width: 150px !important;
+    overflow: hidden;
+    padding-top: '56.25%'; // 16:9
+    float: left;
+}
+.cardInfo{
+    padding-left: 2em;
+    overflow: hidden;
+}
+#ratingPadding{
+    padding-left: 0.75em;
+}
+.iconBar{
+    float: right !important;
+    .favIcon:active{
+        color: red;
+    }
+}
+.pagination{
+    align-items: center;
+    text-align: center;
+    margin-top: 15px;
+}
