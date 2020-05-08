@@ -207,13 +207,16 @@ def modify_restaurant(id):
         restaurant.details.waitTime = request.json['details']['waitTime']
 
         originalImages = restaurant.images
+        print(request.json['images'])
         newImages = request.json['images']
+        print(newImages)
 
         originalMenu = restaurant.menu
+        print(request.json['menu'])
         newMenu = request.json['menu']
 
-        updatedImages = [image for image in originalImages not in newImages]
-        updatedMenu = [menu for menu in originalMenu not in newMenu]
+        updatedImages = [image for image in originalImages if image not in newImages]
+        updatedMenu = [menu for menu in originalMenu if menu not in newMenu]
 
         s3_resource = boto3.resource(
             "s3",
