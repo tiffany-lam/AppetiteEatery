@@ -112,7 +112,8 @@ const RestaurantPage = ({ match, ...props }) => {
 
       try {
         const response = await axios.get(
-          `${BASE_API_URL}/restaurant/${match.params.restaurantId}`,
+          // `${BASE_API_URL}/restaurant/${match.params.restaurantId}`,
+          `http://52.201.241.142/api/restaurant/${match.params.restaurantId}`,
           { cancelToken: source.token }
         );
 
