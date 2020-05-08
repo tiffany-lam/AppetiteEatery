@@ -20,6 +20,8 @@ import AddIcon from "@material-ui/icons/Add";
 import HourRangeInput from "../../components/hour-range-input/hour-range.component";
 import SelectInput from "../../components/select-input/select-input.component";
 import FormInput from "../../components/form-input/form-input.component";
+import AddTagInput from "../../components/add-tag-input/add-tag-input.component";
+import CloseIcon from "@material-ui/icons/Close";
 
 import { BASE_API_URL } from "../../utils";
 
@@ -27,6 +29,8 @@ const RestaurantPage = ({ match, ...props }) => {
   const [editable, setEditable] = useState(false);
   const [editInput, setEditInput] = useState("");
   const [loading, setLoading] = useState(true);
+  const [images, setImages] = useState([]);
+  const [menu, setMenu] = useState([]);
   const [restaurant, setRestaurant] = useState({
     restaurantName: "",
     restaurantTags: [],
@@ -130,6 +134,10 @@ const RestaurantPage = ({ match, ...props }) => {
     };
   }, [match.params.restaurantId]);
 
+  const setTags = (tags) => {
+    setRestaurant({ ...restaurant, restaurantTags: tags });
+  }
+
   const saveEdit = (input) => {
     console.log(`SAVING ${input}`);
     setEditInput("");
@@ -149,6 +157,26 @@ const RestaurantPage = ({ match, ...props }) => {
     let newMenu = restaurant.menu.filter((menu) => menu !== deletedMenu);
     setRestaurant({ ...restaurant, menu: newMenu });
   };
+
+  const handleImages = (e) => {
+    e.preventDefault();
+    let updatedImages = images;
+    for (let i = 0; i < e.target.files.length; i++) {
+      updatedImages.push(e.target.files[i]);
+    }
+
+    setImages(updatedImages);
+  }
+
+  const handleMenu = (e) => {
+    e.preventDefault();
+    let updatedMenu = menu;
+    for (let i = 0; i < e.target.files.length; i++) {
+      updatedMenu.push(e.target.files[i]);
+    }
+
+    setMenu(menu);
+  }
 
   const handleChange = (e) => {
     console.log(e.target.name);
@@ -178,23 +206,31 @@ const RestaurantPage = ({ match, ...props }) => {
       .then(async (res) => {
         console.log("Restaurant updated: \n");
         console.log(res.data);
-        // setRestaurant({ ...restaurant, ...res.data });
+
+        let id = match.params.id;
+        let formData = new FormData();
+
+        for (let i = 0; i < images.length; i++) {
+          formData.append("images[]", images[i]);
+        }
+
+        for (let i = 0; i < menu.length; i++) {
+          formData.append("menu[]", menu[i]);
+        }
+
+        return await axios.post(`${BASE_API_URL}/img-upload/${id}`, formData, {"Content-Type": "multipart/form-data"})
+      })
+      .then((res) => {
+        console.log("Images uploaded successfully");
+        console.log(res.data);
+        setRestaurant({ ...restaurant, images: res.data.images });
       })
       .catch((error) => console.error(error));
   };
 
-  const tags = restaurant
-    ? restaurant.restaurantTags.map((tag) => {
-        return editable ? (
-          // <Tag type="delete" key={tag} delete={deleteTag}>
-          //   {tag}
-          // </Tag>
-          <Tag key={tag} value={tag}></Tag>
-        ) : (
-          <Tag key={tag} value={tag}></Tag>
-        );
-      })
-    : null;
+  const tags = restaurant.restaurantTags.map((tag) => {
+         return <Tag key={tag} value={tag}></Tag>
+      });
 
   const reviews = restaurant
     ? restaurant.reviews.map((review) => {
@@ -278,8 +314,30 @@ const RestaurantPage = ({ match, ...props }) => {
                   manage
                   size={3}
                   deleteImage={deleteImage}
+                  add
+                  handleChange={handleImages}
                 />
               </div>
+              <div>
+                
+                <ul>
+                  {images.map((fileObj, index) => (
+                    <li>
+                      <img
+                        src={fileObj.url}
+                        alt={`Preview of ${fileObj.filename}`}>
+                      </img>
+                      <button
+                        type="button"
+                        // onClick={(e) => }
+                      >
+                        <CloseIcon></CloseIcon>
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
               <Divider full={true} />
             </fieldset>
             <fieldset form="manage-restaurant" className="restaurant-container">
@@ -320,8 +378,9 @@ const RestaurantPage = ({ match, ...props }) => {
         <div className="restaurant-page-side-contents">
           <fieldset form="manage-restaurant-extra">
             <div className="restaurant-page-tags">
-              <ul>{tags}</ul>
-              {/* <Tag type="add"></Tag> */}
+              {editable ? 
+              <AddTagInput disabled tagValues={restaurant.restaurantTags} handleAnyChange={setTags}></AddTagInput> :
+              <ul>{tags}</ul> }
             </div>
           </fieldset>
           {/* UHHHHHHHH FIGURE OUT A WAY TO SEND THIS LMAO */}
@@ -925,19 +984,19 @@ const RestaurantPage = ({ match, ...props }) => {
                     <dl className="restaurant-page-details">
                       <div className="restaurant-page-detail">
                         <dt>Parking</dt>
-                        <dd>Free</dd>
+                        <dd>{restaurant.details.parking}</dd>
                       </div>
                       <div className="restaurant-page-detail">
                         <dt>Wifi</dt>
-                        <dd>Available</dd>
+                        <dd>{restaurant.details.wifi ? "Available" : "Unavailable"}</dd>
                       </div>
                       <div className="restaurant-page-detail">
                         <dt>Takeout</dt>
-                        <dd>Available</dd>
+                        <dd>{restaurant.details.takeout ? "Available" : "Unavailable"}</dd>
                       </div>
                       <div className="restaurant-page-detail">
                         <dt>Reservations</dt>
-                        <dd>Available</dd>
+                        <dd>{restaurant.details.reservation ? "Available" : "Unavailable"}</dd>
                       </div>
                     </dl>
                   </React.Fragment>,
@@ -946,6 +1005,8 @@ const RestaurantPage = ({ match, ...props }) => {
                       className="restaurant-page-menu"
                       images={restaurant.menu}
                       size={1}
+                      add
+                      handleChange={handleMenu}
                     />
                   </React.Fragment>,
                   // <React.Fragement>

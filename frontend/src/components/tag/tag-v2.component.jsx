@@ -12,6 +12,7 @@ const Tag = ({
   type = "read-only",
   value,
   handleChange,
+  disabled,
   ...props
 }) => {
   if (type === "read-only")
@@ -28,6 +29,7 @@ const Tag = ({
           className="tag-input"
           value={value}
           onChange={handleChange}
+          disabled={disabled}
         ></input>
       </li>
     );

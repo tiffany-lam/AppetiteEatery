@@ -12,6 +12,7 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import CloseIcon from "@material-ui/icons/Close";
+import AddIcon from '@material-ui/icons/Add';
 
 // LIMIT THE AMOUNT OF IMAGES THIS USES
 const Carousel = (props) => {
@@ -237,22 +238,6 @@ const Carousel = (props) => {
               height="1000"
               width="1000"
             />
-            {props.manage ? (
-              <button
-                className="button"
-                type="button"
-                // onClick={() => {
-                //   console.log(`deleted image at ${url}`);
-                // }}
-                onClick={(e) => {
-                  e.preventDefault();
-                  props.deleteImage(route);
-                  console.log(`deleted image at ${route}`);
-                }}
-              >
-                <CloseIcon></CloseIcon>
-              </button>
-            ) : null}
           </div>
         ) : (
           <div key={imageIndex} className="img-container-hidden">
@@ -319,6 +304,19 @@ const Carousel = (props) => {
             : "carousel-images-horizontal"
         }
       >
+        {props.add ? 
+          <fieldset>
+            <label htmlFor="upload">
+              <AddIcon></AddIcon>
+            </label>
+            <input
+              type="file"
+              id="upload"
+              name="image[]"
+              accept="image/png, image/jpeg"
+              onChange={props.handleChange}
+            ></input>
+          </fieldset> : null}
         {carouselImages}
       </section>
     </section>

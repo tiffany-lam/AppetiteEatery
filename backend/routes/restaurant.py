@@ -182,14 +182,6 @@ def modify_restaurant(id):
         restaurant.restaurantName = request.json['restaurantName']
         restaurant.restaurantTags = request.json['restaurantTags']
         restaurant.description = request.json['description']
-        # restaurant.dateOpen = request.json['dateOpen'],
-        # restaurant.ownerid = request.json['ownerid'],
-        # restaurant.address = request.json['address'],
-        # restaurant.address2 = request.json['address2'],
-        # restaurant.city = request.json['city'],
-        # restaurant.zipcode = request.json['zipcode'],
-        # restaurant.state = request.json['state'],
-        # restaurant.location = request.json['location'],
         restaurant.website = request.json['website']
         print("here2")
         restaurant.hours.sunday._from = request.json['hours']['sunday']['_from']
@@ -213,6 +205,8 @@ def modify_restaurant(id):
         restaurant.details.takeout = request.json['details']['takeout']
         restaurant.details.wifi = request.json['details']['wifi']
         restaurant.details.waitTime = request.json['details']['waitTime']
+
+        print(restaurant.to_json())
 
         restaurant.save()
 
