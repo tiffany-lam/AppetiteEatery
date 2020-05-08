@@ -182,14 +182,6 @@ def modify_restaurant(id):
         restaurant.restaurantName = request.json['restaurantName']
         restaurant.restaurantTags = request.json['restaurantTags']
         restaurant.description = request.json['description']
-        # restaurant.dateOpen = request.json['dateOpen'],
-        # restaurant.ownerid = request.json['ownerid'],
-        # restaurant.address = request.json['address'],
-        # restaurant.address2 = request.json['address2'],
-        # restaurant.city = request.json['city'],
-        # restaurant.zipcode = request.json['zipcode'],
-        # restaurant.state = request.json['state'],
-        # restaurant.location = request.json['location'],
         restaurant.website = request.json['website']
         print("here2")
         restaurant.hours.sunday._from = request.json['hours']['sunday']['_from']
@@ -213,6 +205,35 @@ def modify_restaurant(id):
         restaurant.details.takeout = request.json['details']['takeout']
         restaurant.details.wifi = request.json['details']['wifi']
         restaurant.details.waitTime = request.json['details']['waitTime']
+
+        originalImages = restaurant.images
+        print(request.json['images'])
+        newImages = request.json['images']
+        print(newImages)
+
+        originalMenu = restaurant.menu
+        print(request.json['menu'])
+        newMenu = request.json['menu']
+
+        updatedImages = [image for image in originalImages if image not in newImages]
+        updatedMenu = [menu for menu in originalMenu if menu not in newMenu]
+
+        s3_resource = boto3.resource(
+            "s3",
+            aws_access_key_id=S3_ACCESS_KEY_ID,
+            aws_secret_access_key=S3_SECRET_ACCESS_KEY
+        )
+
+        for image in updatedImages:
+            s3_resource.Object(S3_BUCKET, image).delete()
+
+        for image in updatedMenu:
+            s3_resource.Object(S3_BUCKET, image).delete()
+
+        restaurant.images = newImages
+        restaurant.menu = newMenu
+
+        print(restaurant.to_json())
 
         restaurant.save()
 

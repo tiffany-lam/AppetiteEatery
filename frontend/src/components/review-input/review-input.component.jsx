@@ -1,5 +1,7 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import axios from "axios";
+import { BASE_API_URL } from "../../utils";
 
 import Rating from "../rating/rating.component";
 import FaceIcon from "@material-ui/icons/Face";
@@ -14,7 +16,19 @@ import "./review-input.styles.scss";
 class ReviewInput extends Component {
   constructor(props) {
     super(props);
-    this.state = { files: [], rating: 0, content: "" };
+    this.state = {
+      files: [],
+      rating: 1,
+      content: "",
+    };
+    this.cancelToken = axios.CancelToken;
+    this.source = this.cancelToken.source();
+  }
+
+  componentWillUnmount() {
+    this.source.cancel(
+      "Review input component unamounting, axios requests cancelled."
+    );
   }
 
   handleChange = (e) => {
@@ -60,6 +74,8 @@ class ReviewInput extends Component {
       content: this.state.content,
     };
 
+    // console.log(datae)
+
     await axios
       .post("http://127.0.0.1:5000/api/review", newReview)
       .then(async (res) => {
@@ -74,7 +90,7 @@ class ReviewInput extends Component {
         }
 
         return await axios.post(
-          `http://127.0.0.1:5000/api/review/img-upload/${this.props.userAuth.id}`,
+          `http://127.0.0.1:5000/api/review/img-upload/${id}`,
           formData,
           { "Content-Type": "multipart/form-data" }
         );
@@ -82,13 +98,17 @@ class ReviewInput extends Component {
       .then((res) => {
         console.log("Review images uploaded: \n");
         console.log(res.data);
+        let updatedReview = res.data;
+        updatedReview.user = this.props.currentUser;
+        updatedReview.date = date;
+        this.props.updateReviews(updatedReview);
       })
       .catch((error) => console.error(error));
   };
 
   render() {
     const preview = this.state.files.map((fileObj, index) => (
-      <div className="review-preview">
+      <div className="review-preview" key={index}>
         <img
           src={fileObj.url}
           alt={`Preview ${index}`}
@@ -108,9 +128,18 @@ class ReviewInput extends Component {
       <section className="review-input">
         <div className="review-extra">
           <div className="review-user">
-            <img src={this.props.avatar} alt="User" />
+            <img
+              src={`${BASE_API_URL}/img-get?url=${this.props.currentUser.avatar}`}
+              alt={this.props.currentUser.avatar}
+              onClick={() => {
+                console.log(this.state);
+                console.log(this.props.currentUser);
+              }}
+            />
             {/* <p>{props.user}</p> */}
-            <p>{this.props.user}</p>
+            <p>
+              {this.props.currentUser.fname} {this.props.currentUser.lname}
+            </p>
           </div>
           {/* <div className="review-rating"> */}
           <Rating
@@ -157,4 +186,9 @@ class ReviewInput extends Component {
   }
 }
 
-export default ReviewInput;
+const mapStateToProps = ({ user }) => ({
+  userAuth: user.userAuth,
+  currentUser: user.currentUser,
+});
+
+export default connect(mapStateToProps)(ReviewInput);
