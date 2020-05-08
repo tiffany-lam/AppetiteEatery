@@ -112,8 +112,8 @@ const RestaurantPage = ({ match, currentUser, ...props }) => {
 
       try {
         const response = await axios.get(
-          // `${BASE_API_URL}/restaurant/${match.params.restaurantId}`,
-          `http://52.201.241.142/api/restaurant/${match.params.restaurantId}`,
+          `${BASE_API_URL}/restaurant/${match.params.restaurantId}`,
+          // `http://52.201.241.142/api/restaurant/${match.params.restaurantId}`,
           { cancelToken: source.token }
         );
 
@@ -946,7 +946,7 @@ const RestaurantPage = ({ match, currentUser, ...props }) => {
         </div>
       </div>
       <section className="restaurant-page-reviews">
-        <h2>REVIEWS</h2>
+        <h2>Reviews</h2>
         <ul>{reviews}</ul>
       </section>
     </section>
@@ -982,7 +982,7 @@ const RestaurantPage = ({ match, currentUser, ...props }) => {
           </section>
         ) : null}
         <section className="restaurant-page-reviews">
-          <h2>REVIEWS</h2>
+          <h2>Reviews</h2>
           <ul>{reviews}</ul>
         </section>
       </section>
