@@ -1,8 +1,11 @@
 // import React from "react";
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import axios from "axios";
+import { BASE_API_URL } from "../../utils";
 
 // custom components:
 import ImageCard from "../../components/image-card/image-card.component";
@@ -75,6 +78,8 @@ const stateAbbreviations = [
 ];
 
 const ApplyPage = ({ userAuth, ...props }) => {
+  const browserHistory = useHistory();
+
   const [restaurantName, setRestaurantName] = useState("");
   const [description, setDescription] = useState("");
   const [dateOpened, setDateOpened] = useState("");
@@ -134,7 +139,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
     };
 
     axios
-      .post(`http://127.0.0.1:5000/api/restaurant`, textData)
+      .post(`${BASE_API_URL}/restaurant`, textData)
       .then((res) => {
         console.log("SUBMITTEEEEEEDD");
         console.log(res.data);
@@ -160,14 +165,23 @@ const ApplyPage = ({ userAuth, ...props }) => {
       formData.append("menu[]", menus[i]);
     }
 
-    return await axios.post(
-      `http://127.0.0.1:5000/api/restaurant/img-upload/${restaurantId}`,
+    let res = await axios.post(
+      `${BASE_API_URL}/restaurant/img-upload/${restaurantId}`,
       formData
     );
+
+    browserHistory.push("/my-restaurants");
+
+    return res;
   };
 
   return (
-    <div className="apply-page-container">
+    <div
+      className="apply-page-container"
+      // onClick={() => {
+      //   browserHistory.push("/my-restaurants");
+      // }}
+    >
       <h1 className="apply-form-header input-override">
         Submit your restaurant!
       </h1>

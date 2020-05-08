@@ -1080,7 +1080,7 @@ class ErrorPage extends React.Component {
 
         <CustomButton icon={<FavoriteIcon />}>submit</CustomButton>
         <br />
-        <img src="http://127.0.0.1:5000/api/img-get?url=clients/5eadf8c3c5a902e346fa1f64.jpg" />
+        {/* <img src="http://52.201.241.142/api/img-get?url=clients/5eadf8c3c5a902e346fa1f64.jpg" /> */}
         <button onClick={this.printState}>VIEW STATE</button>
         <br />
         <h2>Add a Patron</h2>

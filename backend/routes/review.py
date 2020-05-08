@@ -62,6 +62,15 @@ def upload_images(id):
 
     return review.to_json(), 200
 
+@review.route('/test/<id>', methods=['GET'])
+def test_review(id):
+    review = Review.objects.with_id(id)
+
+    print(review.to_json())
+    print(review.user.fetch().to_json())
+
+    return "sagfhjasdf", 200
+
 
 @review.route('<id>', methods=['DELETE'])
 def delete_review(id):

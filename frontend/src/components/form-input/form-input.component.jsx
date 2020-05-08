@@ -14,6 +14,7 @@ const FormInput = ({
   htmlFor, // used for accessibility
   // required,
   additionalInfo,
+  disabled,
   ...props
 }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -59,6 +60,7 @@ const FormInput = ({
           id={htmlFor}
           onChange={handleChange}
           className="form-input"
+          disabled={disabled}
         ></textarea>
       ) : null}
 
@@ -70,6 +72,7 @@ const FormInput = ({
           type={determineInputType()}
           onChange={handleChange}
           className={`form-input`}
+          disabled={disabled}
         ></input>
       ) : null}
 

@@ -4,6 +4,8 @@ import Tag from "../../components/tag/tag-v2.component";
 
 import "./restaurantCard.styles.scss";
 
+import { BASE_API_URL } from "../../utils";
+
 const INITIAL_STATE = {
   ownerid: "",
   website: "",
@@ -34,10 +36,7 @@ const RestaurantCard = ({
     <section
       className={`restaurant-card-container ${className ? className : ""}`}
     >
-      <img
-        src={`http://127.0.0.1:5000/api/img-get?url=${restaurant.images[0]}`}
-        alt=""
-      />
+      <img src={`${BASE_API_URL}/img-get?url=${restaurant.images[0]}`} alt="" />
 
       <div className="restaurant-info">
         <p className="res-name">{restaurant.restaurantName}</p>

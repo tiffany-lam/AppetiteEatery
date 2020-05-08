@@ -4,12 +4,7 @@
   height: 100%;
   width: 100%;
 
-  // background-color: white;
-  // border: 1px solid $secondary;
-  // background-color: rgb(245, 245, 245);
-
-  background-color: $light_beige;
-  border-radius: 5px;
+  background-color: $background_light;
 
   margin-bottom: 1rem;
 
@@ -18,6 +13,8 @@
   justify-content: space-between;
 
   align-items: stretch;
+
+  border: 1px solid transparent;
 
   .review-user-info {
     // height: min-content;
@@ -39,11 +36,22 @@
 
       margin: 0.3rem 0;
 
-      border-radius: 5px;
+      border-radius: 2px;
     }
 
     p {
       font-weight: bold;
+      font-size: 0.8rem;
+    }
+
+    p.username {
+      font-weight: normal;
+      width: 100%;
+      text-align: center;
+      background-color: $secondary;
+      color: $background_light;
+      letter-spacing: 0.05rem;
+      padding: 0.1rem;
     }
   }
 
@@ -80,7 +88,9 @@
   }
 }
 
+section.review:focus,
 section.review:hover {
+  outline: none;
+  border: 1px solid $secondary_dark;
   // box-shadow: $light_box_shadow;
-  box-shadow: $dark_beige_box_shadow;
 }

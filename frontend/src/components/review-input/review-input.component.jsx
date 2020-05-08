@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 import Rating from "../rating/rating.component";
 import FaceIcon from "@material-ui/icons/Face";
@@ -13,7 +14,7 @@ import "./review-input.styles.scss";
 class ReviewInput extends Component {
   constructor(props) {
     super(props);
-    this.state = { files: [], rating: 0 };
+    this.state = { files: [], rating: 0, content: "" };
   }
 
   handleChange = (e) => {
@@ -39,6 +40,50 @@ class ReviewInput extends Component {
 
   setRating = (rating) => {
     this.setState({ rating: rating });
+  };
+
+  submitReview = async (e) => {
+    e.preventDefault();
+
+    let currentDate = new Date();
+    let month = currentDate.getMonth();
+    let day = currentDate.getDate();
+    let year = currentDate.getFullYear();
+
+    let date = year + "-" + month + "-" + day;
+
+    let newReview = {
+      user: this.props.userAuth.uid,
+      restaurant: this.props.restaurant,
+      rating: this.state.rating,
+      date: date,
+      content: this.state.content,
+    };
+
+    await axios
+      .post("http://127.0.0.1:5000/api/review", newReview)
+      .then(async (res) => {
+        console.log("Review created: \n");
+        console.log(res.data);
+
+        let id = res.data._id.$oid;
+        let formData = new FormData();
+
+        for (let i = 0; i < this.state.files.length; i++) {
+          formData.append("images[]", this.state.files[i].file);
+        }
+
+        return await axios.post(
+          `http://127.0.0.1:5000/api/review/img-upload/${this.props.userAuth.id}`,
+          formData,
+          { "Content-Type": "multipart/form-data" }
+        );
+      })
+      .then((res) => {
+        console.log("Review images uploaded: \n");
+        console.log(res.data);
+      })
+      .catch((error) => console.error(error));
   };
 
   render() {
@@ -77,14 +122,18 @@ class ReviewInput extends Component {
           />
           {/* </div> */}
         </div>
-        <form className="review-form">
+        <form className="review-form" onSubmit={this.submitReview}>
           <label htmlFor="review-input"></label>
           <textarea
             id="review-input"
             name="review-input"
             rows="8"
             cols="33"
-            placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt alias, minima, rem nemo, doloribus ullam impedit quia maiores repellendus perspiciatis accusantium dolorem quisquam laudantium corrupti. Architecto hic saepe natus consequatur."
+            value={this.state.content}
+            placeholder="Write your review here..."
+            onChange={(e) => {
+              this.setState({ content: e.target.value });
+            }}
           ></textarea>
           <div className="review-form-submit">
             <label htmlFor="upload-img">

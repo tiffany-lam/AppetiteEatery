@@ -28,7 +28,13 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 // custom stylesheet:
 import "./navbar.styles.scss";
 
-const Navbar = ({ className, userAuth, setUserAuth, ...otherProps }) => {
+const Navbar = ({
+  className,
+  userAuth,
+  currentUser,
+  setUserAuth,
+  ...otherProps
+}) => {
   const [hideNav, setHideNav] = useState(true);
   //function for showing and hiding our modal
   const [showModal, setShowModal] = useState(false);
@@ -96,20 +102,21 @@ const Navbar = ({ className, userAuth, setUserAuth, ...otherProps }) => {
           <Link to="/graduated">Graduated</Link>
         </li>
 
-        {userAuth ? (
+        {userAuth && currentUser._cls === "Client.Patron" ? (
           <React.Fragment>
             <li>
               <div className="nav-item-mask"></div>
               <Link to="/profile">Profile</Link>
             </li>
-            <li>
-              <div className="nav-item-mask"></div>
-              <Link to="/my-restaurants">My Restaurants</Link>
-            </li>
           </React.Fragment>
-        ) : (
-          ""
-        )}
+        ) : null}
+
+        {userAuth && currentUser._cls === "Client.Owner" ? (
+          <li>
+            <div className="nav-item-mask"></div>
+            <Link to="/my-restaurants">My Restaurants</Link>
+          </li>
+        ) : null}
 
         <li>
           <div className="nav-item-mask"></div>
@@ -143,6 +150,7 @@ const Navbar = ({ className, userAuth, setUserAuth, ...otherProps }) => {
 
 const mapStateToProps = ({ user }) => ({
   userAuth: user.userAuth,
+  currentUser: user.currentUser,
 });
 
 const mapDispatchToProps = (dispatch) => ({

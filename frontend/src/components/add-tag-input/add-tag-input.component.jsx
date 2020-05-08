@@ -17,11 +17,12 @@ const AddTagInput = ({
   className,
   type = "read-only",
   value,
+  tagValues,
   handleChange,
   handleAnyChange,
   ...props
 }) => {
-  const [tags, setTags] = useState([""]);
+  const [tags, setTags] = useState(tagValues ? tagValues : [""]);
 
   useEffect(() => {
     // sets the internal state of this input to the outer state

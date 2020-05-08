@@ -24,7 +24,7 @@
 
   display: grid;
   grid-template-columns: auto auto;
-  grid-template-rows: auto auto;
+  grid-template-rows: auto auto auto;
   grid-template-areas:
     " main side "
     " min-side side "
@@ -185,7 +185,7 @@
     position: -webkit-sticky;
     position: sticky;
 
-    max-height: 80vh;
+    // max-height: 80vh;
 
     top: 8%;
     // top: 2%;
@@ -265,6 +265,8 @@
       justify-content: flex-start;
       align-content: center;
 
+      margin-top: 0.5rem;
+
       .restaurant-page-detail {
         // height: min-content;
         width: 100%;
@@ -277,10 +279,15 @@
           display: flex;
           //   flex-direction: row;
           //   flex-wrap: nowrap;
+          width: 100%;
           align-content: center;
-          select {
-            height: 100%;
-            // align-self: center;
+          // select {
+          //   height: 100%;
+          //   // align-self: center;
+          // }
+
+          div {
+            width: 100%;
           }
           button {
             svg {
@@ -309,8 +316,9 @@
 
     .restaurant-page-menu {
       height: min-content;
-      // height: 100%;
       width: 100%;
+
+      margin: 0.5rem 0;
     }
   }
 }
@@ -352,7 +360,12 @@
       flex-direction: row;
       // justify-content: space-between;
 
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
+      width: 100%;
+
+      div {
+        width: 100%;
+      }
 
       label {
         width: 100%;
@@ -392,20 +405,17 @@
       }
 
       textarea {
-        height: 7em;
         width: 100%;
-
-        background-color: $light_beige;
-
-        resize: none;
-
-        border: none;
-        border-radius: 5px;
-
+        background-color: $background_light;
         padding: 1rem;
-
-        box-sizing: border-box;
       }
+    }
+
+    .restaurant-page-upload {
+      margin: 0.5rem;
+      display: flex;
+      flex-direction: row;
+      align-content: center;
     }
 
     .restaurant-page-information {
@@ -810,7 +820,7 @@
   }
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 600px) {
   .restaurant-page-side {
     // display: none;
     grid-area: min-side;
@@ -818,8 +828,8 @@
     max-width: 100%;
 
     .restaurant-page-side-contents {
-      display: flex;
-      flex-direction: column;
+      // display: flex;
+      // flex-direction: column;
 
       // fieldset {
       //   height: min-content;
