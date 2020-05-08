@@ -59,6 +59,7 @@ def upload_images(id):
         print(f'Finished with image {image.filename}')
 
     review.save()
+    print(review.to_json())
 
     return review.to_json(), 200
 
