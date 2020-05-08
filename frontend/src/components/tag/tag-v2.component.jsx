@@ -16,12 +16,17 @@ const Tag = ({
 }) => {
   if (type === "read-only")
     return (
-      <li className={`tag-container ${className ? className : ""}`}>{value}</li>
+      <span className={`tag-container ${className ? className : ""}`}>
+        {value}
+      </span>
     );
   else if (type === "input")
     return (
-      <li className={`tag-container ${className ? className : ""}`}>
-        <label htmlFor={`${htmlFor}-${index}`} className="hidden"></label>
+      // <div className={`tag-container ${className ? className : ""}`}>
+      <label
+        htmlFor={`${htmlFor}-${index}`}
+        className={`tag-container ${className ? className : ""}`}
+      >
         <input
           placeholder="add a tag..."
           id={`${htmlFor}-${index}`}
@@ -29,7 +34,8 @@ const Tag = ({
           value={value}
           onChange={handleChange}
         ></input>
-      </li>
+      </label>
+      // </div>
     );
   else return <p>wrong prop value passed for type</p>;
 };

@@ -55,6 +55,7 @@ print('---------------------------------------------------------------')
 def hello():
     return render_template('index.html')
 
+
 @app.route('/random')
 def boring():
     print("random")
@@ -67,14 +68,14 @@ def get_image():
     print("me")
     s3_resource = boto3.resource(
         "s3",
-        aws_access_key_id = S3_ACCESS_KEY_ID,
-        aws_secret_access_key = S3_SECRET_ACCESS_KEY
+        aws_access_key_id=S3_ACCESS_KEY_ID,
+        aws_secret_access_key=S3_SECRET_ACCESS_KEY
     )
 
     fileurl = request.args['url']
     image = s3_resource.Object(S3_BUCKET, fileurl).get()
 
-    return image['Body'].read(), { "Content-Type": "image/png, image/jpg"}
+    return image['Body'].read(), {"Content-Type": "image/png, image/jpg"}
 
 
 # Testing Route - Print all test documents
@@ -85,7 +86,7 @@ def test():
 
     return test_json
 
-# Testing Route - Inserts test document of param name 
+# Testing Route - Inserts test document of param name
 @app.route("/api/<name>")
 def add_test(name):
     test = Test()
@@ -97,7 +98,7 @@ def add_test(name):
 @app.route("/api/<name>", methods=['PUT'])
 def update_test(name):
 
-    test = Test.objects(name = name)
+    test = Test.objects(name=name)
 
     for key in request.args:
         test.update(**{key: request.args[key]})
@@ -114,6 +115,7 @@ def view_routes():
             urls[rule.rule] = app.view_functions[rule.endpoint].__doc__
 
     return jsonify(urls)
+
 
 @app.route("/fronttest", methods=['POST'])
 def test_frontend():
@@ -136,6 +138,7 @@ def test_frontend():
 #     db = client["appetite-eatery-db"]
 #     db.test.insert_one({"name": name})
 #     return f"Check database for name: {name}"
+
 
 @app.errorhandler(404)
 def page_not_found(e):
