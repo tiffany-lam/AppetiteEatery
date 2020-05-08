@@ -104,3 +104,7 @@ def delete_client(id):
 
         else:
             return "Client delete failed", 200
+
+@user.route('/<id>', methods=['GET'])
+def getUserInfo(id):
+    

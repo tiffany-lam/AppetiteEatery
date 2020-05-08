@@ -8,6 +8,8 @@ import {
   resetUserRedux,
 } from "../../redux/user/user.actions";
 
+import axios from "axios";
+
 // Custom Style Sheet
 import "./profile-page.styles.scss";
 
@@ -16,23 +18,20 @@ import Divider from "../../components/divider/divider.component";
 import Review from "../../components/review/review.component";
 import Tag from "../../components/tag/tag.component";
 import MapContainer from "../../components/map-container/map-container.component";
+import CustomButton from "../../components/custom-button/custom-button.component"
+
+import CreateIcon from "@material-ui/icons/Create";
+import DoneIcon from "@material-ui/icons/Done";
 
 class ProfilePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      patron: {
-        fname: "Tom",
-        lname: "Dumpling",
-        userName: "@wontom",
-        type: "Restaurant Patron",
-      },
-      owner: {
-        fname: "Tom",
-        lname: "Dumpling",
-        userName: "@wontom",
-        type: "Restaurant Owner",
-      },
+      fname: "Tom",
+      lname: "Dumpling",
+      userName: "@wontom",
+      type: "Restaurant Patron",
+      placesVisited: "54",
       reviewCount: "4",
       tags: [
         "Wontons",
@@ -111,6 +110,10 @@ class ProfilePage extends Component {
     // this.setState({ userName: this.props.userAuth.uid });
   }
 
+  // reveal() {
+  //   document.getElementsById("hidden").style.display = "inline";
+  // }
+
   render() {
       const tags = this.state.tags.map((tag) => {
         return (
@@ -134,156 +137,61 @@ class ProfilePage extends Component {
              );
         });
 
-        {/* Patron's Profile */}
-        const patronView = (
-          <section className="profile-page-container">
-          <section className="userContainer">
-            <h1> {/* this is where the user's should be */}
-              {this.props.userAuth
-                ? this.props.userAuth.uid.slice(0, 8)
-                : this.state.fname}
-            </h1>
-            <h2>
-              {this.props.userAuth
-                ? this.props.userAuth.email
-                : this.state.lname}
-            </h2>
-            <p id="accountType">{this.state.type}</p>
-            <div className="userContainer-inner">
-                <div id="col1">
-                  <img
-                    className="profile-img"
-                    src={this.state.profilePic}
-                    alt="user"
-                  />
-                  <h3>Favorites:</h3>
-                  <ul>{tags}</ul>
+        return (
+          <React.Fragment>
+            <section className="profile-page-container">
+              <section className="userContainer">
+                <h1> {/* this is where the fname and lname should be */}
+                  {this.props.userAuth
+                    ? this.props.userAuth.uid.slice(0, 8)
+                    : this.state.fname}
+                </h1>
+                <CustomButton type="button" icon={<CreateIcon />} className="profile-button">
+                  Edit My Info
+                </CustomButton>
+                <h2 id="toggle-mini">
+                  {this.props.userAuth
+                    ? this.props.userAuth.email
+                    : this.state.lname}
+                 <CustomButton type="button" icon={<CreateIcon />} className="mini-icon"></CustomButton></h2>
+                <p id="accountType">{this.state.type}</p>
+                <div className="userContainer-inner">
+                    <div id="col1">
+                      <img
+                        className="profile-img"
+                        src={this.state.profilePic}
+                        alt="user"
+                      />
+                      <h3 id="toggle-mini">Favorites:
+                      <CustomButton type="button" icon={<CreateIcon />} className="mini-icon"></CustomButton></h3>
+                      <ul id="favorites">{tags}</ul>
+                    </div>
+                    <div id="col2">
+                      <h3>About Me</h3> 
+                      <p>
+                        Tom Dumpling here. Programmer who loves wontons. Making the world a better
+                        place one review at a time.
+                      </p>
+                      <h3>Check-Ins</h3>
+                      <div id="checkIn"><MapContainer /></div>
+                    </div>
+                  {/* <div className="favorites">
+                    <h3>Favorites:</h3>
+                    <p>{this.state.tags}</p>
+                  </div> */}
                 </div>
-                <div id="col2">
-                  <h3>About Me</h3> 
-                  <p>
-                    Tom Dumpling here. Programmer who loves wontons. Making the world a better
-                    place one review at a time.
-                  </p>
-                  <h3>Check-Ins</h3>
-                  <div id="checkIn"><MapContainer /></div>
-                </div>
-            </div>
-          </section>
-          <section className="userReviews">
-            <h2>{this.state.fname} {this.state.lname}'s Reviews</h2>
-            <h3>Total Reviews: {this.state.reviewCount}</h3>
-            <ul>{reviews}</ul>
-            {/* <ul>
-              <li>
-                <section className="review">
-                  <h2>Joe's</h2>
-                  <h3>Date Posted: 3/16/2020</h3>
-                  <h3>Review:</h3>
-                  <p>
-                    My favorite Wonton place in the whole wide world! Customer
-                    service is definitely top-notch whenever I visit. The pork
-                    dumplings are a MUST. You can have it as an appetizer or
-                    with some soup. They also accept Google Pay in case you
-                    forget your wallet!
-                  </p>
-                </section>
-              </li>
-              <li>
-                <section className="review">
-                  <h2>Prosperitis</h2>
-                  <h3>Date Posted: 9/21/2019</h3>
-                  <h3>Review:</h3>
-                  <p>
-                    Came here to fill my smoothie craving one day but left
-                    disappointed. Staff took forever to notice me walk in and
-                    take my order. I ordered a mango slush but saw that my cup
-                    was halfway full? I asked for a new drink but they told me I
-                    had to pay for a new one when it wasn't even my fault. The
-                    manager clearly needs to train their employees properly.
-                    Never coming here again.
-                  </p>
-                </section>
-              </li>
-              <li>
-                <section className="review">
-                  <h2>Engrave</h2>
-                  <h3>Date Posted: 8/14/2019</h3>
-                  <h3>Review:</h3>
-                  <p>
-                    I ordered three chicken tacos for carryout. Complimentary
-                    chips and salsa were a plus, but I received my food cold.
-                    Hopefully next time it won't be like that.
-                  </p>
-                </section>
-              </li>
-              <li>
-                <section className="review">
-                  <h2>Waffle House</h2>
-                  <h3>Date Posted: 6/3/2019</h3>
-                  <h3>Review:</h3>
-                  <p>
-                    Visited this place with some coworkers and ordered the
-                    Waffle House Special. It consisted of strawberries, powdered
-                    sugar, melted marshmellows, and chocolate syrup drizzled on
-                    top. Absolutely delicious!
-                  </p>
-                </section>
-              </li>
-            </ul> */}
-          </section>
-        </section>
-        );
-
-        {/* Restaurant Owner Profile */}
-        const ownerView = (
-          <section className="profile-page-container">
-            <section className="userContainer">
-              <h1> {/* this is where the fname and lname should be */}
-                {this.props.userAuth
-                  ? this.props.userAuth.uid.slice(0, 8)
-                  : this.state.fname}
-              </h1>
-              <h2>
-                {this.props.userAuth
-                  ? this.props.userAuth.email
-                  : this.state.lname}
-              </h2>
-              <p id="accountType">{this.state.type}</p>
-              <div className="userContainer-inner">
-                  <div id="col1">
-                    <img
-                      className="profile-img"
-                      src={this.state.profilePic}
-                      alt="user"
-                    />
-                    <h3>Specialties:</h3>
-                    <ul>{tags}</ul>
-                  </div>
-                  <div id="col2">
-                    <h3>About Us</h3> 
-                    <p>
-                      Hi there! I started my own restaurant because I believe that wontons are the greatest food and should be enjoyed by all!
-                      Visit us today and enjoy the best dining experience we have to offer!
-                    </p>
-                    <h3>Visit Us</h3>
-                    <div id="checkIn"><MapContainer /></div>
-                  </div>
-              </div>
+                <CustomButton type="button" icon={<DoneIcon />} className="profile-save-button" id="hidden">
+                  Save Changes
+                </CustomButton>
+              </section>
+              <section className="userReviews">
+                <h2>{this.state.fname} {this.state.lname}'s Reviews</h2>
+                <h3>Total Reviews: {this.state.reviewCount}</h3>
+                <ul>{reviews}</ul>
+              </section>
             </section>
-            <section className="userReviews">
-              <h2>What People Are Saying About {this.state.fname} {this.state.lname}</h2>
-              <h3>Total Reviews: {this.state.reviewCount}</h3>
-              <ul>{reviews}</ul>
-            </section>
-          </section>
+          </React.Fragment>
         );
-
-    return (
-      <React.Fragment>
-        {this.state.owner.username === this.state.user.username ? patronView : ownerView}
-      </React.Fragment>
-    );
   }
 }
 
