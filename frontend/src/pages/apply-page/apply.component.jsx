@@ -610,6 +610,8 @@ const ApplyPage = ({ userAuth, ...props }) => {
           <Tag type="input" value="text" />
         </ul> */}
 
+        <Tag value="test" />
+        <Tag value="hey" />
         <AddTagInput handleAnyChange={setTags} />
 
         <CustomButton type="submit" className="input-override" margin>
