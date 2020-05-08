@@ -110,7 +110,7 @@ const Carousel = (props) => {
           <img
             className={"img-displayed"}
             src={url}
-            alt="foodz"
+            alt={url}
             height="1000"
             width="1000"
           />
@@ -239,6 +239,19 @@ const Carousel = (props) => {
               height="1000"
               width="1000"
             />
+            {props.manage ? (
+              <button
+                className="button"
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  props.deleteImage(route);
+                  console.log(`deleted image at ${route}`);
+                }}
+              >
+                <CloseIcon></CloseIcon>
+              </button>
+            ) : null}
           </div>
         ) : (
           <div key={imageIndex} className="img-container-hidden">

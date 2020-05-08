@@ -151,11 +151,15 @@ const RestaurantPage = ({ match, ...props }) => {
 
   const deleteImage = (deletedImage) => {
     let newImages = restaurant.images.filter((image) => image !== deletedImage);
+    console.log(restaurant.images);
+    console.log(newImages);
     setRestaurant({ ...restaurant, images: newImages });
   };
 
   const deleteMenu = (deletedMenu) => {
-    let newMenu = restaurant.menu.filter((menu) => menu !== deletedMenu);
+    let newMenu = restaurant.menu.filter(
+      (menuimage) => menuimage !== deletedMenu
+    );
     setRestaurant({ ...restaurant, menu: newMenu });
   };
 
