@@ -107,7 +107,8 @@ const RestaurantPage = ({ match, ...props }) => {
 
       try {
         const response = await axios.get(
-          `${BASE_API_URL}/restaurant/${match.params.restaurantId}`,
+          // `${BASE_API_URL}/restaurant/${match.params.restaurantId}`,
+          `http://52.201.241.142/api/restaurant/${match.params.restaurantId}`,
           { cancelToken: source.token }
         );
 
@@ -387,7 +388,8 @@ const RestaurantPage = ({ match, ...props }) => {
                             // defaultValue={restaurant.details.wifi}
                             value={restaurant.details.wifi}
                             handleChange={(e) => {
-                              let val = e.target.value === "true" ? true : false;
+                              let val =
+                                e.target.value === "true" ? true : false;
                               setRestaurant({
                                 ...restaurant,
                                 details: {
@@ -427,7 +429,8 @@ const RestaurantPage = ({ match, ...props }) => {
                               // defaultValue={restaurant.details.takeout}
                               value={restaurant.details.takeout}
                               handleChange={(e) => {
-                                let val = e.target.value === "true" ? true : false;
+                                let val =
+                                  e.target.value === "true" ? true : false;
                                 setRestaurant({
                                   ...restaurant,
                                   details: {
@@ -468,7 +471,8 @@ const RestaurantPage = ({ match, ...props }) => {
                             // defaultValue={restaurant.details.reservation}
                             value={restaurant.details.reservation}
                             handleChange={(e) => {
-                              let val = e.target.value === "true" ? true : false;
+                              let val =
+                                e.target.value === "true" ? true : false;
                               setRestaurant({
                                 ...restaurant,
                                 details: {
@@ -860,10 +864,13 @@ const RestaurantPage = ({ match, ...props }) => {
               ></Tabs>
             </div>
             <div className="temp">
-              <button type="button" onClick={() => { 
-                saveAll();
-                setEditable(false);
-                }}>
+              <button
+                type="button"
+                onClick={() => {
+                  saveAll();
+                  setEditable(false);
+                }}
+              >
                 SAVE YOUR CHANGES TO DATABASE
               </button>
             </div>

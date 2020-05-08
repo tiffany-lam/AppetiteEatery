@@ -20,17 +20,17 @@ const Review = (props) => {
         </button> */}
         <p className="username">{props.user}</p>
         <img
-          // src={
-          //   props.avatar
-          //     ? `${BASE_API_URL}/img-get?url=${props.avatar}`
-          //     : "https://images.unsplash.com/photo-1548681528-6a5c45b66b42?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
-          // }
+          src={
+            props.avatar
+              ? `${BASE_API_URL}/img-get?url=${props.avatar}`
+              : "https://images.unsplash.com/photo-1548681528-6a5c45b66b42?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+          }
           // src={
           //   props.avatar
           //     ? `http://52.201.241.142/api/img-get?url=${props.avatar}`
           //     : "https://images.unsplash.com/photo-1548681528-6a5c45b66b42?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
           // }
-          src="https://images.unsplash.com/photo-1548681528-6a5c45b66b42?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+          // src="https://images.unsplash.com/photo-1548681528-6a5c45b66b42?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
           alt="User Profile Image"
         ></img>{" "}
         <p>{props.date.split(" ")[0]}</p>

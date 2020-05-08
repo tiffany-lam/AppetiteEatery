@@ -84,9 +84,9 @@ const Carousel = (props) => {
   // console.log(displayed());
 
   const carouselImages = images.map((route, imageIndex) => {
-    // let url = `http://52.201.241.142/api/img-get?url=${route}`;A
-    let url =
-      "https://images.unsplash.com/photo-1548681528-6a5c45b66b42?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80";
+    let url = `http://52.201.241.142/api/img-get?url=${route}`;
+    // let url =
+    //   "https://images.unsplash.com/photo-1548681528-6a5c45b66b42?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80";
     // console.log(url);
     let displayedImages = displayed();
     if (images.length <= props.size) {
