@@ -457,7 +457,6 @@ const ApplyPage = ({ userAuth, ...props }) => {
         />
 
         <h2
-          id="hours-header"
           className="form-subtitle"
           onClick={() => {
             console.log(hours);
@@ -605,13 +604,6 @@ const ApplyPage = ({ userAuth, ...props }) => {
           Tags
         </h2>
 
-        {/* <ul>
-          <Tag value="text" />
-          <Tag type="input" value="text" />
-        </ul> */}
-
-        <Tag value="test" />
-        <Tag value="hey" />
         <AddTagInput handleAnyChange={setTags} />
 
         <CustomButton type="submit" className="input-override" margin>

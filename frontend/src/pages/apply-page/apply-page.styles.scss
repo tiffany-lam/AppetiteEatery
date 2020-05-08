@@ -3,17 +3,11 @@
 .apply-page-container {
   z-index: 0;
   height: 100%;
-  // margin: 0 auto;
-  // height: 25rem;
-  // margin-right: $padding_small;
-  // margin-left: $padding_small;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  // background-color: rgb(26, 134, 116);
 
   .input-override {
     margin-top: 1.6rem;
@@ -58,6 +52,7 @@
       font-weight: bold;
       text-transform: uppercase;
       margin-top: 1rem;
+      margin-bottom: 1rem;
     }
 
     .city-state-zip-container {
@@ -86,10 +81,6 @@
     .hour-input {
       // width: 2rem;
       flex-direction: row;
-    }
-
-    #hours-header {
-      margin-bottom: 1.6rem;
     }
   }
 }

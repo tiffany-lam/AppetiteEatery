@@ -33,6 +33,14 @@
     font-weight: bold;
     font-size: 0.8rem;
     text-transform: uppercase;
+
+    &::placeholder {
+      color: $background_light;
+      opacity: 0.8;
+      font-weight: normal;
+      font-style: italic;
+      // text-transform: lowercase;
+    }
   }
 
   .hidden {
