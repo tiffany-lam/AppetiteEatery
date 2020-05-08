@@ -145,7 +145,7 @@
     height: min-content;
     width: 100%;
 
-    margin: 0 0 2rem 0;
+    margin: 0.5rem 0 2rem 0;
 
     h2 {
       font-size: 2em;
@@ -464,30 +464,6 @@
       justify-self: flex-start;
     }
   }
-
-  // .restaurant-page-reviews {
-  //   grid-area: more;
-  //   height: min-content;
-  //   width: 100%;
-
-  //   border: none;
-
-  //   margin: 0 0 2rem 0;
-
-  //   h2 {
-  //     font-size: 2.3em;
-  //     font-weight: bold;
-  //     color: $primary;
-
-  //     height: min-content;
-  //     width: 100%;
-
-  //     margin-bottom: 1rem;
-
-  //     display: flex;
-  //     justify-self: flex-start;
-  //   }
-  // }
 }
 
 .restaurant-page-reviews {
@@ -497,7 +473,7 @@
 
   border: none;
 
-  margin: 0 0 2rem 0;
+  margin: 0.5rem 0 2rem 0;
 
   h2 {
     font-size: 2.3em;
