@@ -51,8 +51,7 @@ const AddTagInput = ({
   return (
     <ul className="add-tag-list">
       {tags.map((tag, i) => (
-        // <React.Fragment >
-        <div key={i} className="tag-input-close-btn">
+        <li key={i} className="tag-input-close-btn">
           <Tag
             className="tag-item"
             index={i}
@@ -72,22 +71,16 @@ const AddTagInput = ({
           >
             <CloseIcon />
           </button>
-        </div>
-        // </React.Fragment>
+        </li>
       ))}
-
-      <CustomButton
-        type="button"
-        className="add-tag-btn"
-        onClick={addTagInput}
-        icon={<AddIcon />}
-      ></CustomButton>
-
-      {/* <button
-        type="button"
-        className="add-tag-btn"
-        onClick={addTagInput}
-      ></button> */}
+      <li>
+        <CustomButton
+          type="button"
+          className="add-tag-btn"
+          onClick={addTagInput}
+          icon={<AddIcon />}
+        ></CustomButton>
+      </li>
     </ul>
   );
 };

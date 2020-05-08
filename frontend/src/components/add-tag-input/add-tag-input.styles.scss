@@ -2,8 +2,8 @@
 
 .add-tag-list {
   // background-color: lightblue;
-  max-width: 40rem;
-  background-color: lightsalmon;
+  max-width: 30rem;
+  // background-color: lightsalmon;
 
   display: flex;
   flex-wrap: wrap;
@@ -11,10 +11,14 @@
   .tag-input-close-btn {
     display: flex;
     background-color: red;
-    margin-right: 1rem;
+    margin-right: 0.5rem;
+    margin-bottom: 0.2rem;
+
+    height: 1.2rem;
 
     .tag-item {
       // margin: 2px 0 2px 2px;
+      height: 100%;
       margin: 0;
       // height: 100%;
     }
@@ -24,7 +28,7 @@
       padding: 0;
       margin: 0;
       height: 100%;
-      width: 1.5rem;
+      width: 1.2rem;
       // height: 1.15rem;
       // width: 1.15rem;
       // max-height: 1.15rem;
@@ -64,13 +68,8 @@
   }
 
   .add-tag-btn {
-    // height: 100%;
-    // height: 1.15rem;
-    // padding: 0;
-    width: 9.45rem;
-    height: 1rem;
-    height: 100%;
-    min-height: 100%;
+    width: 9.5rem;
+    height: 1.2rem;
 
     // margin: 2px;
 
@@ -81,10 +80,14 @@
     justify-content: center;
     align-items: center;
 
-    background-color: red;
+    // background-color: red;
 
     svg {
-      background-color: red;
+      // height: 1rem;
+      // width: 1rem;
+      height: 100%;
+      width: 100%;
+      // background-color: blue;
       path {
         fill: rgba($secondary_dark, 0.5);
       }
