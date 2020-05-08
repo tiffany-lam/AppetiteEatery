@@ -1,5 +1,7 @@
 // Importing React
 import React, { Component } from "react";
+import axios from "axios";
+import { BASE_API_URL } from "../../utils";
 
 import { connect } from "react-redux";
 import {
@@ -8,7 +10,6 @@ import {
   resetUserRedux,
 } from "../../redux/user/user.actions";
 
-import axios from "axios";
 
 // Custom Style Sheet
 import "./profile-page.styles.scss";
@@ -27,8 +28,10 @@ class ProfilePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      fname: "Tom",
-      lname: "Dumpling",
+      persons: [],
+      fname: null,
+      lname: null,
+      email: null,
       userName: "@wontom",
       type: "Restaurant Patron",
       placesVisited: "54",
@@ -44,72 +47,100 @@ class ProfilePage extends Component {
         "https://images.unsplash.com/photo-1489481039754-8701aeda983b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1955&q=80",
       // map: "https://www.massive.pr/wp-content/uploads/2018/01/shutterstock_127728257-1038x576-tender-1024x568.jpg",
       // photo: "https://images.unsplash.com/photo-1504544750208-dc0358e63f7f?ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80",
-      reviews: [
-                {
-                    user: {
-                        username: "@wontom",
-                        avatar: "https://images.unsplash.com/photo-1489481039754-8701aeda983b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1955&q=80",
-                    },
-                    date: "3/16/2020",
-                    content:
-                        "My favorite Wonton place in the whole wide world! Customer service is definitely top-notch whenever I visit. The pork dumplings are a MUST. You can have it as an appetizer or with some soup. They also accept Google Pay in case you forget your wallet!",
-                    rating: 5,
-                    images: [
-                        "https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=80",
-                        "https://images.unsplash.com/photo-1506354666786-959d6d497f1a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-                    ],
-                },
-                {
-                    user: {
-                        username: "@wontom",
-                        avatar: "https://images.unsplash.com/photo-1489481039754-8701aeda983b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1955&q=80",
-                    },
-                    date: "9/21/2019",
-                    content:
-                        "Came here to fill my smoothie craving one day but left disappointed. Staff took forever to notice me walk in and take my order. I ordered a mango slush but saw that my cup was halfway full? I asked for a new drink but they told me I had to pay for a new one when it wasn't even my fault. The manager clearly needs to train their employees properly. Never coming here again.",
-                    rating: 1,
-                    images: [
-                        "https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=80",
-                        "https://images.unsplash.com/photo-1506354666786-959d6d497f1a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-                    ],
-                },
-                {
-                    user: {
-                        username: "@wontom",
-                        avatar: "https://images.unsplash.com/photo-1489481039754-8701aeda983b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1955&q=80",
-                    },
-                    date: "8/14/2019",
-                    content:
-                        "I ordered three chicken tacos for carryout. Complimentary chips and salsa were a plus, but I received my food cold. Hopefully next time it won't be like that.",
-                    rating: 3,
-                    images: [
-                        "https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=80",
-                        "https://images.unsplash.com/photo-1506354666786-959d6d497f1a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-                    ],
-                },
-                {
-                    user: {
-                        username: "@wontom",
-                        avatar: "https://images.unsplash.com/photo-1489481039754-8701aeda983b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1955&q=80",
-                    },
-                    date: "6/3/2019",
-                    content:
-                        "Visited this place with some coworkers and ordered the Waffle House Special. It consisted of strawberries, powdered sugar, melted marshmellows, and chocolate syrup drizzled on top. Absolutely delicious!",
-                    rating: 5,
-                    images: [
-                        "https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=80",
-                        "https://images.unsplash.com/photo-1506354666786-959d6d497f1a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-                    ],
-                },
-            ],
+      reviews: []
+                // {
+                //     user: {
+                //         username: "@wontom",
+                //         avatar: "https://images.unsplash.com/photo-1489481039754-8701aeda983b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1955&q=80",
+                //     },
+                //     date: "3/16/2020",
+                //     content:
+                //         "My favorite Wonton place in the whole wide world! Customer service is definitely top-notch whenever I visit. The pork dumplings are a MUST. You can have it as an appetizer or with some soup. They also accept Google Pay in case you forget your wallet!",
+                //     rating: 5,
+                //     images: [
+                //         "https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=80",
+                //         "https://images.unsplash.com/photo-1506354666786-959d6d497f1a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+                //     ],
+                // },
+                // {
+                //     user: {
+                //         username: "@wontom",
+                //         avatar: "https://images.unsplash.com/photo-1489481039754-8701aeda983b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1955&q=80",
+                //     },
+                //     date: "9/21/2019",
+                //     content:
+                //         "Came here to fill my smoothie craving one day but left disappointed. Staff took forever to notice me walk in and take my order. I ordered a mango slush but saw that my cup was halfway full? I asked for a new drink but they told me I had to pay for a new one when it wasn't even my fault. The manager clearly needs to train their employees properly. Never coming here again.",
+                //     rating: 1,
+                //     images: [
+                //         "https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=80",
+                //         "https://images.unsplash.com/photo-1506354666786-959d6d497f1a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+                //     ],
+                // },
+                // {
+                //     user: {
+                //         username: "@wontom",
+                //         avatar: "https://images.unsplash.com/photo-1489481039754-8701aeda983b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1955&q=80",
+                //     },
+                //     date: "8/14/2019",
+                //     content:
+                //         "I ordered three chicken tacos for carryout. Complimentary chips and salsa were a plus, but I received my food cold. Hopefully next time it won't be like that.",
+                //     rating: 3,
+                //     images: [
+                //         "https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=80",
+                //         "https://images.unsplash.com/photo-1506354666786-959d6d497f1a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+                //     ],
+                // },
+                // {
+                //     user: {
+                //         username: "@wontom",
+                //         avatar: "https://images.unsplash.com/photo-1489481039754-8701aeda983b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1955&q=80",
+                //     },
+                //     date: "6/3/2019",
+                //     content:
+                //         "Visited this place with some coworkers and ordered the Waffle House Special. It consisted of strawberries, powdered sugar, melted marshmellows, and chocolate syrup drizzled on top. Absolutely delicious!",
+                //     rating: 5,
+                //     images: [
+                //         "https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=80",
+                //         "https://images.unsplash.com/photo-1506354666786-959d6d497f1a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+                //     ],
+                // },
+          
     };
   }
 
   componentDidMount() {
     console.log("hellllo", this.props.userAuth);
-    // this.setState({ userName: this.props.userAuth.uid });
+    
+    const res = axios
+      // .get(`${BASE_API_URL}/user/veronicasroute/${this.props.userAuth.uid}`)
+      .get(`${BASE_API_URL}/user/${this.props.userAuth.uid}`)
+      .then((res) => {
+        console.log("clog v:", res.data.fname);
+        console.log("hello");
+
+        const fname = res.data.fname;
+        const lname = res.data.lname;
+        const email = res.data.email;
+
+        this.setState({ fname });
+        this.setState({ lname });
+        this.setState({ email });
+
+        const reviews = res.data.reviews;
+        console.log("r"+reviews.content);
+        this.setState({ reviews });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 
+  // fname = res.data.fname;
+  // this.setState(this.state.fname);
+
+  // test() {
+  //   this.setState.fname(res.data.fname);
+  // }
   // reveal() {
   //   document.getElementsById("hidden").style.display = "inline";
   // }
@@ -121,15 +152,21 @@ class ProfilePage extends Component {
         );
       });
 
+      
+
       const reviews = this.state.reviews.map((review) => {
              return (
-               <li key={review.user.username}>
+               <li key={review}>
                  <Review
-                   user={review.user.username}
-                   avatar={review.user.avatar}
-                   date={review.date}
+                   user={review.user}
+                   restaurant={review.restaurant}
+                   avatar={review.avatar}
+                   date={"10/10/2020"}
                    content={review.content}
-                   images={review.images}
+                   images={[
+                     "https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=80",
+                     "https://images.unsplash.com/photo-1506354666786-959d6d497f1a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
+                   ]}
                    rating={review.rating}
                  ></Review>
                  {/* <Divider full={true} /> */}
@@ -142,17 +179,13 @@ class ProfilePage extends Component {
             <section className="profile-page-container">
               <section className="userContainer">
                 <h1> {/* this is where the fname and lname should be */}
-                  {this.props.userAuth
-                    ? this.props.userAuth.uid.slice(0, 8)
-                    : this.state.fname}
+                  {this.state.fname} {this.state.lname}
                 </h1>
                 <CustomButton type="button" icon={<CreateIcon />} className="profile-button">
                   Edit My Info
                 </CustomButton>
                 <h2 id="toggle-mini">
-                  {this.props.userAuth
-                    ? this.props.userAuth.email
-                    : this.state.lname}
+                  {this.state.email}
                  <CustomButton type="button" icon={<CreateIcon />} className="mini-icon"></CustomButton></h2>
                 <p id="accountType">{this.state.type}</p>
                 <div className="userContainer-inner">

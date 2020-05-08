@@ -130,3 +130,19 @@ def delete_client(id):
         print(client.to_json())
 
         return client.to_json(), 200
+
+@user.route('/veronicasroute/<data>', methods=['GET'])
+def veronicasroute(data):
+    print("-----hello from INSIDE the route-------")
+    patrons = Patron.objects()
+
+    print(patrons)
+
+    patronsObject = dict()
+    patronsObject["results"] = []
+
+    for patron in patrons:
+        patronsObject['results'].append(patron.to_mongo().to_dict())
+        print("each patron", patron.to_mongo().to_dict())
+
+    return json.dumps(patronsObject, default=str), 200
