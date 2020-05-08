@@ -22,6 +22,7 @@ const ImageUploadInput = ({
   handleChange,
   className = "",
   additionInfo,
+  defaultSize = 4,
   ...props
 }) => {
   const [images, setImages] = useState([]);
@@ -84,7 +85,7 @@ const ImageUploadInput = ({
         ))}
 
         {images.length === 0
-          ? [...Array(4)].map((el, i) => (
+          ? [...Array(defaultSize)].map((el, i) => (
               <button
                 key={i}
                 type="button"
