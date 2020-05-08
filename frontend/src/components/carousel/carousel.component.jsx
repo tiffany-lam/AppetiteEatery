@@ -130,12 +130,7 @@ const Carousel = (props) => {
         </div>
       ) : (
         <div className="img-container-hidden">
-          <img
-            className={"img-hidden"}
-            key={imageIndex}
-            src={url}
-            alt="foodz"
-          />
+          <img className={"img-hidden"} key={imageIndex} src={url} alt={url} />
         </div>
       );
     } else {
@@ -159,7 +154,7 @@ const Carousel = (props) => {
             <img
               className={"img-displayed"}
               src={url}
-              alt="foodz"
+              alt={url}
               height="1000"
               width="1000"
             />
@@ -197,7 +192,7 @@ const Carousel = (props) => {
             <img
               className={"img-displayed"}
               src={url}
-              alt="foodz"
+              alt={url}
               height="1000"
               width="1000"
             />
@@ -235,7 +230,7 @@ const Carousel = (props) => {
             <img
               className={"img-displayed"}
               src={url}
-              alt="foodz"
+              alt={url}
               height="1000"
               width="1000"
             />
