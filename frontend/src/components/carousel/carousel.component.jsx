@@ -1,5 +1,6 @@
 // IMPORT MAINS
 import React, { useState } from "react";
+import { BASE_API_URL } from "../../utils";
 
 // IMPORT STYLES
 import "./carousel.styles.scss";
@@ -12,6 +13,7 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import CloseIcon from "@material-ui/icons/Close";
+import AddIcon from "@material-ui/icons/Add";
 
 // LIMIT THE AMOUNT OF IMAGES THIS USES
 const Carousel = (props) => {
@@ -84,7 +86,7 @@ const Carousel = (props) => {
   // console.log(displayed());
 
   const carouselImages = images.map((route, imageIndex) => {
-    let url = `http://52.201.241.142/api/img-get?url=${route}`;
+    let url = `${BASE_API_URL}/img-get?url=${route}`;
     // let url =
     //   "https://images.unsplash.com/photo-1548681528-6a5c45b66b42?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80";
     // console.log(url);
@@ -108,7 +110,7 @@ const Carousel = (props) => {
           <img
             className={"img-displayed"}
             src={url}
-            alt="foodz"
+            alt={url}
             height="1000"
             width="1000"
           />
@@ -128,12 +130,7 @@ const Carousel = (props) => {
         </div>
       ) : (
         <div className="img-container-hidden">
-          <img
-            className={"img-hidden"}
-            key={imageIndex}
-            src={url}
-            alt="foodz"
-          />
+          <img className={"img-hidden"} key={imageIndex} src={url} alt={url} />
         </div>
       );
     } else {
@@ -157,7 +154,7 @@ const Carousel = (props) => {
             <img
               className={"img-displayed"}
               src={url}
-              alt="foodz"
+              alt={url}
               height="1000"
               width="1000"
             />
@@ -195,7 +192,7 @@ const Carousel = (props) => {
             <img
               className={"img-displayed"}
               src={url}
-              alt="foodz"
+              alt={url}
               height="1000"
               width="1000"
             />
@@ -233,7 +230,7 @@ const Carousel = (props) => {
             <img
               className={"img-displayed"}
               src={url}
-              alt="foodz"
+              alt={url}
               height="1000"
               width="1000"
             />
@@ -241,9 +238,6 @@ const Carousel = (props) => {
               <button
                 className="button"
                 type="button"
-                // onClick={() => {
-                //   console.log(`deleted image at ${url}`);
-                // }}
                 onClick={(e) => {
                   e.preventDefault();
                   props.deleteImage(route);
