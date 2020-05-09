@@ -24,16 +24,24 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
           .get(`${BASE_API_URL}/restaurant/search/${searchbarValue}`)
           .then((res) => {
             console.log("Retrieved all data \n");
-
-            setResults(res.data.search_results);
+            console.log(res);
+            console.log(res.data);
+            // if(!res.data.includes("html")){
+            //   setResults(res.data.search_results);
+            // }
+            if(res.data.search_results){
+              setResults(res.data.search_results);
+            }
+            
             //console.log(res.data.search_results);
+
           })
-          .catch((error) => console.error(error));
+          .catch((error) => {console.error(error)});
       } catch (e) {
         console.error(e);
       }
     };
-    if (searchbarValue !== "") fetchData();
+    if (searchbarValue !== "" || searchbarValue !== " ") fetchData();
     return () => {
       source.cancel();
     };
