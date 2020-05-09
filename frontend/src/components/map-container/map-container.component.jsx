@@ -10,16 +10,14 @@ const mapStyles = {
 };
 
 const MapContainer = (props) => {
-  console.log(props.latitude);
-  console.log(props.longitude);
   return (
     <Map
       google={props.google}
       zoom={14}
-      // initialCenter={{
-      //   lat: props.latitude,
-      //   lng: props.longitude,
-      // }}
+      initialCenter={{
+        lat: props.latitude,
+        lng: props.longitude,
+      }}
     />
   );
 };

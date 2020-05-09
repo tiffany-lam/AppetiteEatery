@@ -56,8 +56,7 @@ class Restaurant(Document):
     meta = {'collection': 'restaurants'}
 
     restaurantName = StringField(required=True)
-    restaurantTags = ListField(StringField(
-        required=True, max_length=50), required=True)
+    restaurantTags = ListField(StringField(max_length=50), default=[])
     description = StringField(required=True, max_length=2500)
     dateOpen = DateTimeField(required=True)
 

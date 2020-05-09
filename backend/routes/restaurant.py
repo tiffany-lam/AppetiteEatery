@@ -3,6 +3,7 @@ from flask import Blueprint, Response, request, jsonify
 # Models
 from ..models.restaurantmodel import Restaurant, Details, Hours, Hour
 from ..models.usermodel import Owner
+from ..models.reviewmodel import Review
 
 # JSON
 from bson import ObjectId
@@ -313,7 +314,9 @@ def search(searchvalue):
     # print(restaurant['restaurantName'])
     # resultObject['search_results'].append(restaurant.to_mongo().to_dict())
     for restaurant in Restaurant.objects(restaurantName__icontains=searchvalue):
-        resultObject['search_results'].append(restaurant.to_mongo().to_dict())
+        updatedRestaurant = restaurant.to_mongo().to_dict()
+        updatedRestaurant['average'] = Review.objects(restaurant = restaurant.id).average('rating')
+        resultObject['search_results'].append(updatedRestaurant)
 
     return json.dumps(resultObject, default=str), 200
 
