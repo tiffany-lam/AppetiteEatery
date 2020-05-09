@@ -1,0 +1,21 @@
+@import "../../assets/theme";
+
+.pagination ul{
+    display: inline-block;
+    
+}
+.pagination li a{
+    color: $primary;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+li.page-item.active{
+    a.page-link{
+        background-color: $secondary;
+        color: white;
+    }
+    
+}
+.pagination a:hover:not(.active) {
+    background-color: $lime;}

@@ -19,7 +19,7 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
   const [filter, setFilter] = useState("none");
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [resultsPerPage, setResultPerPage] = useState(10);
+  const [resultsPerPage, setResultPerPage] = useState(5);
   useEffect(() => {
     let source = axios.CancelToken.source();
     const fetchData = async () => {

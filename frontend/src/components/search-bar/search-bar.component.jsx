@@ -7,7 +7,7 @@ import {
 } from "../../redux/ui/ui.actions";
 import { useHistory } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import {Script as SearchFill} from 'react-load-script';
+import {Script as SearchFill} from "react-load-script";
 import CircleButton from "../circle-btn/circle-btn.component";
 
 // mui icons:
@@ -84,8 +84,8 @@ const SearchBar = ({
       onKeyDown={submitSearch}
     >
       <div className="search-input-container">
-        <SearchFill url = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCv5pSDd5XVofgvQqenKMppiUeFOmrI1xA&libraries=places"
-        onLoad={handleScriptLoad}/>
+        {/* <SearchFill url = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCv5pSDd5XVofgvQqenKMppiUeFOmrI1xA&libraries=places"
+        onLoad={handleScriptLoad}/> */}
         <label htmlFor="search-bar-value" className="label-hide">
           search
         </label>
