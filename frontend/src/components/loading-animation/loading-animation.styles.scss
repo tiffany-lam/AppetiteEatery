@@ -1,0 +1,127 @@
+@import "../../assets/theme";
+
+@keyframes rotate360 {
+  from {
+    transform: rotate(0);
+    // border-radius: 0;
+  }
+  to {
+    transform: rotate(360deg);
+    // border-radius: 50%;
+  }
+}
+
+@keyframes colorShift {
+  0% {
+    // transform: rotate(0);
+    fill: $background;
+  }
+  50% {
+    // transform: rotate(360deg);
+    fill: $primary;
+  }
+  100% {
+    fill: $background;
+  }
+}
+
+.loading-animation {
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  .animation-text {
+    margin: 1rem;
+    font-family: "Karla", sans-serif;
+    font-size: 1.5rem;
+    // font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    white-space: nowrap;
+    color: $background_light;
+
+    background-color: $secondary;
+    padding: 0.5rem;
+  }
+
+  .square-container {
+    position: relative;
+    overflow: hidden;
+
+    width: 4rem;
+    height: 4rem;
+    min-width: 4rem;
+    min-height: 4rem;
+
+    transition: border-radius 250ms linear;
+
+    .outer-square {
+      position: absolute;
+      top: -3rem;
+      left: -3rem;
+      width: 10rem;
+      height: 10rem;
+
+      // background-color: rgba(lightblue, 0.5);
+
+      background: linear-gradient(
+        90deg,
+        $secondary 50%,
+        rgb(255, 255, 255) 50%
+      );
+
+      animation: rotate360 infinite 2s ease-in-out;
+    }
+
+    .inner-square {
+      position: absolute;
+      top: 0.5rem;
+      left: 0.5rem;
+      width: 3rem;
+      height: 3rem;
+
+      background-color: $primary;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: border-radius 250ms linear;
+
+      // animation: borderRadius infinite 2s ease-in-out;
+
+      svg {
+        path {
+          fill: white;
+          // animation: colorShift infinite 2s ease-in-out;
+        }
+      }
+    }
+
+    &:hover {
+      border-radius: 50%;
+      .inner-square {
+        border-radius: 50%;
+      }
+    }
+  }
+
+  .circle-animation {
+    animation: circle forwards 500ms linear;
+  }
+}
+
+.animation-text-orientation-vertical {
+  flex-direction: column;
+}
+
+.animation-background {
+  background-color: rgb(175, 175, 180);
+
+  // border: 1px solid gray;
+  -webkit-box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.25);
+
+  border-radius: 3px;
+}

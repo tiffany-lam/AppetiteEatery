@@ -109,6 +109,12 @@
       // box-shadow: $light_box_shadow;
     }
 
+    &:read-only {
+      background-color: lightgray;
+      // cursor:
+      cursor: not-allowed;
+    }
+
     // &:required {
     //   outline: none;
     //   // color: $soft_red;

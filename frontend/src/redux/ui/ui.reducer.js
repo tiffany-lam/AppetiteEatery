@@ -11,6 +11,12 @@ const uiReducer = (state = INITIAL_STATE, action) => {
         searchbarValue: action.payload,
       };
 
+    case UIActionTypes.SET_SEARCHBAR_LOCATION_FILTER:
+      return {
+        ...state,
+        searchbarFilter: action.payload,
+      };
+
     default:
       return state;
   }

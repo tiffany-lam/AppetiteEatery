@@ -50,6 +50,7 @@ section.review-input:focus-within {
       margin-left: 0.5rem;
       font-weight: bolder;
       letter-spacing: 0.05rem;
+      text-transform: uppercase;
     }
 
     img {
@@ -57,7 +58,7 @@ section.review-input:focus-within {
       width: 2rem;
 
       object-fit: cover;
-      border-radius: 5px;
+      border-radius: 2px;
     }
   }
 
@@ -185,7 +186,7 @@ section.review-input:focus-within {
         color: white;
 
         // border: 1px solid $primary;
-        // border-radius: 5px;
+        border-radius: 2px;
 
         cursor: pointer;
 

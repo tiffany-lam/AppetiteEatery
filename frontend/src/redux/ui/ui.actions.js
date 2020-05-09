@@ -11,3 +11,8 @@ export const setSearchbarValue = (value) => ({
   type: UIActionTypes.SET_SEARCHBAR_VALUE,
   payload: value,
 });
+
+export const setSearchbarLocationFilter = (value) => ({
+  type: UIActionTypes.SET_SEARCHBAR_LOCATION_FILTER,
+  payload: value,
+});
