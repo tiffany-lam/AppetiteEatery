@@ -2,20 +2,24 @@ import React, { Component, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { setSearchbarValue } from "../../redux/ui/ui.actions";
 import axios from "axios";
-import Pagination from "@material-ui/lab/Pagination";
-import { Link } from "react-router-dom";
+
 import { BASE_API_URL } from "../../utils";
+
+//import the results 
+import Results from "../../components/search-result/Results.component";
+//import the pagination
+import Pagination from "../../components/pagination/Pagination.component"
 //import style
 import "./searchResult-page.styles.scss";
-import RestaurantCard from "../../components/restaurant-listing-card/restaurantCard.component";
+
 
 const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
   //[] is the initial value of results
   const [results, setResults] = useState([]);
   const [filter, setFilter] = useState("none");
-  const [page, setPage] = useState(1);
-  const [total, setTotal] = useState(5);
-
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [resultsPerPage, setResultPerPage] = useState(10);
   useEffect(() => {
     let source = axios.CancelToken.source();
     const fetchData = async () => {
@@ -43,12 +47,22 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
     };
     if (searchbarValue !== "" || searchbarValue !== " ") fetchData();
     return () => {
+      setLoading(false);
       source.cancel();
     };
   }, [searchbarValue]);
+  
+  //Get current results 
+  const indexOfLastResult = currentPage * resultsPerPage;
+  const indexOfFirstResult = indexOfLastResult - resultsPerPage;
+  const currentResults = results.slice(indexOfFirstResult, indexOfLastResult);
 
+  //Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber)
   return (
+   
     <div>
+      
       <div className="filter">{/* {this.props.setSearchbarValue} */}</div>
       {/* {console.log("results: ", results)}
           {console.log("search_results: ", results.search_results)} */}
@@ -56,11 +70,10 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
         <h1>No results</h1>
       ) : (
         <div>
-          {results.map((restaurant, i) => (
-            <Link key={i} to={`/restaurant/${restaurant._id}`}>
-              <RestaurantCard restaurant={restaurant} className="card-margin" />
-            </Link>
-          ))}
+          <Results results={currentResults} loading={loading} />
+          <Pagination resultsPerPage={resultsPerPage} totalResults={results.length} 
+          paginate = {paginate}
+          currentPage = {currentPage} />
         </div>
       )}
       {/* <Pagination

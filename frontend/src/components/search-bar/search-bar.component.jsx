@@ -7,7 +7,7 @@ import {
 } from "../../redux/ui/ui.actions";
 import { useHistory } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-
+import {Script as SearchFill} from 'react-load-script';
 import CircleButton from "../circle-btn/circle-btn.component";
 
 // mui icons:
@@ -29,6 +29,8 @@ const SearchBar = ({
 }) => {
   // const [searchbarPlaceholder, setSearchbarPlaceholder] = useState("search...");
   const [prevSearchbarValue, setPrevSearchbarValue] = useState("");
+  const [city, setCity] = useState("");
+  const [query, setQuery] = useState("");
   const browserHistory = useHistory();
   const browserLocation = useLocation();
   const inputRef = React.createRef();
@@ -50,6 +52,30 @@ const SearchBar = ({
       }
     }
   };
+  const handleScriptLoad = () =>{
+    //declare for autocomple
+    const options = {types: ['city']};
+    //initialize google autocomple
+    /*global google*/
+    this.autocomplete = new google.map.places.Autocomplete(
+      document.getElementById('autocomplete'),
+      options
+    );
+    //restrict number of places that are returned 
+    this.autocomplete.setFields(['address_components'], ['formatted_address']);
+    //fire the event when the user types a place that is in the api
+    this.autocomplete.addListener('places_changed', this.handlePlaceSelect);
+  };
+  const handlePlaceSelect = () =>{
+    const addressObject = this.autocomplete.getPlace();
+    const address = addressObject.address_components;
+    //check if address is valid
+    if(address){
+      setCity(address[0].long_name);
+      setQuery(addressObject.formatted_address);
+      
+    }
+  }
 
   return (
     <div
@@ -58,6 +84,8 @@ const SearchBar = ({
       onKeyDown={submitSearch}
     >
       <div className="search-input-container">
+        <SearchFill url = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCv5pSDd5XVofgvQqenKMppiUeFOmrI1xA&libraries=places"
+        onLoad={handleScriptLoad}/>
         <label htmlFor="search-bar-value" className="label-hide">
           search
         </label>
@@ -82,6 +110,7 @@ const SearchBar = ({
           className="search-input"
           type="search"
           placeholder="near..."
+          value = {query}
           onChange={(e) => {
             setSearchbarLocationFilter(e.target.value);
           }}
