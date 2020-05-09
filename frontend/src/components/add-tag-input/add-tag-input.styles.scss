@@ -64,6 +64,10 @@
           }
         }
       }
+      &:disabled {
+        // background-color: #ececec;
+        cursor: not-allowed;
+      }
     }
   }
 
@@ -102,6 +106,10 @@
           fill: $secondary_dark;
         }
       }
+    }
+    &:disabled {
+      // background-color: #ececec;
+      cursor: not-allowed;
     }
   }
 }

@@ -20,6 +20,7 @@ const AddTagInput = ({
   tagValues,
   handleChange,
   handleAnyChange,
+  disabled,
   ...props
 }) => {
   const [tags, setTags] = useState(tagValues ? tagValues : [""]);
@@ -53,6 +54,7 @@ const AddTagInput = ({
       {tags.map((tag, i) => (
         <li key={i} className="tag-input-close-btn">
           <Tag
+            disabled={disabled}
             className="tag-item"
             index={i}
             htmlFor="tag"
@@ -63,6 +65,7 @@ const AddTagInput = ({
             }}
           />
           <button
+            disabled={disabled}
             type="button"
             className="delete-tag-btn"
             onClick={(e) => {
@@ -75,6 +78,7 @@ const AddTagInput = ({
       ))}
       <li>
         <CustomButton
+          disabled={disabled}
           type="button"
           className="add-tag-btn"
           onClick={addTagInput}
