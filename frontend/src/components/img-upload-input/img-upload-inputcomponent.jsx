@@ -57,6 +57,7 @@ const ImageUploadInput = ({
       </label>
 
       <input
+        disabled={props.disabled}
         id={htmlFor}
         type="file"
         accept=".png,.jpeg,.jpg"

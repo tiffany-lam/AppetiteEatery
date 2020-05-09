@@ -13,6 +13,7 @@ import {
 // custom components:
 import RestaurantCard from "../../components/restaurant-listing-card/restaurantCard.component";
 import CustomButton from "../../components/custom-button/custom-button.component";
+import LoadingAnimation from "../../components/loading-animation/loading-animation.component";
 
 // custom stylesheet:
 import "./owner-restaurant-page.styles.scss";
@@ -55,42 +56,51 @@ const OwnerRestaurantPage = ({ userAuth, ...props }) => {
     };
   }, []);
 
-  if (ownersRestaurants.length !== 0)
-    return (
-      <div
-        className="owner-restaurant-page"
-        onClick={() => {
-          console.log(ownersRestaurants);
-        }}
-      >
-        <h1 className="owner-header">Your Restaurants</h1>
+  // if (ownersRestaurants.length !== 0)
+  return (
+    <div className="owner-restaurant-page">
+      <h1 className="owner-header">
+        {ownersRestaurants.length !== 0 && !loading ? "Your Restaurants" : ""}
+        {ownersRestaurants.length === 0 && !loading
+          ? "You have not submitted a restaurant to our website :("
+          : ""}
+      </h1>
 
-        {ownersRestaurants.map((restaurant, i) => (
-          <Link key={i} to={`/restaurant/${restaurant._id}`}>
-            <RestaurantCard restaurant={restaurant} className="card-margin" />
-          </Link>
-        ))}
+      {loading ? (
+        <LoadingAnimation
+          // horizontal
+          // background
+          text1="fetching your restaurants"
+          text2="please wait"
+        />
+      ) : null}
 
-        <Link to="/apply">
-          <CustomButton className="submit-res-btn">
-            Submit a new restaurant!
-          </CustomButton>
+      {ownersRestaurants.map((restaurant, i) => (
+        <Link key={i} to={`/restaurant/${restaurant._id}`}>
+          <RestaurantCard restaurant={restaurant} className="card-margin" />
         </Link>
-      </div>
-    );
-  else
-    return (
-      <div className="owner-restaurant-page">
-        <h1 className="owner-header">
-          You have not submitted a restaurant to our website :(
-        </h1>
-        <Link to="/apply">
-          <CustomButton className="submit-res-btn">
-            Submit a new restaurant!
-          </CustomButton>
-        </Link>
-      </div>
-    );
+      ))}
+
+      <Link to="/apply">
+        <CustomButton className="submit-res-btn">
+          Submit a new restaurant!
+        </CustomButton>
+      </Link>
+    </div>
+  );
+  // else
+  //   return (
+  //     <div className="owner-restaurant-page">
+  //       <h1 className="owner-header">
+  //         You have not submitted a restaurant to our website :(
+  //       </h1>
+  //       <Link to="/apply">
+  //         <CustomButton className="submit-res-btn">
+  //           Submit a new restaurant!
+  //         </CustomButton>
+  //       </Link>
+  //     </div>
+  //   );
 };
 
 const mapStateToProps = ({ user }) => ({

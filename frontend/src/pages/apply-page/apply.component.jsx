@@ -16,6 +16,8 @@ import SelectInput from "../../components/select-input/select-input.component";
 import HourRangeInput from "../../components/hour-range-input/hour-range.component";
 import Tag from "../../components/tag/tag-v2.component";
 import AddTagInput from "../../components/add-tag-input/add-tag-input.component";
+import Modal from "../../components/modal/modal.component";
+import LoadingAnimation from "../../components/loading-animation/loading-animation.component";
 
 // custom stylesheet:
 import "./apply-page.styles.scss";
@@ -80,15 +82,17 @@ const stateAbbreviations = [
 const ApplyPage = ({ userAuth, ...props }) => {
   const browserHistory = useHistory();
 
-  const [restaurantName, setRestaurantName] = useState("");
-  const [description, setDescription] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const [restaurantName, setRestaurantName] = useState("RestaurantA");
+  const [description, setDescription] = useState("descritpsdfljlsifjs");
   const [dateOpened, setDateOpened] = useState("");
-  const [website, setWebsite] = useState("");
-  const [address1, setAddress1] = useState("");
+  const [website, setWebsite] = useState("www.website.com");
+  const [address1, setAddress1] = useState("1586streetavenue");
   const [address2, setAddress2] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
-  const [zipcode, setZipCode] = useState("");
+  const [city, setCity] = useState("gtown");
+  const [state, setState] = useState("CA");
+  const [zipcode, setZipCode] = useState("90257");
   const [country, setCountry] = useState("USA");
   const [location, setLocation] = useState([152.5, 152.5]);
 
@@ -97,12 +101,12 @@ const ApplyPage = ({ userAuth, ...props }) => {
   const [menus, setMenus] = useState([]);
 
   const [details, setDetails] = useState({
-    parking: "",
+    parking: "free",
     reservation: false,
     petsAllowed: false,
     takeout: false,
     wifi: false,
-    waitTime: "",
+    waitTime: "1",
   });
 
   const [hours, setHours] = useState({
@@ -116,6 +120,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
   });
 
   const submitForm = async (e) => {
+    setLoading(true);
     console.log("submitted");
 
     e.preventDefault();
@@ -133,7 +138,9 @@ const ApplyPage = ({ userAuth, ...props }) => {
       zipcode,
       country,
       location,
-      restaurantTags: tags,
+      restaurantTags: tags.filter((tag) => {
+        return tag !== "" ? tag : null;
+      }),
       details,
       hours,
     };
@@ -150,6 +157,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
       .catch((err) => {
         console.log(textData);
         console.error(err);
+        setLoading(false);
       });
   };
 
@@ -169,6 +177,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
       `${BASE_API_URL}/restaurant/img-upload/${restaurantId}`,
       formData
     );
+    setLoading(false);
 
     browserHistory.push("/my-restaurants");
 
@@ -176,12 +185,18 @@ const ApplyPage = ({ userAuth, ...props }) => {
   };
 
   return (
-    <div
-      className="apply-page-container"
-      // onClick={() => {
-      //   browserHistory.push("/my-restaurants");
-      // }}
-    >
+    <div className="apply-page-container">
+      {loading ? (
+        <Modal defaultShow backdrop>
+          <LoadingAnimation
+            // horizontal
+            // background
+            text1="Uploading Images"
+            text2="Please Wait"
+          />
+        </Modal>
+      ) : null}
+
       <h1 className="apply-form-header input-override">
         Submit your restaurant!
       </h1>
@@ -189,6 +204,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
       <form onSubmit={submitForm}>
         <h2 className="form-subtitle">Basic Information</h2>
         <FormInput
+          readOnly={loading ? true : false}
           required
           type="text"
           htmlFor="restaurant-name"
@@ -201,6 +217,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
         />
 
         <FormInput
+          readOnly={loading ? true : false}
           required
           type="date"
           htmlFor="date-created"
@@ -213,6 +230,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
         />
 
         <FormInput
+          readOnly={loading ? true : false}
           type="text"
           htmlFor="website"
           label="website"
@@ -224,6 +242,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
         />
 
         <FormInput
+          readOnly={loading ? true : false}
           required
           type="textarea"
           htmlFor="restaurant-description"
@@ -258,6 +277,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
           Address
         </h2>
         <FormInput
+          readOnly={loading ? true : false}
           required
           type="text"
           htmlFor="street-address"
@@ -270,6 +290,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
         />
 
         <FormInput
+          readOnly={loading ? true : false}
           type="text"
           htmlFor="street-address-2"
           label="Street Address 2"
@@ -283,6 +304,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
 
         <div className="city-state-zip-container">
           <FormInput
+            readOnly={loading ? true : false}
             required
             type="text"
             htmlFor="city"
@@ -296,6 +318,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
           />
 
           <SelectInput
+            disabled={loading ? true : false}
             required
             label="state"
             htmlFor="state"
@@ -313,6 +336,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
           </SelectInput>
 
           <FormInput
+            readOnly={loading ? true : false}
             required
             type="text" // not number because zipcodes are best treated as strings
             htmlFor="zipcode"
@@ -350,6 +374,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
         </h2>
 
         <ImageUploadInput
+          disabled={loading ? true : false}
           label="Restaurant Images"
           htmlFor="restaurant-images"
           value={images}
@@ -359,6 +384,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
         />
 
         <ImageUploadInput
+          disabled={loading ? true : false}
           label="Menu Images"
           htmlFor="menu-images"
           value={menus}
@@ -377,6 +403,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
         </h2>
 
         <SelectInput
+          disabled={loading ? true : false}
           required
           label="parking"
           htmlFor="parking"
@@ -391,6 +418,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
         </SelectInput>
 
         <SelectInput
+          disabled={loading ? true : false}
           required
           label="reservation"
           htmlFor="reservation"
@@ -404,6 +432,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
         </SelectInput>
 
         <SelectInput
+          disabled={loading ? true : false}
           required
           label="pets allowed"
           htmlFor="pets-allowed"
@@ -417,6 +446,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
         </SelectInput>
 
         <SelectInput
+          disabled={loading ? true : false}
           required
           label="takeout"
           htmlFor="takeout"
@@ -430,6 +460,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
         </SelectInput>
 
         <SelectInput
+          disabled={loading ? true : false}
           required
           label="wifi"
           htmlFor="wifi"
@@ -443,6 +474,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
         </SelectInput>
 
         <FormInput
+          readOnly={loading ? true : false}
           required
           type="number"
           htmlFor="wait-time"
@@ -466,6 +498,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
         </h2>
 
         <HourRangeInput
+          readOnly={loading ? true : false}
           label="sunday"
           className="time-range-input"
           value2={hours.sunday.to}
@@ -485,6 +518,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
         />
 
         <HourRangeInput
+          readOnly={loading ? true : false}
           label="monday"
           className="time-range-input"
           value2={hours.monday.to}
@@ -504,6 +538,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
         />
 
         <HourRangeInput
+          readOnly={loading ? true : false}
           label="tuesday"
           className="time-range-input"
           value2={hours.tuesday.to}
@@ -523,6 +558,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
         />
 
         <HourRangeInput
+          readOnly={loading ? true : false}
           label="wednesday"
           className="time-range-input"
           value2={hours.wednesday.to}
@@ -541,6 +577,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
           }}
         />
         <HourRangeInput
+          readOnly={loading ? true : false}
           label="thursday"
           className="time-range-input"
           value2={hours.thursday.to}
@@ -559,6 +596,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
           }}
         />
         <HourRangeInput
+          readOnly={loading ? true : false}
           label="friday"
           className="time-range-input"
           value2={hours.friday.to}
@@ -577,6 +615,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
           }}
         />
         <HourRangeInput
+          readOnly={loading ? true : false}
           label="saturday"
           className="time-range-input"
           value2={hours.saturday.to}
@@ -604,9 +643,17 @@ const ApplyPage = ({ userAuth, ...props }) => {
           Tags
         </h2>
 
-        <AddTagInput handleAnyChange={setTags} />
+        <AddTagInput
+          readOnly={loading ? true : false}
+          handleAnyChange={setTags}
+        />
 
-        <CustomButton type="submit" className="input-override" margin>
+        <CustomButton
+          disabled={loading ? true : false}
+          type="submit"
+          className="input-override"
+          margin
+        >
           submit
         </CustomButton>
       </form>
