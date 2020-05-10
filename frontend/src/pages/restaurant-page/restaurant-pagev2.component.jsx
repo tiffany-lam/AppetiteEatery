@@ -26,7 +26,7 @@ import ImageUploadInput from "../../components/img-upload-input/img-upload-input
 
 import { BASE_API_URL } from "../../utils";
 
-const RestaurantPage = ({ match, ...props }) => {
+const RestaurantPage = ({ match, currentUser, ...props }) => {
   const [editable, setEditable] = useState(false);
   const [editInput, setEditInput] = useState("");
   const [loading, setLoading] = useState(true);
@@ -112,8 +112,8 @@ const RestaurantPage = ({ match, ...props }) => {
 
       try {
         const response = await axios.get(
-          // `${BASE_API_URL}/restaurant/${match.params.restaurantId}`,
-          `http://52.201.241.142/api/restaurant/${match.params.restaurantId}`,
+          `${BASE_API_URL}/restaurant/${match.params.restaurantId}`,
+          // `http://52.201.241.142/api/restaurant/${match.params.restaurantId}`,
           { cancelToken: source.token }
         );
 
@@ -162,6 +162,12 @@ const RestaurantPage = ({ match, ...props }) => {
       (menuimage) => menuimage !== deletedMenu
     );
     setRestaurant({ ...restaurant, menu: newMenu });
+  };
+
+  const updateReviews = (newReview) => {
+    let reviews = restaurant.reviews;
+    reviews.push(newReview);
+    setRestaurant({ ...restaurant, reviews });
   };
 
   const handleChange = (e) => {
@@ -371,7 +377,10 @@ const RestaurantPage = ({ match, ...props }) => {
           {/* UHHHHHHHH FIGURE OUT A WAY TO SEND THIS LMAO */}
           <section className="restaurant-page-map">
             {/* <h2>Google Maps</h2> */}
-            <MapContainer />
+            <MapContainer
+              longitude={restaurant.location[0]}
+              latitude={restaurant.location[1]}
+            />
           </section>
           <div className="restaurant-page-others-container">
             <div
@@ -961,13 +970,17 @@ const RestaurantPage = ({ match, ...props }) => {
           <h2>Description</h2>
           <p>{restaurant.description}</p>
         </section>
-        <section className="restaurant-page-review-input">
-          <h2>Have something to say?</h2>
-          <ReviewInput
-            user={temporaryUser.username}
-            avatar={temporaryUser.avatar}
-          ></ReviewInput>
-        </section>
+        {currentUser._cls === "Client.Patron" ? (
+          <section className="restaurant-page-review-input">
+            <h2>Have something to say?</h2>
+            <ReviewInput
+              user={temporaryUser.username}
+              avatar={temporaryUser.avatar}
+              restaurant={match.params.restaurantId}
+              updateReviews={updateReviews}
+            ></ReviewInput>
+          </section>
+        ) : null}
         <section className="restaurant-page-reviews">
           <h2>Reviews</h2>
           <ul>{reviews}</ul>
@@ -980,7 +993,10 @@ const RestaurantPage = ({ match, ...props }) => {
             <ul>{tags}</ul>
           </section>
           <section className="restaurant-page-map">
-            <MapContainer />
+            <MapContainer
+              longitude={restaurant.location[0]}
+              latitude={restaurant.location[1]}
+            />
           </section>
           <div className="restaurant-page-others-container">
             <div className="restaurant-page-others">
@@ -1097,6 +1113,7 @@ const RestaurantPage = ({ match, ...props }) => {
 
 const mapStateToProps = ({ user }) => ({
   userAuth: user.userAuth,
+  currentUser: user.currentUser,
 });
 
 export default connect(mapStateToProps)(RestaurantPage);

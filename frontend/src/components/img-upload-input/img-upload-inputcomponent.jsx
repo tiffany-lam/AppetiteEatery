@@ -57,6 +57,7 @@ const ImageUploadInput = ({
       </label>
 
       <input
+        disabled={props.disabled}
         id={htmlFor}
         type="file"
         accept=".png,.jpeg,.jpg"
@@ -70,7 +71,7 @@ const ImageUploadInput = ({
 
       <div className="img-list">
         {images.map((img, i) => (
-          <div key={i} className="img-container">
+          <div key={i} disabled={props.disabled} className="img-container">
             <img src={URL.createObjectURL(img)}></img>
 
             <div
@@ -88,6 +89,7 @@ const ImageUploadInput = ({
           ? [...Array(defaultSize)].map((el, i) => (
               <button
                 key={i}
+                disabled={props.disabled}
                 type="button"
                 className="add-img-btn"
                 onClick={(e) => {
@@ -100,6 +102,7 @@ const ImageUploadInput = ({
           : ""}
 
         <button
+          disabled={props.disabled}
           type="button"
           className="add-img-btn"
           onClick={(e) => {

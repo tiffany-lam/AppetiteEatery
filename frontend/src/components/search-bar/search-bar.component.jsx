@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { setSearchbarValue } from "../../redux/ui/ui.actions";
+import {
+  setSearchbarValue,
+  setSearchbarLocationFilter,
+} from "../../redux/ui/ui.actions";
 import { useHistory } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
@@ -17,12 +20,14 @@ import "./search-bar.styles.scss";
 
 const SearchBar = ({
   searchbarValue,
+  searchbarFilter,
   setSearchbarValue,
+  setSearchbarLocationFilter,
   location,
   className = "",
   ...props
 }) => {
-  const [searchbarPlaceholder, setSearchbarPlaceholder] = useState("search...");
+  // const [searchbarPlaceholder, setSearchbarPlaceholder] = useState("search...");
   const [prevSearchbarValue, setPrevSearchbarValue] = useState("");
   const browserHistory = useHistory();
   const browserLocation = useLocation();
@@ -30,14 +35,6 @@ const SearchBar = ({
 
   const handleChange = (e) => {
     setSearchbarValue(e.target.value);
-  };
-
-  const changePlaceHolderText = (e) => {
-    setSearchbarPlaceholder("to the dashboard!");
-  };
-
-  const resetPlaceHolderText = (e) => {
-    setSearchbarPlaceholder("search...");
   };
 
   const submitSearch = (e) => {
@@ -61,17 +58,37 @@ const SearchBar = ({
       onKeyDown={submitSearch}
     >
       <div className="search-input-container">
-        {/* <label className="search-input-label">search</label> */}
+        <label htmlFor="search-bar-value" className="label-hide">
+          search
+        </label>
         <input
+          id="search-bar-value"
           className="search-input"
-          type="text"
-          placeholder={searchbarPlaceholder}
-          onChange={handleChange}
+          type="search"
+          placeholder="search..."
+          onChange={(e) => {
+            setSearchbarValue(e.target.value);
+          }}
           ref={inputRef}
+        />
+
+        <hr className="vertical-divider" />
+
+        <label htmlFor="search-bar-filter" className="label-hide">
+          filter
+        </label>
+        <input
+          id="search-bar-filter"
+          className="search-input"
+          type="search"
+          placeholder="near..."
+          onChange={(e) => {
+            setSearchbarLocationFilter(e.target.value);
+          }}
         />
       </div>
       <CircleButton
-        onClick={(e) => {
+        onMouseDown={(e) => {
           setTimeout(() => {
             if (inputRef.current) inputRef.current.focus();
           }, 200);
@@ -87,10 +104,13 @@ const SearchBar = ({
 
 const mapStateToProps = (state) => ({
   searchbarValue: state.ui.searchbarValue,
+  searchbarFilter: state.ui.searchbarFilter,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setSearchbarValue: (uid) => dispatch(setSearchbarValue(uid)),
+  setSearchbarValue: (value) => dispatch(setSearchbarValue(value)),
+  setSearchbarLocationFilter: (value) =>
+    dispatch(setSearchbarLocationFilter(value)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);

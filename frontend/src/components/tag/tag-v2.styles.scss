@@ -2,7 +2,7 @@
 
 .tag-container {
   width: fit-content;
-  height: fit-content;
+  height: 1.2rem;
   max-height: fit-content;
   padding: 0.1rem 0.5rem;
   background-color: $secondary;
@@ -33,6 +33,18 @@
     font-weight: bold;
     font-size: 0.8rem;
     text-transform: uppercase;
+
+    &::placeholder {
+      color: $background_light;
+      opacity: 0.8;
+      font-weight: normal;
+      font-style: italic;
+      // text-transform: lowercase;
+    }
+    &:disabled {
+      // background-color: #ececec;
+      cursor: not-allowed;
+    }
   }
 
   .hidden {

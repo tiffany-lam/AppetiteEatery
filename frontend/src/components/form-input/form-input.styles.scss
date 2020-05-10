@@ -11,6 +11,8 @@
   color: $secondary_dark;
 
   letter-spacing: 0;
+
+  pointer-events: auto;
 }
 
 .input-field {
@@ -107,6 +109,11 @@
       outline: none;
       border: 1px solid $secondary_dark;
       // box-shadow: $light_box_shadow;
+    }
+
+    &:read-only {
+      background-color: #ececec;
+      cursor: not-allowed;
     }
 
     // &:required {

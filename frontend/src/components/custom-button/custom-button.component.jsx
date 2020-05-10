@@ -9,15 +9,15 @@ const CustomButton = ({
   type,
   margin,
   minimal,
-  ...otherProps
+  ...props
 }) => {
   return (
     <button
-      {...otherProps}
+      {...props}
       type={type}
-      className={`custom-btn ${margin ? "btn-margin" : ""} ${
-        minimal ? "btn-fit-content" : ""
-      } ${className}`}
+      className={`custom-btn${margin ? " btn-margin" : ""}${
+        minimal ? " btn-fit-content" : ""
+      } ${className ? className : ""}`}
     >
       {icon || null}
       {children}

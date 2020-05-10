@@ -105,6 +105,11 @@
           }
         }
       }
+
+      &:disabled {
+        // cursor: c
+        cursor: not-allowed;
+      }
     }
   }
 }
