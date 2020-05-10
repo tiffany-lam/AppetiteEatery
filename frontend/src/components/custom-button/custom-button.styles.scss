@@ -34,6 +34,10 @@
   &:hover {
     background-color: $primary;
   }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
 }
 
 // a default padding:

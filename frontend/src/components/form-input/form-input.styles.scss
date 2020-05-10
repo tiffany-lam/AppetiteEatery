@@ -11,6 +11,8 @@
   color: $secondary_dark;
 
   letter-spacing: 0;
+
+  pointer-events: auto;
 }
 
 .input-field {
@@ -110,8 +112,7 @@
     }
 
     &:read-only {
-      background-color: lightgray;
-      // cursor:
+      background-color: #ececec;
       cursor: not-allowed;
     }
 

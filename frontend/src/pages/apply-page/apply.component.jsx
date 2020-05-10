@@ -84,15 +84,15 @@ const ApplyPage = ({ userAuth, ...props }) => {
 
   const [loading, setLoading] = useState(false);
 
-  const [restaurantName, setRestaurantName] = useState("RestaurantA");
-  const [description, setDescription] = useState("descritpsdfljlsifjs");
+  const [restaurantName, setRestaurantName] = useState("");
+  const [description, setDescription] = useState("");
   const [dateOpened, setDateOpened] = useState("");
-  const [website, setWebsite] = useState("www.website.com");
-  const [address1, setAddress1] = useState("1586streetavenue");
+  const [website, setWebsite] = useState("");
+  const [address1, setAddress1] = useState("");
   const [address2, setAddress2] = useState("");
-  const [city, setCity] = useState("gtown");
-  const [state, setState] = useState("CA");
-  const [zipcode, setZipCode] = useState("90257");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [zipcode, setZipCode] = useState("");
   const [country, setCountry] = useState("USA");
   const [location, setLocation] = useState([152.5, 152.5]);
 
@@ -101,12 +101,12 @@ const ApplyPage = ({ userAuth, ...props }) => {
   const [menus, setMenus] = useState([]);
 
   const [details, setDetails] = useState({
-    parking: "free",
+    parking: "",
     reservation: false,
     petsAllowed: false,
     takeout: false,
     wifi: false,
-    waitTime: "1",
+    waitTime: "",
   });
 
   const [hours, setHours] = useState({
@@ -385,6 +385,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
 
         <ImageUploadInput
           disabled={loading ? true : false}
+          // disabled
           label="Menu Images"
           htmlFor="menu-images"
           value={menus}
@@ -485,7 +486,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
           }}
           className="input-override"
           min="1"
-          additionalInfo="(in hrs)"
+          additionalInfo="(in mins)"
         />
 
         <h2
@@ -644,7 +645,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
         </h2>
 
         <AddTagInput
-          readOnly={loading ? true : false}
+          disabled={loading ? true : false}
           handleAnyChange={setTags}
         />
 

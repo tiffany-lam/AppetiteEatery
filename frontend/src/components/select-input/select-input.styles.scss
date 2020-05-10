@@ -11,6 +11,7 @@
   color: $secondary_dark;
 
   letter-spacing: 0;
+  pointer-events: auto;
 }
 
 .select-input-container {
@@ -39,6 +40,11 @@
     &:focus-within {
       outline: none;
       border: 1px solid $secondary_dark;
+    }
+
+    &:disabled {
+      background-color: #ececec;
+      cursor: not-allowed;
     }
   }
 

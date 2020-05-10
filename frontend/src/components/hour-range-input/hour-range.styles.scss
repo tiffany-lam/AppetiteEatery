@@ -56,10 +56,16 @@
 
     border: 1px solid lightgray;
 
+    &:hover,
     &:focus,
     &:focus-within {
       outline: none;
       border: 1px solid $secondary_dark;
+    }
+
+    &:read-only {
+      background-color: #ececec;
+      cursor: not-allowed;
     }
   }
 
