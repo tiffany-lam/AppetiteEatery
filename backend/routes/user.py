@@ -1,5 +1,8 @@
 from flask import Blueprint, Response, request, jsonify
 from ..models.usermodel import Client, Patron, Owner
+import json
+
+import json
 
 import boto3
 from ..config import S3_USERNAME, S3_BUCKET, S3_ACCESS_KEY_ID, S3_SECRET_ACCESS_KEY
@@ -130,3 +133,59 @@ def delete_client(id):
         print(client.to_json())
 
         return client.to_json(), 200
+
+
+@user.route('/<id>', methods=['GET'])
+def getPatron(id):
+    print("-----Getting User from ID-------")
+    patron = Client.objects.with_id(id)
+
+    print(patron)
+    print(patron.to_json())
+
+    return patron.to_json(), 200
+
+    # patronObject = dict()
+    # patronsObject["user"] = []
+
+    # for patron in patrons:
+    #     patronsObject['results'].append(patron.to_mongo().to_dict())
+    #     print("each patron", patron.to_mongo().to_dict())
+
+    # return json.dumps(patronsObject, default=str), 200
+
+@user.route('/getPatronReviews/<id>', methods=['GET'])
+def getPatronReviews(id):
+    print("T E S T I N G 1 2 3")
+    patron = Client.objects.with_id(id)
+
+    reviews = dict()
+    reviews["reviews"] = []
+
+    for review in patron['reviews']:
+        # reviews["reviews"].append(review.fetch().to_mongo().to_dict())
+        reviewObj = review.fetch()
+        restaurantName = reviewObj.restaurant.fetch().restaurantName
+        updatedReview = reviewObj.to_mongo().to_dict()
+        updatedReview['restaurant'] = restaurantName
+        reviews["reviews"].append(updatedReview)
+ 
+    print("H E R E")
+    print(reviews)
+    return json.dumps(reviews, default=str), 200
+  
+    # print("testing 123")
+    # reviews = Review.objects(user = id)
+    # print(reviews.to_json())
+    # reviews.to_json(), 200
+
+
+@user.route('/exists/<id>', methods=['GET'])
+def user_exist(id):
+    client = Client.objects.with_id(id)
+
+    if client == None:
+        return (json.dumps(False), 200)
+    else:
+        return (json.dumps(True), 200)
+

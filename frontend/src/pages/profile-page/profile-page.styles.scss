@@ -18,23 +18,16 @@
   .userContainer-inner {
     margin: 20px;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto;
-    grid-template-areas: 
-      "picture userInfo"
-      "favorites checkIn";
+    grid-template-columns: 45% auto;
+    // grid-template-rows: 1fr auto;
+    // grid-template-areas: 
+    //   "picture userInfo"
+    //   "favorites userInfo";
   }
 
-  .userInfo {
-    grid-area: userInfo;
-  }
-
-  #favorites {
-    grid-area: favorites;
-  }
-
-  #checkIn {
-    grid-area: checkIn;
+  #col2 {
+    grid-column-start: 2;
+    grid-column-end: 2;
   }
   
   // .userReviews {
@@ -49,19 +42,38 @@
   //   display: block;
   // }
 
-  // TEXT STYLING
-  h1, h2 {
+  .mini-icon {
+    width: 20px;
+    height: 20px;
+    float: right;
+  }
+
+  #toggle-mini {
+    display: inline-block;
+  }
+
+  ///////// TEXT STYLING /////////////
+
+  h1, h2, h2 + p {
     font-weight: bold;
     height: min-content;
     width: 100%;
     // display: flex;
     // justify-self: flex-start;
-    margin: 10px;
+    margin: 8px;
+  }
+
+  h1 + button {
+    width: 15%;
+    float: right;
+    margin-top: 8px;
+    margin-right: 20px;
   }
 
   h1 {
     font-size: 2.3em;
     color: #ff6b71;
+    display: inline;
   }
 
   h2 {
@@ -70,35 +82,57 @@
   }
 
   h3 {
-    font-size: 1.3em;
-    font-weight: bold;
+    font-size: 1.4em;
+    font-weight: bold; 
     color: $secondary;
+    padding-bottom: 7px;
+  }
+
+  .profile-save-button {
+    // display: none;
+    width: 15%;
+    float: right;
+    margin-bottom: 8px;
+    margin-right: 20px;
   }
   
-  .userContainer-inner li {
-    font-size: 20px;
-    font-weight: 600;
-    // color: white;
-    line-height: 1.5em;
-    padding-bottom: 20px;
+  .userContainer-inner p, li {
+    font-size: 1.1em;
+    line-height: 1.4em;
+    padding-top: 3px;
+    padding-bottom: 5px;
   }
 
-  #favorites p {
-    font-style: italic;
+  #col2 p {
+    padding-bottom: 10px;
   }
 
+  .userReviews h3 {
+    margin: 10px;
+  }
+  
+  .review-user-info p {
+    font-size: 15px;
+  }
   // p {
   //   line-height: 1.8;
   //   font-size: 20px;
   // }
   
-  // IMAGES
-  .map-img {
-    width: 400px;
+  /////////// IMAGES /////////////////
+
+  // .map-img {
+  //   width: 400px;
+  //   height: 300px;
+  //   object-fit: cover;
+  //   border-radius: 25px;
+  //   margin: 10px;
+  // }
+
+  #checkIn {
+    position: relative;
+    width: 100%;
     height: 300px;
-    object-fit: cover;
-    border-radius: 25px;
-    margin: 10px;
   }
   
   .review-img {
@@ -109,12 +143,15 @@
   
   .profile-img {
     // float: left;
-    grid-area: picture;
+    // grid-row-start: 1;
+    // grid-row-end: 1;
+    grid-column-start: 1;
+    grid-column-end: 1;
     justify-self: left;
     margin: 20px;
     width: 250px;
     height: 250px;
     object-fit: cover;
-    border-radius: 15%;
+    border-radius: 10%;
   }
 }

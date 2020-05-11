@@ -1,0 +1,26 @@
+@import "../../assets/theme";
+
+.register-user-type {
+  width: 100%;
+
+  width: 20rem;
+
+  border-radius: 3px;
+
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  // justify-content: space-between;
+
+  background-color: $background;
+
+  span {
+    // margin-bottom: 1rem;
+  }
+
+  form {
+    .test {
+      margin: 1rem 0;
+    }
+  }
+}

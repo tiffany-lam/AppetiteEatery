@@ -1,25 +1,32 @@
 @import "../../assets/theme";
 
+h1 {
+  height: 1.3rem;
+  font-size: 1.5em;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: $primary;
+  // margin: 0.5rem 0;
+  padding-left: 0.25rem;
+  border-left: solid 1.3rem $primary;
+
+  display: flex;
+  align-items: center;
+}
 .register-form-container {
-  margin: 0.5em 30px;
-  background-color: inherit;
+  background-color: $background;
+
   display: flex;
   flex-direction: column;
-
-  h1 {
-    text-align: center;
-    font-size: 2em;
-    font-weight: bolder;
-    color: $primary;
-    margin-top: none;
-    // padding-bottom: 0.5em;
-  }
+  padding: 1rem;
 
   .register-form {
     display: flex;
     flex-direction: column;
     // background-color: red;
-    .input-gap {
+
+    .user-type-radio {
+      margin-top: 1.5rem;
       margin-bottom: 0.5rem;
     }
 

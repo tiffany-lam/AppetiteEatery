@@ -32,6 +32,7 @@ const Review = (props) => {
           maxRating={5}
           icon={<FavoriteIcon />}
         ></Rating>
+        {props.restaurant ? <p>{props.restaurant}</p> : null}
         <p>{props.content}</p>
       </div>
       <div className="review-photos">
