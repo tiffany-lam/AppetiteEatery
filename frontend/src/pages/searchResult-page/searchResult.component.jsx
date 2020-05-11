@@ -47,10 +47,10 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
       {results.length === 0 ? (
         <h1>No results</h1>
       ) : (
-        <div>
+        <div className="card-listings">
           {results.map((restaurant, i) => (
             <Link key={i} to={`/restaurant/${restaurant._id}`}>
-              <RestaurantCard restaurant={restaurant} className="card-margin" />
+              <RestaurantCard restaurant={restaurant} className="cards" />
             </Link>
           ))}
         </div>

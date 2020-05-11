@@ -316,6 +316,7 @@ def search(searchvalue):
     for restaurant in Restaurant.objects(restaurantName__icontains=searchvalue):
         updatedRestaurant = restaurant.to_mongo().to_dict()
         updatedRestaurant['average'] = Review.objects(restaurant = restaurant.id).average('rating')
+        print(Review.objects(restaurant = restaurant.id).average('rating'))
         resultObject['search_results'].append(updatedRestaurant)
 
     return json.dumps(resultObject, default=str), 200
