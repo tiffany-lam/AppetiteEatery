@@ -262,6 +262,10 @@ def modify_restaurant(id):
 
     else:
         return "API not found", 404
+#creating a search for a word function
+#this function looks for a whole word rather than a part of a word 
+def contains_word(sentence, searchWord):
+    return f' {searchWord} ' in f' {sentence} '
 
 # /api/restaurant/img-upload/<id>
 # PUT, POST - update/upload a new image for a restaurant
@@ -321,21 +325,37 @@ def search(searchvalue):
             resultObject['search_results'].append(restaurant.to_mongo().to_dict())
         
     # restaurant_collection is an array of restaurants
-    # for restaurant in restaurants_collection:
     # if the restaurant list contains (case insensitive) the search value
-    # if (restaurant['restaurantName']).lower() in searchvalue.lower():
-    # print(restaurant['restaurantName'])
-    # resultObject['search_results'].append(restaurant.to_mongo().to_dict())
-    for restaurant in Restaurant.objects(restaurantName__icontains=searchvalue):
-        updatedRestaurant = restaurant.to_mongo().to_dict()
-        updatedRestaurant['average'] = Review.objects(restaurant = restaurant.id).average('rating')
-        resultObject['search_results'].append(updatedRestaurant)
-
+    # for restaurant in Restaurant.objects(restaurantName__icontains=searchvalue):
+    #     updatedRestaurant = restaurant.to_mongo().to_dict()
+    #     updatedRestaurant['average'] = Review.objects(restaurant = restaurant.id).average('rating')
+    #     resultObject['search_results'].append(updatedRestaurant)
+    print("searchvalue in pythion", searchvalue);   
     for restaurant in restaurants_collection:
-        for tag in restaurant['restaurantTags']:
-            if (searchvalue in tag):
-                print("tag: ", tag )
-                resultObject['search_results'].append(restaurant.to_mongo().to_dict())  
+        if  searchvalue.lower() in restaurant['restaurantName'].lower():
+            updatedRestaurant = restaurant.to_mongo().to_dict()
+            updatedRestaurant['average'] = Review.objects(restaurant = restaurant.id).average('rating')
+            resultObject['search_results'].append(updatedRestaurant)
+        #else, look in tags (they can't find any with the name, look in tags)
+        else:
+            for tag in restaurant['restaurantTags']:
+                #call the function i created earlier, if the searchvalue is found in tag
+                # if (contains_word(tag, searchvalue)):
+                if searchvalue in tag:
+                    updatedRestaurant = restaurant.to_mongo().to_dict()
+                    updatedRestaurant['average'] = Review.objects(restaurant = restaurant.id).average('rating')
+                    resultObject['search_results'].append(updatedRestaurant)
+                    print("tag: ", tag )
+                       
+          
+
+    # #add the tags into the search as well
+    # for restaurant in restaurants_collection:
+    #     for tag in restaurant['restaurantTags']:
+    #         #call the function i created earlier, if the searchvalue is found in tag
+    #         if (contains_word(tag, searchvalue) and restaurant['restaurantName'] not in ):
+    #             print("tag: ", tag )
+    #             resultObject['search_results'].append(restaurant.to_mongo().to_dict())  
 
     
     

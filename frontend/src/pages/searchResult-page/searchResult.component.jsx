@@ -27,16 +27,18 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
   useEffect(() => {
     let source = axios.CancelToken.source();
     const fetchData = async () => {
+      setLoading(true);
       try {
         const res = axios
-          .get(`${BASE_API_URL}/restaurant/search/${searchbarValue}`)
+          .get(`${BASE_API_URL}/restaurant/search/${searchbarValue}`, {cancelToken: source.token})
           .then((res) => {
             console.log("Retrieved all data \n");
-            console.log(res);
-            console.log(res.data);
+            //console.log(res);
+            //console.log(res.data);
             //if the data returned isn't undefined or null then set the result
             if(res.data.search_results){
               setResults(res.data.search_results);
+              setLoading(false);
             }
             
             //console.log(res.data.search_results);
@@ -44,6 +46,9 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
           })
           .catch((error) => {console.error(error)});
       } catch (e) {
+        if(axios.isCancel(e)){
+          console.log("request cancelled")
+        }
         console.error(e);
       }
     };
@@ -57,15 +62,16 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
   useEffect(() => {
     const sortArray = type =>{
       const types = {
-        dateOld: 'date',
-        dateNew: 'date',
-        rating: 'ratings',
-        distance: 'distance'
+        dateOld: 'dateOpen',
+        dateNew: 'dateOpen',
+        ratings: 'average',
+        distance: 'location'
       };
       const sortProperty = types[type];
       //sort - returns negative value is first argument is less than second
       //use ... to clone before we sort
-      const sorted = [...results].sort((a,b) => b[sortProperty] - a[sortProperty])
+      const sorted = [...results].sort((a,b) => b[sortProperty] - a[sortProperty]);
+
       console.log("sorted", sorted);
       setResults(sorted);
     };
@@ -82,13 +88,15 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber)
   return (
     <section>
-        {results.length === 0 ? (
-          <h1>No results</h1>
-        )  
-        //else
-        :( 
+        {/* // if result length is 0 show no results, */} 
+        {results.length === 0 ? <h1>No results</h1>
+        //if loading is true show loading, 
+        : loading === true ? <h1> Loading... </h1>
+        //else show results 
+        : (
           <div className = "resultsContainer"> 
-            <section className = "dropdown">
+            {/* disable dropdown while API request is being made */}
+            <section className = "dropdown" disabled = {loading}>
               <select className = "sortby" onChange={(e) => setSortType(e.target.value)} >
                 <option value = "rating">Highest Rating</option>
                 <option value ="distance">Distance</option>
@@ -106,55 +114,12 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
               currentPage = {currentPage} />
             </section>
           </div>
-        )}
-
+        )}    
     </section>
   );
 };
 
-/* class searchResult extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            page: 1,
-            total: undefined,
-            searchbarValue : "asda",
-        };
-    }
-    // handleOnChange = pageValue =>{
-    //     setPage(pageValue)
-    // }
-    onSearchChange = e =>{
 
-    }
-    render(){
-        return(
-            <div>
-                <div className = "filter"> 
-                    {this.props.setSearchbarValue}
-                </div>
-                {restaurants.map((restaurant, i) =>(
-                <RestaurantCard
-                    to={`/restaurant/${restaurant.id}`}
-                    restaurantName={restaurant.name}
-                    rating={restaurant.rating}
-                    imageUrl={restaurant.url}
-                    address={restaurant.address}
-
-                />
-                ))}
-                <Pagination
-                    className = "pagination"
-                    total ={this.state.total}
-                    page = {this.state.page}
-                    pageWindowLength={5}
-                    onChange = {this.handleOnChange}
-                />
-            </div>
-           
-        );
-    }
-} */
 const mapStateToProps = (state) => ({
   searchbarValue: state.ui.searchbarValue,
 });
