@@ -15,11 +15,11 @@ import {
 // custom components:
 import Logo from "../logo/logo.component";
 import CircleButton from "../circle-btn/circle-btn.component";
-import CustomModal from "../custom-modal/custom-modal.component";
-import Tabs from "../tabs/tabs.component";
-import RegisterForm from "../auth/RegisterForm";
-import LoginForm from "../auth/LoginForm";
+import Modal from "../modal/modal.component";
+import LoginRegisterPanel from "../auth/login-register-panel.component";
 import SearchBar from "../../components/search-bar/search-bar.component";
+import LoadingAnimation from "../../components/loading-animation/loading-animation.component";
+import CustomButton from "../custom-button/custom-button.component";
 
 // mui icons:
 import MenuIcon from "@material-ui/icons/Menu";
@@ -33,26 +33,17 @@ const Navbar = ({
   userAuth,
   currentUser,
   setUserAuth,
-  ...otherProps
+  ...props
 }) => {
   const [hideNav, setHideNav] = useState(true);
-  //function for showing and hiding our modal
-  const [showModal, setShowModal] = useState(false);
 
   const toggleNavBar = () => {
     console.log("togglemodal");
     setHideNav(!hideNav);
   };
 
-  // toggle the moddle by changing it's state
-  const toggleModal = () => {
-    setShowModal(!showModal);
-  };
-
   const signOut = () => {
     console.log("signing out");
-
-    toggleModal();
     firebaseAuth
       .auth()
       .signOut()
@@ -65,19 +56,6 @@ const Navbar = ({
 
   return (
     <nav className="header-nav">
-      {/* if showModal is true, then show the modal contents, else show nothing */}
-      {showModal && !userAuth ? (
-        <CustomModal toggleModal={toggleModal}>
-          <Tabs
-            className="modalForm"
-            labels={["Login", "Register"]}
-            content={[<LoginForm />, <RegisterForm />]}
-          ></Tabs>
-          {/*  this is where your modal content component will go */}
-        </CustomModal>
-      ) : // this is the else, show nothing
-      null}
-
       <div className="logo-container-flex">
         <Link to="/">
           <Logo eVersion={1} uppercase={true} />
@@ -122,25 +100,21 @@ const Navbar = ({
           <div className="nav-item-mask"></div>
           {/* <Link to="/login">Login</Link> */}
           {userAuth ? (
-            <Link
-              to="/"
-              onClick={(e) => {
-                e.preventDefault();
-                signOut();
-              }}
-            >
-              Logout
-            </Link>
+            <button type="button" className="auth-btn" onClick={signOut}>
+              logout
+            </button>
           ) : (
-            <Link
-              to="/"
-              onClick={(e) => {
-                e.preventDefault();
-                toggleModal();
-              }}
+            <Modal
+              // defaultShow
+              backdrop
+              triggerComponent={
+                <button type="button" className="auth-btn">
+                  Login
+                </button>
+              }
             >
-              Login
-            </Link>
+              <LoginRegisterPanel />
+            </Modal>
           )}
         </li>
       </ul>

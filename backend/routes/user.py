@@ -1,5 +1,6 @@
 from flask import Blueprint, Response, request, jsonify
 from ..models.usermodel import Client, Patron, Owner
+import json
 
 import json
 
@@ -133,6 +134,7 @@ def delete_client(id):
 
         return client.to_json(), 200
 
+
 @user.route('/<id>', methods=['GET'])
 def getPatron(id):
     print("-----Getting User from ID-------")
@@ -176,3 +178,14 @@ def getPatronReviews(id):
     # reviews = Review.objects(user = id)
     # print(reviews.to_json())
     # reviews.to_json(), 200
+
+
+@user.route('/exists/<id>', methods=['GET'])
+def user_exist(id):
+    client = Client.objects.with_id(id)
+
+    if client == None:
+        return (json.dumps(False), 200)
+    else:
+        return (json.dumps(True), 200)
+

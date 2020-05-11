@@ -1,68 +1,82 @@
 @import "../../assets/theme";
 
-.user-type-form {
-  margin: 0.5em 30px;
-  background-color: inherit;
+$user_type_border: 1px solid lightgray;
+.select-user-form {
+  width: 100%;
 
-  h1 {
-    text-align: center;
-    font-size: 2em;
-    font-weight: bolder;
-    color: $primary;
-    margin-top: none;
-    padding-bottom: 0.5em;
+  display: flex;
+  // justify-content: space-between;
+  align-items: center;
+  // max-height: 2rem;
+
+  .user-type-label {
+    // flex-grow: 1;
+    margin-left: 0.15rem;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+
+    font-weight: bold;
+    color: $secondary_dark;
+    margin-right: 0.5rem;
   }
-  .row2 {
+
+  .radio-label {
+    border-top: $user_type_border;
+    border-bottom: $user_type_border;
+    background-color: $background_light;
+    flex-grow: 1;
+    // max-height: 2rem;
+    padding: 0.25rem 0.5rem;
+    padding: 0.25rem 0.25rem;
+
+    position: relative;
+    cursor: pointer;
+    text-transform: uppercase;
+
     display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    justify-content: space-between;
-    .col2 {
-      .form-field {
-        input {
-          width: 100%;
-        }
-      }
+    justify-content: center;
+    align-items: center;
+
+    // background-color: red;
+
+    span {
+      // color: white;
+    }
+
+    input {
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      width: 0.1px;
+      height: 0.1px;
     }
   }
 
-  label {
-    display: block;
-    margin-top: 10px;
-    padding-right: 2em;
+  #patron-lbl {
+    border-left: $user_type_border;
   }
-  input {
-    padding: 0.5rem;
-    display: block;
-    border: none;
-    transition-property: background-color, border-color;
-    margin-right: 4em;
+
+  #owner-lbl {
+    border-right: $user_type_border;
   }
-  .error {
-    font-size: 10px;
-    color: #d76666;
-  }
-  .btnDiv {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .loginBtn {
-    text-align: center;
-    cursor: pointer;
-    margin-top: 5em;
-    width: 100%;
-    height: 32px;
-    background-color: $lime;
-    border-radius: 2em;
-  }
-  .loginBtn:hover {
-    background-color: $primary;
-  }
-  a{
-    text-decoration: underline;
-  }
-  .googleBtn{
-    width: 200px !important;
+
+  .selected {
+    // background-color: $primary;
+    // border: 1px solid $secondary;
+    // padding: 0.15rem 0.4rem;
+
+    span {
+      color: $background_light;
+      background-color: red;
+
+      background-color: $primary;
+
+      height: 80%;
+      width: 100%;
+
+      display: flex;
+      justify-content: center;
+    }
   }
 }
