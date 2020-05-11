@@ -8,6 +8,7 @@ import {
   setUserAuth,
   setCurrentUser,
   resetUserRedux,
+  updateCurrentUser,
 } from "../../redux/user/user.actions";
 
 
@@ -29,13 +30,11 @@ class ProfilePage extends Component {
     super(props);
     this.state = {
       persons: [],
-      fname: null,
-      lname: null,
-      email: null,
-      userName: "@wontom",
+      fname: "",
+      lname: "",
+      email: "",
       type: "Restaurant Patron",
-      placesVisited: "54",
-      reviewCount: "4",
+      reviewCount: "",
       tags: [
         "Wontons",
         "Tacos",
@@ -45,8 +44,6 @@ class ProfilePage extends Component {
       ],
       profilePic:
         "https://images.unsplash.com/photo-1489481039754-8701aeda983b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1955&q=80",
-      // map: "https://www.massive.pr/wp-content/uploads/2018/01/shutterstock_127728257-1038x576-tender-1024x568.jpg",
-      // photo: "https://images.unsplash.com/photo-1504544750208-dc0358e63f7f?ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80",
       reviews: []
                 // {
                 //     user: {
@@ -108,31 +105,40 @@ class ProfilePage extends Component {
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     console.log("hellllo", this.props.userAuth);
+
+    // Request to get patron reviews
+    let res = await axios.get(`${BASE_API_URL}/user/getPatronReviews/${this.props.userAuth.uid}`);
+    console.log("check meeee")
+    // console.log(res);
+    console.log(res.data);
+
+    this.setState({ reviews: res.data.reviews })
     
-    const res = axios
-      // .get(`${BASE_API_URL}/user/veronicasroute/${this.props.userAuth.uid}`)
-      .get(`${BASE_API_URL}/user/${this.props.userAuth.uid}`)
-      .then((res) => {
-        console.log("clog v:", res.data.fname);
-        console.log("hello");
+    // const res = axios
+    //   // .get(`${BASE_API_URL}/user/getPatron/${this.props.userAuth.uid}`)
+    //   .get(`${BASE_API_URL}/review/getPatronReview/${this.props.userAuth.uid}`)
+    //   .then((res) => {
+    //     console.log("hello", res.data);
 
-        const fname = res.data.fname;
-        const lname = res.data.lname;
-        const email = res.data.email;
+    //     const fname = res.data.fname;
+    //     const lname = res.data.lname;
+    //     const email = res.data.email;
+    //     const avatar = res.data.avatar;
 
-        this.setState({ fname });
-        this.setState({ lname });
-        this.setState({ email });
+    //     this.setState({ fname });
+    //     this.setState({ lname });
+    //     this.setState({ email });
+    //     this.setState({ avatar })
 
-        const reviews = res.data.reviews;
-        console.log("r"+reviews.content);
-        this.setState({ reviews });
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    //     const reviews = res.data.reviews;
+    //     console.log("r"+reviews.content);
+    //     this.setState({ reviews });
+    //   })
+    //   .catch((err) => {
+    //     console.error(err);
+    //   });
   }
 
   // fname = res.data.fname;
@@ -154,19 +160,16 @@ class ProfilePage extends Component {
 
       
 
-      const reviews = this.state.reviews.map((review) => {
+      const reviews = this.state.reviews.map((review, index) => {
              return (
-               <li key={review}>
+               <li key={index}>
                  <Review
-                   user={review.user}
+                   user={this.props.currentUser.fname}
                    restaurant={review.restaurant}
-                   avatar={review.avatar}
-                   date={"10/10/2020"}
+                   avatar={this.props.currentUser.avatar}
+                   date={review.date}
                    content={review.content}
-                   images={[
-                     "https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=80",
-                     "https://images.unsplash.com/photo-1506354666786-959d6d497f1a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
-                   ]}
+                   images={review.images}
                    rating={review.rating}
                  ></Review>
                  {/* <Divider full={true} /> */}
@@ -178,8 +181,15 @@ class ProfilePage extends Component {
           <React.Fragment>
             <section className="profile-page-container">
               <section className="userContainer">
+                <button type="button" onClick={(e) => {
+                  // console.log(this.props.userAuth);
+                  // console.log(this.props.currentUser);
+                  console.log(this.state);
+                }}>
+                    test
+                </button>                            
                 <h1> {/* this is where the fname and lname should be */}
-                  {this.state.fname} {this.state.lname}
+                {this.props.currentUser.fname} {this.props.currentUser.lname}
                 </h1>
                 <CustomButton type="button" icon={<CreateIcon />} className="profile-button">
                   Edit My Info
@@ -205,7 +215,7 @@ class ProfilePage extends Component {
                         Tom Dumpling here. Programmer who loves wontons. Making the world a better
                         place one review at a time.
                       </p>
-                      <h3>Check-Ins</h3>
+                      <h3>Favorite Restaurant</h3>
                       <div id="checkIn"><MapContainer /></div>
                     </div>
                   {/* <div className="favorites">
@@ -232,12 +242,14 @@ class ProfilePage extends Component {
 
 const mapStateToProps = ({ user }) => ({
   userAuth: user.userAuth,
+  currentUser: user.currentUser,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   setUserAuth: (user) => dispatch(setUserAuth(user)),
   setCurrentUser: (userId) => dispatch(setCurrentUser(userId)),
   resetUserRedux: () => dispatch(resetUserRedux()),
-});
+  updateCurrentUser: (userID) => dispatch(updateCurrentUser(userID)),
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfilePage);

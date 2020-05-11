@@ -100,3 +100,21 @@ def delete_review(id):
         review.delete()
 
         return f'{id} delete successfully', 200
+
+# @review.route('/getPatronReviews/<id>', methods=['GET'])
+# def getPatronReviews(id):
+#     patron = Client.objects.with_id(id)
+
+#     reviews = dict()
+#     reviews["reviews"] = []
+
+#     for review in patron['reviews']:
+#         reviews["reviews"].append(review.fetch().to_mongo().to_dict())
+    
+#     return json.dumps(reviews, default=str), 200
+  
+    # print("testing 123")
+    # reviews = Review.objects(user = id)
+    # print(reviews.to_json())
+    
+    # return reviews.to_json(), 200
