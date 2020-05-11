@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import firebaseAuth from "./components/auth/firebaseAuth";
+import React, { useEffect, useState } from "react";
+import { auth } from "./components/auth/firebaseAuth";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import axios from "axios";
 import { BASE_API_URL } from "./utils";
@@ -16,6 +16,7 @@ import "./App.scss";
 // custom components here:
 import Navbar from "./components/navbar/navbar.component";
 import Modal from "./components/modal/modal.component";
+import LoadingAnimation from "./components/loading-animation/loading-animation.component";
 // import Test from "./components/test/test.component";
 // import RegisterModal from "./components/auth/RegisterForm";
 import FooterNav from "./components/footer-nav/footer-nav.component";
@@ -32,114 +33,145 @@ import SearchResult from "./pages/searchResult-page/searchResult.component";
 import ApplyPage from "./pages/apply-page/apply.component";
 import OwnerRestaurantPage from "./pages/owner-restaurant-page/owner-restaurant-page.component";
 
-class App extends Component {
-  unsubscribedFromAuth = null;
-  constructor(props) {
-    super(props);
-    this.state = {
-      user: {},
-      validUser: false,
-    };
-  }
-  //after component is done rendering the first time
-  componentDidMount() {
-    this.authListener();
-  }
+const App = ({ currentUser, userAuth, ...props }) => {
+  const [validUser, setValidUser] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  isValidUser = async (userId) => {
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     user: {},
+  //     validUser: false,
+  //   };
+  // }
+  //after component is done rendering the first time
+  // componentDidMount() {
+  //   this.authListener();
+  // }
+
+  const isValidUser = async (userId) => {
     let res = await axios.get(`${BASE_API_URL}/user/exists/${userId}`);
 
     console.log("testing", userId, "results", res.data);
 
     // if user has not selected an account type:
     if (res.data === false) {
-      this.setState({ validUser: false });
+      // this.setState({ validUser: false });
+      setValidUser(false);
+    } else if (res.data === true) {
+      setValidUser(true);
     } else {
-      this.setState({ validUser: true });
+      console.error("checking valid user error", res);
     }
   };
 
-  authListener() {
-    this.unsubscribedFromAuth = firebaseAuth
-      .auth()
-      .onAuthStateChanged((user) => {
-        if (user) {
-          this.isValidUser(user.uid);
-          this.props.updateCurrentUser(user.uid);
-          this.props.setUserAuth(user);
-        } else {
-          this.setState({ validUser: false });
-          this.props.setUserAuth(null);
-          this.props.resetUserRedux();
-        }
-      });
-  }
+  // const authListener = () => {
+  //   this.unsubscribedFromAuth = firebaseAuth
+  //     .auth()
+  //     .onAuthStateChanged((user) => {
+  //       if (user) {
+  //         this.isValidUser(user.uid);
+  //         this.props.updateCurrentUser(user.uid);
+  //         this.props.setUserAuth(user);
+  //       } else {
+  //         this.setState({ validUser: false });
+  //         this.props.setUserAuth(null);
+  //         this.props.resetUserRedux();
+  //       }
+  //     });
+  // };
 
-  componentWillUnmount() {
-    this.unsubscribedFromAuth();
-  }
+  useEffect(() => {
+    setLoading(true);
+    const unsubscribeFromAuth = auth.onAuthStateChanged((user) => {
+      if (user) {
+        isValidUser(user.uid);
+        props.updateCurrentUser(user.uid);
+        props.setUserAuth(user);
+      } else {
+        setValidUser(false);
+        props.setUserAuth(null);
+        props.resetUserRedux();
+      }
+    });
+    setLoading(false);
 
-  render() {
-    return (
-      <div className="App" onClick={console.log(this.state)}>
-        {this.props.userAuth && !this.state.validUser && (
-          <Modal defaultShow backdrop>
+    return () => {
+      unsubscribeFromAuth();
+      setLoading(false);
+    };
+  }, []);
+
+  useEffect(() => {
+    console.log("changing isValidUser");
+    setLoading(true);
+    if (userAuth) {
+      isValidUser(userAuth.uid);
+    }
+    setLoading(false);
+  }, [currentUser]);
+
+  return (
+    <div className="App" onClick={console.log("valid user", validUser)}>
+      {userAuth && !validUser && (
+        <Modal defaultShow backdrop>
+          {loading ? (
+            <LoadingAnimation text1="checking valid user" text2="hello" />
+          ) : (
             <RegisterUserType />
-          </Modal>
-        )}
+          )}
+        </Modal>
+      )}
 
-        <BrowserRouter>
-          <header>
-            <Navbar />
-          </header>
-          <main>
-            <Switch>
-              <Route exact path="/" component={HomePage} />
-              <Route exact path="/search" component={SearchResult} />
-              <Route path="/contact-us" component={ContactUsPage} />
+      <BrowserRouter>
+        <header>
+          <Navbar />
+        </header>
+        <main>
+          <Switch>
+            <Route exact path="/" component={HomePage} />
+            <Route exact path="/search" component={SearchResult} />
+            <Route path="/contact-us" component={ContactUsPage} />
+            <Route
+              exact
+              path="/restaurant/:restaurantId"
+              component={RestaurantPage}
+            />
+
+            {/* <Route path="/login" component={} /> */}
+            {/* <Route path="/graduated" component={} /> */}
+
+            {/* <Route path="/test" component={Test} /> */}
+
+            {/* check to see if user is login, if not don't show */}
+            {userAuth && currentUser._cls === "Client.Owner" ? (
+              <Route exact path="/apply" component={ApplyPage} />
+            ) : null}
+
+            {userAuth && currentUser._cls === "Client.Owner" ? (
               <Route
                 exact
-                path="/restaurant/:restaurantId"
-                component={RestaurantPage}
+                path="/my-restaurants"
+                component={OwnerRestaurantPage}
               />
+            ) : null}
 
-              {/* <Route path="/login" component={} /> */}
-              {/* <Route path="/graduated" component={} /> */}
+            {userAuth && (
+              <Route exact path="/profile" component={ProfilePage} />
+            )}
 
-              {/* <Route path="/test" component={Test} /> */}
-
-              {/* check to see if user is login, if not don't show */}
-              {this.props.userAuth &&
-              this.props.currentUser._cls === "Client.Owner" ? (
-                <Route exact path="/apply" component={ApplyPage} />
-              ) : null}
-
-              {this.props.userAuth &&
-              this.props.currentUser._cls === "Client.Owner" ? (
-                <Route
-                  exact
-                  path="/my-restaurants"
-                  component={OwnerRestaurantPage}
-                />
-              ) : null}
-
-              {this.props.userAuth && (
-                <Route exact path="/profile" component={ProfilePage} />
-              )}
-
-              {/* Temporary */}
-              <Route to="/error-page" component={ErrorPage} />
-              <Route to="*" component={ErrorPage} />
-            </Switch>
-          </main>
-          <footer>
-            <FooterNav />
-          </footer>
-        </BrowserRouter>
-      </div>
-    );
-  }
-}
+            {/* Temporary */}
+            <Route to="/error-page" component={ErrorPage} />
+            <Route to="*" component={ErrorPage} />
+          </Switch>
+        </main>
+        <footer>
+          <FooterNav />
+        </footer>
+      </BrowserRouter>
+    </div>
+  );
+};
 
 const mapStateToProps = ({ user }) => ({
   userAuth: user.userAuth,

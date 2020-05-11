@@ -24,12 +24,28 @@ const RegisterUserType = ({
   const registerMongoAccount = async (e) => {
     e.preventDefault();
 
+    let firstName = "";
+    let lastName = "";
+
+    if (userAuth.displayName) {
+      const displayNameSegments = userAuth.displayName.split(" ");
+      firstName = displayNameSegments[0];
+      // let lastName = "";
+      displayNameSegments.forEach((segment, i) => {
+        if (i != 0) {
+          lastName = `${lastName} ${segment}`;
+        }
+      });
+    }
+
     const userData = {
       id: userAuth.uid,
-      fname: userAuth.displayName.split(" ")[0],
-      lname: userAuth.displayName.split(" ")[1],
+      fname: firstName,
+      lname: lastName,
       email: userAuth.email,
     };
+
+    console.log("userData", userData);
 
     let res = await createMongoDbAccount(userData, userType);
     console.log("mongo here", res);

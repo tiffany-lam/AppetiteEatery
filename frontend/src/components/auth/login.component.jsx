@@ -66,7 +66,7 @@ const LoginForm = ({ className, ...props }) => {
           required
           type="email"
           name="email"
-          htmlFor="email"
+          htmlFor="login-email"
           label="email"
           value={email}
           handleChange={(e) => {
@@ -79,7 +79,7 @@ const LoginForm = ({ className, ...props }) => {
           required
           type="password"
           name="password"
-          htmlFor="password"
+          htmlFor="login-password"
           label="password"
           value={password}
           handleChange={(e) => {

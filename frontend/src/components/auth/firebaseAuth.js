@@ -21,7 +21,6 @@ export const auth = firebase.auth();
 
 export const createMongoDbAccount = async (user, accountType) => {
   let res = await axios.post(`${BASE_API_URL}/user/${accountType}`, user);
-  console.log("finished registration of mongodb acc", res.data);
   return res;
 };
 

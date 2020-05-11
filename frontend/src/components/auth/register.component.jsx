@@ -114,7 +114,6 @@ const RegisterForm = ({ updateCurrentUser, className, ...props }) => {
         registerForm.password.value
       )
       .then(async (firebaseCredential) => {
-        console.log("successfully created firebased user");
         const userData = {
           id: firebaseCredential.user.uid,
           fname: registerForm.fname.value,
@@ -122,10 +121,9 @@ const RegisterForm = ({ updateCurrentUser, className, ...props }) => {
           email: registerForm.email.value,
         };
 
-        console.log("successfully created mongo user");
         let mongoUser = await createMongoDbAccount(
           userData,
-          registerForm.userType
+          registerForm.userType.value
         );
 
         updateCurrentUser(firebaseCredential.user.uid);
