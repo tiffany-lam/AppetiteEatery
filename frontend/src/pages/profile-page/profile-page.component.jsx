@@ -181,13 +181,13 @@ class ProfilePage extends Component {
           <React.Fragment>
             <section className="profile-page-container">
               <section className="userContainer">
-                <button type="button" onClick={(e) => {
+                {/* <button type="button" onClick={(e) => {
                   // console.log(this.props.userAuth);
                   // console.log(this.props.currentUser);
                   console.log(this.state);
                 }}>
                     test
-                </button>                            
+                </button>                             */}
                 <h1> {/* this is where the fname and lname should be */}
                 {this.props.currentUser.fname} {this.props.currentUser.lname}
                 </h1>
@@ -195,14 +195,14 @@ class ProfilePage extends Component {
                   Edit My Info
                 </CustomButton>
                 <h2 id="toggle-mini">
-                  {this.state.email}
+                  {this.props.currentUser.email}
                  <CustomButton type="button" icon={<CreateIcon />} className="mini-icon"></CustomButton></h2>
-                <p id="accountType">{this.state.type}</p>
+                {/* <p id="accountType">{this.state.type}</p> */}
                 <div className="userContainer-inner">
                     <div id="col1">
                       <img
                         className="profile-img"
-                        src={this.state.profilePic}
+                        src={this.props.currentUser.avatar}
                         alt="user"
                       />
                       <h3 id="toggle-mini">Favorites:
@@ -228,7 +228,7 @@ class ProfilePage extends Component {
                 </CustomButton>
               </section>
               <section className="userReviews">
-                <h2>{this.state.fname} {this.state.lname}'s Reviews</h2>
+                <h2>{this.props.currentUser.fname} {this.props.currentUser.lname}'s Reviews</h2>
                 <h3>Total Reviews: {this.state.reviewCount}</h3>
                 <ul>{reviews}</ul>
               </section>
