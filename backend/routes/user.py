@@ -166,8 +166,7 @@ def getPatronReviews(id):
         restaurantName = reviewObj.restaurant.fetch().restaurantName
         updatedReview = reviewObj.to_mongo().to_dict()
         updatedReview['restaurant'] = restaurantName
- 
-    reviews["reviews"].append(updatedReview)
+        reviews["reviews"].append(updatedReview)
  
     print("H E R E")
     print(reviews)
