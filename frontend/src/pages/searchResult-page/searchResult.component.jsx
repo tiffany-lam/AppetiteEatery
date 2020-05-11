@@ -72,7 +72,6 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
       console.log(sortProperty);
       //sort - returns negative value is first argument is less than second
       //use ... to clone before we sort
-      console.log([...result])
       if(sortProperty === 'dateOpenNew'){
         const sorted = [...results].sort((a,b) => a[sortProperty] > b[sortProperty]);
       }
@@ -83,6 +82,7 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
       else{
         const sorted = [...results].sort((a,b) => b[sortProperty] - a[sortProperty]);
       }
+      const sorted = [...results].sort((a,b) => b[sortProperty] - a[sortProperty]);
       console.log("sorted", sorted);
       setResults(sorted);
     };
