@@ -39,12 +39,11 @@ const RegisterUserType = ({
 
   return (
     <div className="register-user-type">
-      <span>Please select your account type:</span>
+      <span>Please select the account you would like to make to continue:</span>
 
       <form onSubmit={registerMongoAccount}>
-        <SelectUserType setChanges={setUserType} />
-
-        <CustomButton type="submit">df</CustomButton>
+        <SelectUserType className="test" setChanges={setUserType} />
+        <CustomButton type="submit">continue</CustomButton>
       </form>
     </div>
   );

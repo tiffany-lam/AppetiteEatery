@@ -6,7 +6,7 @@ import CustomButton from "../custom-button/custom-button.component";
 
 import "./login.styles.scss";
 
-const LoginForm = ({ ...props }) => {
+const LoginForm = ({ className, ...props }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -51,8 +51,16 @@ const LoginForm = ({ ...props }) => {
   const googleLogin = (e) => {};
 
   return (
-    <div className="login-container">
+    <section className={`login-container ${className ? className : ""}`}>
       <h1>Login</h1>
+
+      <div className="login-graphic">
+        <span>appËtite</span>
+        <img
+          src="https://images.unsplash.com/photo-1484980972926-edee96e0960d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1234&q=80"
+          alt=""
+        />
+      </div>
       <form className="login-form" onSubmit={login}>
         <FormInput
           required
@@ -80,12 +88,18 @@ const LoginForm = ({ ...props }) => {
           // className="input-override"
         />
 
-        <CustomButton type="submit">login</CustomButton>
-        <CustomButton type="button" onClick={signInWithGoogle}>
+        <CustomButton type="submit" className="login-input-btn">
+          login
+        </CustomButton>
+        <CustomButton
+          type="button"
+          className="login-input-btn"
+          onClick={signInWithGoogle}
+        >
           google login
         </CustomButton>
       </form>
-    </div>
+    </section>
   );
 };
 export default LoginForm;

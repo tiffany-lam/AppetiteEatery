@@ -169,13 +169,15 @@
 
       li {
         height: 1.5rem;
-        a {
+        a,
+        .auth-btn {
           color: $background_light;
           transition: none;
         }
 
         &:hover {
-          a {
+          a,
+          .auth-btn {
             color: $background_light;
 
             font-weight: bold;

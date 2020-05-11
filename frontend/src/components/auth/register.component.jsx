@@ -13,7 +13,7 @@ import { BASE_API_URL } from "../../utils";
 
 import "./register.styles.scss";
 
-const RegisterForm = ({ updateCurrentUser, ...props }) => {
+const RegisterForm = ({ updateCurrentUser, className, ...props }) => {
   const [registerForm, setRegisterForm] = useState({
     email: { value: "", error: "" },
     fname: { value: "", error: "" },
@@ -26,27 +26,59 @@ const RegisterForm = ({ updateCurrentUser, ...props }) => {
   const [fname, setFname] = useState({ value: "", error: "" });
 
   const validate = () => {
+    let validated = true;
+    console.log("validating..");
+
+    const {
+      fname,
+      lname,
+      email,
+      password,
+      confirmPassword,
+      userType,
+    } = registerForm;
+
     let nameError = "";
     let emailError = "";
     let confirmPassError = "";
-    if (!this.state.fname) {
-      nameError = "Name cannot be blank";
-      return false;
+
+    if (fname.value === "") {
+      setRegisterForm({
+        ...registerForm,
+        fname: { ...registerForm.fname, error: "first name cannot be blank" },
+      });
+      validated = false;
     }
-    if (!this.state.lname) {
-      nameError = "Last name cannot be blank";
-      return false;
+
+    if (lname.value === "") {
+      setRegisterForm({
+        ...registerForm,
+        lname: { ...registerForm.lname, error: "last name cannot be blank" },
+      });
+      validated = false;
     }
-    if (this.state.email.includes("@")) {
-      emailError = "Invalid Email";
-      return false;
+
+    if (!email.value.includes("@")) {
+      // emailError = ;
+      setRegisterForm({
+        ...registerForm,
+        email: { ...registerForm.email, error: "email requires @" },
+      });
+      validated = false;
     }
-    if (this.state.password !== this.state.confirmPass) {
-      confirmPassError = "Your passwords do not match";
-      alert("Passwords don't match");
-      return false;
+
+    if (password.value !== confirmPassword.value) {
+      setRegisterForm({
+        ...registerForm,
+        confirmPassword: {
+          ...registerForm.confirmPassword,
+          error: "your passwords do not match",
+        },
+      });
+      validated = false;
     }
-    return true;
+
+    return validated;
   };
 
   const handleChange = (e) => {
@@ -73,7 +105,7 @@ const RegisterForm = ({ updateCurrentUser, ...props }) => {
     });
   };
 
-  const signup = (e) => {
+  const register = (e) => {
     e.preventDefault();
 
     auth
@@ -103,22 +135,19 @@ const RegisterForm = ({ updateCurrentUser, ...props }) => {
       });
   };
 
-  const handleRadioButton = (value) => {
-    this.setState({
-      userType: value,
-    });
-  };
-
   return (
-    <section className="register-form-container">
+    <section
+      className={`register-form-container ${className ? className : ""}`}
+    >
       <h1
         onClick={() => {
+          validate();
           console.log(registerForm);
         }}
       >
         Register
       </h1>
-      <form className="register-form" onSubmit={signup}>
+      <form className="register-form" onSubmit={register}>
         <FormInput
           required
           type="text"
@@ -132,7 +161,8 @@ const RegisterForm = ({ updateCurrentUser, ...props }) => {
               fname: { ...registerForm.fname, value: e.target.value },
             });
           }}
-          className="input-gap"
+          error={registerForm.fname.error}
+          // error="fsdfsdf"
         />
 
         <FormInput
@@ -148,7 +178,6 @@ const RegisterForm = ({ updateCurrentUser, ...props }) => {
               lname: { ...registerForm.lname, value: e.target.value },
             });
           }}
-          className="input-gap"
         />
 
         <FormInput
@@ -164,7 +193,6 @@ const RegisterForm = ({ updateCurrentUser, ...props }) => {
               email: { ...registerForm.email, value: e.target.value },
             });
           }}
-          className="input-gap"
         />
 
         <FormInput
@@ -181,7 +209,6 @@ const RegisterForm = ({ updateCurrentUser, ...props }) => {
             });
           }}
           minLength="8"
-          className="input-gap"
         />
 
         <FormInput
@@ -201,10 +228,10 @@ const RegisterForm = ({ updateCurrentUser, ...props }) => {
             });
           }}
           minLength="8"
-          className="input-gap"
         />
 
         <SelectUserType
+          className="user-type-radio"
           setChanges={(value) => {
             setRegisterForm({
               ...registerForm,
@@ -213,9 +240,7 @@ const RegisterForm = ({ updateCurrentUser, ...props }) => {
           }}
         />
 
-        <CustomBotton type="submit" className="input-gap">
-          Register
-        </CustomBotton>
+        <CustomBotton type="submit">Register</CustomBotton>
       </form>
     </section>
   );

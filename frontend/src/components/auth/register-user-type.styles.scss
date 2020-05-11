@@ -5,14 +5,22 @@
 
   width: 20rem;
 
+  border-radius: 3px;
+
   display: flex;
   flex-direction: column;
   padding: 1rem;
   // justify-content: space-between;
 
-  background-color: #fff;
+  background-color: $background;
 
-  .selected {
-    background-color: $primary;
+  span {
+    // margin-bottom: 1rem;
+  }
+
+  form {
+    .test {
+      margin: 1rem 0;
+    }
   }
 }

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import "./selectUserType.styles.scss";
 
-const SelectUserType = ({ setChanges = () => {}, ...props }) => {
+const SelectUserType = ({ setChanges = () => {}, className, ...props }) => {
   const [userType, setUserType] = useState("patron");
 
   useEffect(() => {
@@ -10,10 +10,12 @@ const SelectUserType = ({ setChanges = () => {}, ...props }) => {
   }, [userType]);
 
   return (
-    <div className="select-user-form">
-      <span>User Type</span>
+    <div className={`select-user-form ${className ? className : ""}`}>
+      <span className="user-type-label">User Type:</span>
+
       {/* Radio button for Patron */}
       <label
+        id="patron-lbl"
         className={`radio-label ${userType === "patron" ? "selected" : ""}`}
         for="patron"
       >
@@ -33,12 +35,13 @@ const SelectUserType = ({ setChanges = () => {}, ...props }) => {
 
       {/* Radio button for Restaurant Owner */}
       <label
+        id="owner-lbl"
         className={`radio-label ${userType === "owner" ? "selected" : ""}`}
         for="owner"
       >
         <span>Owner</span>
         <input
-          checked={userType === "owner" ? true : false}
+          // checked={userType === "owner" ? true : false}
           value="owner"
           type="radio"
           id="owner"

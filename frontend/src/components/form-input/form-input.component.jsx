@@ -15,6 +15,7 @@ const FormInput = ({
   // required,
   additionalInfo,
   disabled,
+  error,
   ...props
 }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -36,6 +37,7 @@ const FormInput = ({
         className ? className : ""
       }`}
     >
+      {error ? <span className="error-msg">{error}</span> : null}
       {label ? (
         <label
           htmlFor={htmlFor}
