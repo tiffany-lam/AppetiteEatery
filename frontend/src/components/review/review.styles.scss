@@ -39,6 +39,14 @@
       border-radius: 2px;
     }
 
+    svg {
+      height: 5rem;
+      width: 5rem;
+
+      margin: 0.3rem 0;
+      fill: $secondary;
+    }
+
     p {
       font-weight: bold;
       font-size: 0.8rem;
