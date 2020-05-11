@@ -1,5 +1,6 @@
 from flask import Blueprint, Response, request, jsonify
 from ..models.usermodel import Client, Patron, Owner
+import json
 
 import boto3
 from ..config import S3_USERNAME, S3_BUCKET, S3_ACCESS_KEY_ID, S3_SECRET_ACCESS_KEY
@@ -130,3 +131,13 @@ def delete_client(id):
         print(client.to_json())
 
         return client.to_json(), 200
+
+
+@user.route('/exists/<id>', methods=['GET'])
+def user_exist(id):
+    client = Client.objects.with_id(id)
+
+    if client == None:
+        return (json.dumps(False), 200)
+    else:
+        return (json.dumps(True), 200)

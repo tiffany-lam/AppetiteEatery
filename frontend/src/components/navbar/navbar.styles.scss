@@ -93,11 +93,17 @@
         transition: clip-path 100ms ease-out;
       }
 
+      .auth-btn,
       a {
-        // background-color: blue;
+        background-color: transparent;
+        text-transform: uppercase;
+        cursor: pointer;
+
         height: 100%;
         position: relative;
         z-index: 2;
+
+        color: $secondary;
 
         display: flex;
         justify-content: center;
@@ -109,7 +115,8 @@
       &:hover,
       &:focus,
       &:focus-within {
-        a {
+        a,
+        .auth-btn {
           outline: 0;
           color: $background;
           // font-weight: bold;

@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import firebaseAuth from "./components/auth/firebaseAuth";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import axios from "axios";
+import { BASE_API_URL } from "./utils";
+
 import { connect } from "react-redux";
 import {
   setUserAuth,
@@ -12,9 +15,11 @@ import "./App.scss";
 
 // custom components here:
 import Navbar from "./components/navbar/navbar.component";
-import Test from "./components/test/test.component";
-import RegisterModal from "./components/auth/RegisterForm";
+import Modal from "./components/modal/modal.component";
+// import Test from "./components/test/test.component";
+// import RegisterModal from "./components/auth/RegisterForm";
 import FooterNav from "./components/footer-nav/footer-nav.component";
+import RegisterUserType from "./components/auth/register-user-type.component copy";
 
 // page components here:
 import HomePage from "./pages/home-page/home-page.component";
@@ -26,7 +31,6 @@ import ProfilePage from "./pages/profile-page/profile-page.component";
 import SearchResult from "./pages/searchResult-page/searchResult.component";
 import ApplyPage from "./pages/apply-page/apply.component";
 import OwnerRestaurantPage from "./pages/owner-restaurant-page/owner-restaurant-page.component";
-import axios from "axios";
 
 class App extends Component {
   unsubscribedFromAuth = null;
@@ -34,6 +38,7 @@ class App extends Component {
     super(props);
     this.state = {
       user: {},
+      validUser: false,
     };
   }
   //after component is done rendering the first time
@@ -41,19 +46,29 @@ class App extends Component {
     this.authListener();
   }
 
+  isValidUser = async (userId) => {
+    let res = await axios.get(`${BASE_API_URL}/user/exists/${userId}`);
+
+    console.log("testing", userId, "results", res.data);
+
+    // if user has not selected an account type:
+    if (res.data === false) {
+      this.setState({ validUser: false });
+    } else {
+      this.setState({ validUser: true });
+    }
+  };
+
   authListener() {
     this.unsubscribedFromAuth = firebaseAuth
       .auth()
       .onAuthStateChanged((user) => {
-        console.log(user);
-        console.log("app.js");
         if (user) {
-          console.log("gggg");
-          this.setState({ user });
+          this.isValidUser(user.uid);
           this.props.updateCurrentUser(user.uid);
           this.props.setUserAuth(user);
         } else {
-          this.setState({ user: null });
+          this.setState({ validUser: false });
           this.props.setUserAuth(null);
           this.props.resetUserRedux();
         }
@@ -66,7 +81,13 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="App" onClick={console.log(this.state)}>
+        {this.props.userAuth && !this.state.validUser && (
+          <Modal defaultShow backdrop>
+            <RegisterUserType />
+          </Modal>
+        )}
+
         <BrowserRouter>
           <header>
             <Navbar />

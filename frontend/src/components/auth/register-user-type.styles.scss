@@ -1,0 +1,18 @@
+@import "../../assets/theme";
+
+.register-user-type {
+  width: 100%;
+
+  width: 20rem;
+
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  // justify-content: space-between;
+
+  background-color: #fff;
+
+  .selected {
+    background-color: $primary;
+  }
+}
