@@ -9,21 +9,23 @@
   }
   .tab-inactive {
     // width: auto;
-    background-color: transparent;
-    // border: none;
-    // border-bottom: 3px solid black;
-    // outline: none;
-    // color: $secondary;
+    background-color: $white_wildsand;
+    border: none;
+    border-bottom: 1px solid black;
+    outline: none;
+    color: $secondary;
 
-    // font-weight: bold;
+    font-weight: bold;
 
-    // padding: 0.4rem 0.3rem 0.4rem 0.3rem;
+    padding: 0.4rem 0.3rem 0.4rem 0.3rem;
   }
 
   .tab-active {
     // width: 5em;
     background-color: $primary !important;
-    // border-bottom: 2px solid transparent;
+    padding: 0.4rem 0.3rem 0.4rem 0.3rem;
+    border-bottom: 2px solid black;
+    font-weight: bold;
     // border-image-slice: 1;
     // border-image-source: linear-gradient(to right, $lime, rgb(83, 240, 201));
     // padding: 10px;
