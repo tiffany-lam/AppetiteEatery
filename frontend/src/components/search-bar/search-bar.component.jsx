@@ -36,6 +36,17 @@ const SearchBar = ({
   const browserLocation = useLocation();
   const inputRef = React.createRef();
 
+  useEffect(()=>{
+    
+    const script = document.createElement("script");
+    script.src = "https://maps.googleapis.com/maps/api/js?key=" + process.env.REACT_APP_GOOGLE_PLACES_API_KEY + "&libraries=places";
+    //console.log(script.src);
+    script.async = true;
+    document.body.appendChild(script);
+    //handleScriptLoad();
+
+  })
+  
   const handleChange = (e) => {
     setSearchbarValue(e.target.value);
   };
@@ -55,12 +66,12 @@ const SearchBar = ({
   };
   const handleScriptLoad = () =>{
     //declare for autocomple
-    const options = {types: ['cities']};
+    const options = {types: ['(cities)']};
     //initialize google autocomple
     /*global google*/
-    autocomplete = new google.map.places.Autocomplete(
+    var autocomplete = new window.google.map.places.Autocomplete(
       document.getElementById('autocomplete'),
-      options
+      {}
     );
     //restrict number of places that are returned 
     autocomplete.setFields(['address_components'], ['formatted_address']);
@@ -80,12 +91,15 @@ const SearchBar = ({
 
   return (
     <div
+    
       {...props}
       className={`search-bar-container ${className}`}
       onKeyDown={submitSearch}
     >
       <div className="search-input-container">
-        {/* <Script url = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBizwIhvrwkxV0sFb0c0VzCKglIf_6x01M&libraries=places" onLoad={handleScriptLoad}/> */}
+        
+        {/* <Script url = {"https://maps.googleapis.com/maps/api/js?key=" + process.env.REACT_APP_GOOGLE_PLACES_API_KEY + "&libraries=places"} onLoad={handleScriptLoad}/>
+        {console.log(process.env.REACT_APP_GOOGLE_MAPS_API_KEY)} */}
         <label htmlFor="search-bar-value" className="label-hide">
           search
         </label>
@@ -112,7 +126,7 @@ const SearchBar = ({
           placeholder="near..."
           // value = {query}
           onChange={(e) => {
-            setSearchbarLocationFilter({query});
+            setSearchbarLocationFilter({query: e.target.value});
           }}
         />
       </div>

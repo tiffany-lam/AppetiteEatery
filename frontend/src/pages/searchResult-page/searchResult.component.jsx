@@ -37,8 +37,9 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
             //console.log(res.data);
             //if the data returned isn't undefined or null then set the result
             if(res.data.search_results){
-              setResults(res.data.search_results);
               setLoading(false);
+              setResults(res.data.search_results);
+              
             }
             
             //console.log(res.data.search_results);
@@ -62,23 +63,33 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
   useEffect(() => {
     const sortArray = type =>{
       const types = {
-        dateOld: 'dateOpen',
-        dateNew: 'dateOpen',
+        dateOld: 'dateOpenOld',
+        dateNew: 'dateOpenNew',
         ratings: 'average',
         distance: 'location'
       };
       const sortProperty = types[type];
+      console.log(sortProperty);
       //sort - returns negative value is first argument is less than second
       //use ... to clone before we sort
-      const sorted = [...results].sort((a,b) => b[sortProperty] - a[sortProperty]);
-
+      console.log([...result])
+      if(sortProperty === 'dateOpenNew'){
+        const sorted = [...results].sort((a,b) => a[sortProperty] > b[sortProperty]);
+      }
+      
+      if(sortProperty === 'dateOpenOld'){
+        const sorted = [...results].sort((a,b) => b.dateOpen > a.dateOpen);
+      }
+      else{
+        const sorted = [...results].sort((a,b) => b[sortProperty] - a[sortProperty]);
+      }
       console.log("sorted", sorted);
       setResults(sorted);
     };
     sortArray(sortType);
   }, [sortType]); //returns the sorted array 
   //sort filters - this will sort the restaurants based on the selected options in the dropdown
-  
+ 
   //Get current results 
   const indexOfLastResult = currentPage * resultsPerPage;
   const indexOfFirstResult = indexOfLastResult - resultsPerPage;
