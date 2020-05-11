@@ -16,10 +16,14 @@ import "./searchResult-page.styles.scss";
 const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
   //[] is the initial value of results
   const [results, setResults] = useState([]);
+  //by default the restaurants will be sorted by date ratings ;; subject to change
+  const[sortType, setSortType] = useState('ratings');
   const [filter, setFilter] = useState("none");
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [resultsPerPage, setResultPerPage] = useState(5);
+
+  //this useEffect is to get the results to retrieve all the data 
   useEffect(() => {
     let source = axios.CancelToken.source();
     const fetchData = async () => {
@@ -30,9 +34,7 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
             console.log("Retrieved all data \n");
             console.log(res);
             console.log(res.data);
-            // if(!res.data.includes("html")){
-            //   setResults(res.data.search_results);
-            // }
+            //if the data returned isn't undefined or null then set the result
             if(res.data.search_results){
               setResults(res.data.search_results);
             }
@@ -51,6 +53,25 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
       source.cancel();
     };
   }, [searchbarValue]);
+  //use another useEffect to sort
+  useEffect(() => {
+    const sortArray = type =>{
+      const types = {
+        dateOld: 'date',
+        dateNew: 'date',
+        rating: 'ratings',
+        distance: 'distance'
+      };
+      const sortProperty = types[type];
+      //sort - returns negative value is first argument is less than second
+      //use ... to clone before we sort
+      const sorted = [...results].sort((a,b) => b[sortProperty] - a[sortProperty])
+      console.log("sorted", sorted);
+      setResults(sorted);
+    };
+    sortArray(sortType);
+  }, [sortType]); //returns the sorted array 
+  //sort filters - this will sort the restaurants based on the selected options in the dropdown
   
   //Get current results 
   const indexOfLastResult = currentPage * resultsPerPage;
@@ -60,29 +81,34 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
   //Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber)
   return (
-   
     <div>
-      
-      <div className="filter">{/* {this.props.setSearchbarValue} */}</div>
-      {/* {console.log("results: ", results)}
-          {console.log("search_results: ", results.search_results)} */}
-      {results.length === 0 ? (
-        <h1>No results</h1>
-      ) : (
-        <div>
-          <Results results={currentResults} loading={loading} />
-          <Pagination resultsPerPage={resultsPerPage} totalResults={results.length} 
-          paginate = {paginate}
-          currentPage = {currentPage} />
-        </div>
-      )}
-      {/* <Pagination
-              className = "pagination"
-              total =
-              page = {this.state.page}
-              pageWindowLength={5}
-              onChange = {this.handleOnChange}
-          /> */}
+        <div className="filter">{/* {this.props.setSearchbarValue} */}</div>
+        {/* {console.log("results: ", results)}
+            {console.log("search_results: ", results.search_results)} */}
+        {results.length === 0 ? (
+          <h1>No results</h1>
+        )  
+        //else
+        :( 
+          <div className = "resultsContainer"> 
+            <div className = "dropdown">
+              <select className = "sortby" onChange={(e) => setSortType(e.target.value)} >
+                <option>Sort by</option>
+                <option value ="distance">Distance</option>
+                <option value = "rating">Highest Rating</option>
+                <option value = "dateNew">Date opened (newest)</option>
+                <option value = "dateOld">Date opened (oldest)</option>
+              </select>
+            </div>
+            <div>
+              <Results results={currentResults} loading={loading} />
+              <Pagination resultsPerPage={resultsPerPage} totalResults={results.length} 
+              paginate = {paginate}
+              currentPage = {currentPage} />
+            </div>
+          </div>
+        )}
+
     </div>
   );
 };
