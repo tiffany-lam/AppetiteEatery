@@ -23,6 +23,7 @@ import FormInput from "../../components/form-input/form-input.component";
 import AddTagInput from "../../components/add-tag-input/add-tag-input.component";
 import CloseIcon from "@material-ui/icons/Close";
 import ImageUploadInput from "../../components/img-upload-input/img-upload-inputcomponent";
+import CustomButton from "../../components/custom-button/custom-button.component";
 
 import { BASE_API_URL } from "../../utils";
 
@@ -233,14 +234,14 @@ const RestaurantPage = ({ match, currentUser, ...props }) => {
       .catch((error) => console.error(error));
   };
 
-  const tags = restaurant.restaurantTags.map((tag) => {
-    return <Tag key={tag} value={tag}></Tag>;
+  const tags = restaurant.restaurantTags.map((tag, index) => {
+    return <Tag key={`${tag} ${index}`} value={tag}></Tag>;
   });
 
   const reviews = restaurant
-    ? restaurant.reviews.map((review) => {
+    ? restaurant.reviews.map((review, index) => {
         return (
-          <li key={review.user._id}>
+          <li key={`${review.user._id} ${index}`}>
             <Review
               user={review.user.fname}
               avatar={review.user.avatar}
@@ -922,26 +923,16 @@ const RestaurantPage = ({ match, currentUser, ...props }) => {
                 ]}
               ></Tabs>
             </div>
-            <div className="temp">
-              <button
-                type="button"
-                onClick={() => {
-                  saveAll();
-                  setEditable(false);
-                }}
-              >
-                SAVE YOUR CHANGES TO DATABASE
-              </button>{" "}
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  console.log(restaurant);
-                }}
-              >
-                RESTAURANT
-              </button>
-            </div>
+            <CustomButton
+              margin
+              type="button"
+              onClick={() => {
+                saveAll();
+                setEditable(false);
+              }}
+            >
+              SAVE
+            </CustomButton>
           </div>
         </div>
       </div>
@@ -1099,11 +1090,15 @@ const RestaurantPage = ({ match, currentUser, ...props }) => {
                 ]}
               ></Tabs>
             </div>
-            <div className="temp">
-              <button type="button" onClick={() => setEditable(true)}>
+            {currentUser._id === restaurant.ownerid._id ? (
+              <CustomButton
+                margin
+                type="button"
+                onClick={() => setEditable(true)}
+              >
                 EDIT
-              </button>
-            </div>
+              </CustomButton>
+            ) : null}
           </div>
         </div>
       </section>

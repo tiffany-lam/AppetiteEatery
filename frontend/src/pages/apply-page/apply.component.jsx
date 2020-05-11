@@ -185,7 +185,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
   };
 
   return (
-    <div className="apply-page-container">
+    <section className="apply-page-container">
       {loading ? (
         <Modal defaultShow backdrop>
           <LoadingAnimation
@@ -204,7 +204,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
       <form onSubmit={submitForm}>
         <h2 className="form-subtitle">Basic Information</h2>
         <FormInput
-          readOnly={loading ? true : false}
+          readOnly={loading}
           required
           type="text"
           htmlFor="restaurant-name"
@@ -217,7 +217,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
         />
 
         <FormInput
-          readOnly={loading ? true : false}
+          readOnly={loading}
           required
           type="date"
           htmlFor="date-created"
@@ -230,7 +230,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
         />
 
         <FormInput
-          readOnly={loading ? true : false}
+          readOnly={loading}
           type="text"
           htmlFor="website"
           label="website"
@@ -242,7 +242,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
         />
 
         <FormInput
-          readOnly={loading ? true : false}
+          readOnly={loading}
           required
           type="textarea"
           htmlFor="restaurant-description"
@@ -277,7 +277,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
           Address
         </h2>
         <FormInput
-          readOnly={loading ? true : false}
+          readOnly={loading}
           required
           type="text"
           htmlFor="street-address"
@@ -290,7 +290,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
         />
 
         <FormInput
-          readOnly={loading ? true : false}
+          readOnly={loading}
           type="text"
           htmlFor="street-address-2"
           label="Street Address 2"
@@ -302,9 +302,9 @@ const ApplyPage = ({ userAuth, ...props }) => {
           additionalInfo="(optional)"
         />
 
-        <div className="city-state-zip-container">
+        <section className="city-state-zip-container">
           <FormInput
-            readOnly={loading ? true : false}
+            readOnly={loading}
             required
             type="text"
             htmlFor="city"
@@ -318,7 +318,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
           />
 
           <SelectInput
-            disabled={loading ? true : false}
+            disabled={loading}
             required
             label="state"
             htmlFor="state"
@@ -336,7 +336,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
           </SelectInput>
 
           <FormInput
-            readOnly={loading ? true : false}
+            readOnly={loading}
             required
             type="text" // not number because zipcodes are best treated as strings
             htmlFor="zipcode"
@@ -349,7 +349,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
             id="zipcode-input"
             pattern="^\d{5}(?:[-]\d{4})?$"
           />
-        </div>
+        </section>
 
         <FormInput
           // required
@@ -374,7 +374,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
         </h2>
 
         <ImageUploadInput
-          disabled={loading ? true : false}
+          disabled={loading}
           label="Restaurant Images"
           htmlFor="restaurant-images"
           value={images}
@@ -384,7 +384,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
         />
 
         <ImageUploadInput
-          disabled={loading ? true : false}
+          disabled={loading}
           // disabled
           label="Menu Images"
           htmlFor="menu-images"
@@ -404,7 +404,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
         </h2>
 
         <SelectInput
-          disabled={loading ? true : false}
+          disabled={loading}
           required
           label="parking"
           htmlFor="parking"
@@ -419,7 +419,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
         </SelectInput>
 
         <SelectInput
-          disabled={loading ? true : false}
+          disabled={loading}
           required
           label="reservation"
           htmlFor="reservation"
@@ -433,7 +433,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
         </SelectInput>
 
         <SelectInput
-          disabled={loading ? true : false}
+          disabled={loading}
           required
           label="pets allowed"
           htmlFor="pets-allowed"
@@ -447,7 +447,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
         </SelectInput>
 
         <SelectInput
-          disabled={loading ? true : false}
+          disabled={loading}
           required
           label="takeout"
           htmlFor="takeout"
@@ -461,7 +461,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
         </SelectInput>
 
         <SelectInput
-          disabled={loading ? true : false}
+          disabled={loading}
           required
           label="wifi"
           htmlFor="wifi"
@@ -475,7 +475,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
         </SelectInput>
 
         <FormInput
-          readOnly={loading ? true : false}
+          readOnly={loading}
           required
           type="number"
           htmlFor="wait-time"
@@ -499,7 +499,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
         </h2>
 
         <HourRangeInput
-          readOnly={loading ? true : false}
+          readOnly={loading}
           label="sunday"
           className="time-range-input"
           value2={hours.sunday.to}
@@ -519,7 +519,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
         />
 
         <HourRangeInput
-          readOnly={loading ? true : false}
+          readOnly={loading}
           label="monday"
           className="time-range-input"
           value2={hours.monday.to}
@@ -539,7 +539,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
         />
 
         <HourRangeInput
-          readOnly={loading ? true : false}
+          readOnly={loading}
           label="tuesday"
           className="time-range-input"
           value2={hours.tuesday.to}
@@ -559,7 +559,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
         />
 
         <HourRangeInput
-          readOnly={loading ? true : false}
+          readOnly={loading}
           label="wednesday"
           className="time-range-input"
           value2={hours.wednesday.to}
@@ -578,7 +578,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
           }}
         />
         <HourRangeInput
-          readOnly={loading ? true : false}
+          readOnly={loading}
           label="thursday"
           className="time-range-input"
           value2={hours.thursday.to}
@@ -597,7 +597,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
           }}
         />
         <HourRangeInput
-          readOnly={loading ? true : false}
+          readOnly={loading}
           label="friday"
           className="time-range-input"
           value2={hours.friday.to}
@@ -616,7 +616,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
           }}
         />
         <HourRangeInput
-          readOnly={loading ? true : false}
+          readOnly={loading}
           label="saturday"
           className="time-range-input"
           value2={hours.saturday.to}
@@ -644,13 +644,10 @@ const ApplyPage = ({ userAuth, ...props }) => {
           Tags
         </h2>
 
-        <AddTagInput
-          disabled={loading ? true : false}
-          handleAnyChange={setTags}
-        />
+        <AddTagInput disabled={loading} handleAnyChange={setTags} />
 
         <CustomButton
-          disabled={loading ? true : false}
+          disabled={loading}
           type="submit"
           className="input-override"
           margin
@@ -658,7 +655,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
           submit
         </CustomButton>
       </form>
-    </div>
+    </section>
   );
 };
 

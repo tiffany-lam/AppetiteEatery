@@ -1,9 +1,11 @@
+blinker==1.4
 boto3==1.13.0
 botocore==1.16.0
 click==7.1.1
 docutils==0.15.2
 Flask==1.1.2
 Flask-Cors==3.0.8
+Flask-Mail==0.9.1
 Flask-PyMongo==2.3.0
 itsdangerous==1.1.0
 Jinja2==2.11.2

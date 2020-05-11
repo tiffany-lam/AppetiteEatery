@@ -170,6 +170,11 @@ section.review-input:focus-within {
         object-fit: cover;
       }
 
+      svg {
+        height: 100%;
+        width: 36px;
+      }
+
       input[type="submit"] {
         height: min-content;
         align-self: center;
