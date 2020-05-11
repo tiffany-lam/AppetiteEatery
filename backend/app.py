@@ -93,13 +93,9 @@ def process_email():
     subject = request.json['subject']
     body = request.json['body']
 
-    print(name)
-    print(sender)
-    print(subject)
-    print(body)
-
-    msg = Message(subject, sender = (name, sender), recipients=[os.getenv('MAIL_USERNAME')])
-    msg.body = body
+    msg = Message(subject, sender = os.getenv('MAIL_USERNAME'), recipients = [os.getenv('MAIL_USERNAME')])
+    content = "Name: " + name + "\nEmail: " + sender + "\n\nBody: " + body
+    msg.body = content
     print(msg)
 
     mail.send(msg)
