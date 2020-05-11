@@ -128,28 +128,24 @@ class ReviewInput extends Component {
       <section className="review-input">
         <div className="review-extra">
           <div className="review-user">
-            <img
-              src={`${BASE_API_URL}/img-get?url=${this.props.currentUser.avatar}`}
-              alt={this.props.currentUser.avatar}
-              onClick={() => {
-                console.log(this.state);
-                console.log(this.props.currentUser);
-              }}
-            />
-            {/* <p>{props.user}</p> */}
+            {this.props.currentUser.avatar ? (
+              <img
+                src={`${BASE_API_URL}/img-get?url=${this.props.currentUser.avatar}`}
+                alt={this.props.currentUser.avatar}
+              />
+            ) : (
+              <FaceIcon></FaceIcon>
+            )}
             <p>
               {this.props.currentUser.fname} {this.props.currentUser.lname}
             </p>
           </div>
-          {/* <div className="review-rating"> */}
           <Rating
             input
             maxRating={5}
             icon={<FavoriteIcon />}
-            // icon={<StarsRoundedIcon></StarsRoundedIcon>}
             setRating={this.setRating}
           />
-          {/* </div> */}
         </div>
         <form className="review-form" onSubmit={this.submitReview}>
           <label htmlFor="review-input"></label>
@@ -166,7 +162,6 @@ class ReviewInput extends Component {
           ></textarea>
           <div className="review-form-submit">
             <label htmlFor="upload-img">
-              {/* <AddAPhotoIcon></AddAPhotoIcon> */}
               <AddIcon></AddIcon>
               <input
                 type="file"
