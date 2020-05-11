@@ -17,7 +17,7 @@ const SelectUserType = ({ setChanges = () => {}, className, ...props }) => {
       <label
         id="patron-lbl"
         className={`radio-label ${userType === "patron" ? "selected" : ""}`}
-        for="patron"
+        htmlFor="patron"
       >
         <span>Patron</span>
         <input
@@ -37,7 +37,7 @@ const SelectUserType = ({ setChanges = () => {}, className, ...props }) => {
       <label
         id="owner-lbl"
         className={`radio-label ${userType === "owner" ? "selected" : ""}`}
-        for="owner"
+        htmlFor="owner"
       >
         <span>Owner</span>
         <input
