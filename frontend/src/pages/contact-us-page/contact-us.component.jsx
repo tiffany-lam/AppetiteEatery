@@ -24,7 +24,26 @@ const ContactUsPage = ({ userAuth, currentUser, ...props }) => {
     body: "",
   });
 
-  const sendEmail = async (e) => {};
+  const sendEmail = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    if (userAuth) {
+      let name = currentUser.fname + " " + currentUser.lname;
+      setContents({ ...contents, sender: currentUser.email, name: name });
+    }
+
+    await axios
+      .post(`${BASE_API_URL}/email`, contents)
+      .then(async (res) => {
+        setLoading(false);
+        browserHistory.push("/");
+      })
+      .catch((error) => {
+        setLoading(false);
+        browserHistory.push("/error-page");
+      });
+  };
 
   return (
     <section className="contact-us-page-background">
@@ -38,11 +57,15 @@ const ContactUsPage = ({ userAuth, currentUser, ...props }) => {
       ) : null}
       <div className="contact-us-page">
         <h1 className="contact-us-title">What can we do for you today?</h1>
-        <form action="" method="post" className="contact-us-form">
+        <form
+          action=""
+          method="post"
+          className="contact-us-form"
+          onSubmit={sendEmail}
+        >
           {userAuth ? null : (
             <React.Fragment>
               <FormInput
-                className="form-inputs"
                 readOnly={loading}
                 type="text"
                 htmlFor="sender-name"
@@ -54,7 +77,6 @@ const ContactUsPage = ({ userAuth, currentUser, ...props }) => {
                 }}
               ></FormInput>
               <FormInput
-                className="form-inputs"
                 readOnly={loading}
                 type="text"
                 htmlFor="sender-email"
@@ -68,7 +90,6 @@ const ContactUsPage = ({ userAuth, currentUser, ...props }) => {
             </React.Fragment>
           )}
           <SelectInput
-            className="form-inputs"
             diasbled={loading}
             required
             label="reason"
@@ -90,7 +111,7 @@ const ContactUsPage = ({ userAuth, currentUser, ...props }) => {
             <option value="other">Other</option>
           </SelectInput>
           <FormInput
-            className="form-inputs"
+            className="textarea-input"
             readOnly={loading}
             required
             type="textarea"
@@ -106,16 +127,6 @@ const ContactUsPage = ({ userAuth, currentUser, ...props }) => {
             Submit
           </CustomButton>
         </form>
-        <button
-          type="button"
-          onClick={(e) => {
-            console.log(contents);
-            console.log(currentUser);
-            console.log(userAuth);
-          }}
-        >
-          ME
-        </button>
       </div>
     </section>
   );
