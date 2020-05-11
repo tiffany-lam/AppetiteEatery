@@ -30,10 +30,13 @@
     color: red;
   }
 }
-.pagination {
-  align-items: center;
-  text-align: center;
-  margin-top: 15px;
+.sortby{
+  margin: 0.7rem;
+  float: right;
+}
+
+.pagination-container{
+  margin-inline-start: 0.7rem;
 }
 
 .card-margin {

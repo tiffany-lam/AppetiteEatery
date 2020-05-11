@@ -36,7 +36,8 @@ const RestaurantCard = ({
   ...props
 }) => {
   return (
-    <section
+    // article works better since it represents a self-contained composition in a document
+    <article
       className={`restaurant-card-container ${className ? className : ""}`}
     >
       <img
@@ -70,7 +71,7 @@ const RestaurantCard = ({
           ))}
         </ul>
       </div>
-    </section>
+    </article>
   );
 };
 

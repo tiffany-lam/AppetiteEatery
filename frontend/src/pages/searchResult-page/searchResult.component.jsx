@@ -81,35 +81,34 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
   //Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber)
   return (
-    <div>
-        <div className="filter">{/* {this.props.setSearchbarValue} */}</div>
-        {/* {console.log("results: ", results)}
-            {console.log("search_results: ", results.search_results)} */}
+    <section>
         {results.length === 0 ? (
           <h1>No results</h1>
         )  
         //else
         :( 
           <div className = "resultsContainer"> 
-            <div className = "dropdown">
+            <section className = "dropdown">
               <select className = "sortby" onChange={(e) => setSortType(e.target.value)} >
-                <option>Sort by</option>
-                <option value ="distance">Distance</option>
                 <option value = "rating">Highest Rating</option>
+                <option value ="distance">Distance</option>
                 <option value = "dateNew">Date opened (newest)</option>
                 <option value = "dateOld">Date opened (oldest)</option>
               </select>
-            </div>
-            <div>
+            </section>
+            <section>
+               {/* this is each of the restaurants that will show up in our search, based on what the user searches */}
               <Results results={currentResults} loading={loading} />
+            </section> 
+            <section className = "pagination-container">
               <Pagination resultsPerPage={resultsPerPage} totalResults={results.length} 
               paginate = {paginate}
               currentPage = {currentPage} />
-            </div>
+            </section>
           </div>
         )}
 
-    </div>
+    </section>
   );
 };
 

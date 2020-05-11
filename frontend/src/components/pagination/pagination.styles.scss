@@ -18,4 +18,6 @@ li.page-item.active{
     
 }
 .pagination a:hover:not(.active) {
-    background-color: $lime;}
+    border: 1px solid black;
+    background-color: $lime;
+}
