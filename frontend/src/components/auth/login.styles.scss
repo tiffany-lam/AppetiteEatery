@@ -45,6 +45,20 @@
     }
   }
 
+  .login-error-msg {
+    font-size: 0.8rem;
+    color: red;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-top: 0.5rem;
+
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    animation: shake 500ms forwards linear;
+  }
+
   .login-form {
     background-color: inherit;
     display: flex;

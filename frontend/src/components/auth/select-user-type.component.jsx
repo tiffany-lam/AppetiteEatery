@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import "./selectUserType.styles.scss";
+import Results from "../search-result/Results.component";
 
 const SelectUserType = ({ setChanges = () => {}, className, ...props }) => {
   const [userType, setUserType] = useState("patron");
