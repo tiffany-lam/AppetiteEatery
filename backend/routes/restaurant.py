@@ -360,6 +360,7 @@ def search(searchvalue):
     
     
     print("result object: ", resultObject)
+
     return json.dumps(resultObject, default=str), 200
     #return json.dumps(emptyObject, default=str), 200
 
