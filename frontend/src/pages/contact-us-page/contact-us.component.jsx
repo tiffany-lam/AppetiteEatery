@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import axios from "axios";
 import { BASE_API_URL } from "../../utils";
+import ReCAPTCHA from "react-google-recaptcha";
 
 import FormInput from "../../components/form-input/form-input.component";
 import SelectInput from "../../components/select-input/select-input.component";
@@ -15,6 +16,9 @@ import "./contact-us.styles.scss";
 
 const ContactUsPage = ({ userAuth, currentUser, ...props }) => {
   const browserHistory = useHistory();
+  const captcha = React.createRef();
+
+  const [verified, setVerified] = useState(false);
 
   const [loading, setLoading] = useState(false);
   const [contents, setContents] = useState({
@@ -28,6 +32,10 @@ const ContactUsPage = ({ userAuth, currentUser, ...props }) => {
     e.preventDefault();
     setLoading(true);
 
+    if (!verified) {
+      return;
+    }
+
     if (userAuth) {
       let name = currentUser.fname + " " + currentUser.lname;
       setContents({ ...contents, sender: currentUser.email, name: name });
@@ -37,24 +45,36 @@ const ContactUsPage = ({ userAuth, currentUser, ...props }) => {
       .post(`${BASE_API_URL}/email`, contents)
       .then(async (res) => {
         setLoading(false);
-        browserHistory.push("/");
+        // browserHistory.push("/");
       })
       .catch((error) => {
         setLoading(false);
-        browserHistory.push("/error-page");
+        // browserHistory.push("/error-page");
       });
+  };
+
+  const verifyCallback = async (token) => {
+    await axios
+      .post(
+        `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.REACT_APP_CAPTCHA_SECRET_KEY}&response=${token}`
+      )
+      .then((res) => {
+        console.log(res);
+        setVerified(res.data.success);
+      })
+      .catch((error) => console.error(error));
   };
 
   return (
     <section className="contact-us-page-background">
-      {loading ? (
+      {/* {loading ? (
         <Modal defaultShow backdrop>
           <LoadingAnimation
             text1="Sending Request"
             text2="Please Wait"
           ></LoadingAnimation>
         </Modal>
-      ) : null}
+      ) : null} */}
       <div className="contact-us-page">
         <h1 className="contact-us-title">What can we do for you today?</h1>
         <form
@@ -90,7 +110,7 @@ const ContactUsPage = ({ userAuth, currentUser, ...props }) => {
             </React.Fragment>
           )}
           <SelectInput
-            diasbled={loading}
+            disabled={loading}
             required
             label="reason"
             htmlFor="reason"
@@ -98,9 +118,6 @@ const ContactUsPage = ({ userAuth, currentUser, ...props }) => {
               setContents({ ...contents, subject: e.target.value });
             }}
           >
-            <option value="" selected disabled hidden>
-              Select an Option
-            </option>
             <option value="troubleshooting restaurant management">
               Troubleshooting Restaurant Management
             </option>
@@ -123,10 +140,23 @@ const ContactUsPage = ({ userAuth, currentUser, ...props }) => {
             }}
             maxLength="2000"
           ></FormInput>
-          <CustomButton disabled={loading} type="submit" margin>
+          <ReCAPTCHA
+            className="captcha"
+            ref={captcha}
+            size="normal"
+            render="explicit"
+            sitekey={process.env.REACT_APP_SITE_KEY}
+            onChange={verifyCallback}
+          ></ReCAPTCHA>
+          <CustomButton disabled={loading || !verified} type="submit" margin>
             Submit
           </CustomButton>
         </form>
+        {!verified ? (
+          <p className="contact-requirement">
+            Please fill out captcha to proceed
+          </p>
+        ) : null}
       </div>
     </section>
   );

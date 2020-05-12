@@ -65,11 +65,15 @@ const SearchBar = ({
     
     // const latLong = getLatLng(placesResults[0]);
     // console.log("results", latLong);
-    console.log(value);
     geocodeByAddress(value)
-    .then(results =>  setCoordinatates(getLatLng(results[0])))
-    .then(console.log('Success: lat and long: ', coordinates))
-    .catch(error => console.error('Error', error));
+      .then(async (results) => {
+      return getLatLng(results[0]);
+      })
+      .then((coordinates) => {
+        console.log(coordinates);
+        setCoordinatates(coordinates);
+      })
+    .catch((error) => console.error("Error", error));
 
     // //results is an array with different values in it, long,lat, geometry, city ect
     // //converts the string value using the google places api into placesResults

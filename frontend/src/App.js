@@ -32,6 +32,7 @@ import ProfilePage from "./pages/profile-page/profile-page.component";
 import SearchResult from "./pages/searchResult-page/searchResult.component";
 import ApplyPage from "./pages/apply-page/apply.component";
 import OwnerRestaurantPage from "./pages/owner-restaurant-page/owner-restaurant-page.component";
+import AboutUsPage from "./pages/about-us-page/about-us.component";
 
 const App = ({ currentUser, userAuth, ...props }) => {
   const [validUser, setValidUser] = useState(false);
@@ -132,6 +133,7 @@ const App = ({ currentUser, userAuth, ...props }) => {
             <Route exact path="/" component={HomePage} />
             <Route exact path="/search" component={SearchResult} />
             <Route path="/contact-us" component={ContactUsPage} />
+            <Route path="/about-us" component={AboutUsPage} />
             <Route
               exact
               path="/restaurant/:restaurantId"

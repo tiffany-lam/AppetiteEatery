@@ -327,7 +327,7 @@ def search(searchvalue):
     # all the results that we want
     emptyObject["search_results"] = []
 
-    if(searchvalue == "food"):
+    if(searchvalue.lower() == "food"):
         for restaurant in restaurants_collection:
             resultObject['search_results'].append(
                 restaurant.to_mongo().to_dict())
@@ -366,6 +366,7 @@ def search(searchvalue):
     #             resultObject['search_results'].append(restaurant.to_mongo().to_dict())
 
     print("result object: ", resultObject)
+
     return json.dumps(resultObject, default=str), 200
     # return json.dumps(emptyObject, default=str), 200
 

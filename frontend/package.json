@@ -19,6 +19,7 @@
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.1",
     "react-dom": "^16.13.1",
+    "react-google-recaptcha": "^2.0.1",
     "react-load-script": "0.0.6",
     "react-places-autocomplete": "^7.2.1",
     "react-redux": "^7.2.0",
