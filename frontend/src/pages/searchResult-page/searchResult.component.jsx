@@ -131,7 +131,7 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
   //Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
   return (
-    <section>
+    <section className="search-results-container">
       {/* // if result length is 0 show no results, */}
       {loading === true ? (
         <LoadingAnimation

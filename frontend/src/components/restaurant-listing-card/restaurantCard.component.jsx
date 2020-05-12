@@ -42,7 +42,9 @@ const RestaurantCard = ({
     >
       <img
         src={`${BASE_API_URL}/img-get?url=${restaurant.images[0]}`}
-        alt={restaurant.images[0]}
+        alt={`${
+          restaurant.images[0] ? restaurant.images[0].slice(0, 5) : "Image"
+        }...`}
         onMouseOver={(e) => {
           console.log(restaurant);
           console.log(Math.floor(restaurant.average));

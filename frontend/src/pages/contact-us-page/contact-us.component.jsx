@@ -141,12 +141,12 @@ const ContactUsPage = ({ userAuth, currentUser, ...props }) => {
             maxLength="2000"
           ></FormInput>
           <ReCAPTCHA
-            // className="captcha"
-            // ref={captcha}
-            // size="normal"
-            // render="explicit"
+            className="captcha"
+            ref={captcha}
+            size="normal"
+            render="explicit"
             sitekey={process.env.REACT_APP_SITE_KEY}
-            // onChange={verifyCallback}
+            onChange={verifyCallback}
           ></ReCAPTCHA>
           <CustomButton disabled={loading || !verified} type="submit" margin>
             Submit

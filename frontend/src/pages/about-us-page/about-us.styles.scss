@@ -43,6 +43,7 @@
   }
 
   p {
+    margin-top: 4rem;
     font-size: 1rem;
     letter-spacing: 0.05rem;
   }
@@ -199,6 +200,7 @@ section.about-us:hover {
     width: 100%;
     height: min-content;
     background-color: transparent;
+    padding-bottom: 2rem;
 
     h2 {
       top: 0;
@@ -214,7 +216,6 @@ section.about-us:hover {
     }
 
     p {
-      margin-top: 4rem;
       opacity: 100%;
       transition: opacity 2s;
     }
@@ -253,6 +254,86 @@ section.about-us:hover {
       opacity: 100%;
       transform: rotate(0deg);
       transition: opacity 2s;
+    }
+  }
+}
+
+@media (max-width: 510px) {
+  .about-us {
+    @include about-us-expand;
+    flex-wrap: nowrap;
+    background-color: transparent;
+
+    .about-us-design {
+      width: 100%;
+      height: min-content;
+      background-color: transparent;
+
+      h2 {
+        top: 0;
+        left: 0;
+
+        transform: translate(0%, 0%) rotate(0deg);
+
+        font-size: 2rem;
+
+        text-align: left;
+      }
+
+      h2::after {
+        transform: translate(0, 0);
+      }
+
+      p {
+        opacity: 100%;
+        transition: opacity 2s;
+      }
+    }
+
+    .about-us-developers {
+      width: 100%;
+      height: min-content;
+      margin-left: 0;
+      padding-top: 0;
+      background-color: transparent;
+
+      h2 {
+        top: 0;
+        left: 0;
+
+        transform: translate(0%, 0%) rotate(0deg);
+
+        font-size: 2rem;
+      }
+
+      h2::after {
+        transform: translate(0, 0);
+      }
+
+      .about-us-sam {
+        padding-top: 0;
+        margin-top: 4rem;
+      }
+
+      .about-us-sam,
+      .about-us-julie,
+      .about-us-tiffany,
+      .about-us-veronica {
+        height: 100%;
+        opacity: 100%;
+        transform: rotate(0deg);
+        transition: opacity 2s;
+      }
+    }
+  }
+}
+
+@media (max-width: 447px) {
+  .about-us {
+    .about-us-design {
+      p {
+        margin-top: 6rem;
+      }
     }
   }
 }
