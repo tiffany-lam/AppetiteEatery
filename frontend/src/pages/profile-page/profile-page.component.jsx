@@ -29,19 +29,12 @@ class ProfilePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      persons: [],
       fname: "",
       lname: "",
       email: "",
       type: "Restaurant Patron",
       reviewCount: "",
-      tags: [
-        "Wontons",
-        "Tacos",
-        "Ice-Cream",
-        "Fruit-Smoothies", 
-        "Matcha",
-      ],
+      tags: [],
       avatar:
         "https://images.unsplash.com/photo-1489481039754-8701aeda983b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1955&q=80",
       reviews: [],
@@ -49,23 +42,22 @@ class ProfilePage extends Component {
   }
 
   async componentDidMount() {
-    console.log("hellllo", this.props.userAuth);
+    // console.log("hellllo", this.props.userAuth);
 
     // Request to get patron reviews
     let res = await axios.get(`${BASE_API_URL}/user/getPatronReviews/${this.props.userAuth.uid}`);
     console.log("check meeee");
     // console.log(res);
-    console.log(res.data);
-    console.log("reviewws??", res.data.reviews.length);
+    // console.log(res.data);
+    // console.log("reviewws??", res.data.reviews.length);
     console.log(process.env);
 
     this.setState({ reviews: res.data.reviews });
     this.setState({ reviewCount: res.data.reviews.length });
+    this.setState({ tags: this.props.currentUser.tags });
   }
 
-  // reveal() {
-  //   document.getElementsById("hidden").style.display = "inline";
-  // }
+  
 
   render() {
       const tags = this.state.tags.map((tag) => {
@@ -101,7 +93,7 @@ class ProfilePage extends Component {
                   console.log(this.state);
                 }}>
                     test
-                </button>*/}
+                </button> */}
                 <h1>{this.props.currentUser.fname} {this.props.currentUser.lname}</h1>
                 <CustomButton type="button" icon={<CreateIcon />} className="profile-button">
                   Edit My Info
@@ -124,14 +116,11 @@ class ProfilePage extends Component {
                     <div id="col2">
                       <h3>About Me</h3> 
                       <p>
-                        Tom Dumpling here. Programmer who loves wontons. Making the world a better
-                        place one review at a time.
+                        {this.props.currentUser.about}
                       </p>
                       <h3>Favorite Restaurant</h3>
                       <div id="checkIn">
-                        <MapContainer 
-                          longitude={33.7838279}
-                          latitude={-118.1162791}/>
+                        <MapContainer />
                       </div>
                     </div>
                   {/* <div className="favorites">

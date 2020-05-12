@@ -72,6 +72,8 @@
 
   h1 {
     font-size: 2.3em;
+    border-left:none;
+    text-transform: none;
     color: #ff6b71;
     display: inline;
   }
@@ -86,6 +88,7 @@
     font-weight: bold; 
     color: $secondary;
     padding-bottom: 7px;
+    display: inline-block
   }
 
   .profile-save-button {
@@ -147,6 +150,7 @@
     // grid-row-end: 1;
     grid-column-start: 1;
     grid-column-end: 1;
+    display: block;
     justify-self: left;
     margin: 20px;
     width: 250px;
