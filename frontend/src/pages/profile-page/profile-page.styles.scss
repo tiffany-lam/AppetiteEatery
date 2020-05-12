@@ -52,6 +52,13 @@
     display: inline-block;
   }
 
+  fieldset {
+    height: min-content;
+    width: 100%;
+
+    border: none;
+  }
+
   ///////// TEXT STYLING /////////////
 
   h1, h2, h2 + p {
