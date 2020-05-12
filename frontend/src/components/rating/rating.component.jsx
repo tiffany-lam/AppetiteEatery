@@ -33,8 +33,10 @@ const Rating = ({
       className={`rating-container ${
         vertical ? "rating-vertical" : "rating-horizontal"
       } ${input ? "rating-input" : ""}`}
+      onMouseOver={() => {
+        console.log(rating);
+      }}
     >
-      {/* {console.log("Rating Rendering")} */}
       {[...Array(maxRating)].map((e, i) =>
         createIcon(
           i,

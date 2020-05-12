@@ -6,9 +6,9 @@ import "./about-us.styles.scss";
 
 const AboutUsPage = (props) => {
   return (
-    <div className="about-us-container">
-      <section className="about-us">
-        {/* <h1>About Us</h1> */}
+    <section className="about-us-container">
+      <h1>About Us</h1>
+      <div className="about-us">
         <section className="about-us-design">
           <h2>Design & Development</h2>
           <p>
@@ -138,8 +138,8 @@ const AboutUsPage = (props) => {
             </p>
           </section>
         </section>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 };
 

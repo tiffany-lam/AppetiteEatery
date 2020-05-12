@@ -53,12 +53,22 @@
     .res-rating-normal {
       display: flex;
       flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      width: auto;
       height: min-content;
 
       p {
         padding-right: 0.25rem;
         align-self: center;
         color: $secondary;
+      }
+
+      .res-date {
+        // flex: 1 0 0;
+        padding: 0;
+        width: 100%;
+        text-align: right;
       }
     }
 
@@ -68,7 +78,7 @@
     }
 
     .res-address {
-      width: 100%;
+      width: auto;
       display: flex;
       padding: 0.1rem 0.25rem 0.25rem 0.25rem;
 
