@@ -13,7 +13,11 @@
   align-items: center;
 
   ul {
+    display: flex;
+    flex-direction: row;
     li {
+      margin: 0 1rem;
+      color: $background_light;
       a {
         color: $background_light;
         // color: $secondary_dark;

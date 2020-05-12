@@ -13,7 +13,10 @@ class FooterNav extends Component {
       <nav className="footer-nav">
         <ul>
           <li>
-            <Link to="/contact-us">Contact Us</Link>
+            <Link to="/contact-us">Contact</Link>
+          </li>
+          <li>
+            <Link to="/about-us">About</Link>
           </li>
         </ul>
       </nav>

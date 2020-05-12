@@ -2,14 +2,8 @@
 
 .restaurant-card-container {
   background-color: $background_light;
-
-  // background-color: $secondary;
-  // background-color: $primary;
-  width: 40rem;
-  // height: 20rem;
-  // max-height: 30rem;
-
-  // height: 40rem;
+  width: 100%;
+  max-width: 40rem;
 
   display: flex;
   flex-direction: row;
@@ -23,33 +17,31 @@
     height: 10rem;
     object-fit: cover;
     border-radius: 3px;
-    // margin: 0.5rem;
   }
 
   .restaurant-info {
-    // width: 20rem;
-    // height: 20rem;
-    // max-width: 20rem;
-    // max-height: 20rem;
     margin-left: 0.25rem;
     background-color: $background_light;
-    // border: 1px solid lightgray;
 
     flex: 1;
 
-    // display: flex;
-    // flex-direction: column;
     width: 100%;
     position: relative;
 
+    display: flex;
+    flex-direction: column;
+
+    .res-header {
+      display: flex;
+      justify-content: space-between;
+      h2 {
+        word-break: break-word;
+      }
+    }
+
     .res-name {
       padding: 0 0.25rem;
-      // width: 100%;
       display: flex;
-      // justify-content: center;
-
-      // background-color: $secondary;
-      // color: $background_light;
       color: $secondary;
       background-color: $background_light;
       font-size: 1.5rem;
@@ -58,30 +50,28 @@
       text-align: left;
     }
 
-    .res-rating {
-      position: absolute;
-      top: 0;
-      right: 0;
-      padding: 0 0.25rem;
+    .res-rating-normal {
       display: flex;
       flex-direction: row;
-      align-self: center;
+      height: min-content;
 
       p {
         padding-right: 0.25rem;
         align-self: center;
-        // color: $background_light;
         color: $secondary;
       }
+    }
+
+    .res-rating-shrink {
+      display: none;
+      align-content: center;
     }
 
     .res-address {
       width: 100%;
       display: flex;
-      // justify-content: center;
-      padding: 0.25rem;
+      padding: 0.1rem 0.25rem 0.25rem 0.25rem;
 
-      // background-color: lightgray;
       color: $secondary_dark;
       font-style: italic;
     }
@@ -94,16 +84,10 @@
 
     .tag-list {
       padding: 0 0.25rem;
-      // background-color: red;
-      // flex: 2;
 
       display: flex;
-      // justify-content: flex-end;
-      // align-items: flex-end;
-
       flex-wrap: wrap-reverse;
-      position: absolute;
-      bottom: 0;
+      margin-top: auto;
     }
   }
 
@@ -111,18 +95,52 @@
   &:focus {
     outline: none;
     border: 1px solid $secondary_dark;
-    // box-shadow: $light_box_shadow;
   }
 }
 
-@media (width: 643px) {
+@media (max-width: 500px) {
   .restaurant-card-container {
-    // background-color: yellow;
     display: flex;
-    flex-direction: column;
+    width: 100%;
 
-    width: 20rem;
-    height: 40rem;
-    max-height: 40rem;
+    img {
+      width: 5rem;
+      height: 5rem;
+    }
+
+    .restaurant-info {
+      .res-header {
+        display: flex;
+        justify-content: space-between;
+        h2 {
+          word-break: break-word;
+        }
+      }
+      .res-name {
+        font-size: 1.1rem;
+      }
+
+      .res-rating-normal {
+        display: none;
+      }
+
+      .res-rating-shrink {
+        padding: 0 0.25rem;
+        display: flex;
+
+        p {
+          padding-left: 0.25rem;
+          color: $secondary;
+        }
+      }
+
+      .res-description {
+        display: none;
+      }
+
+      .tag-list {
+        display: none;
+      }
+    }
   }
 }
