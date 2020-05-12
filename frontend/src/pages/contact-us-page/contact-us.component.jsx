@@ -45,11 +45,11 @@ const ContactUsPage = ({ userAuth, currentUser, ...props }) => {
       .post(`${BASE_API_URL}/email`, contents)
       .then(async (res) => {
         setLoading(false);
-        // browserHistory.push("/");
+        browserHistory.push("/");
       })
       .catch((error) => {
         setLoading(false);
-        // browserHistory.push("/error-page");
+        browserHistory.push("/error-page");
       });
   };
 
