@@ -9,6 +9,8 @@ import { BASE_API_URL } from "../../utils";
 import Results from "../../components/search-result/Results.component";
 //import the pagination
 import Pagination from "../../components/pagination/Pagination.component"
+//import custom loading animation
+import LoadingAnimation from "../../components/loading-animation/loading-animation.component";
 //import style
 import "./searchResult-page.styles.scss";
 
@@ -17,14 +19,15 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
   //[] is the initial value of results
   const [results, setResults] = useState([]);
   //by default the restaurants will be sorted by date ratings ;; subject to change
-  const[sortType, setSortType] = useState('ratings');
-  const [filter, setFilter] = useState("none");
+  const[sortType, setSortType] = useState('rating');
+  //const [filter, setFilter] = useState("none");
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [resultsPerPage, setResultPerPage] = useState(5);
 
   //this useEffect is to get the results to retrieve all the data 
   useEffect(() => {
+    setCurrentPage(1); //new results start at page 1
     let source = axios.CancelToken.source();
     const fetchData = async () => {
       setLoading(true);
@@ -38,8 +41,13 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
             //if the data returned isn't undefined or null then set the result
             if(res.data.search_results){
               setLoading(false);
-              setResults(res.data.search_results);
-              
+              //because we are on the main search page, we only want NICHE restaurants aka restaurants under 10 reviews
+              //for demos we use 10 because we would need a lot of reviews. 
+              //.filter looks through array
+              console.log("search results:", res.data.search_results);
+              setResults(res.data.search_results.filter(
+                (restaurant) => restaurant.reviews.length < 10) //based on this conditon it will refill the array
+              );
             }
             
             //console.log(res.data.search_results);
@@ -54,42 +62,66 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
       }
     };
     if (searchbarValue !== "" || searchbarValue !== " ") fetchData();
+    if (searchbarValue === "" || searchbarValue === " ") setLoading(false);
+    
     return () => {
+      //COMPONENT UNMOUNT
       setLoading(false);
       source.cancel();
     };
   }, [searchbarValue]);
   //use another useEffect to sort
   useEffect(() => {
-    const sortArray = type =>{
-      const types = {
-        dateOld: 'dateOpenOld',
-        dateNew: 'dateOpenNew',
-        ratings: 'average',
-        distance: 'location'
-      };
-      const sortProperty = types[type];
-      console.log(sortProperty);
-      //sort - returns negative value is first argument is less than second
-      //use ... to clone before we sort
-      if(sortProperty === 'dateOpenNew'){
-        const sorted = [...results].sort((a,b) => a[sortProperty] > b[sortProperty]);
-      }
-      
-      if(sortProperty === 'dateOpenOld'){
-        const sorted = [...results].sort((a,b) => b.dateOpen > a.dateOpen);
-      }
-      else{
-        const sorted = [...results].sort((a,b) => b[sortProperty] - a[sortProperty]);
-      }
-      const sorted = [...results].sort((a,b) => b[sortProperty] - a[sortProperty]);
-      console.log("sorted", sorted);
-      setResults(sorted);
-    };
     sortArray(sortType);
   }, [sortType]); //returns the sorted array 
   //sort filters - this will sort the restaurants based on the selected options in the dropdown
- 
+  const sortArray = type =>{
+    // const types = {
+    //   dateOld: 'dateOpen',
+    //   dateNew: 'dateOpen',
+    //   rating: 'average',
+    //   distance: 'location'
+    // };
+    // const sortProperty = types[type];
+    // console.log(sortProperty);
+    console.log("type: ", type)
+    let sorted = [...results]; 
+    //sort - returns negative value is first argument is less than second
+    //use ... to clone before we sort
+    // if (type === 'rating'){
+    //   sorted.sort((a,b) => {
+    //     const avg = a.average - b.average;
+    //     console.log("a", a)
+    //     console.log("a avg", a.average)
+    //     console.log("b", b)
+    //     console.log("bavg", b.average)
+    //     console.log("avg", avg )
+    //     return avg
+    //   });
+      
+    //  // const sorted = results.filter((restaurant) => restaurant.average < 10);
+    // }
+    if(type === 'rating'){
+      sorted.sort((a,b) => b.average - a.average);
+    }
+    else if(type === 'dateNew'){
+      //if the date is less that means that date is smaller aka newer; so if a is less than b that means a is newest so it goes before b thius return 1 if a is newer than b
+      sorted.sort((a,b) => a.dateOpen < b.dateOpen ? 1 : -1);
+    }
+    
+    else if(type === 'dateOld'){
+      //if the date is greater that means that date is older; so if a is greater than b that means a is older so it goes before b thus return 1 if a is oldder than b
+      sorted = [...results].sort((a,b) => a.dateOpen > b.dateOpen ? 1 : -1);
+    }
+    // else if(type == 'location'){
+    //   sorted = [...results].sort((a,b) => b.location - a.location);
+    // }
+    //const sorted = [...results].sort((a,b) => b[sortProperty] - a[sortProperty]);
+    //const sorted = [...results].sort((a,b) => a.sortProperty - b.sortProperty);
+    
+    console.log("sorted", sorted);
+    setResults(sorted);
+  };
   //Get current results 
   const indexOfLastResult = currentPage * resultsPerPage;
   const indexOfFirstResult = indexOfLastResult - resultsPerPage;
@@ -100,9 +132,14 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
   return (
     <section>
         {/* // if result length is 0 show no results, */} 
-        {results.length === 0 ? <h1>No results</h1>
+        {loading === true ? 
+        <LoadingAnimation
+          // horizontal
+          // background
+          text1="Searching for restaurants.."
+        /> 
         //if loading is true show loading, 
-        : loading === true ? <h1> Loading... </h1>
+        : results.length === 0 ? <h1>No results</h1>
         //else show results 
         : (
           <div className = "resultsContainer"> 

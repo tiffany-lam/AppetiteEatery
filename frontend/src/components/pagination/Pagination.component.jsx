@@ -15,9 +15,11 @@ const Pagination = ({resultsPerPage, totalResults, paginate, currentPage}) => {
                 <li key={number}    
                     className={`page-item ${currentPage === number ? ' active' : ''}`}>
                     {/* creates a link for each page */}
-                    <a onClick={() => paginate(number)} href='#' className='page-link'>
+                    {/* according to w3.org, we can have an a tag without a href:
+                     "If the a element has no href attribute, then the element represents a placeholder for where a link might otherwise have been placed, if it had been relevant."*/}
+                    <a onClick={() => paginate(number)} className='page-link' role="button" tabIndex="0">
                     {number}
-                    </a>
+                    </a>            
                 </li>
                 ))}
             </ul>

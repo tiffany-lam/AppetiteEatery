@@ -320,7 +320,7 @@ def search(searchvalue):
     emptyObject["search_results"] = []
     
  
-    if(searchvalue == "food"):
+    if(searchvalue.lower() == "food"):
         for restaurant in restaurants_collection:
             resultObject['search_results'].append(restaurant.to_mongo().to_dict())
         
