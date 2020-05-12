@@ -1,8 +1,11 @@
+/* 
+  Author: Tiffany Lam 
+  Main function: searchResult is a component that retrieves data using AXIOS/Flask to pull from restaurants based on what the user searches from the database. This component is rendered on the /search page and includes pagination, and a sort filter to sort the results. 
+ */
 import React, { Component, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { setSearchbarValue } from "../../redux/ui/ui.actions";
 import axios from "axios";
-
 import { BASE_API_URL } from "../../utils";
 
 //import the results 
@@ -41,8 +44,7 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
             //if the data returned isn't undefined or null then set the result
             if(res.data.search_results){
               setLoading(false);
-              //because we are on the main search page, we only want NICHE restaurants aka restaurants under 10 reviews
-              //for demos we use 10 because we would need a lot of reviews. 
+              //because we are on the main search page, we only want NICHE restaurants aka restaurants under 10 reviews for demos we use 10 because we would need a lot of reviews. 
               //.filter looks through array
               console.log("search results:", res.data.search_results);
               setResults(res.data.search_results.filter(
@@ -76,31 +78,10 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
   }, [sortType]); //returns the sorted array 
   //sort filters - this will sort the restaurants based on the selected options in the dropdown
   const sortArray = type =>{
-    // const types = {
-    //   dateOld: 'dateOpen',
-    //   dateNew: 'dateOpen',
-    //   rating: 'average',
-    //   distance: 'location'
-    // };
-    // const sortProperty = types[type];
-    // console.log(sortProperty);
     console.log("type: ", type)
     let sorted = [...results]; 
     //sort - returns negative value is first argument is less than second
     //use ... to clone before we sort
-    // if (type === 'rating'){
-    //   sorted.sort((a,b) => {
-    //     const avg = a.average - b.average;
-    //     console.log("a", a)
-    //     console.log("a avg", a.average)
-    //     console.log("b", b)
-    //     console.log("bavg", b.average)
-    //     console.log("avg", avg )
-    //     return avg
-    //   });
-      
-    //  // const sorted = results.filter((restaurant) => restaurant.average < 10);
-    // }
     if(type === 'rating'){
       sorted.sort((a,b) => b.average - a.average);
     }
