@@ -67,14 +67,14 @@ const ContactUsPage = ({ userAuth, currentUser, ...props }) => {
 
   return (
     <section className="contact-us-page-background">
-      {loading ? (
+      {/* {loading ? (
         <Modal defaultShow backdrop>
           <LoadingAnimation
             text1="Sending Request"
             text2="Please Wait"
           ></LoadingAnimation>
         </Modal>
-      ) : null}
+      ) : null} */}
       <div className="contact-us-page">
         <h1 className="contact-us-title">What can we do for you today?</h1>
         <form
@@ -110,7 +110,7 @@ const ContactUsPage = ({ userAuth, currentUser, ...props }) => {
             </React.Fragment>
           )}
           <SelectInput
-            diasbled={loading}
+            disabled={loading}
             required
             label="reason"
             htmlFor="reason"
@@ -118,9 +118,6 @@ const ContactUsPage = ({ userAuth, currentUser, ...props }) => {
               setContents({ ...contents, subject: e.target.value });
             }}
           >
-            <option value="" selected disabled hidden>
-              Select an Option
-            </option>
             <option value="troubleshooting restaurant management">
               Troubleshooting Restaurant Management
             </option>
@@ -144,12 +141,12 @@ const ContactUsPage = ({ userAuth, currentUser, ...props }) => {
             maxLength="2000"
           ></FormInput>
           <ReCAPTCHA
-            className="captcha"
-            ref={captcha}
-            size="normal"
-            render="explicit"
+            // className="captcha"
+            // ref={captcha}
+            // size="normal"
+            // render="explicit"
             sitekey={process.env.REACT_APP_SITE_KEY}
-            onChange={verifyCallback}
+            // onChange={verifyCallback}
           ></ReCAPTCHA>
           <CustomButton disabled={loading || !verified} type="submit" margin>
             Submit

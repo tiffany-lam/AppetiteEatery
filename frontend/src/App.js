@@ -133,6 +133,7 @@ const App = ({ currentUser, userAuth, ...props }) => {
             <Route exact path="/" component={HomePage} />
             <Route exact path="/search" component={SearchResult} />
             <Route path="/contact-us" component={ContactUsPage} />
+            <Route path="/about-us" component={AboutUsPage} />
             <Route
               exact
               path="/restaurant/:restaurantId"
