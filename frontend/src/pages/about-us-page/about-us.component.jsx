@@ -107,7 +107,7 @@ const AboutUsPage = (props) => {
               My name is Tiffany Lam, and I'm part of the team behind Appetite
               Eatery. As part of the team, I set up authentication for users and
               developed the main architecture behind our database. I also set up
-              the restaurant search, a vital feature of our website.
+              the restaurant search and sort, a vital feature of our website.
             </p>
           </section>
           <section className="about-us-veronica">
