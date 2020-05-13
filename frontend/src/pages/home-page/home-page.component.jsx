@@ -97,7 +97,7 @@ const HomePage = () => {
         {results.map((restaurant, i) => (
           <ImageCard
             key={i}
-            to={`/restaurant/${restaurant.id}`}
+            to={`/restaurant/${restaurant._id}`}
             className="image-lights-up-limelight"
             onMouseEnter={enableLimelightGlow}
             onMouseLeave={disableLimeLightGlow}
