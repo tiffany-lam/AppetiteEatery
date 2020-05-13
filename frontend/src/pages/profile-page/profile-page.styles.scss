@@ -1,22 +1,32 @@
+/*
+  Contributors: Veronica Sumariyanto 013229149
+  Course: CECS 470
+
+  Description: This scss class styles the profile page component.
+*/
+
+// Importing our theme
 @import "../../assets/theme";
 
-
+// Sets up the styling for the entire page
 .profile-page-container {
   display: flex;
   flex-direction: column;
 
+  // Sets up the margin
   .userContainer {
     margin: 15px;
   }
 
+  // Styles the top portion of the profile page with flex
   .userContainer-inner {
     margin: 20px;
     display: flex;
     flex-direction: row;
-    // flex-wrap: wrap;
     justify-content: flex-start;
   }
 
+  // Styles the first and last name of the patron. Also the input form when it is editing.
   .profileName {
     display: flex;
     flex-direction: row;
@@ -26,6 +36,7 @@
 
     border: none;
 
+    // Styling the form field to edit a patron's name.
     input[type="text"] {
       background: none;
       border: none;
@@ -45,15 +56,18 @@
     }
   }
 
+  // Styling the favorites for tags to flex.
   #favorites {
     display: flex;
   }
 
+  // Styling the flex-containers within the userContainer-inner.
   #flex-container1, #flex-container2 {
     display:flex;
     flex-direction: column;
     width: 100%;
 
+    // Styles the text area input for the about me.
     textarea {
       width: 100%;
       background-color: $background_light;
@@ -72,6 +86,7 @@
     margin: 8px;
   }
 
+  // This styles the "Edit My Profile" button to have it aligned on the right and sets the width.
   h1 + button {
     width: 15%;
     float: right;
@@ -99,6 +114,7 @@
     display: block;
   }
 
+  // Styles the "Save Changes" button.
   .profile-save-button {
     width: 15%;
     float: right;
@@ -106,6 +122,7 @@
     margin-right: 20px;
   }
   
+  // Styles the p element within userContainer-inner
   .userContainer-inner {
     p {
       font-size: 1.1em;
@@ -115,14 +132,12 @@
     }
   }
 
-  #col2 p {
-    padding-bottom: 10px;
-  }
-
+  // Sets the margin for the heading for user reviews.
   .userReviews h3 {
     margin: 10px;
   }
   
+  // Resizes the paragraph in reviews.
   .review-user-info p {
     font-size: 15px;
   }
@@ -130,12 +145,14 @@
   
   /////////// IMAGES /////////////////
 
+  // Styles the map container to set its position and size.
   #checkIn {
     position: relative;
     width: 100%;
     height: 300px;
   }
   
+  // Styles the patron's avatar to display on the page.
   .profile-img {
     display: flex;
     justify-self: left;

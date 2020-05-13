@@ -115,41 +115,45 @@ class ProfilePage extends Component {
       // This renders the page when the patron is going to edit their information.
       <React.Fragment>
         <section className="profile-page-container">
+        {/* This sets up the form for editing profile information. */}
           <form action="" method="put" id="manage-profile">
             <section className="userContainer">
+            {/* This is the form to edit a patron's first and last name. */}
               <div className="profileName">
-              <label htmlFor="patronfname">
-                <span>First Name</span>
-                <input
-                  type="text"
-                  name="fname"
-                  id="fname"
-                  required
-                  className="name"
-                  value={this.state.fname}
-                  onChange={(e) => {
-                    this.setState({ fname: e.target.value });
-                  }}
-                />
-              </label>
-              <label htmlfo="patronlname">
-                <span>Last Name</span>
-                <input
-                  type="text"
-                  name="lname"
-                  id="lname"
-                  required
-                  className="name"
-                  value={this.state.lname}
-                  onChange={(e) => {
-                    this.setState({ lname: e.target.value });
-                  }}
-                />
-              </label>
+                <label htmlFor="patronfname">
+                  <span>First Name</span>
+                  <input
+                    type="text"
+                    name="fname"
+                    id="fname"
+                    required
+                    className="name"
+                    value={this.state.fname}
+                    onChange={(e) => {
+                      this.setState({ fname: e.target.value });
+                    }}
+                  />
+                </label>
+                <label htmlfo="patronlname">
+                  <span>Last Name</span>
+                  <input
+                    type="text"
+                    name="lname"
+                    id="lname"
+                    required
+                    className="name"
+                    value={this.state.lname}
+                    onChange={(e) => {
+                      this.setState({ lname: e.target.value });
+                    }}
+                  />
+                </label>
               </div>
               <h2>{this.props.currentUser.email}</h2>
               <Divider full={true} />
+              {/* // This sets up the top portion of the profile page. */}
               <div className="userContainer-inner">
+                {/* // A div that styles the left column of the top portion of the profile page. */}
                 <div id="flex-container1">
                   <img
                     className="profile-img"
@@ -157,6 +161,7 @@ class ProfilePage extends Component {
                     alt="user"
                   />
                   <h3 id="toggle-mini">Favorites</h3>
+                  {/* // Using the AddTagInput component to add/remove favorite tags. */}
                   <AddTagInput
                     tagValues={this.state.tags}
                     handleAnyChange={(value) => {
@@ -164,7 +169,9 @@ class ProfilePage extends Component {
                     }}
                   ></AddTagInput>
                 </div>
+                {/* // A div that styles the right column of the top portion of the profile page. */}
                 <div id="flex-container2">
+                  {/* // Using the FormInput component to edit the about me section. */}
                   <FormInput
                     type="textarea"
                     htmlFor="about"
@@ -177,6 +184,7 @@ class ProfilePage extends Component {
                     additionalInfo="(max: 250 characters)"
                   />
                   <h3>Favorite Restaurant</h3>
+                  {/* // A div that styles the MapContainer component to fit properly in the userContainer. */}
                   <div id="checkIn">
                     <MapContainer
                       longitude={33.6714426}
@@ -185,6 +193,7 @@ class ProfilePage extends Component {
                   </div>
                 </div>
               </div>
+              {/* // The CustomButton component that saves all new information after editing. */}
               <CustomButton
                 type="button"
                 icon={<DoneIcon />}
@@ -200,6 +209,7 @@ class ProfilePage extends Component {
             </section>
           </form>
           <Divider full={true} />
+          {/* // The section that sets up the reviews at the bottom of the page. */}
           <section className="userReviews">
             <h2>
               {this.props.currentUser.fname} {this.props.currentUser.lname}'s
@@ -212,11 +222,13 @@ class ProfilePage extends Component {
       </React.Fragment>
     ) : (
       <React.Fragment>
+      {/* // This is the default view that allows the patron to view their profile. */}
         <section className="profile-page-container">
           <section className="userContainer">
             <h1>
               {this.props.currentUser.fname} {this.props.currentUser.lname}
             </h1>
+            {/* // Using the CustomButton component that changes the viewing state to an editing state. */}
             <CustomButton
               type="button"
               icon={<CreateIcon />}
@@ -229,7 +241,9 @@ class ProfilePage extends Component {
             </CustomButton>
             <h2 id="toggle-mini">{this.props.currentUser.email}</h2>
             <Divider full={true} />
+            {/* // This sets up the top portion of the profile page. */}
             <div className="userContainer-inner">
+            {/* // A div that styles the left column of the top portion of the profile page. */}
               <div id="flex-container1">
                 <img
                   className="profile-img"
@@ -239,10 +253,12 @@ class ProfilePage extends Component {
                 <h3 id="toggle-mini">Favorites</h3>
                 <ul id="favorites">{tags}</ul>
               </div>
+              {/* // A div that styles the right column of the top portion of the profile page. */}
               <div id="flex-container2">
                 <h3>About Me</h3>
                 <p>{this.props.currentUser.about}</p>
                 <h3>Favorite Restaurant</h3>
+                {/* // Using the MapContainer component to display. */}
                 <div id="checkIn">
                   <MapContainer
                     longitude={33.6714426}
@@ -253,6 +269,7 @@ class ProfilePage extends Component {
             </div>
           </section>
           <Divider full={true} />
+          {/* // A section that displays the reviews on the bottom of the page. */}
           <section className="userReviews">
             <h2>
               {this.props.currentUser.fname} {this.props.currentUser.lname}'s
@@ -267,11 +284,13 @@ class ProfilePage extends Component {
   }
 }
 
+// Redux method that maps the state to props.
 const mapStateToProps = ({ user }) => ({
   userAuth: user.userAuth,
   currentUser: user.currentUser,
 });
 
+// Redux method that maps dispatch to props.
 const mapDispatchToProps = (dispatch) => ({
   setUserAuth: (user) => dispatch(setUserAuth(user)),
   setCurrentUser: (userId) => dispatch(setCurrentUser(userId)),
