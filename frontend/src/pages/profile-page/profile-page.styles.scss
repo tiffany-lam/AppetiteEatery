@@ -2,34 +2,20 @@
 
 
 .profile-page-container {
-  // padding: 25px;
-  // margin: 2em 3em;
   display: flex;
   flex-direction: column;
-  // background-color: $primary;
-  // border-radius: 25px;
 
   .userContainer {
-    // background-color: $background_dark;
-    border-radius: 15px;
     margin: 15px;
   }
 
   .userContainer-inner {
     margin: 20px;
-    display: grid;
-    grid-template-columns: 45% auto;
-    // grid-template-rows: 1fr auto;
-    // grid-template-areas: 
-    //   "picture userInfo"
-    //   "favorites userInfo";
+    display: flex;
+    flex-direction: row;
+    // flex-wrap: wrap;
+    justify-content: flex-start;
   }
-
-  #col2 {
-    grid-column-start: 2;
-    grid-column-end: 2;
-  }
-
 
   .profileName {
     display: flex;
@@ -58,15 +44,27 @@
       justify-self: flex-start;
     }
 
+    // textarea {
+    //   width: 100%;
+    //   background-color: $background_light;
+    //   padding: 1rem;
+    // }
+  }
+
+  #favorites {
+    display: flex;
+  }
+
+  #flex-container1, #flex-container2 {
+    display:flex;
+    flex-direction: column;
+    width: 100%;
+
     textarea {
       width: 100%;
       background-color: $background_light;
       padding: 1rem;
     }
-  }
-
-  #favorites {
-    display: inline-flex;
   }
 
   ///////// TEXT STYLING /////////////
@@ -108,7 +106,6 @@
   }
 
   .profile-save-button {
-    // display: none;
     width: 15%;
     float: right;
     margin-bottom: 8px;
@@ -151,7 +148,7 @@
     // grid-row-end: 1;
     grid-column-start: 1;
     grid-column-end: 1;
-    display: block;
+    display: flex;
     justify-self: left;
     margin: 20px;
     width: 350px;

@@ -132,11 +132,11 @@ class ProfilePage extends Component {
                 />
               </label>
               </div>
-              <h2 id="toggle-mini">{this.props.currentUser.email}</h2>
+              <h2>{this.props.currentUser.email}</h2>
               <Divider full={true} />
               <div className="userContainer-inner">
                 {/* <fieldset form="manage-profile1" classname=""> */}
-                <div id="col1">
+                <div id="flex-container1">
                   <img
                     className="profile-img"
                     src={`${BASE_API_URL}/img-get?url=${this.props.currentUser.avatar}`}
@@ -150,7 +150,7 @@ class ProfilePage extends Component {
                     }}
                   ></AddTagInput>
                 </div>
-                <div id="col2">
+                <div id="flex-container2">
                   <FormInput
                     type="textarea"
                     htmlFor="about"
@@ -218,7 +218,7 @@ class ProfilePage extends Component {
             <h2 id="toggle-mini">{this.props.currentUser.email}</h2>
             <Divider full={true} />
             <div className="userContainer-inner">
-              <div id="col1">
+              <div id="flex-container1">
                 <img
                   className="profile-img"
                   src={`${BASE_API_URL}/img-get?url=${this.props.currentUser.avatar}`}
@@ -227,7 +227,7 @@ class ProfilePage extends Component {
                 <h3 id="toggle-mini">Favorites</h3>
                 <ul id="favorites">{tags}</ul>
               </div>
-              <div id="col2">
+              <div id="flex-container2">
                 <h3>About Me</h3>
                 <p>{this.props.currentUser.about}</p>
                 <h3>Favorite Restaurant</h3>
@@ -238,7 +238,6 @@ class ProfilePage extends Component {
                   />
                 </div>
               </div>
-              {/* </fieldset> */}
             </div>
           </section>
           <Divider full={true} />
