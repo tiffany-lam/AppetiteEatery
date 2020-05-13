@@ -1,0 +1,342 @@
+@import "../../assets/theme";
+
+@mixin about-us-container {
+  background-color: $primary;
+
+  height: 50%;
+  width: 50%;
+
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+
+  transition: all 1s ease-in-out;
+
+  position: relative;
+
+  h2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    color: $secondary;
+    font-weight: bold;
+    text-transform: uppercase;
+
+    transition: all 1s ease-in-out;
+    transform: translate(-50%, -50%) rotate(45deg);
+
+    text-align: center;
+  }
+
+  h2::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 100%;
+    // width: 5rem;
+    width: 100%;
+    border-bottom: 5px solid $primary;
+    border-radius: 1px;
+
+    transform: translate(-100%, 0);
+    transition: transform 1s ease 1s;
+  }
+
+  p {
+    margin-top: 4rem;
+    font-size: 1rem;
+    letter-spacing: 0.05rem;
+  }
+}
+
+@mixin about-us-expand {
+  height: 100%;
+  width: 100%;
+
+  top: 0;
+
+  justify-content: start;
+  align-items: start;
+
+  transform: rotate(0deg);
+}
+
+@mixin about-us-developer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  opacity: 0%;
+
+  transform: rotate(45deg);
+
+  h3 {
+    width: auto;
+
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: $primary;
+
+    text-transform: uppercase;
+  }
+
+  hr {
+    flex: 1 0 0;
+    height: 0;
+    align-self: center;
+    margin-left: 1rem;
+    border: 1px solid $primary;
+  }
+
+  h4 {
+    width: 100%;
+    height: min-content;
+
+    font-weight: bold;
+    font-style: italic;
+    color: $secondary;
+
+    margin: 1rem 1rem 0 1rem;
+  }
+
+  ul {
+    margin: 1rem;
+
+    width: 15rem;
+
+    li {
+      padding-bottom: 0.3rem;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      align-items: center;
+
+      p {
+        margin: 0 0 0.2rem 0.5rem;
+      }
+    }
+  }
+
+  p {
+    flex: 1 0 0;
+    margin: 1rem;
+  }
+}
+
+.about-us-container {
+  height: 100%;
+  padding-bottom: 0;
+
+  overflow: hidden;
+
+  h1 {
+    height: min-content;
+    margin-bottom: 1rem;
+  }
+}
+
+.about-us {
+  height: 20rem;
+  width: 20rem;
+
+  background-color: $secondary;
+
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+
+  position: relative;
+  top: 5rem;
+
+  box-sizing: border-box;
+
+  transform: rotate(-45deg);
+  transition: all 1s ease-in-out;
+
+  margin: 0 auto;
+
+  h1 {
+    color: $primary;
+    font-weight: bold;
+  }
+
+  .about-us-design {
+    @include about-us-container;
+    padding-bottom: 2rem;
+
+    transition: all 1s ease-in-out;
+
+    p {
+      opacity: 0%;
+    }
+
+    overflow: hidden;
+  }
+
+  .about-us-developers {
+    @include about-us-container;
+    margin-left: 50%;
+
+    overflow: hidden;
+
+    .about-us-sam {
+      padding-top: 10rem;
+      transition: padding 1s ease-in-out;
+    }
+
+    .about-us-sam,
+    .about-us-julie,
+    .about-us-tiffany,
+    .about-us-veronica {
+      @include about-us-developer;
+    }
+  }
+}
+
+div.about-us:hover {
+  @include about-us-expand;
+  flex-wrap: nowrap;
+  background-color: transparent;
+
+  .about-us-design {
+    width: 100%;
+    height: min-content;
+    background-color: transparent;
+    padding-bottom: 2rem;
+
+    h2 {
+      top: 0;
+      left: 0;
+
+      transform: translate(0%, 0%) rotate(0deg);
+
+      font-size: 2rem;
+    }
+
+    h2::after {
+      transform: translate(0, 0);
+    }
+
+    p {
+      opacity: 100%;
+      transition: opacity 2s;
+    }
+  }
+
+  .about-us-developers {
+    width: 100%;
+    height: min-content;
+    margin-left: 0;
+    padding-top: 0;
+    background-color: transparent;
+
+    h2 {
+      top: 0;
+      left: 0;
+
+      transform: translate(0%, 0%) rotate(0deg);
+
+      font-size: 2rem;
+    }
+
+    h2::after {
+      transform: translate(0, 0);
+    }
+
+    .about-us-sam {
+      padding-top: 0;
+      margin-top: 4rem;
+    }
+
+    .about-us-sam,
+    .about-us-julie,
+    .about-us-tiffany,
+    .about-us-veronica {
+      height: 100%;
+      opacity: 100%;
+      transform: rotate(0deg);
+      transition: opacity 2s;
+    }
+  }
+}
+
+@media (max-width: 510px) {
+  .about-us {
+    @include about-us-expand;
+    flex-wrap: nowrap;
+    background-color: transparent;
+
+    .about-us-design {
+      width: 100%;
+      height: min-content;
+      background-color: transparent;
+
+      h2 {
+        top: 0;
+        left: 0;
+
+        transform: translate(0%, 0%) rotate(0deg);
+
+        font-size: 2rem;
+
+        text-align: left;
+      }
+
+      h2::after {
+        transform: translate(0, 0);
+      }
+
+      p {
+        opacity: 100%;
+        transition: opacity 2s;
+      }
+    }
+
+    .about-us-developers {
+      width: 100%;
+      height: min-content;
+      margin-left: 0;
+      padding-top: 0;
+      background-color: transparent;
+
+      h2 {
+        top: 0;
+        left: 0;
+
+        transform: translate(0%, 0%) rotate(0deg);
+
+        font-size: 2rem;
+      }
+
+      h2::after {
+        transform: translate(0, 0);
+      }
+
+      .about-us-sam {
+        padding-top: 0;
+        margin-top: 4rem;
+      }
+
+      .about-us-sam,
+      .about-us-julie,
+      .about-us-tiffany,
+      .about-us-veronica {
+        height: 100%;
+        opacity: 100%;
+        transform: rotate(0deg);
+        transition: opacity 2s;
+      }
+    }
+  }
+}
+
+@media (max-width: 447px) {
+  .about-us {
+    .about-us-design {
+      p {
+        margin-top: 6rem;
+      }
+    }
+  }
+}

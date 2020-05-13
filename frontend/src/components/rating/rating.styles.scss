@@ -27,6 +27,12 @@ $rating_unfilled_opacity: 0.3;
       transform: scale(1.3);
     }
   }
+
+  .rating-hidden {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+  }
 }
 
 // the next two classes handle hovering feedback for "previous" elements

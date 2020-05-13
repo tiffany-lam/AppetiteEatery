@@ -27,7 +27,6 @@ const RegisterForm = ({ updateCurrentUser, className, ...props }) => {
 
   const validate = () => {
     let validated = true;
-    console.log("validating..");
 
     const {
       fname,
@@ -37,10 +36,6 @@ const RegisterForm = ({ updateCurrentUser, className, ...props }) => {
       confirmPassword,
       userType,
     } = registerForm;
-
-    let nameError = "";
-    let emailError = "";
-    let confirmPassError = "";
 
     if (fname.value === "") {
       setRegisterForm({
@@ -72,7 +67,11 @@ const RegisterForm = ({ updateCurrentUser, className, ...props }) => {
         ...registerForm,
         confirmPassword: {
           ...registerForm.confirmPassword,
-          error: "your passwords do not match",
+          error: "does not match",
+        },
+        password: {
+          ...registerForm.password,
+          error: "does not match",
         },
       });
       validated = false;
@@ -145,7 +144,16 @@ const RegisterForm = ({ updateCurrentUser, className, ...props }) => {
       >
         Register
       </h1>
-      <form className="register-form" onSubmit={register}>
+      <form
+        className="register-form"
+        onSubmit={(e) => {
+          e.preventDefault();
+
+          if (validate()) {
+            register(e);
+          }
+        }}
+      >
         <FormInput
           required
           type="text"
@@ -176,6 +184,7 @@ const RegisterForm = ({ updateCurrentUser, className, ...props }) => {
               lname: { ...registerForm.lname, value: e.target.value },
             });
           }}
+          error={registerForm.lname.error}
         />
 
         <FormInput
@@ -191,6 +200,7 @@ const RegisterForm = ({ updateCurrentUser, className, ...props }) => {
               email: { ...registerForm.email, value: e.target.value },
             });
           }}
+          error={registerForm.email.error}
         />
 
         <FormInput
@@ -207,12 +217,13 @@ const RegisterForm = ({ updateCurrentUser, className, ...props }) => {
             });
           }}
           minLength="8"
+          error={registerForm.password.error}
         />
 
         <FormInput
           required
           type="password"
-          name="confirmPass"
+          name="confirmPassword"
           htmlFor="confirmPassword"
           label="confirm password"
           value={registerForm.confirmPassword.value}
@@ -226,6 +237,7 @@ const RegisterForm = ({ updateCurrentUser, className, ...props }) => {
             });
           }}
           minLength="8"
+          error={registerForm.confirmPassword.error}
         />
 
         <SelectUserType

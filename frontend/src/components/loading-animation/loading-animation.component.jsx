@@ -25,14 +25,15 @@ const LoadingAnimation = ({
         horizontal ? "" : "animation-text-orientation-vertical"
       } ${background ? "animation-background" : ""}`}
     >
-      <p className="animation-text">{text1}</p>
+      {text1 && <p className="animation-text">{text1}</p>}
+
       <div className="square-container">
         <div className="outer-square"></div>
         <div className="inner-square">
           <LocalDiningIcon />
         </div>
       </div>
-      <p className="animation-text">{text2}</p>
+      {text2 && <p className="animation-text">{text2}</p>}
     </div>
   );
 };

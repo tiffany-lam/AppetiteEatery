@@ -30,11 +30,14 @@
 
   justify-content: center;
   align-items: center;
+  // border: 1px solid lightgray;
+
+  margin: 1rem;
 
   .animation-text {
     margin: 1rem;
     font-family: "Karla", sans-serif;
-    font-size: 1.5rem;
+    font-size: 1rem;
     // font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 0.2rem;
@@ -42,7 +45,7 @@
     color: $background_light;
 
     background-color: $secondary;
-    padding: 0.5rem;
+    padding: 0.3rem 0.5rem;
   }
 
   .square-container {
@@ -53,6 +56,10 @@
     height: 4rem;
     min-width: 4rem;
     min-height: 4rem;
+    margin: 0.5rem;
+
+    // border: 1px solid lightgray;
+    transform: rotate(45deg);
 
     transition: border-radius 250ms linear;
 
@@ -63,12 +70,14 @@
       width: 10rem;
       height: 10rem;
 
+      transform: rotate(-45deg);
+
       // background-color: rgba(lightblue, 0.5);
 
       background: linear-gradient(
-        90deg,
+        45deg,
         $secondary 50%,
-        rgb(255, 255, 255) 50%
+        rgb(250, 244, 244) 50%
       );
 
       animation: rotate360 infinite 2s ease-in-out;
@@ -91,6 +100,8 @@
       // animation: borderRadius infinite 2s ease-in-out;
 
       svg {
+        transform: rotate(-45deg);
+
         path {
           fill: white;
           // animation: colorShift infinite 2s ease-in-out;

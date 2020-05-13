@@ -128,7 +128,7 @@ class ErrorPage extends React.Component {
   }
 
   setRating = (rating) => {
-    this.setState(rating);
+    this.setState({ rating });
   };
 
   addPatron = async (e) => {

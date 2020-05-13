@@ -9,17 +9,7 @@ import "./login.styles.scss";
 const LoginForm = ({ className, ...props }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  // constructor(props) {
-  //   super(props);
-  //   // //bind method
-  //   // this.login = this.login.bind(this);
-  //   // this.handleChange = this.handleChange.bind(this);
-  //   this.state = {
-  //     email: "",
-  //     password: "",
-  //   };
-  // }
+  const [error, setError] = useState("");
 
   const login = (e) => {
     e.preventDefault();
@@ -27,33 +17,18 @@ const LoginForm = ({ className, ...props }) => {
       .auth()
       .signInWithEmailAndPassword(email, password)
       .catch((error) => {
-        console.log(error);
-        alert("Email or password incorrect. Please try again.");
+        if (
+          error.code === "auth/user-not-found" ||
+          error.code === "auth/wrong-password"
+        ) {
+          setError("email or password is invalid");
+        }
       });
   };
-
-  // const handleChange = (e) => {
-  //   const target = e.target;
-  //   const value = target.type === "checkbox" ? target.checked : target.value;
-  //   const name = target.name;
-  //   this.setState({
-  //     [name]: value,
-  //   });
-
-  // };
-
-  const handleClick = (e) => {
-    //store the userType here, either Patron or RestaurantOwner
-    console.log("case 1, ", e.target.value);
-    this.setState({ userType: e.target.value, modalShow: true });
-  };
-
-  const googleLogin = (e) => {};
 
   return (
     <section className={`login-container ${className ? className : ""}`}>
       <h1>Login</h1>
-
       <div className="login-graphic">
         <span>appËtite</span>
         <img
@@ -61,6 +36,7 @@ const LoginForm = ({ className, ...props }) => {
           alt=""
         />
       </div>
+      {error !== "" ? <p className="login-error-msg">{error}</p> : null}
       <form className="login-form" onSubmit={login}>
         <FormInput
           required

@@ -42,7 +42,9 @@ const RestaurantCard = ({
     >
       <img
         src={`${BASE_API_URL}/img-get?url=${restaurant.images[0]}`}
-        alt={restaurant.images[0]}
+        alt={`${
+          restaurant.images[0] ? restaurant.images[0].slice(0, 5) : "Image"
+        }...`}
         onMouseOver={(e) => {
           console.log(restaurant);
           console.log(Math.floor(restaurant.average));
@@ -50,13 +52,26 @@ const RestaurantCard = ({
       />
 
       <div className="restaurant-info">
-        <h2 className="res-name">{restaurant.restaurantName}</h2>
-        <div className="res-rating">
-          <p>({restaurant.reviews.length})</p>
-          <Rating
-            rating={Math.floor(restaurant.average)}
-            icon={<FavoriteIcon></FavoriteIcon>}
-          ></Rating>
+        <div className="res-header">
+          <h2 className="res-name">{restaurant.restaurantName}</h2>
+          <div className="res-rating-normal">
+            <p>({restaurant.reviews.length})</p>
+            <Rating
+              htmlFor={restaurant.restaurantName}
+              rating={Math.floor(restaurant.average)}
+              icon={<FavoriteIcon></FavoriteIcon>}
+            ></Rating>
+            <p className="res-date">{restaurant.dateOpen.split(" ")[0]}</p>
+          </div>
+          <div className="res-rating-shrink">
+            <Rating
+              htmlFor={restaurant.restaurantName}
+              rating={1}
+              maxRating={1}
+              icon={<FavoriteIcon></FavoriteIcon>}
+            ></Rating>
+            <p>{restaurant.average.toFixed(1)}</p>
+          </div>
         </div>
         <p className="res-address">{`${restaurant.address} ${
           restaurant.city

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import "./selectUserType.styles.scss";
+import Results from "../search-result/Results.component";
 
 const SelectUserType = ({ setChanges = () => {}, className, ...props }) => {
   const [userType, setUserType] = useState("patron");
@@ -17,7 +18,7 @@ const SelectUserType = ({ setChanges = () => {}, className, ...props }) => {
       <label
         id="patron-lbl"
         className={`radio-label ${userType === "patron" ? "selected" : ""}`}
-        for="patron"
+        htmlFor="patron"
       >
         <span>Patron</span>
         <input
@@ -37,7 +38,7 @@ const SelectUserType = ({ setChanges = () => {}, className, ...props }) => {
       <label
         id="owner-lbl"
         className={`radio-label ${userType === "owner" ? "selected" : ""}`}
-        for="owner"
+        htmlFor="owner"
       >
         <span>Owner</span>
         <input

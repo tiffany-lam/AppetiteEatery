@@ -46,6 +46,36 @@
     // background-color: red;
     // width: 100%;
     // max-width: 100%;
+
+    .dropdown-anchor {
+      position: relative;
+      z-index: 100;
+      width: 100%;
+
+      .street-add-suggestion-dropdown {
+        width: 100%;
+        background-color: white;
+        position: absolute;
+        border: 1px solid lightgray;
+        border-top: 0;
+
+        &:hover {
+          border: 1px solid $secondary_dark;
+          border-top: 0;
+        }
+
+        li {
+          margin: 5px;
+          cursor: pointer;
+
+          &:hover {
+            background-color: $primary;
+            color: white;
+          }
+        }
+      }
+    }
+
     .form-subtitle {
       color: $primary;
       font-size: 1.2rem;

@@ -1,4 +1,6 @@
 from flask import Blueprint, Response, request, jsonify
+from datetime import datetime, timedelta
+import random
 
 # Models
 from ..models.restaurantmodel import Restaurant, Details, Hours, Hour
@@ -216,7 +218,8 @@ def modify_restaurant(id):
         print(request.json['menu'])
         newMenu = request.json['menu']
 
-        updatedImages = [image for image in originalImages if image not in newImages]
+        updatedImages = [
+            image for image in originalImages if image not in newImages]
         updatedMenu = [menu for menu in originalMenu if menu not in newMenu]
 
         s3_resource = boto3.resource(
@@ -262,6 +265,12 @@ def modify_restaurant(id):
 
     else:
         return "API not found", 404
+# creating a search for a word function
+# this function looks for a whole word rather than a part of a word
+
+
+def contains_word(sentence, searchWord):
+    return f' {searchWord} ' in f' {sentence} '
 
 # /api/restaurant/img-upload/<id>
 # PUT, POST - update/upload a new image for a restaurant
@@ -299,9 +308,12 @@ def upload_images(id):
 
     return restaurant.to_json(), 200
 
+
 @restaurant.route('/search', methods=['GET'])
 def search2():
     return("hello from", 200)
+
+
 @restaurant.route('/search/<searchvalue>', methods=['GET'])
 def search(searchvalue):
     print("searchValue: ", searchvalue)
@@ -311,48 +323,104 @@ def search(searchvalue):
     # all the results that we want
     resultObject["search_results"] = []
     emptyObject = dict()
-    
+
     # all the results that we want
     emptyObject["search_results"] = []
-    
- 
-    if(searchvalue == "food"):
+
+    if(searchvalue.lower() == "food"):
         for restaurant in restaurants_collection:
-            resultObject['search_results'].append(restaurant.to_mongo().to_dict())
-        
+            resultObject['search_results'].append(
+                restaurant.to_mongo().to_dict())
+
     # restaurant_collection is an array of restaurants
-    # for restaurant in restaurants_collection:
     # if the restaurant list contains (case insensitive) the search value
-    # if (restaurant['restaurantName']).lower() in searchvalue.lower():
-    # print(restaurant['restaurantName'])
-    # resultObject['search_results'].append(restaurant.to_mongo().to_dict())
-    for restaurant in Restaurant.objects(restaurantName__icontains=searchvalue):
-        updatedRestaurant = restaurant.to_mongo().to_dict()
-        updatedRestaurant['average'] = Review.objects(restaurant = restaurant.id).average('rating')
-        resultObject['search_results'].append(updatedRestaurant)
-
+    # for restaurant in Restaurant.objects(restaurantName__icontains=searchvalue):
+    #     updatedRestaurant = restaurant.to_mongo().to_dict()
+    #     updatedRestaurant['average'] = Review.objects(restaurant = restaurant.id).average('rating')
+    #     resultObject['search_results'].append(updatedRestaurant)
+    print("searchvalue in pythion", searchvalue)
     for restaurant in restaurants_collection:
-        for tag in restaurant['restaurantTags']:
-            if (searchvalue in tag):
-                print("tag: ", tag )
-                resultObject['search_results'].append(restaurant.to_mongo().to_dict())  
+        if searchvalue.lower() in restaurant['restaurantName'].lower():
+            updatedRestaurant = restaurant.to_mongo().to_dict()
+            updatedRestaurant['average'] = Review.objects(
+                restaurant=restaurant.id).average('rating')
+            resultObject['search_results'].append(updatedRestaurant)
+        # else, look in tags (they can't find any with the name, look in tags)
+        else:
+            for tag in restaurant['restaurantTags']:
+                # call the function i created earlier, if the searchvalue is found in tag
+                # if (contains_word(tag, searchvalue)):
+                if searchvalue in tag:
+                    updatedRestaurant = restaurant.to_mongo().to_dict()
+                    updatedRestaurant['average'] = Review.objects(
+                        restaurant=restaurant.id).average('rating')
+                    resultObject['search_results'].append(updatedRestaurant)
+                    print("tag: ", tag)
 
-    
-    
+    # #add the tags into the search as well
+    # for restaurant in restaurants_collection:
+    #     for tag in restaurant['restaurantTags']:
+    #         #call the function i created earlier, if the searchvalue is found in tag
+    #         if (contains_word(tag, searchvalue) and restaurant['restaurantName'] not in ):
+    #             print("tag: ", tag )
+    #             resultObject['search_results'].append(restaurant.to_mongo().to_dict())
+
     print("result object: ", resultObject)
+
     return json.dumps(resultObject, default=str), 200
-    #return json.dumps(emptyObject, default=str), 200
+    # return json.dumps(emptyObject, default=str), 200
 
 
 @restaurant.route('/owner/<id>', methods=['GET'])
 def getOwnerRestaurants(id):
-
     ownerObjects = Owner.objects.with_id(id)
 
     resultObject = dict()
     resultObject["results"] = []
 
-    for test in ownerObjects['restaurants']:
-        resultObject['results'].append(test.fetch().to_mongo().to_dict())
+    for restaurant in ownerObjects['restaurants']:
+        updatedRestaurant = restaurant.fetch().to_mongo().to_dict()
+        updatedRestaurant['average'] = Review.objects(
+            restaurant=restaurant.id).average('rating')
+        resultObject['results'].append(updatedRestaurant)
+
+    return json.dumps(resultObject, default=str), 200
+
+
+@restaurant.route('/limelight', methods=['GET'])
+def getLimelight():
+
+    currentDateTime = datetime.now()
+    oneMonthAgo = currentDateTime - timedelta(days=30)
+
+    # gets all the restaurants created in the last 30 days
+    restaurants = Restaurant.objects(
+        dateOpen__lte=currentDateTime, dateOpen__gte=oneMonthAgo)
+
+    # creates dictionary with a 'results' key which will receive an array
+    # this wrapping is necessary becaus e flask does not send back basic lists properly
+    resultObject = dict()
+    resultObject["results"] = []
+
+    # for a restaurant to be qualified to be on the 'limelight' page
+    # the number reviews they have must not exceed a certain threshold (defined below)
+    # original requirements was supposed to be 200 but for demonstration purposes,
+    # 10 is more attainable
+    maxNumOfReviewsForLimelight = 10
+
+    for restaurant in restaurants:
+        # for each restaurant that does not exceed the threshold and contains atleast 1 image:
+        if len(restaurant.reviews) <= maxNumOfReviewsForLimelight and len(restaurant.images) != 0:
+            # get the review average for that restaurant:
+            updatedRestaurant = restaurant.to_mongo().to_dict()
+            updatedRestaurant['reviewAverage'] = Review.objects(
+                restaurant=restaurant.id).average('rating')
+
+            # append the object to the resultObject's list
+            resultObject['results'].append(updatedRestaurant)
+
+    # randomly pick 9 uniqueq restaurants from the results to return:
+    if len(resultObject['results']) > 9:
+        resultObject['results'] = random.sample(resultObject['results'], 9)
 
     return json.dumps(resultObject, default=str), 200

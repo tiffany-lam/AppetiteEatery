@@ -55,7 +55,7 @@ const RegisterUserType = ({
 
   return (
     <div className="register-user-type">
-      <span>Please select the account you would like to make to continue:</span>
+      <span>Are you a Patron looking for restaurants or are you a Restaurant Owner?:</span>
 
       <form onSubmit={registerMongoAccount}>
         <SelectUserType className="test" setChanges={setUserType} />

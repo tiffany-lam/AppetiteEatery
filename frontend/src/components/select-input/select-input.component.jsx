@@ -18,17 +18,17 @@ const SelectInput = ({
   disabled,
   ...props
 }) => {
-  const [option, setOption] = useState(value);
+  // const [option, setOption] = useState(value);
 
   return (
     <div id={id} className={`select-input-container ${className}`}>
       <label
-        className={`select-input-label ${option !== "" ? "shrink" : ""}`}
+        className={`select-input-label ${value !== "" ? "shrink" : ""}`}
         htmlFor={htmlFor}
       >
         <React.Fragment>
           {label}
-          <span className="required-asterisk">*</span>
+          {props.required ? <span className="required-asterisk">*</span> : null}
         </React.Fragment>
       </label>
 
@@ -38,15 +38,10 @@ const SelectInput = ({
         name="pets"
         id={htmlFor}
         onChange={(e) => {
-          setOption(e.target.value);
           handleChange(e);
         }}
-        value={option}
+        value={value}
         disabled={disabled}
-        onClick={(e) => {
-          console.log(value);
-          console.log(option);
-        }}
         // onChange={(e) => {
         //   setOption(e.target.value);
         // }}

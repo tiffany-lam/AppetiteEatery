@@ -1,0 +1,30 @@
+@import "../../assets/theme";
+
+.image-card-link {
+  background-color: red;
+  width: 5rem;
+  max-width: 5rem;
+
+  .card-listings {
+    margin: 0.5rem 0;
+  }
+
+  &:hover,
+  &:active,
+  &:focus,
+  &:focus-within {
+    .card-listings {
+      margin: 0.5rem 0;
+      border: 1px solid $secondary_dark;
+
+      &:hover,
+      &:active,
+      &:focus,
+      &:focus-within {
+        outline: none;
+        border: 1px solid $secondary_dark;
+      }
+    }
+    outline: none;
+  }
+}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Map, GoogleApiWrapper } from "google-maps-react";
+import { Map, Marker, GoogleApiWrapper } from "google-maps-react";
 
 import "./map-container.styles.scss";
 
@@ -12,13 +12,26 @@ const mapStyles = {
 const MapContainer = (props) => {
   return (
     <Map
+      className={props.className ? props.className : null}
       google={props.google}
       zoom={14}
       initialCenter={{
         lat: props.latitude,
         lng: props.longitude,
       }}
-    />
+    >
+      {props.markers
+        ? props.markers.map((marker, index) => {
+            return (
+              <Marker
+                title={marker.title}
+                name={marker.name}
+                position={{ lat: marker.lat, lng: marker.lng }}
+              ></Marker>
+            );
+          })
+        : null}
+    </Map>
   );
 };
 
