@@ -1,5 +1,11 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+/*
+  Contributors: Tiffany Lam 
+  Course: CECS 470
+
+  Description: This is the register component. This is the component that takes the user's data from the form and sends it to the database. This components also auths/registers a user with fireebase. 
+
+*/
+import React, {useState } from "react";
 import { connect } from "react-redux";
 
 import { auth, createMongoDbAccount } from "./firebaseAuth";
@@ -8,8 +14,6 @@ import { updateCurrentUser } from "../../redux/user/user.actions";
 
 import FormInput from "../form-input/form-input.component";
 import CustomBotton from "../custom-button/custom-button.component";
-
-import { BASE_API_URL } from "../../utils";
 
 import "./register.styles.scss";
 
@@ -34,9 +38,8 @@ const RegisterForm = ({ updateCurrentUser, className, ...props }) => {
       email,
       password,
       confirmPassword,
-      userType,
     } = registerForm;
-
+    //error checking 
     if (fname.value === "") {
       setRegisterForm({
         ...registerForm,
@@ -61,7 +64,7 @@ const RegisterForm = ({ updateCurrentUser, className, ...props }) => {
       });
       validated = false;
     }
-
+    //do some password checking
     if (password.value !== confirmPassword.value) {
       setRegisterForm({
         ...registerForm,
@@ -108,6 +111,7 @@ const RegisterForm = ({ updateCurrentUser, className, ...props }) => {
     e.preventDefault();
 
     auth
+    //creats a user with the email and passsword
       .createUserWithEmailAndPassword(
         registerForm.email.value,
         registerForm.password.value
@@ -124,7 +128,7 @@ const RegisterForm = ({ updateCurrentUser, className, ...props }) => {
           userData,
           registerForm.userType.value
         );
-
+        //update the page with the current user 
         updateCurrentUser(firebaseCredential.user.uid);
       })
       .catch((error) => {
@@ -136,17 +140,13 @@ const RegisterForm = ({ updateCurrentUser, className, ...props }) => {
     <section
       className={`register-form-container ${className ? className : ""}`}
     >
-      <h1
-        onClick={() => {
-          validate();
-          console.log(registerForm);
-        }}
-      >
+      <h1>
         Register
       </h1>
       <form
         className="register-form"
         onSubmit={(e) => {
+          //dont do default form submission, validate first then register using firebase
           e.preventDefault();
 
           if (validate()) {
@@ -154,6 +154,7 @@ const RegisterForm = ({ updateCurrentUser, className, ...props }) => {
           }
         }}
       >
+        {/* create the form using custom form input component */}
         <FormInput
           required
           type="text"
@@ -168,7 +169,6 @@ const RegisterForm = ({ updateCurrentUser, className, ...props }) => {
             });
           }}
           error={registerForm.fname.error}
-          // error="fsdfsdf"
         />
 
         <FormInput

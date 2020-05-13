@@ -116,7 +116,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
   const [state, setState] = useState("");
   const [zipcode, setZipCode] = useState("");
   const [country, setCountry] = useState("USA");
-  const [location, setLocation] = useState([152.5, 152.5]);
+  // const [location, setLocation] = useState([152.5, 152.5]);
 
   const [tags, setTags] = useState([]);
   const [images, setImages] = useState([]);

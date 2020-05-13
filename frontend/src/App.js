@@ -17,10 +17,9 @@ import "./App.scss";
 import Navbar from "./components/navbar/navbar.component";
 import Modal from "./components/modal/modal.component";
 import LoadingAnimation from "./components/loading-animation/loading-animation.component";
-// import Test from "./components/test/test.component";
-// import RegisterModal from "./components/auth/RegisterForm";
+import Ribbon from "./components/ribbon-overlay/ribbon.component"
 import FooterNav from "./components/footer-nav/footer-nav.component";
-import RegisterUserType from "./components/auth/register-user-type.component copy";
+import RegisterUserType from "./components/auth/register-user-type.component";
 
 // page components here:
 import HomePage from "./pages/home-page/home-page.component";
@@ -33,6 +32,7 @@ import SearchResult from "./pages/searchResult-page/searchResult.component";
 import ApplyPage from "./pages/apply-page/apply.component";
 import OwnerRestaurantPage from "./pages/owner-restaurant-page/owner-restaurant-page.component";
 import AboutUsPage from "./pages/about-us-page/about-us.component";
+import PasswordReset from "./components/auth/PasswordReset.component";
 import GraduatedPage from "./pages/graduated-page/graduated-page.component";
 
 const App = ({ currentUser, userAuth, ...props }) => {
@@ -114,7 +114,11 @@ const App = ({ currentUser, userAuth, ...props }) => {
   }, [currentUser]);
 
   return (
-    <div className="App">
+    <div className="App" onClick={console.log("valid user", validUser)}>
+      {/* add component ribbon here */}
+      <div>
+        <Ribbon/>
+      </div>
       {userAuth && !validUser && (
         <Modal defaultShow backdrop>
           {loading ? (
@@ -131,6 +135,7 @@ const App = ({ currentUser, userAuth, ...props }) => {
         <main>
           <Switch>
             <Route exact path="/" component={HomePage} />
+            <Route path="/forgot-password" component={PasswordReset} />
             <Route exact path="/search" component={SearchResult} />
             <Route path="/contact-us" component={ContactUsPage} />
             <Route path="/about-us" component={AboutUsPage} />

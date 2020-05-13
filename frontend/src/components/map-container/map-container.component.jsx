@@ -43,6 +43,8 @@ const MapContainer = (props) => {
 };
 
 // This is a higher level component wrapper that appends the api key to the Map Container.
+// export default MapContainer;
+
 export default GoogleApiWrapper({
   apiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
 })(MapContainer);

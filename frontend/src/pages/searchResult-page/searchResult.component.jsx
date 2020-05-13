@@ -1,6 +1,7 @@
 /* 
   Author: Tiffany Lam 
-  Main function: searchResult is a component that retrieves data using AXIOS/Flask to pull from restaurants based on what the user searches from the database. This component is rendered on the /search page and includes pagination, and a sort filter to sort the results. 
+  Course: CECS 470
+  Description: searchResult is a component that retrieves data using AXIOS/Flask to pull from restaurants based on what the user searches from the database. This component is rendered on the /search page and includes pagination, and a sort filter to sort the results. 
  */
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
@@ -12,7 +13,7 @@ import PlacesAutocomplete, {
   getLatLng,
 } from "react-places-autocomplete";
 //from geolib
-import { orderByDistance } from 'geolib';
+import { getDistance } from 'geolib';
 //import the results
 import Results from "../../components/search-result/Results.component";
 //import the pagination
@@ -20,7 +21,6 @@ import Pagination from "../../components/pagination/Pagination.component";
 //import custom loading animation
 import LoadingAnimation from "../../components/loading-animation/loading-animation.component";
 import SelectInput from "../../components/select-input/select-input.component";
-import Rating from "../../components/rating/rating.component";
 import FormInput from "../../components/form-input/form-input.component";
 //import style
 import "./searchResult-page.styles.scss";
@@ -35,12 +35,35 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [resultsPerPage, setResultPerPage] = useState(5);
   const [nearByCity, setNearbyCity] = useState("");
+  const [selectedCoords, setSelectedCoords] = useState([]);
 
   const handleSelect = async (value) => {
-    const results = await geocodeByAddress(value);
-    console.log(results);
+    //const results = await geocodeByAddress(value);
+    //console.log(results);
     setNearbyCity(value);
   };
+  const setSelectedCoordiantes = address =>{
+    //const nearByCity =  `${address1}, ${city}, ${state} ${zipcode}, ${country}`;
+    // let geoCode = await geocodeByAddress(nearByCity);
+    // let coordinates = await getLatLng(geoCode[0]);
+    //setSelectedCoords(coordinates);
+    geocodeByAddress(address)
+      .then(results => getLatLng(results[0]))
+      .then(latLng => console.log('Success', latLng))
+      .catch(error => console.error('Error', error));
+    //return coordinates; //objects w/ 2 keys a lat coord, and long coord
+  }
+  const getSelectedCoordiantes = async() =>{
+    //console.log("nearbycity", nearByCity)
+    //const nearByCity =  `${address1}, ${city}, ${state} ${zipcode}, ${country}`;
+    let geoCode = await geocodeByAddress(nearByCity);
+    //console.log("geocode", geoCode[0])
+    let coordinates = await getLatLng(geoCode[0]);
+    //console.log("coords", coordinates)
+    //setSelectedCoords(coordinates);
+    return coordinates; //objects w/ 2 keys a lat coord, and long coord
+  }
+
 
   //this useEffect is to get the results to retrieve all the data
   useEffect(() => {
@@ -54,22 +77,22 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
             cancelToken: source.token,
           })
           .then((res) => {
-            console.log("Retrieved all data \n");
+            //console.log("Retrieved all data \n");
             //console.log(res);
             //console.log(res.data);
             //if the data returned isn't undefined or null then set the result
             if (res.data.search_results) {
               setLoading(false);
               //because we are on the main search page, we only want NICHE restaurants aka restaurants under 10 reviews for demos we use 10 because we would need a lot of reviews.
+              
+             // console.log("search results:", res.data.search_results);
               //.filter looks through array
-              console.log("search results:", res.data.search_results);
               setResults(
                 res.data.search_results.filter(
                   (restaurant) => restaurant.reviews.length < 10
                 ) //based on this conditon it will refill the array
               );
             }
-            //console.log(res.data.search_results);
           })
           .catch((error) => {
             console.error(error);
@@ -81,6 +104,7 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
         console.error(e);
       }
     };
+    //if the searchvalue isnt empty 
     if (searchbarValue !== "" || searchbarValue !== " ") fetchData();
     if (searchbarValue === "" || searchbarValue === " ") setLoading(false);
 
@@ -94,10 +118,12 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
   useEffect(() => {
     sortArray(sortType);
   }, [sortType]); //returns the sorted array
+
   //sort filters - this will sort the restaurants based on the selected options in the dropdown
   const sortArray = (type) => {
-    console.log("type: ", type);
     let sorted = [...results];
+    let selectedCoordiantates = getSelectedCoordiantes();
+    //console.log("selected coords", selectedCoordiantates);
     //sort - returns negative value is first argument is less than second
     //use ... to clone before we sort
     if (type === "rating") {
@@ -109,14 +135,20 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
       //if the date is greater that means that date is older; so if a is greater than b that means a is older so it goes before b thus return 1 if a is oldder than b
       sorted.sort((a, b) => (a.dateOpen > b.dateOpen ? 1 : -1));
     }
-    else if(type == 'location'){
+    else if(type == 'distance'){
       //use the geolib package
-
+      //compare the point in which the user entered from the search
+      //takes an a object with lat and long as keys AND an array and orders the array against the first parameter
+      //console.log(selectedCoordiantates);
+      //console.log(getDistance({latitude: 51.525, longitude: 7.4575,}, {latitude: 51.525, longitude: 7.4575}));
+      sorted.sort((a,b) => {
+        let dist = getDistance(selectedCoordiantates, {latitude: b.location[0], longitude: b.location[1]}) - 
+        getDistance(selectedCoordiantates, {latitude: a.location[0], longitude: a.location[1]})
+        //console.log( "dist", test);
+        return dist;
+      });
     }
-    //const sorted = [...results].sort((a,b) => b[sortProperty] - a[sortProperty]);
-    //const sorted = [...results].sort((a,b) => a.sortProperty - b.sortProperty);
 
-    console.log("sorted", sorted);
     setResults(sorted);
   };
   //Get current results
@@ -138,6 +170,8 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
         ) : (
           //else show results
           <div className="resultsContainer">
+            {/* disable dropdown while API request is being made */}
+            {/* <section className="dropdown" disabled={loading}> */}
             <SelectInput
               className="sort-type-select-input"
               disabled={loading}
@@ -161,10 +195,10 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
               onSelect={handleSelect}
               searchOptions={{
                 componentRestrictions: { country: ["us"] },
-                types: ["(cities)"],
+                types: ["address"],
               }}
             >
-              {/* render prop function, these props are from the packageL react-places-autocomplete  */}
+              {/* render prop function, these props are from the package react-places-autocomplete  */}
               {({
                 getInputProps,
                 suggestions,
@@ -172,15 +206,6 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
                 loading,
               }) => (
                 <React.Fragment>
-                  {/* <div className="hello-2" htmlFor="fsdfds"> */}
-                  {/* <input
-                    // id="search-input-5"
-                    className="near-by-city"
-                    type="search"
-                    placeholder="near..."
-                    {...getInputProps()}
-                    autoComplete="off"
-                  /> */}
                   <FormInput
                     readOnly={loading}
                     type="search"
@@ -201,7 +226,7 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
                             {...getSuggestionItemProps(suggestion)}
                           >
                             {suggestion.description.split(",")[0]}
-                            {console.log(suggestion.description.split(",")[0])}
+                            {/* {console.log(suggestion.description.split(",")[0])} */}
                           </li>
                         );
                       })}
@@ -211,7 +236,6 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
                 </React.Fragment>
               )}
             </PlacesAutocomplete>
-
             {loading && (
               <LoadingAnimation
                 horizontal

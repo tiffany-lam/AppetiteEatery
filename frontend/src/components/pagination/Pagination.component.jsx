@@ -1,5 +1,10 @@
+/*
+  Contributors: Tiffany Lam
+  Course: CECS 470
+
+  Description: This component creates a pagination that can be used in any page. It takes in the currentPage, totla number of results, how many results you want to display per page, and the paginate prop (which does the pagination).
+*/
 import React from "react";
-import MatrialUIPagination from "@material-ui/lab/Pagination";
 import "./pagination.styles.scss";
 const Pagination = ({
   resultsPerPage,

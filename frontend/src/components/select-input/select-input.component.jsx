@@ -6,7 +6,7 @@
 */
 
 // main packages:
-import React, { useState } from "react";
+import React from "react";
 
 // custom stylesheets:
 import "./select-input.styles.scss";

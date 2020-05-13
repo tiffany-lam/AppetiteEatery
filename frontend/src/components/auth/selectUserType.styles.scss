@@ -1,3 +1,9 @@
+/*
+  Contributors: Sam Alhaqab
+  Course: CECS 470
+
+  Description: The CSS styling for the selectUserType. This creates the modal/pop that allows the user to choose Patron or Owner. This is shown before they can register. 
+*/
 @import "../../assets/theme";
 
 $user_type_border: 1px solid lightgray;
@@ -19,7 +25,7 @@ $user_type_border: 1px solid lightgray;
     color: $secondary_dark;
     margin-right: 0.5rem;
   }
-
+  //created a custom "radio button" user can choose patron or owner
   .radio-label {
     border-top: $user_type_border;
     border-bottom: $user_type_border;
@@ -37,11 +43,6 @@ $user_type_border: 1px solid lightgray;
     justify-content: center;
     align-items: center;
 
-    // background-color: red;
-
-    span {
-      // color: white;
-    }
 
     input {
       position: absolute;

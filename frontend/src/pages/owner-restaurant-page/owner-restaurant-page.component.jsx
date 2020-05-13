@@ -81,9 +81,7 @@ const OwnerRestaurantPage = ({ userAuth, ...props }) => {
         ""
       )}
       {ownersRestaurants.length === 0 && !loading ? (
-        <h1 className="owner-header">
-          You have not submitted a restaurant to our website :(
-        </h1>
+        <h1 className="owner-header">You have not submitted a restaurant</h1>
       ) : (
         ""
       )}
