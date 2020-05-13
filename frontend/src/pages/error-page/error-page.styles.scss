@@ -1,7 +1,11 @@
 @import "../../assets/theme";
 
 .error-page-container {
-  background-color: pink;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  // background-color: pink;
   width: 100%;
   // display: flex;
   // justify-content: center;
