@@ -2,7 +2,7 @@
   Author: Tiffany Lam 
   Main function: searchResult is a component that retrieves data using AXIOS/Flask to pull from restaurants based on what the user searches from the database. This component is rendered on the /search page and includes pagination, and a sort filter to sort the results. 
  */
-import React, { Component, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { setSearchbarValue } from "../../redux/ui/ui.actions";
 import axios from "axios";
@@ -116,51 +116,36 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
 
   return (
     <section className="search-results-container">
-      <button
-        type="button"
-        onClick={() => {
-          console.log("sortType", sortType);
-        }}
-      >
-        ff
-      </button>
-
-      <Rating input />
-
       {/* // if result length is 0 show no results, */}
-      {loading === true ? (
-        <LoadingAnimation
-          // horizontal
-          // background
-          text1="Searching for restaurants.."
-        />
-      ) : //if loading is true show loading,
-      results.length === 0 ? (
-        <h1>No results</h1>
-      ) : (
-        //else show results
-        <div className="resultsContainer">
-          <SelectInput
-            className="sort-type-select-input"
-            disabled={loading}
-            value={sortType}
-            label="Sort By"
-            htmlFor="state"
-            handleChange={(e) => {
-              setSortType(e.target.value);
-            }}
-            id="state-input"
-          >
-            <option value="rating">Highest Rating</option>
-            <option value="distance">Distance</option>
-            <option value="dateNew">Date opened (newest)</option>
-            <option value="dateOld">Date opened (oldest)</option>
-          </SelectInput>
-          {/* disable dropdown while API request is being made */}
 
-          {/* <section className="dropdown" disabled={loading}> */}
+      {
+        //if loading is true show loading,
+        results.length === 0 ? (
+          <h1>No results</h1>
+        ) : (
+          //else show results
+          <div className="resultsContainer">
+            <SelectInput
+              className="sort-type-select-input"
+              disabled={loading}
+              value={sortType}
+              label="Sort By"
+              htmlFor="state"
+              handleChange={(e) => {
+                setSortType(e.target.value);
+              }}
+              id="state-input"
+            >
+              <option value="rating">Highest Rating</option>
+              <option value="distance">Distance</option>
+              <option value="dateNew">Date opened (newest)</option>
+              <option value="dateOld">Date opened (oldest)</option>
+            </SelectInput>
+            {/* disable dropdown while API request is being made */}
 
-          {/* <select
+            {/* <section className="dropdown" disabled={loading}> */}
+
+            {/* <select
               className="sortby"
               onChange={(e) => setSortType(e.target.value)}
             >
@@ -169,20 +154,29 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
               <option value="dateNew">Date opened (newest)</option>
               <option value="dateOld">Date opened (oldest)</option>
             </select> */}
-          {/* </section> */}
-          <section>
-            {/* this is each of the restaurants that will show up in our search, based on what the user searches */}
-            <Results results={currentResults} loading={loading} />
-          </section>
-          <section className="pagination-container"></section>
-          <Pagination
-            resultsPerPage={resultsPerPage}
-            totalResults={results.length}
-            paginate={paginate}
-            currentPage={currentPage}
-          />
-        </div>
-      )}
+            {/* </section> */}
+            {loading && (
+              <LoadingAnimation
+                horizontal
+                // background
+                // text1="Searching for restaurants.."
+                text2="Searching for restaurants..."
+              />
+            )}
+            <section>
+              {/* this is each of the restaurants that will show up in our search, based on what the user searches */}
+              <Results results={currentResults} loading={loading} />
+            </section>
+            <section className="pagination-container"></section>
+            <Pagination
+              resultsPerPage={resultsPerPage}
+              totalResults={results.length}
+              paginate={paginate}
+              currentPage={currentPage}
+            />
+          </div>
+        )
+      }
     </section>
   );
 };

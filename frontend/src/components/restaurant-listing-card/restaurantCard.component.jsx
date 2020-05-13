@@ -57,6 +57,7 @@ const RestaurantCard = ({
           <div className="res-rating-normal">
             <p>({restaurant.reviews.length})</p>
             <Rating
+              htmlFor={restaurant.restaurantName}
               rating={Math.floor(restaurant.average)}
               icon={<FavoriteIcon></FavoriteIcon>}
             ></Rating>
@@ -64,6 +65,7 @@ const RestaurantCard = ({
           </div>
           <div className="res-rating-shrink">
             <Rating
+              htmlFor={restaurant.restaurantName}
               rating={1}
               maxRating={1}
               icon={<FavoriteIcon></FavoriteIcon>}

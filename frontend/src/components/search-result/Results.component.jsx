@@ -13,7 +13,11 @@ const Results = ({ results, loading }) => {
     // <div>
     <React.Fragment>
       {results.map((restaurant, i) => (
-        <Link key={i} className="help5" to={`/restaurant/${restaurant._id}`}>
+        <Link
+          key={i}
+          className="image-card-link"
+          to={`/restaurant/${restaurant._id}`}
+        >
           <RestaurantCard restaurant={restaurant} className="card-listings" />
         </Link>
       ))}
