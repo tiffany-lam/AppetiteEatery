@@ -346,6 +346,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
                     return (
                       <li {...getSuggestionItemProps(suggestion)}>
                         {suggestion.description}
+                        {/* {console.log(suggestion.description)} */}
                       </li>
                     );
                   })}

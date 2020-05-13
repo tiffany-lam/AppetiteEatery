@@ -123,7 +123,6 @@ const App = ({ currentUser, userAuth, ...props }) => {
           )}
         </Modal>
       )}
-
       <BrowserRouter>
         <header>
           <Navbar />

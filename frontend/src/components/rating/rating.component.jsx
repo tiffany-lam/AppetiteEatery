@@ -46,7 +46,7 @@ const Rating = ({
       } ${input ? "rating-input" : ""}`}
     >
       {[...Array(maxRating)].map((e, i) => (
-        <React.Fragment>
+        <React.Fragment key={i}>
           {createIcon(
             i,
             () => {

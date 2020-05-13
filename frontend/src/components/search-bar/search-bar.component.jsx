@@ -8,12 +8,13 @@ import {
 import { useHistory } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import CircleButton from "../circle-btn/circle-btn.component";
+import FormInput from "../form-input/form-input.component";
 
 //import react-places-autocomplete
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
-} from 'react-places-autocomplete';
+} from "react-places-autocomplete";
 // mui icons:
 import SearchIcon from "@material-ui/icons/Search";
 import DashboardIcon from "@material-ui/icons/Dashboard";
@@ -33,14 +34,16 @@ const SearchBar = ({
   // const [searchbarPlaceholder, setSearchbarPlaceholder] = useState("search...");
   const [prevSearchbarValue, setPrevSearchbarValue] = useState("");
   const [city, setCity] = useState("");
-  const [address, setAddress] = useState("");
-  const [coordinates, setCoordinatates] = useState({lat: null, long: null});
+  const [address1, setAddress1] = useState("");
+  const [address2, setAddress2] = useState("");
+
+  const [coordinates, setCoordinatates] = useState({ lat: null, long: null });
 
   const [query, setQuery] = useState("");
   const browserHistory = useHistory();
   const browserLocation = useLocation();
   const inputRef = React.createRef();
-  
+
   const handleChange = (e) => {
     setSearchbarValue(e.target.value);
   };
@@ -59,21 +62,20 @@ const SearchBar = ({
     }
   };
 
-  const handleSelect = (value) =>{
-  
+  const handleSelect = (value) => {
     // const placesResults = geocodeByAddress(value); //pass address string value
-    
+
     // const latLong = getLatLng(placesResults[0]);
     // console.log("results", latLong);
     geocodeByAddress(value)
       .then(async (results) => {
-      return getLatLng(results[0]);
+        return getLatLng(results[0]);
       })
       .then((coordinates) => {
         console.log(coordinates);
         setCoordinatates(coordinates);
       })
-    .catch((error) => console.error("Error", error));
+      .catch((error) => console.error("Error", error));
 
     // //results is an array with different values in it, long,lat, geometry, city ect
     // //converts the string value using the google places api into placesResults
@@ -81,8 +83,7 @@ const SearchBar = ({
     // const latLong = getLatLng(placesResults[0]);
     // setCoordinatates(latLong);
     //set address to one they selected
-    setAddress(value);
-
+    setAddress1(value);
   };
 
   return (
@@ -95,7 +96,9 @@ const SearchBar = ({
         <label htmlFor="search-bar-value" className="label-hide">
           search
         </label>
+
         <input
+          autoComplete="off"
           id="search-bar-value"
           className="search-input"
           type="search"
@@ -106,41 +109,12 @@ const SearchBar = ({
           ref={inputRef}
         />
 
-        <hr className="vertical-divider" />
+        {/* <hr className="vertical-divider" /> */}
 
         <label htmlFor="search-bar-filter" className="label-hide">
           filter
         </label>
-        {/* this is the input box for the googleplaces api */}
-        <PlacesAutocomplete value={address}
-         onChange={setAddress}
-         onSelect={handleSelect}>
-           {/* render prop function, these props are from the packageL react-places-autocomplete  */}
-           {( {getInputProps, suggestions, getSuggestionItemProps, loading} ) =>
-            <div>
-               <input {...getInputProps({placeholder: "Near.."})}/>
-               <div>
-               {/* if loading then show loading; else show nothing */}
-               {loading ? <div>Loading..</div>:null}
-               {/* render the suggested values */}
-               {suggestions.map((suggestion) => {
-                 const selectedcolor ={
-                   //customise which the selection from the react-autocomplete package
-                   cursor: suggestion.active ? 'pointer' : "pointer"
-                 };
-                return (
-                  //you can add styles into the prop that's being rendered using this method below
-                  //this div render each suggestion, highlights the one that's active
-                <div {...getSuggestionItemProps(suggestion, {selectedcolor, className})}>
-                  {suggestion.description} 
-                </div>
-                );
-               })}
-              </div>
-            </div>
-             
-           } 
-        </PlacesAutocomplete>
+
         {/* <input
           id="autocomplete"
           className="search-input"
@@ -152,6 +126,48 @@ const SearchBar = ({
           }}
         /> */}
       </div>
+      {/* <PlacesAutocomplete
+        value={address1}
+        onChange={setAddress1}
+        onSelect={handleSelect}
+        searchOptions={{
+          componentRestrictions: { country: ["us"] },
+          types: ["(cities)"],
+        }}
+      >
+        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+          <React.Fragment>
+            <div className="hello-2" htmlFor="fsdfds">
+              <input
+                id="search-input-5"
+                className="search-input2"
+                type="search"
+                placeholder="near..."
+                {...getInputProps()}
+                autoComplete="off"
+              />
+
+              <div className="dropdown-anchor-2">
+                <ul className="street-add-suggestion-dropdown-2">
+                  {loading ? <div>Loading..</div> : null}
+
+                  {suggestions.map((suggestion) => {
+                    return (
+                      <li
+                        className="suggestion-item"
+                        {...getSuggestionItemProps(suggestion)}
+                      >
+                        {suggestion.description.split(",")[0]}
+                        {console.log(suggestion.description.split(",")[0])}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            </div>
+          </React.Fragment>
+        )}
+      </PlacesAutocomplete> */}
       <CircleButton
         onMouseDown={(e) => {
           setTimeout(() => {
