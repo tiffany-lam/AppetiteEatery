@@ -46,7 +46,6 @@ class ProfilePage extends Component {
     let res = await axios.get(
       `${BASE_API_URL}/user/getPatronReviews/${this.props.userAuth.uid}`
     );
-    // console.log(process.env);
 
     // Copying Redux into the state to allow editing
     this.setState({ fname: this.props.currentUser.fname });
@@ -91,7 +90,6 @@ class ProfilePage extends Component {
             images={review.images}
             rating={review.rating}
           ></Review>
-          {/* <Divider full={true} /> */}
         </li>
       );
     });
@@ -114,7 +112,6 @@ class ProfilePage extends Component {
                   onChange={(e) => {
                     this.setState({ fname: e.target.value });
                   }}
-                  // disabled={editInput !== "name"}
                 />
               </label>
               <label htmlfo="patronlname">
@@ -135,7 +132,6 @@ class ProfilePage extends Component {
               <h2>{this.props.currentUser.email}</h2>
               <Divider full={true} />
               <div className="userContainer-inner">
-                {/* <fieldset form="manage-profile1" classname=""> */}
                 <div id="flex-container1">
                   <img
                     className="profile-img"
@@ -161,7 +157,6 @@ class ProfilePage extends Component {
                     }}
                     maxLength="250"
                     additionalInfo="(max: 250 characters)"
-                    // disabled={editInput !== "description"}
                   />
                   <h3>Favorite Restaurant</h3>
                   <div id="checkIn">
@@ -171,7 +166,6 @@ class ProfilePage extends Component {
                     />
                   </div>
                 </div>
-                {/* </fieldset> */}
               </div>
               <CustomButton
                 type="button"
@@ -254,13 +248,6 @@ class ProfilePage extends Component {
     );
   }
 }
-
-// export default ProfilePage;
-
-// const saveEdit = (input) => {
-//   console.log(`SAVING ${input}`);
-//   setEditInput("");
-// }
 
 const mapStateToProps = ({ user }) => ({
   userAuth: user.userAuth,
