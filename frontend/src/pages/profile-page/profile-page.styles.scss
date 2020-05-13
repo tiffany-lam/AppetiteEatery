@@ -66,7 +66,7 @@
   }
 
   #favorites {
-    display: inline;
+    display: inline-flex;
   }
 
   ///////// TEXT STYLING /////////////
@@ -104,7 +104,7 @@
     font-weight: bold; 
     color: $secondary;
     padding-bottom: 7px;
-    display: inline-block
+    display: block;
   }
 
   .profile-save-button {
@@ -115,11 +115,13 @@
     margin-right: 20px;
   }
   
-  .userContainer-inner p, li {
-    font-size: 1.1em;
-    line-height: 1.4em;
-    padding-top: 3px;
-    padding-bottom: 5px;
+  .userContainer-inner {
+    p {
+      font-size: 1.1em;
+      line-height: 1.4em;
+      padding-top: 3px;
+      padding-bottom: 5px;
+    }
   }
 
   #col2 p {
@@ -133,31 +135,14 @@
   .review-user-info p {
     font-size: 15px;
   }
-  // p {
-  //   line-height: 1.8;
-  //   font-size: 20px;
-  // }
+
   
   /////////// IMAGES /////////////////
-
-  // .map-img {
-  //   width: 400px;
-  //   height: 300px;
-  //   object-fit: cover;
-  //   border-radius: 25px;
-  //   margin: 10px;
-  // }
 
   #checkIn {
     position: relative;
     width: 100%;
     height: 300px;
-  }
-  
-  .review-img {
-    width: 400px;
-    height: 300px;
-    object-fit: cover;
   }
   
   .profile-img {
@@ -169,8 +154,8 @@
     display: block;
     justify-self: left;
     margin: 20px;
-    width: 250px;
-    height: 250px;
+    width: 350px;
+    height: 350px;
     object-fit: cover;
     border-radius: 10%;
   }

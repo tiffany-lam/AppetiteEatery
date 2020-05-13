@@ -144,7 +144,6 @@ class ProfilePage extends Component {
                   />
                   <h3 id="toggle-mini">Favorites</h3>
                   <AddTagInput
-                    // disabled
                     tagValues={this.state.tags}
                     handleAnyChange={(value) => {
                       this.setState({ tags: value });
