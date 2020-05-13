@@ -1,8 +1,20 @@
+/*
+  Contributors: Veronica Sumariyanto 013229149
+  Course: CECS 470
+
+  Description: This class component renders a profile page for patron users. 
+  Patrons can see their name, email, reviews, and other related profile information. 
+  The page also allows patrons to edit their information (name, about me, tags) and 
+  it will display the new data once they are finished editing.
+*/
+
+
 // Importing React
 import React, { Component } from "react";
 import axios from "axios";
 import { BASE_API_URL } from "../../utils";
 
+// Importing Redux 
 import { connect } from "react-redux";
 import {
   setUserAuth,
@@ -11,7 +23,7 @@ import {
   updateCurrentUser,
 } from "../../redux/user/user.actions";
 
-// Custom Style Sheet
+// Importing Custom Style Sheet
 import "./profile-page.styles.scss";
 
 // Importing Other Components
@@ -26,6 +38,7 @@ import CreateIcon from "@material-ui/icons/Create";
 import DoneIcon from "@material-ui/icons/Done";
 
 class ProfilePage extends Component {
+  // Sets up the props that will be used to hold the patron's information.
   constructor(props) {
     super(props);
     this.state = {
@@ -42,12 +55,12 @@ class ProfilePage extends Component {
   }
 
   async componentDidMount() {
-    // Request to get patron reviews
+    // Request to get patron reviews.
     let res = await axios.get(
       `${BASE_API_URL}/user/getPatronReviews/${this.props.userAuth.uid}`
     );
 
-    // Copying Redux into the state to allow editing
+    // Copying Redux into the state to allow editing patron information.
     this.setState({ fname: this.props.currentUser.fname });
     this.setState({ lname: this.props.currentUser.lname });
     this.setState({ tags: this.props.currentUser.tags });
@@ -57,6 +70,7 @@ class ProfilePage extends Component {
     this.setState({ reviewCount: res.data.reviews.length });
   }
 
+  // Handles any changes that the user makes to edit their information with an axios.post
   handleUpdate = async (e) => {
     let updatePatron = {
       fname: this.state.fname,
@@ -74,10 +88,12 @@ class ProfilePage extends Component {
   };
 
   render() {
+    // This variable displays the tags using the Tag-v2 component.
     const tags = this.state.tags.map((tag, index) => {
       return <Tag key={`${tag} ${index}`} value={tag}></Tag>;
     });
 
+    // This variable uses the ReviewComponent to display all the patron's reviews.
     const reviews = this.state.reviews.map((review, index) => {
       return (
         <li key={index}>
@@ -94,7 +110,9 @@ class ProfilePage extends Component {
       );
     });
 
+    // This renders the page either in an editing state with forms or a viewing state.
     return this.state.edit ? (
+      // This renders the page when the patron is going to edit their information.
       <React.Fragment>
         <section className="profile-page-container">
           <form action="" method="put" id="manage-profile">
