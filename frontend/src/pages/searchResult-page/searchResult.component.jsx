@@ -7,7 +7,12 @@ import { connect } from "react-redux";
 import { setSearchbarValue } from "../../redux/ui/ui.actions";
 import axios from "axios";
 import { BASE_API_URL } from "../../utils";
-
+import PlacesAutocomplete, {
+  geocodeByAddress,
+  getLatLng,
+} from "react-places-autocomplete";
+//from geolib
+import { orderByDistance } from 'geolib';
 //import the results
 import Results from "../../components/search-result/Results.component";
 //import the pagination
@@ -16,6 +21,7 @@ import Pagination from "../../components/pagination/Pagination.component";
 import LoadingAnimation from "../../components/loading-animation/loading-animation.component";
 import SelectInput from "../../components/select-input/select-input.component";
 import Rating from "../../components/rating/rating.component";
+import FormInput from "../../components/form-input/form-input.component";
 //import style
 import "./searchResult-page.styles.scss";
 
@@ -28,6 +34,13 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [resultsPerPage, setResultPerPage] = useState(5);
+  const [nearByCity, setNearbyCity] = useState("");
+
+  const handleSelect = async (value) => {
+    const results = await geocodeByAddress(value);
+    console.log(results);
+    setNearbyCity(value);
+  };
 
   //this useEffect is to get the results to retrieve all the data
   useEffect(() => {
@@ -56,7 +69,6 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
                 ) //based on this conditon it will refill the array
               );
             }
-
             //console.log(res.data.search_results);
           })
           .catch((error) => {
@@ -95,11 +107,12 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
       sorted.sort((a, b) => (a.dateOpen < b.dateOpen ? 1 : -1));
     } else if (type === "dateOld") {
       //if the date is greater that means that date is older; so if a is greater than b that means a is older so it goes before b thus return 1 if a is oldder than b
-      sorted = [...results].sort((a, b) => (a.dateOpen > b.dateOpen ? 1 : -1));
+      sorted.sort((a, b) => (a.dateOpen > b.dateOpen ? 1 : -1));
     }
-    // else if(type == 'location'){
-    //   sorted = [...results].sort((a,b) => b.location - a.location);
-    // }
+    else if(type == 'location'){
+      //use the geolib package
+
+    }
     //const sorted = [...results].sort((a,b) => b[sortProperty] - a[sortProperty]);
     //const sorted = [...results].sort((a,b) => a.sortProperty - b.sortProperty);
 
@@ -141,20 +154,64 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
               <option value="dateNew">Date opened (newest)</option>
               <option value="dateOld">Date opened (oldest)</option>
             </SelectInput>
-            {/* disable dropdown while API request is being made */}
 
-            {/* <section className="dropdown" disabled={loading}> */}
-
-            {/* <select
-              className="sortby"
-              onChange={(e) => setSortType(e.target.value)}
+            <PlacesAutocomplete
+              value={nearByCity}
+              onChange={setNearbyCity}
+              onSelect={handleSelect}
+              searchOptions={{
+                componentRestrictions: { country: ["us"] },
+                types: ["(cities)"],
+              }}
             >
-              <option value="rating">Highest Rating</option>
-              <option value="distance">Distance</option>
-              <option value="dateNew">Date opened (newest)</option>
-              <option value="dateOld">Date opened (oldest)</option>
-            </select> */}
-            {/* </section> */}
+              {/* render prop function, these props are from the packageL react-places-autocomplete  */}
+              {({
+                getInputProps,
+                suggestions,
+                getSuggestionItemProps,
+                loading,
+              }) => (
+                <React.Fragment>
+                  {/* <div className="hello-2" htmlFor="fsdfds"> */}
+                  {/* <input
+                    // id="search-input-5"
+                    className="near-by-city"
+                    type="search"
+                    placeholder="near..."
+                    {...getInputProps()}
+                    autoComplete="off"
+                  /> */}
+                  <FormInput
+                    readOnly={loading}
+                    type="search"
+                    htmlFor="near-by-city"
+                    label="near by (city)"
+                    className="near-by-city-search"
+                    autoCompleteProps={getInputProps()}
+                  ></FormInput>
+
+                  <div className="dropdown-anchor">
+                    <ul className="street-add-suggestion-dropdown">
+                      {loading ? <div>Loading..</div> : null}
+
+                      {suggestions.map((suggestion) => {
+                        return (
+                          <li
+                            className="suggestion-item"
+                            {...getSuggestionItemProps(suggestion)}
+                          >
+                            {suggestion.description.split(",")[0]}
+                            {console.log(suggestion.description.split(",")[0])}
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                  {/* </div> */}
+                </React.Fragment>
+              )}
+            </PlacesAutocomplete>
+
             {loading && (
               <LoadingAnimation
                 horizontal

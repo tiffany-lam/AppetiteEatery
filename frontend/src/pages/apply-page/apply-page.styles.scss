@@ -1,3 +1,10 @@
+/*
+  Contributors: Sam Alhaqab 017018649
+  Course: CECS 470
+
+  Description: This scss class styles the apply page component.
+*/
+
 // global theme imports
 @import "../../assets/theme";
 
@@ -15,6 +22,12 @@
   .input-override {
     margin-top: 1.6rem;
     max-width: 40rem;
+  }
+
+  .captcha {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.3rem;
   }
 
   // modifies the hour range input specifically to have margin bottoms

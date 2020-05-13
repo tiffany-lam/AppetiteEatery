@@ -2,7 +2,11 @@
   Contributors: Sam Alhaqab 017018649
   Course: CECS 470
 
-  Description: This functional component returns an input of the desired type (text area, text, etc.), along with another custom option called password. This input is styled and designed according to our website theme and provides accessibility. The custom password input provides a custom text input which hides the text characters and allows a visibility toggle to view the input content.
+  Description: This functional component returns an input of the desired type (text area, text, 
+    etc.), along with another custom option called password. This input is styled and designed 
+    according to our website theme and provides accessibility. The custom password input provides 
+    a custom text input which hides the text characters and allows a visibility toggle to view 
+    the input content.
 */
 
 // main packages:

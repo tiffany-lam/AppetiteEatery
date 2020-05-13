@@ -1,7 +1,15 @@
+/*
+  Contributors: Sam Alhaqab 017018649
+  Course: CECS 470
+
+  Description: This scss class styles the image card component.
+*/
+
 // global theme import
 @import "../../assets/theme";
 
-// styles the container for the entire image card, including the image, the name, and the rating of the restaurant
+// styles the container for the entire image card, including the image, the name, and the
+// rating of the restaurant
 .image-container {
   position: relative;
 

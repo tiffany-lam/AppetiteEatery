@@ -1,7 +1,15 @@
+/*
+  Contributors: Sam Alhaqab 017018649
+  Course: CECS 470
+
+  Description: This scss class styles the rating component.
+*/
+
 @import "../../assets/theme";
 
 $rating_unfilled_opacity: 0.3;
 
+// parent container for the rating component setting up layout of contents
 .rating-container {
   display: flex;
   flex-direction: row;
@@ -16,18 +24,21 @@ $rating_unfilled_opacity: 0.3;
     }
   }
 
+  // if the rating is not set, use this style
   .rating-unfilled {
     path {
       opacity: $rating_unfilled_opacity;
     }
   }
 
+  // if you hover over a rating as an input, scale the rating icon up
   .rating-big {
     &:hover {
       transform: scale(1.3);
     }
   }
 
+  // hide the rating icon
   .rating-hidden {
     width: 0.1px;
     height: 0.1px;

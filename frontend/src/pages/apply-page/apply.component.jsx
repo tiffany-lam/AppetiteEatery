@@ -2,7 +2,11 @@
   Contributors: Sam Alhaqab 017018649
   Course: CECS 470
 
-  Description: This functional component renders an apply page. The page contains a form with inputs that allow a user to create a new restaurant. These inputs include such things as the restaurant name, restaurant description, restaurant tags, images, menu, and other details. Submitting this form will create a new restaurant under the logged in owner. This page can only be viewed by users registered as an owner.
+  Description: This functional component renders an apply page. The page contains a form with 
+  inputs that allow a user to create a new restaurant. These inputs include such things as the 
+  restaurant name, restaurant description, restaurant tags, images, menu, and other details. 
+  Submitting this form will create a new restaurant under the logged in owner. This page can only 
+  be viewed by users registered as an owner.
 */
 
 // main packages:
@@ -21,6 +25,7 @@ import HourRangeInput from "../../components/hour-range-input/hour-range.compone
 import AddTagInput from "../../components/add-tag-input/add-tag-input.component";
 import Modal from "../../components/modal/modal.component";
 import LoadingAnimation from "../../components/loading-animation/loading-animation.component";
+import ReCAPTCHA from "react-google-recaptcha";
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
@@ -91,8 +96,14 @@ const ApplyPage = ({ userAuth, ...props }) => {
   // constant variable used to redirect user to a new page once form is submitting
   const browserHistory = useHistory();
 
+  // reperence to captcha
+  const captcha = React.createRef();
+
   // state variable used to check if page is loading during restaurant submit
   const [loading, setLoading] = useState(false);
+
+  // state variable used to check if captcha has been verified as a success
+  const [verified, setVerified] = useState(false);
 
   // state variables containing values used to create a restaurant
   const [restaurantName, setRestaurantName] = useState("");
@@ -146,6 +157,10 @@ const ApplyPage = ({ userAuth, ...props }) => {
   const submitForm = async (e) => {
     e.preventDefault();
     setLoading(true);
+
+    if (!verified) {
+      return;
+    }
 
     let locationUnformatted = findLocationInfo();
 
@@ -214,6 +229,19 @@ const ApplyPage = ({ userAuth, ...props }) => {
     setCity(addressSegments[1].trim());
     setState(addressSegments[2].trim().split(" ")[0].trim().toLowerCase());
     setZipCode(addressSegments[2].trim().split(" ")[1].trim());
+  };
+
+  // This function verifies that the captcha fulfillment was a success.
+  const verifyCallback = async (token) => {
+    await axios
+      .post(
+        `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.REACT_APP_CAPTCHA_SECRET_KEY}&response=${token}`
+      )
+      .then((res) => {
+        console.log(res);
+        setVerified(res.data.success);
+      })
+      .catch((error) => console.error(error));
   };
 
   // returns the apply page with required forms to submit restaurant
@@ -332,6 +360,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
                     return (
                       <li {...getSuggestionItemProps(suggestion)}>
                         {suggestion.description}
+                        {/* {console.log(suggestion.description)} */}
                       </li>
                     );
                   })}
@@ -727,15 +756,31 @@ const ApplyPage = ({ userAuth, ...props }) => {
         {/* list of text input components and a button that allows a user to add tags, delete tags, and modify tags */}
         <AddTagInput disabled={loading} handleAnyChange={setTags} />
 
+        {/* Require a captcha verification to ensure a bot is not spamming the form. */}
+        <ReCAPTCHA
+          className="captcha"
+          ref={captcha}
+          size="normal"
+          render="explicit"
+          sitekey={process.env.REACT_APP_SITE_KEY}
+          onChange={verifyCallback}
+        ></ReCAPTCHA>
+
         {/* buttom to submit form */}
         <CustomButton
-          disabled={loading}
+          disabled={loading || !verified}
           type="submit"
           className="input-override"
           margin
         >
           submit
         </CustomButton>
+        {/* If the captcha has not been verified, then display a message requiring that they fulfill the captcha. */}
+        {!verified ? (
+          <p className="contact-requirement">
+            Please fill out captcha to proceed
+          </p>
+        ) : null}
       </form>
     </section>
   );

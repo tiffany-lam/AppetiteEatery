@@ -2,7 +2,9 @@
   Contributors: Sam Alhaqab 017018649
   Course: CECS 470
 
-  Description: This functional component returns a styled input for an hour range, in other words a range of hours starting from one hour to another hour. For example, it can be used to display an open time for a certain day, such as Sunday 10:00 AM - 11:00 PM.
+  Description: This functional component returns a styled input for an hour range, in other words 
+  a range of hours starting from one hour to another hour. For example, it can be used to display 
+  an open time for a certain day, such as Sunday 10:00 AM - 11:00 PM.
 */
 
 // main packages:

@@ -2,7 +2,10 @@
   Contributors: Sam Alhaqab 017018649
   Course: CECS 470
 
-  Description: This functional component returns a image card for restaurants with a link attached that redirects the user, on click, to the associated restaurant. It displays a restaurant image, the restaurant name, and the restaurants rating. This image card is used to expose and feature a restaurant with minimal information.
+  Description: This functional component returns a image card for restaurants with a link 
+  attached that redirects the user, on click, to the associated restaurant. It displays a 
+  restaurant image, the restaurant name, and the restaurants rating. This image card is used to 
+  expose and feature a restaurant with minimal information.
 */
 
 // main packages:

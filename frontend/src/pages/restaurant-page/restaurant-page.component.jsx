@@ -2,7 +2,11 @@
   Contributors: Julie Do 014101748
   Course: CECS 470
 
-  Description: This functional component displays a restaurants information and allows a user to edit the restaurant information if they are the owner of the restaurant. Restaurant information includes all related reviews, a description, tags, a map of the restaurant location, the address, details, and much more. Most of these values are editable should the user choose to edit their restaurant.
+  Description: This functional component displays a restaurants information and allows a user to 
+  edit the restaurant information if they are the owner of the restaurant. Restaurant 
+  information includes all related reviews, a description, tags, a map of the restaurant 
+  location, the address, details, and much more. Most of these values are editable should the 
+  user choose to edit their restaurant.
 */
 
 // IMPORT MAIN PACKAGES
@@ -107,7 +111,10 @@ const RestaurantPage = ({ match, currentUser, ...props }) => {
   // This allows us to redirect the user to a new page of the restaurant is not found.
   const browserHistory = useHistory();
 
-  // This use effect triggers on component mount and any time the url parameter id is updated. It loads the restaurant pages information and stores it in the state variable. While doing so, it adjusts the loading variable to state whether or not the page should currently display loading as it is fetching data.
+  // This use effect triggers on component mount and any time the url parameter id is updated.
+  //  It loads the restaurant pages information and stores it in the state variable. While doing
+  //  so, it adjusts the loading variable to state whether or not the page should currently
+  // display loading as it is fetching data.
   useEffect(() => {
     let source = axios.CancelToken.source();
     console.log("Use Effect 1 called . . . ");
@@ -170,7 +177,8 @@ const RestaurantPage = ({ match, currentUser, ...props }) => {
     setRestaurant({ ...restaurant, reviews });
   };
 
-  // This function is a generic handler changing any shallow value inside of the restaurant object/
+  // This function is a generic handler changing any shallow value inside of the restaurant
+  // object/
   const handleChange = (e) => {
     const value = e.target.value;
     setRestaurant({ ...restaurant, [e.target.name]: value });
@@ -251,11 +259,13 @@ const RestaurantPage = ({ match, currentUser, ...props }) => {
       })
     : null;
 
-  // Returns a loading animation of the restaurant has not retrieved any data yet, or the restaurant's edit page if the edit variable has been set, or the restaurant page otherwise.
+  // Returns a loading animation of the restaurant has not retrieved any data yet, or the
+  // restaurant's edit page if the edit variable has been set, or the restaurant page otherwise.
   return loading ? (
     <LoadingAnimation></LoadingAnimation>
   ) : editable && restaurant ? (
-    // This is the restaurant editing html. It contains a form with various different inputs for the different values of the restaurant.
+    // This is the restaurant editing html. It contains a form with various different inputs for
+    // the different values of the restaurant.
     <section className="restaurant-page">
       {/* This div is used purely to style the restaurant page's main content (via grid-area). */}
       <div className="restaurant-page-main">
@@ -263,7 +273,8 @@ const RestaurantPage = ({ match, currentUser, ...props }) => {
           {restaurant.restaurantName}
         </h1>
         <form action="" method="put" id="manage-restaurant">
-          {/* This div is used purely to format the general style of part of the restaurant page, as forms do not allow usage of certain css styles. */}
+          {/* This div is used purely to format the general style of part of the restaurant 
+          page, as forms do not allow usage of certain css styles. */}
           <div className="restaurant-page-main-manage">
             <fieldset form="manage-restaurant" className="restaurant-container">
               {/* This button is used to save changes to the database. */}
@@ -278,7 +289,8 @@ const RestaurantPage = ({ match, currentUser, ...props }) => {
                 YOU ARE MODIFYING YOUR RESTAURANT. CLICK TO <span>SAVE</span>{" "}
                 YOUR CHANGES.
               </button>
-              {/* This div is used purely to style the restaurant name input with an editing button. */}
+              {/* This div is used purely to style the restaurant name input with an editing 
+              button. */}
               <div className="restaurant-name">
                 {/* This input is used to edit the restaurant's name. */}
                 <label htmlFor="restaurantName">
@@ -315,7 +327,8 @@ const RestaurantPage = ({ match, currentUser, ...props }) => {
             </fieldset>
             {/* This fieldset allows the user to edit the images of the restaurant page. */}
             <fieldset form="manage-restaurant" className="restaurant-container">
-              {/* This div is used purely to style the carousel, which requires a specified width. */}
+              {/* This div is used purely to style the carousel, which requires a specified 
+              width. */}
               <div className="restaurant-page-carousel">
                 <Carousel
                   images={restaurant.images}
@@ -324,7 +337,8 @@ const RestaurantPage = ({ match, currentUser, ...props }) => {
                   deleteImage={deleteImage}
                 />
               </div>
-              {/* This div is used purely to style the restaurant page upload beneath the carousel. */}
+              {/* This div is used purely to style the restaurant page upload beneath the 
+              carousel. */}
               <div className="restaurant-page-upload">
                 <ImageUploadInput
                   label="New Restaurant Images"
@@ -415,7 +429,8 @@ const RestaurantPage = ({ match, currentUser, ...props }) => {
               <Tabs
                 labels={["Details", "Menu", "Hours"]}
                 content={[
-                  // This is the details fieldset, used to edit different details of the restaurant.
+                  // This is the details fieldset, used to edit different details of the
+                  // restaurant.
                   <fieldset form="restaurant-manage-extra">
                     <div className="restaurant-page-details">
                       <div className="restaurant-page-detail">
@@ -439,7 +454,8 @@ const RestaurantPage = ({ match, currentUser, ...props }) => {
                             <option value="paid">Paid</option>
                             <option value="unavailable">Unavailable</option>
                           </SelectInput>
-                          {/* These buttons are used to determine if this variable is being edited or not. */}
+                          {/* These buttons are used to determine if this variable is being 
+                          edited or not. */}
                           {editInput === "parking" ? (
                             <button
                               type="button"
@@ -479,7 +495,8 @@ const RestaurantPage = ({ match, currentUser, ...props }) => {
                             <option value={true}>Yes</option>
                             <option value={false}>No</option>
                           </SelectInput>
-                          {/* These buttons are used to determine if this variable is being edited or not. */}
+                          {/* These buttons are used to determine if this variable is being 
+                          edited or not. */}
                           {editInput === "wifi" ? (
                             <button
                               type="button"
@@ -520,7 +537,8 @@ const RestaurantPage = ({ match, currentUser, ...props }) => {
                               <option value={true}>Yes</option>
                               <option value={false}>No</option>
                             </SelectInput>
-                            {/* These buttons are used to determine if this variable is being edited or not. */}
+                            {/* These buttons are used to determine if this variable is being 
+                            edited or not. */}
                             {editInput === "takeout" ? (
                               <button
                                 type="button"
@@ -561,7 +579,8 @@ const RestaurantPage = ({ match, currentUser, ...props }) => {
                             <option value={true}>Yes</option>
                             <option value={false}>No</option>
                           </SelectInput>
-                          {/* These buttons are used to determine if this variable is being edited or not. */}
+                          {/* These buttons are used to determine if this variable is being 
+                          edited or not. */}
                           {editInput === "reservations" ? (
                             <button
                               type="button"
@@ -633,7 +652,8 @@ const RestaurantPage = ({ match, currentUser, ...props }) => {
                             }}
                             disabled={editInput !== "sunday"}
                           />
-                          {/* These buttons are used to determine if this variable is being edited or not. */}
+                          {/* These buttons are used to determine if this variable is being 
+                          edited or not. */}
                           {editInput === "sunday" ? (
                             <button
                               type="button"
@@ -683,7 +703,8 @@ const RestaurantPage = ({ match, currentUser, ...props }) => {
                             }}
                             disabled={editInput !== "monday"}
                           />
-                          {/* These buttons are used to determine if this variable is being edited or not. */}
+                          {/* These buttons are used to determine if this variable is being 
+                          edited or not. */}
                           {editInput === "monday" ? (
                             <button
                               type="button"
@@ -733,7 +754,8 @@ const RestaurantPage = ({ match, currentUser, ...props }) => {
                             }}
                             disabled={editInput !== "tuesday"}
                           />
-                          {/* These buttons are used to determine if this variable is being edited or not. */}
+                          {/* These buttons are used to determine if this variable is being 
+                          edited or not. */}
                           {editInput === "tuesday" ? (
                             <button
                               type="button"
@@ -783,7 +805,8 @@ const RestaurantPage = ({ match, currentUser, ...props }) => {
                             }}
                             disabled={editInput !== "wednesday"}
                           />
-                          {/* These buttons are used to determine if this variable is being edited or not. */}
+                          {/* These buttons are used to determine if this variable is being 
+                          edited or not. */}
                           {editInput === "wednesday" ? (
                             <button
                               type="button"
@@ -833,7 +856,8 @@ const RestaurantPage = ({ match, currentUser, ...props }) => {
                             }}
                             disabled={editInput !== "thursday"}
                           />
-                          {/* These buttons are used to determine if this variable is being edited or not. */}
+                          {/* These buttons are used to determine if this variable is being 
+                          edited or not. */}
                           {editInput === "thursday" ? (
                             <button
                               type="button"
@@ -883,7 +907,8 @@ const RestaurantPage = ({ match, currentUser, ...props }) => {
                             }}
                             disabled={editInput !== "friday"}
                           />
-                          {/* These buttons are used to determine if this variable is being edited or not. */}
+                          {/* These buttons are used to determine if this variable is being 
+                          edited or not. */}
                           {editInput === "friday" ? (
                             <button
                               type="button"
@@ -933,7 +958,8 @@ const RestaurantPage = ({ match, currentUser, ...props }) => {
                             }}
                             disabled={editInput !== "saturday"}
                           />
-                          {/* These buttons are used to determine if this variable is being edited or not. */}
+                          {/* These buttons are used to determine if this variable is being 
+                          edited or not. */}
                           {editInput === "saturday" ? (
                             <button
                               type="button"
@@ -968,7 +994,8 @@ const RestaurantPage = ({ match, currentUser, ...props }) => {
     // This renders the restaurant page without edits.
     <section className="restaurant-page">
       <section className="restaurant-page-main">
-        {/* If the user viewing the page is the owner of the restaurant, they will see a button allowing them to edit the restaurant. */}
+        {/* If the user viewing the page is the owner of the restaurant, they will see a button 
+        allowing them to edit the restaurant. */}
         {currentUser._id === restaurant.ownerid._id ? (
           <button
             className="restaurant-page-button"
@@ -979,7 +1006,8 @@ const RestaurantPage = ({ match, currentUser, ...props }) => {
             CLICK TO <span>EDIT</span>.
           </button>
         ) : null}
-        {/* This displays the general restaurant information such as name, images, open date, and owner. */}
+        {/* This displays the general restaurant information such as name, images, open date, 
+        and owner. */}
         <h1>{restaurant.restaurantName}</h1>
         <section className="restaurant-page-information">
           <p>Opened {restaurant.dateOpen.split(" ")[0]}</p>
@@ -998,7 +1026,8 @@ const RestaurantPage = ({ match, currentUser, ...props }) => {
           <h2>Description</h2>
           <p>{restaurant.description}</p>
         </section>
-        {/* If the current user is a patron, they will be allowed to review/will see a review input form. If they are an owner, they will not be allowed to review. */}
+        {/* If the current user is a patron, they will be allowed to review/will see a review 
+        input form. If they are an owner, they will not be allowed to review. */}
         {currentUser._cls === "Client.Patron" ? (
           <section className="restaurant-page-review-input">
             <h2>Have something to say?</h2>
@@ -1013,7 +1042,8 @@ const RestaurantPage = ({ match, currentUser, ...props }) => {
           <ul>{reviews}</ul>
         </section>
       </section>
-      {/* This section displays the side content of the restaurant page that is the extra information. This includes things such as the location, tags, details, menu, and hours. */}
+      {/* This section displays the side content of the restaurant page that is the extra 
+      information. This includes things such as the location, tags, details, menu, and hours. */}
       <section className="restaurant-page-side">
         <div className="restaurant-page-side-contents">
           <section className="restaurant-page-tags">
@@ -1147,11 +1177,15 @@ const RestaurantPage = ({ match, currentUser, ...props }) => {
   );
 };
 
-// This is a variable used to wrap the functional Restaurant Page component as a higher order component to attach user redux variables shared globally. The user redux variables here are the logged in user's information. This is so that restaurant page knows whether or not to allow a user to edit the page or post a review to the page.
+// This is a variable used to wrap the functional Restaurant Page component as a higher order
+// component to attach user redux variables shared globally. The user redux variables here are
+// the logged in user's information. This is so that restaurant page knows whether or not to
+// allow a user to edit the page or post a review to the page.
 const mapStateToProps = ({ user }) => ({
   userAuth: user.userAuth,
   currentUser: user.currentUser,
 });
 
-// Attach the redux values as a higher order component to the restaurant page and export as the default component of Restaurant Page.
+// Attach the redux values as a higher order component to the restaurant page and export as the
+// default component of Restaurant Page.
 export default connect(mapStateToProps)(RestaurantPage);

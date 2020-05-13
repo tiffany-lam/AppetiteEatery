@@ -1,7 +1,16 @@
+/*
+  Contributors: Julie Do 014101748
+  Course: CECS 470
+
+  Description: This scss class styles the restaurant page component.
+*/
+
 // GLOABL THEME IMPORTS
 @import "../../assets/theme";
 
-// This class is used to visually hide html, but still allow screen-readers to view them for accessibility issues. This class is copied from the following website: https://a11yproject.com/posts/how-to-hide-content/
+// This class is used to visually hide html, but still allow screen-readers to view them for
+// accessibility issues. This class is copied from the following website: https://a11yproject.com/
+// posts/how-to-hide-content/
 @mixin visually-hidden {
   position: absolute !important;
   height: 1px;
@@ -12,7 +21,8 @@
   white-space: nowrap;
 }
 
-// This is the main containing class of the restaurant page that sets up the layout of the restaurant page.
+// This is the main containing class of the restaurant page that sets up the layout of the
+// restaurant page.
 .restaurant-page {
   width: 100%;
 
@@ -30,7 +40,8 @@
   box-sizing: border-box;
 }
 
-// This class styles the main information of the restaurant, that is, such things as the title and images.
+// This class styles the main information of the restaurant, that is, such things as the title
+// and images.
 .restaurant-page-main {
   grid-area: main;
   height: auto;
@@ -118,7 +129,8 @@
   }
 }
 
-// This class displays the less general information of the restaurant page, such as the description, reviews, and review input.
+// This class displays the less general information of the restaurant page, such as the
+// description, reviews, and review input.
 .restaurant-page-more {
   grid-area: more;
   height: auto;
@@ -295,7 +307,8 @@
       align-items: center;
     }
 
-    // This class styles other contents of the restaurant page side, such as the extra details, hours, etc.
+    // This class styles other contents of the restaurant page side, such as the extra details,
+    // hours, etc.
     .restaurant-page-others {
       height: 100%;
       width: 100%;
@@ -367,7 +380,8 @@
   }
 }
 
-// This class styles the main information of the restaurant, that is, such things as the title and images, when the user is editing the form.
+// This class styles the main information of the restaurant, that is, such things as the title
+// and images, when the user is editing the form.
 .restaurant-page-main-manage {
   grid-area: main;
   display: flex;
@@ -382,7 +396,8 @@
 
     border: none;
 
-    // These classes are used to style restaurant-name and restaurant-description in the editing page.
+    // These classes are used to style restaurant-name and restaurant-description in the editing
+    // page.
     .restaurant-name,
     .restaurant-description {
       display: flex;

@@ -2,7 +2,9 @@
   Contributors: Julie Do 014101748
   Course: CECS 470
 
-  Description: This class component renders a review input used for users to post a review to a specifc restaurant. It allows users to upload images with their review, and preview these as well. They may post some message in the review, and select a max rating of 5 hearts.
+  Description: This class component renders a review input used for users to post a review to a 
+  specifc restaurant. It allows users to upload images with their review, and preview these as 
+  well. They may post some message in the review, and select a max rating of 5 hearts.
 */
 
 // IMPORT MAIN PACKAGES
@@ -25,7 +27,10 @@ import CloseIcon from "@material-ui/icons/Close";
 
 // Class Component Review Input
 class ReviewInput extends Component {
-  // The class components contructor intializes a state which contains a files variable to hold all image files uploaded by the user, a rating value defaulted to 1 (as 0 is not allowed), and a contents variable to contain the message posted by the user. The constructor also sets two variables used for API request cancelling.
+  // The class components contructor intializes a state which contains a files variable to hold
+  // all image files uploaded by the user, a rating value defaulted to 1 (as 0 is not allowed),
+  // and a contents variable to contain the message posted by the user. The constructor also sets
+  // two variables used for API request cancelling.
   constructor(props) {
     super(props);
     this.state = {
@@ -117,7 +122,8 @@ class ReviewInput extends Component {
 
   // Render the review input component with it's information.
   render() {
-    // This variable displays any images that a user has uploaded as a preview on the review input component.
+    // This variable displays any images that a user has uploaded as a preview on the review
+    // input component.
     const preview = this.state.files.map((fileObj, index) => (
       <div className="review-preview" key={index}>
         <img

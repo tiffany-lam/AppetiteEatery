@@ -2,7 +2,9 @@
   Contributors: Sam Alhaqab 017018649
   Course: CECS 470
 
-  Description: This functional component renders the home page of our website, which contains a list of links to our more popular restaurants. These links display the restaurant name, rating, and an image from the restaurant.
+  Description: This functional component renders the home page of our website, which contains a 
+  list of links to our more popular restaurants. These links display the restaurant name, rating, 
+  and an image from the restaurant.
 */
 
 // main packages:
@@ -18,7 +20,8 @@ import "./home-page.styles.scss";
 
 // home page renders a list of links to popular restaurants
 const HomePage = () => {
-  // state variable determines css style of the restaurant listing that is currently being hovered on
+  // state variable determines css style of the restaurant listing that is currently being
+  // hovered on
   const [galleryItemHover, setGalleryItemHover] = useState(false);
   // state variabel holds restaurants to be displayed
   const [results, setResults] = useState([]);
@@ -68,7 +71,8 @@ const HomePage = () => {
   return (
     <div className="home-page-container">
       <div className="limelight-container">
-        {/* the first container displayed on the page is a css styled lime with a spotlight which animates if you hover on it */}
+        {/* the first container displayed on the page is a css styled lime with a spotlight which 
+        animates if you hover on it */}
         <div
           className="header-box"
           onMouseEnter={enableLimelightGlow}

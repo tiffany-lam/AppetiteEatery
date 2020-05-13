@@ -2,7 +2,9 @@
   Contributors: Julie Do 014101748
   Course: CECS 470
 
-  Description: This class renders a map component based on google's map API's. This is done through an imported package called google-maps-react. It renders a map on a specific location with desired markers as passed in. 
+  Description: This class renders a map component based on google's map API's. This is done 
+  through an imported package called google-maps-react. It renders a map on a specific location 
+  with desired markers as passed in. 
 */
 
 // IMPORT MAIN PACKAGES
@@ -11,7 +13,8 @@ import { Map, Marker, GoogleApiWrapper } from "google-maps-react";
 
 // Functional Component MapContainer
 const MapContainer = (props) => {
-  // This function returns a map container displaying a google map of the desired location with the desired markers on the map.
+  // This function returns a map container displaying a google map of the desired location with
+  // the desired markers on the map.
   return (
     // Map Component
     <Map

@@ -1,9 +1,17 @@
+/*
+  Contributors: Julie Do 014101748, Sam Alhaqab 017018649, Tiffany Lam 015181853
+  Course: CECS 470
+
+  Description: This scss class styles the restaurant card component and formats it's contents.
+*/
+
 // GLOABL THEME IMPORTS
 @import "../../assets/theme";
 
 // Main class component container for each card.
 .restaurant-card-container {
   background-color: $background_light;
+  // width: 100%;
   width: 100%;
   max-width: 40rem;
 
@@ -109,6 +117,8 @@
 
   &:hover,
   &:focus {
+    // background-color: red;
+    // margin-top: 1rem;
     outline: none;
     border: 1px solid $secondary_dark;
   }

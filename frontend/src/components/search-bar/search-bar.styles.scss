@@ -11,6 +11,7 @@
 
 .search-bar-container {
   background-color: $background_light;
+  position: relative;
 
   height: 2.5rem;
   width: 2.5rem;
@@ -18,7 +19,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
+  // flex-direction: column;
+  // overflow: hidden;
 
   transition: width 150ms ease-out;
 
@@ -60,6 +62,7 @@
     height: 100%;
 
     display: flex;
+    // flex-direction: column;
 
     .label-hide {
       position: absolute;
@@ -110,5 +113,14 @@
 
     width: 100%;
     border: 1px solid $secondary;
+
+    // .hello-2 {
+    //   width: 100%;
+    //   // border: 1px solid $secondary_dark;
+
+    //   .search-input2 {
+    //     opacity: 1;
+    //   }
+    // }
   }
 }
