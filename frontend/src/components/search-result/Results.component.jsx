@@ -5,15 +5,16 @@ import { Link } from "react-router-dom";
 import "./results.styles.scss";
 
 const Results = ({ results, loading }) => {
-  if (loading) {
-    return <h2>Loading...</h2>;
-  }
   return (
     /* Using bootstrap for pagination*/
     // <div>
     <React.Fragment>
       {results.map((restaurant, i) => (
-        <Link key={i} className="help5" to={`/restaurant/${restaurant._id}`}>
+        <Link
+          key={i}
+          className="image-card-link"
+          to={`/restaurant/${restaurant._id}`}
+        >
           <RestaurantCard restaurant={restaurant} className="card-listings" />
         </Link>
       ))}

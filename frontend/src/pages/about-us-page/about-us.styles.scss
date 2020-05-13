@@ -1,5 +1,14 @@
+/*
+  Contributors: Julie Do 014101748, Tiffany Lam 015181853, Veronica Sumariyanto 013229149, Sam Alhaqab 017018649
+  Course: CECS 470
+
+  Description: This scss class styles the about us page component.
+*/
+
+// GLOABL THEME IMPORTS
 @import "../../assets/theme";
 
+// This mixin is for each about-us container, that is the design and development section and the developers section.
 @mixin about-us-container {
   background-color: $primary;
 
@@ -50,6 +59,7 @@
   }
 }
 
+// This mixin is used to adjust the about-us styles when hovered/expanded.
 @mixin about-us-expand {
   height: 100%;
   width: 100%;
@@ -62,6 +72,7 @@
   transform: rotate(0deg);
 }
 
+// This mixin is used to style each developers section.
 @mixin about-us-developer {
   display: flex;
   flex-direction: row;
@@ -124,6 +135,7 @@
   }
 }
 
+// Main page container used to format layout of page.
 .about-us-container {
   height: 100%;
   padding-bottom: 0;
@@ -136,6 +148,7 @@
   }
 }
 
+// This is the main class component used to format the contents of the page, otherwise the design and development and developers sections.
 .about-us {
   height: 20rem;
   width: 20rem;
@@ -161,19 +174,20 @@
     font-weight: bold;
   }
 
+  // This class is used to style the design and development section.
   .about-us-design {
     @include about-us-container;
     padding-bottom: 2rem;
 
     transition: all 1s ease-in-out;
+    overflow: hidden;
 
     p {
       opacity: 0%;
     }
-
-    overflow: hidden;
   }
 
+  // This class is used to style the developers section.
   .about-us-developers {
     @include about-us-container;
     margin-left: 50%;
@@ -185,6 +199,7 @@
       transition: padding 1s ease-in-out;
     }
 
+    // These classes are for each individual developers section.
     .about-us-sam,
     .about-us-julie,
     .about-us-tiffany,
@@ -194,6 +209,7 @@
   }
 }
 
+// This class is used to expand the about-us section on hover. It expands the about-us container to the full page to display the contents of each section.
 div.about-us:hover {
   @include about-us-expand;
   flex-wrap: nowrap;
@@ -261,6 +277,7 @@ div.about-us:hover {
   }
 }
 
+// This media query is for when the page is shrunk and the hover effect is no longer viable. It displays the design and development, and developers normally.
 @media (max-width: 510px) {
   .about-us {
     @include about-us-expand;

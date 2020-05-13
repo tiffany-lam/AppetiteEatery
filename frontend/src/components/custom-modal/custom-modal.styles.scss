@@ -1,5 +1,14 @@
+/*
+  Contributors: Sam Alhaqab 017018649
+  Course: CECS 470
+
+  Description: This scss class styles the custom modal component.
+*/
+
+// global theme import
 @import "../../assets/theme";
 
+// styles the container behind the modal
 .behind-modal-container {
   position: absolute;
   top: 0;
@@ -12,19 +21,20 @@
   height: 100vh; //so that the height of our box
 }
 
+// styles the actual modal container
 .modal-popup-box {
-  //   border-radius: 1em;
-  // position: absolute;
   z-index: 5;
   width: fit-content;
   height: fit-content;
   background-color: $background;
 }
+
+// ensures the content of the container is not hidden
 .content-container {
   z-index: 6;
-  //   margin: 25px 25px;
 }
 
+// styles area used to close modal on outsied
 .close-modal-area {
   position: fixed;
   z-index: 3;

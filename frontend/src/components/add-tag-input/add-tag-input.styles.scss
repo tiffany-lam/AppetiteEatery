@@ -1,13 +1,22 @@
+/*
+  Contributors: Sam Alhaqab 017018649
+  Course: CECS 470
+
+  Description: This sccs file is used to style the add tag input component, which renders a list of 
+  tags and offers a variety of modification options.
+*/
+
+// global theme imports
 @import "../../assets/theme";
 
+// styles the list of tags so that they appear as a horizontal list with appropriate spacing
 .add-tag-list {
-  // background-color: lightblue;
   max-width: 30rem;
-  // background-color: lightsalmon;
 
   display: flex;
   flex-wrap: wrap;
 
+  // styles a tag input next to a delete button
   .tag-input-close-btn {
     display: flex;
     background-color: red;
@@ -16,33 +25,25 @@
 
     height: 1.2rem;
 
+    // styles each tag component
     .tag-item {
-      // margin: 2px 0 2px 2px;
       height: 100%;
       margin: 0;
-      // height: 100%;
     }
 
+    // styles the delete button per tag
     .delete-tag-btn {
       cursor: pointer;
       padding: 0;
       margin: 0;
       height: 100%;
       width: 1.2rem;
-      // height: 1.15rem;
-      // width: 1.15rem;
-      // max-height: 1.15rem;
-      // max-width: 1.15rem;
-      // margin: 2px 2px 2px 0;
 
       background-color: $primary;
-      // border: 1px solid lightgray;
 
       display: flex;
       justify-content: center;
       align-items: center;
-
-      // background-color: red;
 
       svg {
         width: 0.8rem;
@@ -65,17 +66,15 @@
         }
       }
       &:disabled {
-        // background-color: #ececec;
         cursor: not-allowed;
       }
     }
   }
 
+  // styles the add new tag input button
   .add-tag-btn {
     width: 9.5rem;
     height: 1.2rem;
-
-    // margin: 2px;
 
     background-color: $background_light;
     border: 1px solid lightgray;
@@ -84,14 +83,10 @@
     justify-content: center;
     align-items: center;
 
-    // background-color: red;
-
     svg {
-      // height: 1rem;
-      // width: 1rem;
       height: 100%;
       width: 100%;
-      // background-color: blue;
+
       path {
         fill: rgba($secondary_dark, 0.5);
       }
@@ -107,8 +102,8 @@
         }
       }
     }
+
     &:disabled {
-      // background-color: #ececec;
       cursor: not-allowed;
     }
   }

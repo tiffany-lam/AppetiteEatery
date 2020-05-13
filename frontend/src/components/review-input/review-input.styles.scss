@@ -1,7 +1,17 @@
+/*
+  Contributors: Julie Do 014101748
+  Course: CECS 470
+
+  Description: This scss class styles the review input component.
+*/
+
+// GLOABL THEME IMPORTS
 @import "../../assets/theme";
 
+// This class is used to visually hide html, but still allow screen-readers to view them for
+// accessibility issues. This class is copied from the following website: https://a11yproject.com/
+// posts/how-to-hide-content/
 @mixin visually-hidden {
-  // https://a11yproject.com/posts/how-to-hide-content/
   position: absolute !important;
   height: 1px;
   width: 1px;
@@ -11,6 +21,7 @@
   white-space: nowrap;
 }
 
+// These classes are used for any form of focus or hover on the review-input's components.
 section.review-input:hover,
 section.review-input:focus,
 section.review-input:focus-within {
@@ -18,8 +29,8 @@ section.review-input:focus-within {
   border: 1px solid $secondary_dark;
 }
 
+// This is the main class of the review-input (parent container).
 .review-input {
-  // height: 100%;
   width: 100%;
 
   padding: 0.6rem;
@@ -30,7 +41,8 @@ section.review-input:focus-within {
   border: none;
   border: 1px solid lightgray;
 
-  .review-extra {
+  // This class styles the head of the review input.
+  .review-head {
     height: min-content;
     width: 100%;
 
@@ -39,6 +51,7 @@ section.review-input:focus-within {
     justify-content: space-between;
   }
 
+  // This class styles the user information of the review input.
   .review-user {
     height: min-content;
     width: 100%;
@@ -62,8 +75,8 @@ section.review-input:focus-within {
     }
   }
 
+  // This class styles the form of the review input.
   .review-form {
-    // height: 100%;
     width: 100%;
 
     display: flex;
@@ -90,7 +103,8 @@ section.review-input:focus-within {
       margin: 0.5rem 0;
     }
 
-    .review-form-submit {
+    // This class styles the bottom of the review input form.
+    .review-form-bottom {
       width: 100%;
       display: flex;
       flex-direction: row;
@@ -148,7 +162,6 @@ section.review-input:focus-within {
       }
 
       label {
-        // border: 1px solid black;
         height: 36px;
         width: 36px;
 
@@ -181,7 +194,6 @@ section.review-input:focus-within {
         margin-left: auto;
 
         background: none;
-        // background-color: $primary;
         background-color: $secondary;
         outline: none;
         border: none;
@@ -190,7 +202,6 @@ section.review-input:focus-within {
         font-weight: bold;
         color: white;
 
-        // border: 1px solid $primary;
         border-radius: 2px;
 
         cursor: pointer;

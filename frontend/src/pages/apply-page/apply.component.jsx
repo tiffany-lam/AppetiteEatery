@@ -1,23 +1,31 @@
-// import React from "react";
-import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+/*
+  Contributors: Sam Alhaqab 017018649
+  Course: CECS 470
 
-import { Link } from "react-router-dom";
+  Description: This functional component renders an apply page. The page contains a form with 
+  inputs that allow a user to create a new restaurant. These inputs include such things as the 
+  restaurant name, restaurant description, restaurant tags, images, menu, and other details. 
+  Submitting this form will create a new restaurant under the logged in owner. This page can only 
+  be viewed by users registered as an owner.
+*/
+
+// main packages:
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import axios from "axios";
 import { BASE_API_URL } from "../../utils";
 
 // custom components:
-import ImageCard from "../../components/image-card/image-card.component";
 import FormInput from "../../components/form-input/form-input.component";
 import CustomButton from "../../components/custom-button/custom-button.component";
 import ImageUploadInput from "../../components/img-upload-input/img-upload-inputcomponent";
 import SelectInput from "../../components/select-input/select-input.component";
 import HourRangeInput from "../../components/hour-range-input/hour-range.component";
-import Tag from "../../components/tag/tag-v2.component";
 import AddTagInput from "../../components/add-tag-input/add-tag-input.component";
 import Modal from "../../components/modal/modal.component";
 import LoadingAnimation from "../../components/loading-animation/loading-animation.component";
+import ReCAPTCHA from "react-google-recaptcha";
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
@@ -83,11 +91,21 @@ const stateAbbreviations = [
   "wy",
 ];
 
+// functional component renders the apply page with associated inputs to create a new restaurant
 const ApplyPage = ({ userAuth, ...props }) => {
+  // constant variable used to redirect user to a new page once form is submitting
   const browserHistory = useHistory();
 
+  // reperence to captcha
+  const captcha = React.createRef();
+
+  // state variable used to check if page is loading during restaurant submit
   const [loading, setLoading] = useState(false);
 
+  // state variable used to check if captcha has been verified as a success
+  const [verified, setVerified] = useState(false);
+
+  // state variables containing values used to create a restaurant
   const [restaurantName, setRestaurantName] = useState("");
   const [description, setDescription] = useState("");
   const [dateOpened, setDateOpened] = useState("");
@@ -123,20 +141,26 @@ const ApplyPage = ({ userAuth, ...props }) => {
     saturday: { to: "", from: "" },
   });
 
+  // find location of address as latitude and longitude
   const findLocationInfo = async () => {
     const addressStr = `${address1}, ${city}, ${state} ${zipcode}, ${country}`;
 
     let geoCode = await geocodeByAddress(addressStr);
     let results = await getLatLng(geoCode[0]);
 
-    console.log(results);
-
     return results;
   };
 
+  // function takes restaurant information and submits it to create a new restaurant
+  // if the submitting of the restaurant is successful, the user is redirected to their
+  // list of restaurants
   const submitForm = async (e) => {
     e.preventDefault();
     setLoading(true);
+
+    if (!verified) {
+      return;
+    }
 
     let locationUnformatted = findLocationInfo();
 
@@ -166,27 +190,22 @@ const ApplyPage = ({ userAuth, ...props }) => {
     axios
       .post(`${BASE_API_URL}/restaurant`, textData)
       .then((res) => {
-        console.log("SUBMITTEEEEEEDD");
-        console.log(res.data);
-
-        // let id = res.data._id.$oid;
         submitImages(res.data._id.$oid);
       })
       .catch((err) => {
-        console.log(textData);
         console.error(err);
         setLoading(false);
       });
   };
 
+  // submit images uploads images to associated with the restaurant to an S3 Bucket
   const submitImages = async (restaurantId) => {
     let formData = new FormData();
 
-    //  console.log(this.state.restaurant_new.images.length)
     for (let i = 0; i < images.length; i++) {
       formData.append("images[]", images[i]);
     }
-    //  console.log(this.state.restaurant_new.menu.length)
+
     for (let i = 0; i < menus.length; i++) {
       formData.append("menu[]", menus[i]);
     }
@@ -202,6 +221,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
     return res;
   };
 
+  // auto populates address/location forms based on suggested address
   const handleSelect = async (addressStr) => {
     const results = await geocodeByAddress(addressStr);
     const addressSegments = results[0].formatted_address.split(",");
@@ -211,25 +231,39 @@ const ApplyPage = ({ userAuth, ...props }) => {
     setZipCode(addressSegments[2].trim().split(" ")[1].trim());
   };
 
+  // This function verifies that the captcha fulfillment was a success.
+  const verifyCallback = async (token) => {
+    await axios
+      .post(
+        `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.REACT_APP_CAPTCHA_SECRET_KEY}&response=${token}`
+      )
+      .then((res) => {
+        console.log(res);
+        setVerified(res.data.success);
+      })
+      .catch((error) => console.error(error));
+  };
+
+  // returns the apply page with required forms to submit restaurant
   return (
+    // section contains the apply page html
     <section className="apply-page-container">
+      {/* if the restaurant has been submitted, a loading page will display */}
       {loading ? (
         <Modal defaultShow backdrop>
-          <LoadingAnimation
-            // horizontal
-            // background
-            text1="Uploading Images"
-            text2="Please Wait"
-          />
+          <LoadingAnimation text1="Uploading Images" text2="Please Wait" />
         </Modal>
       ) : null}
 
+      {/* page title */}
       <h1 className="apply-form-header input-override">
         Submit your restaurant!
       </h1>
 
+      {/* form to submit a restaurant */}
       <form onSubmit={submitForm}>
         <h2 className="form-subtitle">Basic Information</h2>
+        {/* text input for restaurant name */}
         <FormInput
           readOnly={loading}
           required
@@ -243,6 +277,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
           className="input-override"
         />
 
+        {/* date input for the date the restaurant was opened */}
         <FormInput
           readOnly={loading}
           required
@@ -256,6 +291,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
           className="input-override"
         />
 
+        {/* text input for restaurant website */}
         <FormInput
           readOnly={loading}
           type="text"
@@ -268,6 +304,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
           className="input-override"
         />
 
+        {/* text area for restaurant description */}
         <FormInput
           readOnly={loading}
           required
@@ -283,35 +320,11 @@ const ApplyPage = ({ userAuth, ...props }) => {
           additionalInfo="(max length: 500 characters)"
         />
 
-        <h2
-          className="form-subtitle"
-          // onClick={() => {
-          //   axios
-          //     .get("https://maps.googleapis.com/maps/api/geocode/json", {
-          //       params: {
-          //         key: "AIzaSyC3aa1jBRam7QevnEvIcNtj2OpLAFe3UtA",
-          //         address: "14524 Halldale Ave, Gardena, CA 90247, USA",
-          //       },
-          //     })
-          //     .then((res) => {
-          //       console.log(res);
-          //     })
-          //     .catch((err) => {
-          //       console.log(err);
-          //     });
-          // }}
-          // onClick={() => {
-          //   console.log(address1);
-          //   console.log(city);
-          //   console.log(state);
-          //   console.log(zipcode);
-          //   console.log(country);
-          // }}
-          onClick={findLocationInfo}
-        >
+        <h2 className="form-subtitle" onClick={findLocationInfo}>
           Address
         </h2>
 
+        {/* auto completes address form */}
         <PlacesAutocomplete
           value={address1}
           onChange={setAddress1}
@@ -329,6 +342,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
             loading,
           }) => (
             <React.Fragment>
+              {/* text input for main street address */}
               <FormInput
                 readOnly={loading}
                 required
@@ -346,6 +360,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
                     return (
                       <li {...getSuggestionItemProps(suggestion)}>
                         {suggestion.description}
+                        {/* {console.log(suggestion.description)} */}
                       </li>
                     );
                   })}
@@ -355,19 +370,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
           )}
         </PlacesAutocomplete>
 
-        {/* <FormInput
-          readOnly={loading}
-          required
-          type="text"
-          htmlFor="street-address"
-          label="Street Address"
-          value={address1}
-          handleChange={(e) => {
-            setAddress1(e.target.value);
-          }}
-          className="input-override"
-        /> */}
-
+        {/* text input for secondary street address */}
         <FormInput
           readOnly={loading}
           type="text"
@@ -381,7 +384,9 @@ const ApplyPage = ({ userAuth, ...props }) => {
           additionalInfo="(optional)"
         />
 
+        {/* section containg city, state, and zipcode inputs */}
         <section className="city-state-zip-container">
+          {/* text input for city */}
           <FormInput
             readOnly={loading}
             required
@@ -396,6 +401,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
             id="city-input"
           />
 
+          {/* select input for state */}
           <SelectInput
             disabled={loading}
             required
@@ -415,6 +421,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
             ))}
           </SelectInput>
 
+          {/* text input for zipcode */}
           <FormInput
             readOnly={loading}
             required
@@ -431,8 +438,8 @@ const ApplyPage = ({ userAuth, ...props }) => {
           />
         </section>
 
+        {/* text input for country */}
         <FormInput
-          // required
           readOnly
           type="text"
           htmlFor="country"
@@ -453,6 +460,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
           Images
         </h2>
 
+        {/* file input to upload restaurant images */}
         <ImageUploadInput
           disabled={loading}
           label="Restaurant Images"
@@ -463,9 +471,9 @@ const ApplyPage = ({ userAuth, ...props }) => {
           className="input-override"
         />
 
+        {/* file input to  upload restaurant menu */}
         <ImageUploadInput
           disabled={loading}
-          // disabled
           label="Menu Images"
           htmlFor="menu-images"
           value={menus}
@@ -483,6 +491,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
           Details
         </h2>
 
+        {/* select input to set parking details */}
         <SelectInput
           disabled={loading}
           required
@@ -499,6 +508,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
           <option value="unavailable">Unavailable</option>
         </SelectInput>
 
+        {/* select input to set reservation details */}
         <SelectInput
           disabled={loading}
           value={details.reservation}
@@ -514,6 +524,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
           <option value={false}>No</option>
         </SelectInput>
 
+        {/* select input to set pets allowed details */}
         <SelectInput
           disabled={loading}
           value={details.petsAllowed}
@@ -529,6 +540,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
           <option value={false}>No</option>
         </SelectInput>
 
+        {/* select input to set takeout details */}
         <SelectInput
           disabled={loading}
           value={details.takeout}
@@ -544,6 +556,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
           <option value={false}>No</option>
         </SelectInput>
 
+        {/* select input to set wifi details */}
         <SelectInput
           disabled={loading}
           value={details.wifi}
@@ -559,6 +572,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
           <option value={false}>No</option>
         </SelectInput>
 
+        {/* number input to display wait time */}
         <FormInput
           readOnly={loading}
           required
@@ -583,6 +597,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
           Hours
         </h2>
 
+        {/* hour range input for sunday's available hours */}
         <HourRangeInput
           readOnly={loading}
           label="sunday"
@@ -603,6 +618,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
           }}
         />
 
+        {/* hour range input for monday's available hours */}
         <HourRangeInput
           readOnly={loading}
           label="monday"
@@ -623,6 +639,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
           }}
         />
 
+        {/* hour range input for tuesday's available hours */}
         <HourRangeInput
           readOnly={loading}
           label="tuesday"
@@ -643,6 +660,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
           }}
         />
 
+        {/* hour range input for wednesday's available hours */}
         <HourRangeInput
           readOnly={loading}
           label="wednesday"
@@ -662,6 +680,8 @@ const ApplyPage = ({ userAuth, ...props }) => {
             });
           }}
         />
+
+        {/* hour range input for thursday's available hours */}
         <HourRangeInput
           readOnly={loading}
           label="thursday"
@@ -681,6 +701,8 @@ const ApplyPage = ({ userAuth, ...props }) => {
             });
           }}
         />
+
+        {/* hour range input for friday's available hours */}
         <HourRangeInput
           readOnly={loading}
           label="friday"
@@ -700,6 +722,8 @@ const ApplyPage = ({ userAuth, ...props }) => {
             });
           }}
         />
+
+        {/* hour range input for saturday's available hours */}
         <HourRangeInput
           readOnly={loading}
           label="saturday"
@@ -729,23 +753,43 @@ const ApplyPage = ({ userAuth, ...props }) => {
           Tags
         </h2>
 
+        {/* list of text input components and a button that allows a user to add tags, delete tags, and modify tags */}
         <AddTagInput disabled={loading} handleAnyChange={setTags} />
 
+        {/* Require a captcha verification to ensure a bot is not spamming the form. */}
+        <ReCAPTCHA
+          className="captcha"
+          ref={captcha}
+          size="normal"
+          render="explicit"
+          sitekey={process.env.REACT_APP_SITE_KEY}
+          onChange={verifyCallback}
+        ></ReCAPTCHA>
+
+        {/* buttom to submit form */}
         <CustomButton
-          disabled={loading}
+          disabled={loading || !verified}
           type="submit"
           className="input-override"
           margin
         >
           submit
         </CustomButton>
+        {/* If the captcha has not been verified, then display a message requiring that they fulfill the captcha. */}
+        {!verified ? (
+          <p className="contact-requirement">
+            Please fill out captcha to proceed
+          </p>
+        ) : null}
       </form>
     </section>
   );
 };
 
+// maps redux state to the components prop values as a higher order component
 const mapStateToProps = ({ user }) => ({
   userAuth: user.userAuth,
 });
 
+// exports apply page as the default while wrapping redux state as props to apply page via higher order component
 export default connect(mapStateToProps)(ApplyPage);

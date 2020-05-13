@@ -1,5 +1,14 @@
+/*
+  Contributors: Julie Do 014101748, Sam Alhaqab 017018649, Tiffany Lam 015181853
+  Course: CECS 470
+
+  Description: This scss class styles the tab component.
+*/
+
+// IMPORT GLOBAL THEME
 @import "../../../assets/theme";
 
+// This class is the main tab container class.
 .tab-btn {
   flex: 1;
 
@@ -7,8 +16,9 @@
     width: 100%;
     padding: 0.25rem;
   }
+
+  // This class styles any tabs that are inactive.
   .tab-inactive {
-    // width: auto;
     background-color: $white_wildsand;
     border: none;
     border-bottom: 1px solid black;
@@ -20,24 +30,11 @@
     padding: 0.4rem 0.3rem 0.4rem 0.3rem;
   }
 
+  // This class styles any tabs that are active.
   .tab-active {
-    // width: 5em;
     background-color: $primary !important;
     padding: 0.4rem 0.3rem 0.4rem 0.3rem;
     border-bottom: 2px solid black;
     font-weight: bold;
-    // border-image-slice: 1;
-    // border-image-source: linear-gradient(to right, $lime, rgb(83, 240, 201));
-    // padding: 10px;
-    // width: auto;
-
-    // background-color: transparent;
-    // border: none;
-    // outline: none;
-    // color: $primary;
-
-    // font-weight: bold;
-
-    // padding: 0.2rem 0.3rem 0 0.3rem;
   }
 }

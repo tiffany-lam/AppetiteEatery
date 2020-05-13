@@ -1,5 +1,14 @@
+/*
+  Contributors: Sam Alhaqab 017018649
+  Course: CECS 470
+
+  Description: This scss class styles the logo component.
+*/
+
+// global theme imports
 @import "../../assets/theme";
 
+// spins/rotates dining icon
 @keyframes spin2 {
   from {
     transform: rotate(0deg);
@@ -9,41 +18,40 @@
   }
 }
 
+// logo's parent container class
 .logo-container {
   cursor: pointer;
   display: flex;
   align-items: center;
 
+  // styles the first part of the logo "AP"
   #ap-text {
     font-size: 2rem;
     font-weight: bold;
     color: $secondary_dark;
-    // font-style: italic;
     margin-left: 0.5rem;
   }
 
+  // styles the second part of the logo "PETITE"
   #petite-text {
     font-size: 2rem;
     font-weight: bold;
-    // font-style: italic;
     color: $secondary_dark;
     margin-right: 0.5rem;
 
     transition: color 150ms ease-out;
   }
 
+  // styles, if desired, the eatery text
   #eatery-text {
-    // margin-left: 0.5rem;
     font-size: 2rem;
-    // font-weight: bold;
     color: $secondary_dark;
-    // font-style: italic;
   }
 
+  // styles fork andknife icon
   #fork-knife-icon {
     background-color: $primary;
     border-radius: 0;
-    // margin-right: 0.5rem;
     transition: none;
     svg {
       path {
@@ -68,14 +76,9 @@
   &:hover,
   &:focus,
   &:focus-within {
-    // background-color: red;
     #fork-knife-icon {
       outline: 0;
-      // background-color: blue;
-      // background-color: transparent;
       svg {
-        // background-color: yellow;
-
         path {
           animation: spin2 500ms forwards infinite linear;
           transform-origin: center;
@@ -93,6 +96,7 @@
   text-transform: uppercase;
 }
 
+// on page shrink, shrinks logo and adjusts theme
 @media (max-width: 1024px) {
   .logo-container {
     #fork-knife-icon {

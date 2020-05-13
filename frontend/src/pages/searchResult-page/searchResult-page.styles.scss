@@ -3,6 +3,8 @@
   Main function: Simple css styling for the margins and format of pagination and sorttby dropdown. 
 
  */
+
+@import "../../assets/theme";
 .sortby {
   margin: 0.7rem;
   float: right;
@@ -15,6 +17,74 @@
 
   .sort-type-select-input {
     width: 100%;
+  }
+
+  // .search-input2 {
+  //   padding: 0 0.5rem;
+  //   // background-color: red;
+  //   // z-index: 1000;
+  //   height: 100%;
+  //   width: 100%;
+  //   // padding-left: 0.5rem;
+
+  //   // border: none;
+  //   border: 1px solid $secondary_dark;
+  //   font-family: "Karla", sans-serif;
+  //   font-size: 1rem;
+  //   color: black;
+  //   opacity: 0;
+
+  //   background-color: red;
+
+  //   // border: 1;
+
+  //   // background-color: red;
+
+  //   // font-weight: bold;
+  //   // text-transform: uppercase;
+  //   // padding: 0 0.5rem;
+  //   &:focus {
+  //     outline: none;
+  //   }
+
+  //   &::placeholder {
+  //     text-transform: uppercase;
+  //     color: black;
+  //   }
+  // }
+
+  .near-by-city-search {
+    // height: 100%;
+    width: 100%;
+  }
+
+  .dropdown-anchor {
+    position: relative;
+    z-index: 100;
+    width: 100%;
+
+    .street-add-suggestion-dropdown {
+      width: 100%;
+      background-color: white;
+      position: absolute;
+      border: 1px solid lightgray;
+      border-top: 0;
+
+      &:hover {
+        border: 1px solid $secondary_dark;
+        border-top: 0;
+      }
+
+      li {
+        margin: 5px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: $primary;
+          color: white;
+        }
+      }
+    }
   }
 
   .resultsContainer {

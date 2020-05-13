@@ -150,7 +150,8 @@ $page_width_XS: 95%;
 .apply-page-container,
 .owner-restaurant-page,
 .about-us-container,
-.search-results-container {
+.search-results-container,
+.graduated-page-container {
   // background-color: black;
   width: $page_width_L;
   padding-bottom: 3rem;
@@ -170,7 +171,8 @@ $page_width_XS: 95%;
   .apply-page-container,
   .owner-restaurant-page,
   .about-us-container,
-  .search-results-container {
+  .search-results-container,
+  .graduated-page-container {
     // background-color: purple;
     width: $page_width_M;
   }
@@ -189,7 +191,8 @@ $page_width_XS: 95%;
   .apply-page-container,
   .owner-restaurant-page,
   .about-us-container,
-  .search-results-container {
+  .search-results-container,
+  .graduated-page-container {
     // background-color: purple;
     width: $page_width_S;
   }
@@ -208,7 +211,8 @@ $page_width_XS: 95%;
   .apply-page-container,
   .owner-restaurant-page,
   .about-us-container,
-  .search-results-container {
+  .search-results-container,
+  .graduated-page-container {
     // background-color: yellow;
     width: $page_width_XS;
   }

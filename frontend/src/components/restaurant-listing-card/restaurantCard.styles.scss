@@ -1,7 +1,17 @@
+/*
+  Contributors: Julie Do 014101748, Sam Alhaqab 017018649, Tiffany Lam 015181853
+  Course: CECS 470
+
+  Description: This scss class styles the restaurant card component and formats it's contents.
+*/
+
+// GLOABL THEME IMPORTS
 @import "../../assets/theme";
 
+// Main class component container for each card.
 .restaurant-card-container {
   background-color: $background_light;
+  // width: 100%;
   width: 100%;
   max-width: 40rem;
 
@@ -19,6 +29,7 @@
     border-radius: 3px;
   }
 
+  // Class for styling the restaurant's relevant information.
   .restaurant-info {
     margin-left: 0.25rem;
     background-color: $background_light;
@@ -31,6 +42,7 @@
     display: flex;
     flex-direction: column;
 
+    // Class for styling the information at the head of the card.
     .res-header {
       display: flex;
       justify-content: space-between;
@@ -50,7 +62,9 @@
       text-align: left;
     }
 
-    .res-rating-normal {
+    // Class styling extra information on the card, such as ratings, reviews, and address.
+    // This class is used when the page is expanded.
+    .res-extra-normal {
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
@@ -65,16 +79,16 @@
       }
 
       .res-date {
-        // flex: 1 0 0;
         padding: 0;
         width: 100%;
         text-align: right;
       }
     }
 
-    .res-rating-shrink {
+    // Class styling extra information on the card, such as ratings, reviews, and address.
+    // This class is used when the page is expanded.
+    .res-extra-shrink {
       display: none;
-      align-content: center;
     }
 
     .res-address {
@@ -103,12 +117,16 @@
 
   &:hover,
   &:focus {
+    // background-color: red;
+    // margin-top: 1rem;
     outline: none;
     border: 1px solid $secondary_dark;
   }
 }
 
+// Media query for when the page is shrunk to 500px to adjust restaurant card size.
 @media (max-width: 500px) {
+  // Main class component container for each card.
   .restaurant-card-container {
     display: flex;
     width: 100%;
@@ -118,7 +136,9 @@
       height: 5rem;
     }
 
+    // Class for styling the restaurant's relevant information.
     .restaurant-info {
+      // Class for styling the information at the head of the card.
       .res-header {
         display: flex;
         justify-content: space-between;
@@ -130,10 +150,12 @@
         font-size: 1.1rem;
       }
 
+      // Class styling to hide this format of extra information on the card when the page is shrunk.
       .res-rating-normal {
         display: none;
       }
 
+      // Class styling to view this format of extra information on the card when the page is shrunk.
       .res-rating-shrink {
         padding: 0 0.25rem;
         display: flex;

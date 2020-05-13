@@ -1,5 +1,7 @@
+// global theme imports
 @import "../../assets/theme";
 
+// mixin shrinkslabel shrinks the label so that it overlays on top of the select input instead of outside/on top of it
 @mixin shrinkLabel {
   top: -1rem;
   left: 0.1rem;
@@ -14,6 +16,7 @@
   pointer-events: auto;
 }
 
+// custom select input parent container styles the label and the input inside
 .select-input-container {
   background-color: $background_light;
   position: relative;
@@ -24,11 +27,11 @@
   display: flex;
   flex-direction: column;
 
+  // styles the actual select input
   .select-input {
     position: relative;
     z-index: 0;
     height: 2rem;
-    // padding-left: 0.25rem;
     padding: 0 0.3rem;
 
     border: 1px solid lightgray;
@@ -48,6 +51,7 @@
     }
   }
 
+  // styles the select input label
   .select-input-label {
     position: relative;
     z-index: 50;

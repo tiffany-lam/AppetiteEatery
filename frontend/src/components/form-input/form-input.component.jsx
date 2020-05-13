@@ -1,10 +1,25 @@
+/*
+  Contributors: Sam Alhaqab 017018649
+  Course: CECS 470
+
+  Description: This functional component returns an input of the desired type (text area, text, 
+    etc.), along with another custom option called password. This input is styled and designed 
+    according to our website theme and provides accessibility. The custom password input provides 
+    a custom text input which hides the text characters and allows a visibility toggle to view 
+    the input content.
+*/
+
+// main packages:
 import React, { useState, useEffect } from "react";
 
+// custom stylesheets:
+import "./form-input.styles.scss";
+
+// icons:
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 
-import "./form-input.styles.scss";
-
+// renders a form input with desired styles consistent with website theme
 const FormInput = ({
   id,
   handleChange,
@@ -12,25 +27,28 @@ const FormInput = ({
   className,
   type,
   htmlFor, // used for accessibility
-  // required,
   additionalInfo,
   disabled,
   error,
   autoCompleteProps = { value: null },
   ...props
 }) => {
+  // state variable for inputs requiring a password visibility button
   const [passwordVisible, setPasswordVisible] = useState(false);
 
+  // function to toggle password visibility
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
 
+  // function to determine input type and if input type requires a password visibility button
   const determineInputType = () => {
     if (type === "password" && passwordVisible === true) return "text";
     else if (type === "password") return "password";
     else return type;
   };
 
+  // returns customized form input with desired type
   return (
     <div
       id={id}
@@ -38,7 +56,9 @@ const FormInput = ({
         className ? className : ""
       }`}
     >
+      {/* Displays custom error message. */}
       {error ? <span className="error-msg">{error}</span> : null}
+      {/* Displays desired label along with additional information */}
       {label ? (
         <label
           htmlFor={htmlFor}
@@ -97,4 +117,5 @@ const FormInput = ({
     </div>
   );
 };
+
 export default FormInput;

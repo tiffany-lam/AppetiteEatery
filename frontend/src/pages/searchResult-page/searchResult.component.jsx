@@ -2,11 +2,15 @@
   Author: Tiffany Lam 
   Main function: searchResult is a component that retrieves data using AXIOS/Flask to pull from restaurants based on what the user searches from the database. This component is rendered on the /search page and includes pagination, and a sort filter to sort the results. 
  */
-import React, { Component, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { setSearchbarValue } from "../../redux/ui/ui.actions";
 import axios from "axios";
 import { BASE_API_URL } from "../../utils";
+import PlacesAutocomplete, {
+  geocodeByAddress,
+  getLatLng,
+} from "react-places-autocomplete";
 
 //import the results
 import Results from "../../components/search-result/Results.component";
@@ -16,6 +20,7 @@ import Pagination from "../../components/pagination/Pagination.component";
 import LoadingAnimation from "../../components/loading-animation/loading-animation.component";
 import SelectInput from "../../components/select-input/select-input.component";
 import Rating from "../../components/rating/rating.component";
+import FormInput from "../../components/form-input/form-input.component";
 //import style
 import "./searchResult-page.styles.scss";
 
@@ -28,6 +33,13 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [resultsPerPage, setResultPerPage] = useState(5);
+  const [nearByCity, setNearbyCity] = useState("");
+
+  const handleSelect = async (value) => {
+    const results = await geocodeByAddress(value);
+    console.log(results);
+    setNearbyCity(value);
+  };
 
   //this useEffect is to get the results to retrieve all the data
   useEffect(() => {
@@ -56,7 +68,6 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
                 ) //based on this conditon it will refill the array
               );
             }
-
             //console.log(res.data.search_results);
           })
           .catch((error) => {
@@ -116,51 +127,93 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
 
   return (
     <section className="search-results-container">
-      <button
-        type="button"
-        onClick={() => {
-          console.log("sortType", sortType);
-        }}
-      >
-        ff
-      </button>
-
-      <Rating input />
-
       {/* // if result length is 0 show no results, */}
-      {loading === true ? (
-        <LoadingAnimation
-          // horizontal
-          // background
-          text1="Searching for restaurants.."
-        />
-      ) : //if loading is true show loading,
-      results.length === 0 ? (
-        <h1>No results</h1>
-      ) : (
-        //else show results
-        <div className="resultsContainer">
-          <SelectInput
-            className="sort-type-select-input"
-            disabled={loading}
-            value={sortType}
-            label="Sort By"
-            htmlFor="state"
-            handleChange={(e) => {
-              setSortType(e.target.value);
-            }}
-            id="state-input"
-          >
-            <option value="rating">Highest Rating</option>
-            <option value="distance">Distance</option>
-            <option value="dateNew">Date opened (newest)</option>
-            <option value="dateOld">Date opened (oldest)</option>
-          </SelectInput>
-          {/* disable dropdown while API request is being made */}
 
-          {/* <section className="dropdown" disabled={loading}> */}
+      {
+        //if loading is true show loading,
+        results.length === 0 ? (
+          <h1>No results</h1>
+        ) : (
+          //else show results
+          <div className="resultsContainer">
+            <SelectInput
+              className="sort-type-select-input"
+              disabled={loading}
+              value={sortType}
+              label="Sort By"
+              htmlFor="state"
+              handleChange={(e) => {
+                setSortType(e.target.value);
+              }}
+              id="state-input"
+            >
+              <option value="rating">Highest Rating</option>
+              <option value="distance">Distance</option>
+              <option value="dateNew">Date opened (newest)</option>
+              <option value="dateOld">Date opened (oldest)</option>
+            </SelectInput>
 
-          {/* <select
+            <PlacesAutocomplete
+              value={nearByCity}
+              onChange={setNearbyCity}
+              onSelect={handleSelect}
+              searchOptions={{
+                componentRestrictions: { country: ["us"] },
+                types: ["(cities)"],
+              }}
+            >
+              {/* render prop function, these props are from the packageL react-places-autocomplete  */}
+              {({
+                getInputProps,
+                suggestions,
+                getSuggestionItemProps,
+                loading,
+              }) => (
+                <React.Fragment>
+                  {/* <div className="hello-2" htmlFor="fsdfds"> */}
+                  {/* <input
+                    // id="search-input-5"
+                    className="near-by-city"
+                    type="search"
+                    placeholder="near..."
+                    {...getInputProps()}
+                    autoComplete="off"
+                  /> */}
+                  <FormInput
+                    readOnly={loading}
+                    type="search"
+                    htmlFor="near-by-city"
+                    label="near by (city)"
+                    className="near-by-city-search"
+                    autoCompleteProps={getInputProps()}
+                  ></FormInput>
+
+                  <div className="dropdown-anchor">
+                    <ul className="street-add-suggestion-dropdown">
+                      {loading ? <div>Loading..</div> : null}
+
+                      {suggestions.map((suggestion) => {
+                        return (
+                          <li
+                            className="suggestion-item"
+                            {...getSuggestionItemProps(suggestion)}
+                          >
+                            {suggestion.description.split(",")[0]}
+                            {console.log(suggestion.description.split(",")[0])}
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                  {/* </div> */}
+                </React.Fragment>
+              )}
+            </PlacesAutocomplete>
+            {/* disable dropdown while API request is being made */}
+
+            {/* <section className="dropdown" disabled={loading}> */}
+
+            {/* <select
               className="sortby"
               onChange={(e) => setSortType(e.target.value)}
             >
@@ -169,20 +222,29 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
               <option value="dateNew">Date opened (newest)</option>
               <option value="dateOld">Date opened (oldest)</option>
             </select> */}
-          {/* </section> */}
-          <section>
-            {/* this is each of the restaurants that will show up in our search, based on what the user searches */}
-            <Results results={currentResults} loading={loading} />
-          </section>
-          <section className="pagination-container"></section>
-          <Pagination
-            resultsPerPage={resultsPerPage}
-            totalResults={results.length}
-            paginate={paginate}
-            currentPage={currentPage}
-          />
-        </div>
-      )}
+            {/* </section> */}
+            {loading && (
+              <LoadingAnimation
+                horizontal
+                // background
+                // text1="Searching for restaurants.."
+                text2="Searching for restaurants..."
+              />
+            )}
+            <section>
+              {/* this is each of the restaurants that will show up in our search, based on what the user searches */}
+              <Results results={currentResults} loading={loading} />
+            </section>
+            <section className="pagination-container"></section>
+            <Pagination
+              resultsPerPage={resultsPerPage}
+              totalResults={results.length}
+              paginate={paginate}
+              currentPage={currentPage}
+            />
+          </div>
+        )
+      }
     </section>
   );
 };

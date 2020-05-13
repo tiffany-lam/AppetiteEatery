@@ -1,19 +1,36 @@
+/*
+  Contributors: Julie Do 014101748
+  Course: CECS 470
+
+  Description: This class component renders a review input used for users to post a review to a 
+  specifc restaurant. It allows users to upload images with their review, and preview these as 
+  well. They may post some message in the review, and select a max rating of 5 hearts.
+*/
+
+// IMPORT MAIN PACKAGES
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
 import { BASE_API_URL } from "../../utils";
 
+// IMPORT STYLES
+import "./review-input.styles.scss";
+
+// IMPORT COMPONENTS
 import Rating from "../rating/rating.component";
+
+// IMPORT ICONS
 import FaceIcon from "@material-ui/icons/Face";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
-import StarsRoundedIcon from "@material-ui/icons/StarsRounded";
 import AddIcon from "@material-ui/icons/Add";
 import CloseIcon from "@material-ui/icons/Close";
 
-import "./review-input.styles.scss";
-
+// Class Component Review Input
 class ReviewInput extends Component {
+  // The class components contructor intializes a state which contains a files variable to hold
+  // all image files uploaded by the user, a rating value defaulted to 1 (as 0 is not allowed),
+  // and a contents variable to contain the message posted by the user. The constructor also sets
+  // two variables used for API request cancelling.
   constructor(props) {
     super(props);
     this.state = {
@@ -21,16 +38,19 @@ class ReviewInput extends Component {
       rating: 1,
       content: "",
     };
+
     this.cancelToken = axios.CancelToken;
     this.source = this.cancelToken.source();
   }
 
+  // When the component unmounts, cancel all API requests to avoid a memory leak.
   componentWillUnmount() {
     this.source.cancel(
-      "Review input component unamounting, axios requests cancelled."
+      "Review input component unmounting, axios requests cancelled."
     );
   }
 
+  // This handles any changes on an image upload and stores the images into the state variable.
   handleChange = (e) => {
     let newFiles = this.state.files;
 
@@ -43,6 +63,7 @@ class ReviewInput extends Component {
     this.setState({ files: newFiles });
   };
 
+  // This function removes any images removed by the user.
   removeImg = (url) => {
     let newFiles = this.state.files.filter((fileObj) => {
       return fileObj.url !== url;
@@ -50,12 +71,12 @@ class ReviewInput extends Component {
     this.setState({ files: newFiles });
   };
 
-  resetImg = (e) => {};
-
+  // This function allows the user to set their reviews rating.
   setRating = (rating) => {
     this.setState({ rating: rating });
   };
 
+  // This function submits an API request to the backend server to post a new review.
   submitReview = async (e) => {
     e.preventDefault();
 
@@ -74,14 +95,9 @@ class ReviewInput extends Component {
       content: this.state.content,
     };
 
-    // console.log(datae)
-
     await axios
       .post("http://127.0.0.1:5000/api/review", newReview)
       .then(async (res) => {
-        console.log("Review created: \n");
-        console.log(res.data);
-
         let id = res.data._id.$oid;
         let formData = new FormData();
 
@@ -96,8 +112,6 @@ class ReviewInput extends Component {
         );
       })
       .then((res) => {
-        console.log("Review images uploaded: \n");
-        console.log(res.data);
         let updatedReview = res.data;
         updatedReview.user = this.props.currentUser;
         updatedReview.date = date;
@@ -106,7 +120,10 @@ class ReviewInput extends Component {
       .catch((error) => console.error(error));
   };
 
+  // Render the review input component with it's information.
   render() {
+    // This variable displays any images that a user has uploaded as a preview on the review
+    // input component.
     const preview = this.state.files.map((fileObj, index) => (
       <div className="review-preview" key={index}>
         <img
@@ -124,10 +141,14 @@ class ReviewInput extends Component {
       </div>
     ));
 
+    // Return the review input component with all of it's forms and relevant information.
     return (
+      // This section is the parent container of the review input component.
       <section className="review-input">
-        <div className="review-extra">
-          <div className="review-user">
+        {/* This div is used purely to style the top of the review-input component. */}
+        <div className="review-head">
+          {/* This section contains all of the reviewing user's relevant information. */}
+          <section className="review-user">
             {this.props.currentUser.avatar ? (
               <img
                 src={`${BASE_API_URL}/img-get?url=${this.props.currentUser.avatar}`}
@@ -139,7 +160,8 @@ class ReviewInput extends Component {
             <p>
               {this.props.currentUser.fname} {this.props.currentUser.lname}
             </p>
-          </div>
+          </section>
+          {/* This component allows the user to set a rating. */}
           <Rating
             input
             maxRating={5}
@@ -147,7 +169,9 @@ class ReviewInput extends Component {
             setRating={this.setRating}
           />
         </div>
+        {/* This form contains the review inputs. */}
         <form className="review-form" onSubmit={this.submitReview}>
+          {/* This is the textarea for the review's input message. */}
           <label htmlFor="review-input"></label>
           <textarea
             id="review-input"
@@ -160,7 +184,9 @@ class ReviewInput extends Component {
               this.setState({ content: e.target.value });
             }}
           ></textarea>
-          <div className="review-form-submit">
+          {/* This div is used purely to style the bottom of the review component. */}
+          <div className="review-form-bottom">
+            {/* This input is to upload images. */}
             <label htmlFor="upload-img">
               <AddIcon></AddIcon>
               <input
@@ -172,7 +198,9 @@ class ReviewInput extends Component {
                 onChange={this.handleChange}
               />
             </label>
+            {/* This div is purely to style the image previews. */}
             <div className="review-preview-container">{preview}</div>
+            {/* This is the submit button. */}
             <input type="submit" value="Post Review" />
           </div>
         </form>
@@ -181,9 +209,11 @@ class ReviewInput extends Component {
   }
 }
 
+// This is a variable used to wrap the functional Review Input component as a higher order component to attach user redux variables shared globally. The user redux variables here are the logged in user's information.
 const mapStateToProps = ({ user }) => ({
   userAuth: user.userAuth,
   currentUser: user.currentUser,
 });
 
+// Attach the redux values as a higher order component to the review input and export as the default component of this file.
 export default connect(mapStateToProps)(ReviewInput);

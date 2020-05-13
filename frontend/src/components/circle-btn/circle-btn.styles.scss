@@ -1,5 +1,14 @@
+/*
+  Contributors: Sam Alhaqab 017018649
+  Course: CECS 470
+
+  Description: This scss class styles the circle button component.
+*/
+
+// global themes import
 @import "../../assets/theme";
 
+// styles button container with desired size and placement of contents
 .circle-btn-container {
   cursor: pointer;
   background-color: $primary;
@@ -11,21 +20,18 @@
   min-height: 2.5rem;
   max-height: 2.5rem;
 
-  // border-radius: 50%;
-
   display: flex;
   justify-content: center;
   align-items: center;
 
   svg {
-    // transform: rotate(0deg);
-    // transition: transform 200ms ease-in-out;
     path {
       fill: $secondary;
     }
   }
 }
 
+// rotates button
 .hover-rotate {
   svg {
     transition: transform 250ms ease;

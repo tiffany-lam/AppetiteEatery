@@ -1,0 +1,47 @@
+// global theme imports
+@import "../../assets/theme";
+
+// apply page main container setting up layout of contents of the page
+.graduated-page-container {
+  // z-index: 0;
+  // height: 100%;
+
+  // background-color: red;
+  // background-color: red;
+
+  display: flex;
+  flex-direction: column;
+  // justify-content: center;
+  align-items: center;
+
+  section {
+    .image-card-link-2 {
+      // width: fit-content;
+      // background-color: red;
+
+      .card-listings-2 {
+        margin-top: 1rem;
+      }
+
+      &:hover,
+      &:active,
+      &:focus,
+      &:focus-within {
+        .card-listings-2 {
+          margin-top: 1rem;
+
+          border: 1px solid $secondary_dark;
+
+          &:hover,
+          &:active,
+          &:focus,
+          &:focus-within {
+            outline: none;
+            border: 1px solid $secondary_dark;
+          }
+        }
+        outline: none;
+      }
+    }
+  }
+}

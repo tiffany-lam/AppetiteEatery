@@ -1,21 +1,24 @@
-import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { setSearchbarValue } from "../../redux/ui/ui.actions";
-import { useHistory } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+/*
+  Contributors: Sam Alhaqab 017018649
+  Course: CECS 470
 
-import CircleButton from "../circle-btn/circle-btn.component";
-import FormInput from "../form-input/form-input.component";
+  Description: This functional component returns an image upload input that accepts multiple 
+  images to upload. It also displays the uploaded images a preview, and allows users to remove 
+  these images from the upload.
+*/
+
+// main packages:
+import React, { useState, useEffect } from "react";
+
+// custom stylesheets:
+import "./img-upload-input.styles.scss";
 
 // mui icons:
-
 import AddIcon from "@material-ui/icons/Add";
 import ImageIcon from "@material-ui/icons/Image";
 import DeleteIcon from "@material-ui/icons/Delete";
 
-import "./img-upload-input.styles.scss";
-
+// returns a list of image upload inputs
 const ImageUploadInput = ({
   label = "test",
   htmlFor = "test",
@@ -25,24 +28,26 @@ const ImageUploadInput = ({
   defaultSize = 4,
   ...props
 }) => {
+  // state variable holds the image files
   const [images, setImages] = useState([]);
   const inputRef = React.createRef();
 
+  // anytime the image variable is changed, called handle change (passed in as a prop) on it
   useEffect(() => {
     handleChange(images);
   }, [images]);
 
+  // temporary usage: please do not delete
   const manageImageList = (e) => {
-    console.log(e.target.files);
     setImages([...images, ...Array.from(e.target.files)]);
   };
 
+  // temporary usage: please do not delete
   const addImage = (e) => {
-    console.log(e.target.files);
-
     setImages([...new Set([...images, ...Array.from(e.target.files)])]);
   };
 
+  // if image is no longer desired, removes image from images to be uploaded
   const deleteImage = (index) => {
     setImages([
       ...images.slice(0, index),
@@ -50,12 +55,14 @@ const ImageUploadInput = ({
     ]);
   };
 
+  // returns image upload inputs along with a preview of the images
   return (
     <div className={`img-upload-container ${className}`}>
+      {/* label for image upload */}
       <label className="img-upload-label" htmlFor={htmlFor}>
         {label}
       </label>
-
+      {/* file input for image upload */}
       <input
         disabled={props.disabled}
         id={htmlFor}
@@ -69,6 +76,7 @@ const ImageUploadInput = ({
         ref={inputRef}
       />
 
+      {/* displays images that have been uploaded as a preview */}
       <div className="img-list">
         {images.map((img, i) => (
           <div key={i} disabled={props.disabled} className="img-container">
@@ -84,7 +92,8 @@ const ImageUploadInput = ({
             </div>
           </div>
         ))}
-
+        {/* displays a number of buttons that also provide the ability to upload images by using 
+        references */}
         {images.length === 0
           ? [...Array(defaultSize)].map((el, i) => (
               <button
@@ -101,6 +110,7 @@ const ImageUploadInput = ({
             ))
           : ""}
 
+        {/* button to add images */}
         <button
           disabled={props.disabled}
           type="button"

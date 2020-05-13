@@ -1,22 +1,18 @@
+/*
+  Contributors: Sam Alhaqab 017018649
+  Course: CECS 470
+
+  Description: This functional component returns a navigational bar containing links to all the 
+  main pages and/or functions of our website. It also conditionally displays certain links 
+  depending on the user's authentication status.
+*/
+
+// main packages:
 import ReactDOM from "react-dom";
 
-import "./portal.styles.scss";
-
-const root = document.getElementById("root");
-
+// the functionional portal component places the passed in children component on the root level
+// of the document
 const Portal = ({ children }) => {
-  // const [varA, setVarA] = useState("");
-  // const [varB, setVarB] = useState([]);
-
-  // useEffect(() => {
-  //   console.log("Portal mounted!");
-  //   // root.insertAdjacentHTML("afterend", '<div id="portal"></div>');
-
-  //   return () => {
-  //     console.log("Portal unmounted!");
-  //   };
-  // }, []);
-
   return ReactDOM.createPortal(children, document.getElementById("root"));
 };
 

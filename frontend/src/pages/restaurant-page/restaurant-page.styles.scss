@@ -1,7 +1,17 @@
+/*
+  Contributors: Julie Do 014101748
+  Course: CECS 470
+
+  Description: This scss class styles the restaurant page component.
+*/
+
+// GLOABL THEME IMPORTS
 @import "../../assets/theme";
 
+// This class is used to visually hide html, but still allow screen-readers to view them for
+// accessibility issues. This class is copied from the following website: https://a11yproject.com/
+// posts/how-to-hide-content/
 @mixin visually-hidden {
-  // https://a11yproject.com/posts/how-to-hide-content/
   position: absolute !important;
   height: 1px;
   width: 1px;
@@ -11,6 +21,8 @@
   white-space: nowrap;
 }
 
+// This is the main containing class of the restaurant page that sets up the layout of the
+// restaurant page.
 .restaurant-page {
   width: 100%;
 
@@ -28,6 +40,8 @@
   box-sizing: border-box;
 }
 
+// This class styles the main information of the restaurant, that is, such things as the title
+// and images.
 .restaurant-page-main {
   grid-area: main;
   height: auto;
@@ -57,6 +71,11 @@
     justify-self: flex-start;
   }
 
+  h1.restaurant-page-form-header {
+    @include visually-hidden;
+  }
+
+  // This class styles the save and edit button if an owner is viewing the page.
   .restaurant-page-button {
     width: 100%;
     font-size: 0.8rem;
@@ -86,15 +105,16 @@
 
   button.restaurant-page-button:hover {
     border: 1px solid $secondary_dark;
-    // box-shadow: ;
   }
 
+  // This class styles restaurant-page information such as the open date and owner.
   .restaurant-page-information {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 
     font-size: 0.5em;
+
     p {
       font-weight: bold;
       font-style: italic;
@@ -102,12 +122,15 @@
     }
   }
 
+  // This class is the container class styling the restaurant images carousel.
   .restaurant-page-carousel {
     height: min-content;
     width: 100%;
   }
 }
 
+// This class displays the less general information of the restaurant page, such as the
+// description, reviews, and review input.
 .restaurant-page-more {
   grid-area: more;
   height: auto;
@@ -125,6 +148,7 @@
 
   box-sizing: border-box;
 
+  // This class styles the restaurant page description.
   .restaurant-page-description {
     height: min-content;
     width: 100%;
@@ -140,6 +164,7 @@
     }
   }
 
+  // This class styles the restaurant page review input.
   .restaurant-page-review-input {
     height: min-content;
     width: 100%;
@@ -161,6 +186,7 @@
     }
   }
 
+  // This class styles the restaurant page reviews.
   .restaurant-page-reviews {
     height: min-content;
     width: 100%;
@@ -183,6 +209,7 @@
   }
 }
 
+// This class styles the side bar of the restaurant page.
 .restaurant-page-side {
   grid-area: side;
   height: 100%;
@@ -197,6 +224,7 @@
 
   box-sizing: border-box;
 
+  // This class styles the contents of the side bar of the restaurant page.
   .restaurant-page-side-contents {
     position: -webkit-sticky;
     position: sticky;
@@ -213,6 +241,7 @@
       border: none;
     }
 
+    // This class styles the restaurant tags.
     .restaurant-page-tags {
       height: min-content;
       width: 100%;
@@ -238,6 +267,7 @@
       }
     }
 
+    // This class styles the restaurant map area.
     .restaurant-page-map {
       height: 200px;
       width: 100%;
@@ -266,6 +296,7 @@
       }
     }
 
+    // This class styles a containing section of the restaurant page side for the other values.
     .restaurant-page-others-container {
       height: 100%;
       width: 100%;
@@ -276,6 +307,8 @@
       align-items: center;
     }
 
+    // This class styles other contents of the restaurant page side, such as the extra details,
+    // hours, etc.
     .restaurant-page-others {
       height: 100%;
       width: 100%;
@@ -283,6 +316,7 @@
       margin-bottom: 2rem;
     }
 
+    // This class styles the restaurant page details of the other information in side bar.
     .restaurant-page-details {
       height: 100%;
       width: 100%;
@@ -336,6 +370,7 @@
       }
     }
 
+    // This class styles the menu of the other information in the side bar.
     .restaurant-page-menu {
       height: min-content;
       width: 100%;
@@ -345,6 +380,8 @@
   }
 }
 
+// This class styles the main information of the restaurant, that is, such things as the title
+// and images, when the user is editing the form.
 .restaurant-page-main-manage {
   grid-area: main;
   display: flex;
@@ -352,12 +389,15 @@
   flex-wrap: nowrap;
   justify-content: center;
 
+  // This class is used to generally style any wrapping containers of the editing input fieldsets.
   .restaurant-container {
     height: min-content;
     width: 100%;
 
     border: none;
 
+    // These classes are used to style restaurant-name and restaurant-description in the editing
+    // page.
     .restaurant-name,
     .restaurant-description {
       display: flex;
@@ -414,6 +454,7 @@
       }
     }
 
+    // This class is used to style the restaurant-page image upload on the editing page.
     .restaurant-page-upload {
       margin: 0.5rem;
       display: flex;
@@ -421,6 +462,7 @@
       align-content: center;
     }
 
+    // This class is used to style the extra owner and date open section.
     .restaurant-page-information {
       display: flex;
       flex-direction: row;
@@ -432,10 +474,12 @@
     }
   }
 
+  // This class is used to style the restaurant images carousel in editing.
   .restaurant-page-carousel {
     height: min-content;
   }
 
+  // This class is used to style the restaurant description in editing.
   .restaurant-page-description {
     height: min-content;
     width: 100%;
@@ -444,29 +488,9 @@
       @include visually-hidden;
     }
   }
-
-  .restaurant-page-review-input {
-    height: min-content;
-    width: 100%;
-
-    margin: 2rem 0;
-
-    h2 {
-      font-size: 2.3em;
-      font-weight: bold;
-      color: $primary;
-
-      height: min-content;
-      width: 100%;
-
-      margin-bottom: 1rem;
-
-      display: flex;
-      justify-self: flex-start;
-    }
-  }
 }
 
+// This class is used to style the restaurant pages reviews.
 .restaurant-page-reviews {
   grid-area: more;
   height: min-content;
@@ -503,6 +527,7 @@
   border-radius: 5px;
 }
 
+// This media query adjusts the position and sizes of components when the page shrinks.
 @media screen and (max-width: 1000px) {
   .restaurant-page-side {
     grid-area: min-side;
@@ -543,6 +568,7 @@
   }
 }
 
+// This media query adjusts the position and sizes of components when the page shrinks.
 @media screen and (max-width: 600px) {
   .restaurant-page-side {
     grid-area: min-side;
@@ -562,6 +588,7 @@
   }
 }
 
+// This key frame is used to emphasize the EDIT and SAVE buttons
 @keyframes smalltextshake {
   0% {
     transform: rotate(5deg);

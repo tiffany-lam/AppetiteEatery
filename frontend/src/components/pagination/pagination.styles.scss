@@ -9,7 +9,19 @@
 @import "../../assets/theme";
 
 //for the pagination bar overall 
+@mixin interactionSelect {
+  &:hover,
+  &:active,
+  &:focus,
+  &:focus-within {
+    outline: none;
+    border: 1px solid $secondary_dark;
+    // background-color: red;
+  }
+}
+
 .pagination-nav {
+  margin-top: 1rem;
   width: 100%;
   .pagination ul {
     display: flex;
@@ -18,21 +30,31 @@
   }
   //for all the other links 
   .pagination li a {
-    color: $primary;
+    color: $secondary;
     float: left;
     padding: 8px 16px;
     text-decoration: none;
+    border: 1px solid lightgray;
+    background-color: $background_light;
+    margin-right: 0.25rem;
+
+    @include interactionSelect();
   }
   //for the active page change the color
   li.page-item.active {
     a.page-link {
-      background-color: $secondary;
+      background-color: $primary;
       color: white;
+      border: 1px solid $primary;
+      @include interactionSelect();
+
+      // border: 0;
     }
   }
   //oh hover and if it's not active change the color and add an outline
+
   .pagination a:hover:not(.active) {
-    border: 1px solid black;
-    background-color: $lime;
+    border: 1px solid $secondary_dark;
+    // background-color: $lime;
   }
 }

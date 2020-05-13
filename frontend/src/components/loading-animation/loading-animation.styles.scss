@@ -1,5 +1,14 @@
+/*
+  Contributors: Sam Alhaqab 017018649
+  Course: CECS 470
+
+  Description: This scss class styles the loading animation component.
+*/
+
+// gloabl theme imports
 @import "../../assets/theme";
 
+// keyframes to display a rotating border
 @keyframes rotate360 {
   from {
     transform: rotate(0);
@@ -11,6 +20,7 @@
   }
 }
 
+// key frames to change the color of the component
 @keyframes colorShift {
   0% {
     // transform: rotate(0);
@@ -25,26 +35,30 @@
   }
 }
 
+// the parent container of the animation component which styles the layout of the animation
 .loading-animation {
   display: flex;
 
   justify-content: center;
   align-items: center;
 
+  margin: 1rem;
+
+  // optionally displayed text
   .animation-text {
     margin: 1rem;
     font-family: "Karla", sans-serif;
-    font-size: 1.5rem;
-    // font-weight: bold;
+    font-size: 1rem;
     text-transform: uppercase;
     letter-spacing: 0.2rem;
     white-space: nowrap;
     color: $background_light;
 
     background-color: $secondary;
-    padding: 0.5rem;
+    padding: 0.3rem 0.5rem;
   }
 
+  // rotating background container
   .square-container {
     position: relative;
     overflow: hidden;
@@ -53,9 +67,13 @@
     height: 4rem;
     min-width: 4rem;
     min-height: 4rem;
+    margin: 0.5rem;
+
+    transform: rotate(45deg);
 
     transition: border-radius 250ms linear;
 
+    // rotating dark blue border
     .outer-square {
       position: absolute;
       top: -3rem;
@@ -63,17 +81,18 @@
       width: 10rem;
       height: 10rem;
 
-      // background-color: rgba(lightblue, 0.5);
+      transform: rotate(-45deg);
 
       background: linear-gradient(
-        90deg,
+        45deg,
         $secondary 50%,
-        rgb(255, 255, 255) 50%
+        rgb(250, 244, 244) 50%
       );
 
       animation: rotate360 infinite 2s ease-in-out;
     }
 
+    // static inner square with svg
     .inner-square {
       position: absolute;
       top: 0.5rem;
@@ -88,12 +107,11 @@
       align-items: center;
       transition: border-radius 250ms linear;
 
-      // animation: borderRadius infinite 2s ease-in-out;
-
       svg {
+        transform: rotate(-45deg);
+
         path {
           fill: white;
-          // animation: colorShift infinite 2s ease-in-out;
         }
       }
     }
@@ -118,7 +136,6 @@
 .animation-background {
   background-color: rgb(175, 175, 180);
 
-  // border: 1px solid gray;
   -webkit-box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.25);
   -moz-box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.25);
   box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.25);

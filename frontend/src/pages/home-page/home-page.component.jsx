@@ -1,8 +1,16 @@
-// import React from "react";
+/*
+  Contributors: Sam Alhaqab 017018649
+  Course: CECS 470
+
+  Description: This functional component renders the home page of our website, which contains a 
+  list of links to our more popular restaurants. These links display the restaurant name, rating, 
+  and an image from the restaurant.
+*/
+
+// main packages:
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { BASE_API_URL } from "../../utils";
-import { Link } from "react-router-dom";
 
 // custom components:
 import ImageCard from "../../components/image-card/image-card.component";
@@ -10,12 +18,17 @@ import ImageCard from "../../components/image-card/image-card.component";
 // custom stylesheet:
 import "./home-page.styles.scss";
 
+// home page renders a list of links to popular restaurants
 const HomePage = () => {
+  // state variable determines css style of the restaurant listing that is currently being
+  // hovered on
   const [galleryItemHover, setGalleryItemHover] = useState(false);
+  // state variabel holds restaurants to be displayed
   const [results, setResults] = useState([]);
+  // state variable determines whether or not the page is currently loading/fetching data
   const [loading, setLoading] = useState(false);
-  // const [limelightContent, setLimelightContent] = useState("");
 
+  // called on component mount and fecthes restaurant data from backend
   useEffect(() => {
     let source = axios.CancelToken.source();
     const fetchData = async () => {
@@ -30,7 +43,6 @@ const HomePage = () => {
         setLoading(false);
       } catch (e) {
         if (axios.isCancel(e)) {
-          // console.log("canceled request");
         } else {
           console.error(e);
         }
@@ -40,24 +52,27 @@ const HomePage = () => {
     fetchData();
 
     return () => {
-      // console.log("canceling axios request");
       setLoading(false);
       source.cancel();
     };
   }, []);
 
+  // sets the galleryItemHover variable to true/to animate the limelight
   const enableLimelightGlow = () => {
     setGalleryItemHover(true);
   };
 
+  // sets the galleryItemHover variable to false/to stop animating the limelight
   const disableLimeLightGlow = () => {
     setGalleryItemHover(false);
-    // setLimelightContent("");
   };
 
+  // returns home page with a list of popular restaurants
   return (
     <div className="home-page-container">
       <div className="limelight-container">
+        {/* the first container displayed on the page is a css styled lime with a spotlight which 
+        animates if you hover on it */}
         <div
           className="header-box"
           onMouseEnter={enableLimelightGlow}
@@ -78,6 +93,7 @@ const HomePage = () => {
           </div>
         </div>
 
+        {/* the rest of the cards displayed on the page are restaurant image cards */}
         {results.map((restaurant, i) => (
           <ImageCard
             key={i}

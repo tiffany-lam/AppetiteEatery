@@ -24,7 +24,7 @@ import RegisterUserType from "./components/auth/register-user-type.component";
 // page components here:
 import HomePage from "./pages/home-page/home-page.component";
 // import RestaurantPage from "./pages/restaurant-page/restaurant-page.component";
-import RestaurantPage from "./pages/restaurant-page/restaurant-pagev2.component";
+import RestaurantPage from "./pages/restaurant-page/restaurant-page.component";
 import ContactUsPage from "./pages/contact-us-page/contact-us.component";
 import ErrorPage from "./pages/error-page/error-page.component";
 import ProfilePage from "./pages/profile-page/profile-page.component";
@@ -33,6 +33,7 @@ import ApplyPage from "./pages/apply-page/apply.component";
 import OwnerRestaurantPage from "./pages/owner-restaurant-page/owner-restaurant-page.component";
 import AboutUsPage from "./pages/about-us-page/about-us.component";
 import PasswordReset from "./components/auth/PasswordReset.component";
+import GraduatedPage from "./pages/graduated-page/graduated-page.component";
 
 const App = ({ currentUser, userAuth, ...props }) => {
   const [validUser, setValidUser] = useState(false);
@@ -127,7 +128,6 @@ const App = ({ currentUser, userAuth, ...props }) => {
           )}
         </Modal>
       )}
-
       <BrowserRouter>
         <header>
           <Navbar />
@@ -146,7 +146,7 @@ const App = ({ currentUser, userAuth, ...props }) => {
             />
 
             {/* <Route path="/login" component={} /> */}
-            {/* <Route path="/graduated" component={} /> */}
+            <Route path="/graduated" component={GraduatedPage} />
 
             {/* <Route path="/test" component={Test} /> */}
 

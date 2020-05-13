@@ -1,8 +1,16 @@
+/*
+  Contributors: Julie Do 014101748, Sam Alhaqab 017018649
+  Course: CECS 470
+
+  Description: This scss class is used to style the footer navigational bar.
+*/
+
+// GLOABL THEME IMPORTS
 @import "../../assets/theme";
 
+// Main class for if a navigational footer bar.
 .footer-nav {
   padding: 0.5rem 0;
-  // position: fixed;
   margin: 0;
 
   z-index: 100;
@@ -15,18 +23,15 @@
   ul {
     display: flex;
     flex-direction: row;
+
     li {
       margin: 0 1rem;
       color: $background_light;
+
       a {
         color: $background_light;
-        // color: $secondary_dark;
         text-transform: uppercase;
       }
     }
   }
-
-  // width: 80%;
-
-  // background-color: orange; // for testing and debugging
 }

@@ -1,26 +1,27 @@
+/*
+  Contributors: Sam Alhaqab 017018649
+  Course: CECS 470
+
+  Description: This scss class styles the owner restaurant page component.
+*/
+
+// global theme imports
 @import "../../assets/theme";
 
+// styles the contents/layout of the restaurant page
 .owner-restaurant-page {
   height: 100%;
 
-  // margin: 0 auto;
-  // height: 25rem;
-  // margin-right: $padding_small;
-  // margin-left: $padding_small;
-
-  // background-color: red;
-
   display: flex;
   flex-direction: column;
-  // justify-content: center;
   align-items: center;
 
-  // background-color: rgb(26, 134, 116);
-
+  // sets a margin for all cards in the page
   .card-margin {
     margin-bottom: 1rem;
   }
 
+  // styles the header of the page
   .owner-header {
     font-size: 2rem;
     text-transform: uppercase;
@@ -28,11 +29,13 @@
     margin-bottom: 1.5rem;
   }
 
+  // styles the link to the apply page
   .submit-res-btn {
     width: 40rem;
   }
 }
 
+// adjusts size of restaurant page when page shrinks
 @media (max-width: 768px) {
   .owner-restaurant-page {
     .submit-res-btn {
