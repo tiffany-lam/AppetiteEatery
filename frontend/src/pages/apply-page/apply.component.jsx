@@ -18,6 +18,10 @@ import Tag from "../../components/tag/tag-v2.component";
 import AddTagInput from "../../components/add-tag-input/add-tag-input.component";
 import Modal from "../../components/modal/modal.component";
 import LoadingAnimation from "../../components/loading-animation/loading-animation.component";
+import PlacesAutocomplete, {
+  geocodeByAddress,
+  getLatLng,
+} from "react-places-autocomplete";
 
 // custom stylesheet:
 import "./apply-page.styles.scss";
@@ -102,10 +106,10 @@ const ApplyPage = ({ userAuth, ...props }) => {
 
   const [details, setDetails] = useState({
     parking: "",
-    reservation: false,
-    petsAllowed: false,
-    takeout: false,
-    wifi: false,
+    reservation: "",
+    petsAllowed: "",
+    takeout: "",
+    wifi: "",
     waitTime: "",
   });
 
@@ -119,13 +123,24 @@ const ApplyPage = ({ userAuth, ...props }) => {
     saturday: { to: "", from: "" },
   });
 
-  const submitForm = async (e) => {
-    setLoading(true);
-    console.log("submitted");
+  const findLocationInfo = async () => {
+    const addressStr = `${address1}, ${city}, ${state} ${zipcode}, ${country}`;
 
+    let geoCode = await geocodeByAddress(addressStr);
+    let results = await getLatLng(geoCode[0]);
+
+    console.log(results);
+
+    return results;
+  };
+
+  const submitForm = async (e) => {
     e.preventDefault();
+    setLoading(true);
+
+    let locationUnformatted = findLocationInfo();
+
     const textData = {
-      // ownerid: "5ead3201520a017539dfa306",
       ownerid: userAuth.uid,
       website,
       restaurantName,
@@ -137,7 +152,10 @@ const ApplyPage = ({ userAuth, ...props }) => {
       state,
       zipcode,
       country,
-      location,
+      location: [
+        (await locationUnformatted).lat,
+        (await locationUnformatted).lng,
+      ],
       restaurantTags: tags.filter((tag) => {
         return tag !== "" ? tag : null;
       }),
@@ -182,6 +200,15 @@ const ApplyPage = ({ userAuth, ...props }) => {
     browserHistory.push("/my-restaurants");
 
     return res;
+  };
+
+  const handleSelect = async (addressStr) => {
+    const results = await geocodeByAddress(addressStr);
+    const addressSegments = results[0].formatted_address.split(",");
+    setAddress1(addressSegments[0].trim());
+    setCity(addressSegments[1].trim());
+    setState(addressSegments[2].trim().split(" ")[0].trim().toLowerCase());
+    setZipCode(addressSegments[2].trim().split(" ")[1].trim());
   };
 
   return (
@@ -258,25 +285,77 @@ const ApplyPage = ({ userAuth, ...props }) => {
 
         <h2
           className="form-subtitle"
-          onClick={() => {
-            axios
-              .get("https://maps.googleapis.com/maps/api/geocode/json", {
-                params: {
-                  key: "",
-                  address: "14524 Halldale Ave, Gardena, CA 90247, USA",
-                },
-              })
-              .then((res) => {
-                console.log(res);
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-          }}
+          // onClick={() => {
+          //   axios
+          //     .get("https://maps.googleapis.com/maps/api/geocode/json", {
+          //       params: {
+          //         key: "AIzaSyC3aa1jBRam7QevnEvIcNtj2OpLAFe3UtA",
+          //         address: "14524 Halldale Ave, Gardena, CA 90247, USA",
+          //       },
+          //     })
+          //     .then((res) => {
+          //       console.log(res);
+          //     })
+          //     .catch((err) => {
+          //       console.log(err);
+          //     });
+          // }}
+          // onClick={() => {
+          //   console.log(address1);
+          //   console.log(city);
+          //   console.log(state);
+          //   console.log(zipcode);
+          //   console.log(country);
+          // }}
+          onClick={findLocationInfo}
         >
           Address
         </h2>
-        <FormInput
+
+        <PlacesAutocomplete
+          value={address1}
+          onChange={setAddress1}
+          onSelect={handleSelect}
+          searchOptions={{
+            componentRestrictions: { country: ["us"] },
+            types: ["address"],
+          }}
+        >
+          {/* render prop function, these props are from the packageL react-places-autocomplete  */}
+          {({
+            getInputProps,
+            suggestions,
+            getSuggestionItemProps,
+            loading,
+          }) => (
+            <React.Fragment>
+              <FormInput
+                readOnly={loading}
+                required
+                type="text"
+                htmlFor="street-address"
+                label="Street Address"
+                autoCompleteProps={getInputProps()}
+              ></FormInput>
+
+              <div className="dropdown-anchor">
+                <ul className="street-add-suggestion-dropdown">
+                  {loading ? <div>Loading..</div> : null}
+
+                  {suggestions.map((suggestion) => {
+                    return (
+                      <li {...getSuggestionItemProps(suggestion)}>
+                        {suggestion.description}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            </React.Fragment>
+          )}
+        </PlacesAutocomplete>
+
+        {/* <FormInput
           readOnly={loading}
           required
           type="text"
@@ -287,7 +366,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
             setAddress1(e.target.value);
           }}
           className="input-override"
-        />
+        /> */}
 
         <FormInput
           readOnly={loading}
@@ -320,6 +399,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
           <SelectInput
             disabled={loading}
             required
+            value={state}
             label="state"
             htmlFor="state"
             handleChange={(e) => {
@@ -409,6 +489,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
           label="parking"
           htmlFor="parking"
           className="input-override"
+          value={details.parking}
           handleChange={(e) => {
             setDetails({ ...details, parking: e.target.value });
           }}
@@ -420,6 +501,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
 
         <SelectInput
           disabled={loading}
+          value={details.reservation}
           required
           label="reservation"
           htmlFor="reservation"
@@ -434,6 +516,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
 
         <SelectInput
           disabled={loading}
+          value={details.petsAllowed}
           required
           label="pets allowed"
           htmlFor="pets-allowed"
@@ -448,6 +531,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
 
         <SelectInput
           disabled={loading}
+          value={details.takeout}
           required
           label="takeout"
           htmlFor="takeout"
@@ -462,6 +546,7 @@ const ApplyPage = ({ userAuth, ...props }) => {
 
         <SelectInput
           disabled={loading}
+          value={details.wifi}
           required
           label="wifi"
           htmlFor="wifi"

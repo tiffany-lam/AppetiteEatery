@@ -16,6 +16,7 @@ const FormInput = ({
   additionalInfo,
   disabled,
   error,
+  autoCompleteProps = { value: null },
   ...props
 }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -41,7 +42,9 @@ const FormInput = ({
       {label ? (
         <label
           htmlFor={htmlFor}
-          className={`${props.value ? "shrink" : ""} form-input-label`}
+          className={`${
+            props.value || autoCompleteProps.value ? "shrink" : ""
+          } form-input-label`}
         >
           <React.Fragment>
             {label}
@@ -75,6 +78,10 @@ const FormInput = ({
           onChange={handleChange}
           className={`form-input`}
           disabled={disabled}
+          {...autoCompleteProps}
+          value={
+            autoCompleteProps.value ? autoCompleteProps.value : props.value
+          }
         ></input>
       ) : null}
 

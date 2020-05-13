@@ -23,7 +23,6 @@ import { BASE_API_URL } from "../../utils";
 const OwnerRestaurantPage = ({ userAuth, ...props }) => {
   const [ownersRestaurants, setOwnersRestaurants] = useState([]);
   const [loading, setLoading] = useState(false);
-  const id = "5ead3201520a017539dfa306";
 
   useEffect(() => {
     let source = axios.CancelToken.source();

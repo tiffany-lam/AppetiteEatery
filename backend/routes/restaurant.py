@@ -379,7 +379,10 @@ def getOwnerRestaurants(id):
     resultObject["results"] = []
 
     for restaurant in ownerObjects['restaurants']:
-        resultObject['results'].append(restaurant.fetch().to_mongo().to_dict())
+        updatedRestaurant = restaurant.fetch().to_mongo().to_dict()
+        updatedRestaurant['average'] = Review.objects(
+            restaurant=restaurant.id).average('rating')
+        resultObject['results'].append(updatedRestaurant)
 
     return json.dumps(resultObject, default=str), 200
 
