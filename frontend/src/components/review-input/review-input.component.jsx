@@ -96,7 +96,7 @@ class ReviewInput extends Component {
     };
 
     await axios
-      .post("http://127.0.0.1:5000/api/review", newReview)
+      .post(`${BASE_API_URL}`, newReview)
       .then(async (res) => {
         let id = res.data._id.$oid;
         let formData = new FormData();
@@ -106,7 +106,7 @@ class ReviewInput extends Component {
         }
 
         return await axios.post(
-          `http://127.0.0.1:5000/api/review/img-upload/${id}`,
+          `${BASE_API_URL}/review/img-upload/${id}`,
           formData,
           { "Content-Type": "multipart/form-data" }
         );

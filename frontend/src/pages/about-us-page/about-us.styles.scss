@@ -78,7 +78,7 @@
   flex-direction: row;
   flex-wrap: wrap;
 
-  opacity: 0%;
+  // opacity: 0%;
 
   transform: rotate(45deg);
 
@@ -282,9 +282,9 @@ section.about-us-container:hover {
       .about-us-tiffany,
       .about-us-veronica {
         height: 100%;
-        opacity: 100%;
+        // opacity: 100%;
         transform: rotate(0deg);
-        transition: opacity 2s;
+        // transition: opacity 2s;
       }
     }
   }
@@ -317,10 +317,10 @@ section.about-us-container:hover {
         transform: translate(0, 0);
       }
 
-      p {
-        opacity: 100%;
-        transition: opacity 2s;
-      }
+      // p {
+      // opacity: 100%;
+      // transition: opacity 2s;
+      // }
     }
 
     .about-us-developers {
@@ -353,9 +353,9 @@ section.about-us-container:hover {
       .about-us-tiffany,
       .about-us-veronica {
         height: 100%;
-        opacity: 100%;
+        // opacity: 100%;
         transform: rotate(0deg);
-        transition: opacity 2s;
+        // transition: opacity 2s;
       }
     }
   }
