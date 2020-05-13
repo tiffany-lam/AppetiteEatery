@@ -83,7 +83,7 @@ const RestaurantCard = ({
               maxRating={1}
               icon={<FavoriteIcon></FavoriteIcon>}
             ></Rating>
-            {/* <p>{restaurant.average.toFixed(1)}</p> */}
+            <p>{restaurant.average.toFixed(1)}</p>
           </div>
         </div>
         <p className="res-address">{`${restaurant.address} ${
