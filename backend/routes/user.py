@@ -189,3 +189,19 @@ def user_exist(id):
     else:
         return (json.dumps(True), 200)
 
+@user.route('/modify_patron/<id>', methods=['POST'])
+def modify_patron(id):
+    print("printtttt")
+    patron = Patron.objects.with_id(id)
+
+    print(patron.to_json())
+    print(request.json)
+
+    patron.fname=request.json['fname']
+    patron.lname=request.json['lname']
+    patron.about=request.json['about']
+    patron.tags=request.json['tags']
+
+    patron.save()
+
+    return patron.to_json(), 200

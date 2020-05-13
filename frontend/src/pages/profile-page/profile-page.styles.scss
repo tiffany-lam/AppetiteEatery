@@ -10,9 +10,9 @@
   // border-radius: 25px;
 
   .userContainer {
-    background-color: $background_dark;
+    // background-color: $background_dark;
     border-radius: 15px;
-    margin: 13px;
+    margin: 15px;
   }
 
   .userContainer-inner {
@@ -59,14 +59,18 @@
     border: none;
   }
 
+  #favorites {
+    display: inline;
+  }
+
   ///////// TEXT STYLING /////////////
 
   h1, h2, h2 + p {
     font-weight: bold;
     height: min-content;
     width: 100%;
-    // display: flex;
-    // justify-self: flex-start;
+    display: flex;
+    justify-self: flex-start;
     margin: 8px;
   }
 
@@ -79,7 +83,6 @@
 
   h1 {
     font-size: 2.3em;
-    border-left:none;
     text-transform: none;
     color: #ff6b71;
     display: inline;
