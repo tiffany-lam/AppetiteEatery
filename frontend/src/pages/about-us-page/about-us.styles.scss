@@ -34,7 +34,8 @@
     display: block;
     position: absolute;
     top: 100%;
-    width: 5rem;
+    // width: 5rem;
+    width: 100%;
     border-bottom: 5px solid $primary;
     border-radius: 1px;
 
@@ -102,7 +103,7 @@
   ul {
     margin: 1rem;
 
-    width: 10rem;
+    width: 15rem;
 
     li {
       padding-bottom: 0.3rem;
@@ -125,14 +126,14 @@
 
 .about-us-container {
   height: 100%;
-
-  display: flex;
-
-  justify-content: center;
-
   padding-bottom: 0;
 
   overflow: hidden;
+
+  h1 {
+    height: min-content;
+    margin-bottom: 1rem;
+  }
 }
 
 .about-us {
@@ -146,12 +147,14 @@
   flex-wrap: wrap;
 
   position: relative;
-  top: 10rem;
+  top: 5rem;
 
   box-sizing: border-box;
 
   transform: rotate(-45deg);
   transition: all 1s ease-in-out;
+
+  margin: 0 auto;
 
   h1 {
     color: $primary;
@@ -191,7 +194,7 @@
   }
 }
 
-section.about-us:hover {
+div.about-us:hover {
   @include about-us-expand;
   flex-wrap: nowrap;
   background-color: transparent;

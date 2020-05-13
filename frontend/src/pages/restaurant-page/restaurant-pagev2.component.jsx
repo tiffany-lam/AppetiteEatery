@@ -21,9 +21,8 @@ import HourRangeInput from "../../components/hour-range-input/hour-range.compone
 import SelectInput from "../../components/select-input/select-input.component";
 import FormInput from "../../components/form-input/form-input.component";
 import AddTagInput from "../../components/add-tag-input/add-tag-input.component";
-import CloseIcon from "@material-ui/icons/Close";
 import ImageUploadInput from "../../components/img-upload-input/img-upload-inputcomponent";
-import CustomButton from "../../components/custom-button/custom-button.component";
+import LoadingAnimation from "../../components/loading-animation/loading-animation.component";
 
 import { BASE_API_URL } from "../../utils";
 
@@ -97,12 +96,6 @@ const RestaurantPage = ({ match, currentUser, ...props }) => {
 
   const browserHistory = useHistory();
 
-  const temporaryUser = {
-    username: "hello!",
-    avatar:
-      "https://images.unsplash.com/photo-1470073755300-6ec0f9cfa01c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1355&q=80",
-  };
-
   useEffect(() => {
     let source = axios.CancelToken.source();
     console.log("Use Effect 1 called . . . ");
@@ -114,7 +107,6 @@ const RestaurantPage = ({ match, currentUser, ...props }) => {
       try {
         const response = await axios.get(
           `${BASE_API_URL}/restaurant/${match.params.restaurantId}`,
-          // `http://52.201.241.142/api/restaurant/${match.params.restaurantId}`,
           { cancelToken: source.token }
         );
 
@@ -142,7 +134,6 @@ const RestaurantPage = ({ match, currentUser, ...props }) => {
   };
 
   const saveEdit = (input) => {
-    console.log(`SAVING ${input}`);
     setEditInput("");
   };
 
@@ -153,8 +144,6 @@ const RestaurantPage = ({ match, currentUser, ...props }) => {
 
   const deleteImage = (deletedImage) => {
     let newImages = restaurant.images.filter((image) => image !== deletedImage);
-    console.log(restaurant.images);
-    console.log(newImages);
     setRestaurant({ ...restaurant, images: newImages });
   };
 
@@ -172,8 +161,6 @@ const RestaurantPage = ({ match, currentUser, ...props }) => {
   };
 
   const handleChange = (e) => {
-    console.log(e.target.name);
-    console.log(e.target.value);
     const value = e.target.value;
     setRestaurant({ ...restaurant, [e.target.name]: value });
   };
@@ -256,23 +243,24 @@ const RestaurantPage = ({ match, currentUser, ...props }) => {
     : null;
 
   return loading ? (
-    <div>
-      loading screen . . .
-      <button
-        onClick={() => {
-          console.log(restaurant);
-          console.log(editable && restaurant);
-        }}
-      >
-        RESTAURANT
-      </button>
-    </div>
+    <LoadingAnimation></LoadingAnimation>
   ) : editable && restaurant ? (
     <section className="restaurant-page">
       <div className="restaurant-page-main">
         <form action="" method="put" id="manage-restaurant">
           <div className="restaurant-page-main-manage">
             <fieldset form="manage-restaurant" className="restaurant-container">
+              <button
+                className="restaurant-page-button"
+                type="button"
+                onClick={() => {
+                  saveAll();
+                  setEditable(false);
+                }}
+              >
+                YOU ARE MODIFYING YOUR RESTAURANT. CLICK TO <span>SAVE</span>{" "}
+                YOUR CHANGES.
+              </button>
               <div className="restaurant-name">
                 <label htmlFor="restaurantName">
                   <span>Edit Restaurant Name</span>
@@ -375,13 +363,15 @@ const RestaurantPage = ({ match, currentUser, ...props }) => {
               )}
             </div>
           </fieldset>
-          {/* UHHHHHHHH FIGURE OUT A WAY TO SEND THIS LMAO */}
           <section className="restaurant-page-map">
-            {/* <h2>Google Maps</h2> */}
             <MapContainer
+              className="restaurant-page-map-container"
               longitude={restaurant.location[0]}
               latitude={restaurant.location[1]}
             />
+            <p>{`${restaurant.address} ${
+              restaurant.city
+            } ${restaurant.state.toUpperCase()} USA`}</p>
           </section>
           <div className="restaurant-page-others-container">
             <div
@@ -923,16 +913,6 @@ const RestaurantPage = ({ match, currentUser, ...props }) => {
                 ]}
               ></Tabs>
             </div>
-            <CustomButton
-              margin
-              type="button"
-              onClick={() => {
-                saveAll();
-                setEditable(false);
-              }}
-            >
-              SAVE
-            </CustomButton>
           </div>
         </div>
       </div>
@@ -944,6 +924,16 @@ const RestaurantPage = ({ match, currentUser, ...props }) => {
   ) : (
     <section className="restaurant-page">
       <section className="restaurant-page-main">
+        {currentUser._id === restaurant.ownerid._id ? (
+          <button
+            className="restaurant-page-button"
+            type="button"
+            onClick={() => setEditable(true)}
+          >
+            YOU ARE THE OWNER. IF YOU WOULD LIKE TO MODIFY YOUR RESTAURANT,
+            CLICK TO <span>EDIT</span>.
+          </button>
+        ) : null}
         <h1>{restaurant.restaurantName}</h1>
         <div className="restaurant-page-information">
           <p>Opened {restaurant.dateOpen.split(" ")[0]}</p>
@@ -965,8 +955,6 @@ const RestaurantPage = ({ match, currentUser, ...props }) => {
           <section className="restaurant-page-review-input">
             <h2>Have something to say?</h2>
             <ReviewInput
-              user={temporaryUser.username}
-              avatar={temporaryUser.avatar}
               restaurant={match.params.restaurantId}
               updateReviews={updateReviews}
             ></ReviewInput>
@@ -984,13 +972,28 @@ const RestaurantPage = ({ match, currentUser, ...props }) => {
             <ul>{tags}</ul>
           </section>
           <section className="restaurant-page-map">
+            <h2>Map & Location</h2>
             <MapContainer
-              longitude={restaurant.location[0]}
-              latitude={restaurant.location[1]}
+              className="restaurant-page-map-container"
+              // longitude={restaurant.location[0]}
+              // latitude={restaurant.location[1]}
+              longitude={-117.9198}
+              latitude={33.7846}
+              markers={[
+                {
+                  title: restaurant.restaurantName,
+                  name: restaurant.restaurantName,
+                  lat: 33.7846,
+                  lng: -117.9198,
+                },
+              ]}
             />
+            <p>{`${restaurant.address} ${
+              restaurant.city
+            } ${restaurant.state.toUpperCase()} USA`}</p>
           </section>
           <div className="restaurant-page-others-container">
-            <div className="restaurant-page-others">
+            <section className="restaurant-page-others">
               <Tabs
                 labels={["Details", "Menu", "Hours"]}
                 content={[
@@ -1089,16 +1092,7 @@ const RestaurantPage = ({ match, currentUser, ...props }) => {
                   </dl>,
                 ]}
               ></Tabs>
-            </div>
-            {currentUser._id === restaurant.ownerid._id ? (
-              <CustomButton
-                margin
-                type="button"
-                onClick={() => setEditable(true)}
-              >
-                EDIT
-              </CustomButton>
-            ) : null}
+            </section>
           </div>
         </div>
       </section>

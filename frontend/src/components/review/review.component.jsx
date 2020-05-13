@@ -17,9 +17,6 @@ const Review = (props) => {
           <img
             src={`${BASE_API_URL}/img-get?url=${props.avatar}`}
             alt={props.avatar}
-            onClick={(e) => {
-              console.log(props.avatar ? "yes" : "no");
-            }}
           ></img>
         ) : (
           <FaceIcon></FaceIcon>

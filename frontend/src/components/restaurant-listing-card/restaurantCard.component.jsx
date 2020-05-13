@@ -60,6 +60,7 @@ const RestaurantCard = ({
               rating={Math.floor(restaurant.average)}
               icon={<FavoriteIcon></FavoriteIcon>}
             ></Rating>
+            <p className="res-date">{restaurant.dateOpen.split(" ")[0]}</p>
           </div>
           <div className="res-rating-shrink">
             <Rating
