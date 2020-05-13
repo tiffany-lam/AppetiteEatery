@@ -1,3 +1,10 @@
+/*
+  Contributors: Tiffany Lam 
+  Course: CECS 470
+
+  Description: This component takes the userid from firebase and registers them into our MongoDB
+
+*/
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 
@@ -58,7 +65,7 @@ const RegisterUserType = ({
       <span>Are you a Patron looking for restaurants or are you a Restaurant Owner?:</span>
 
       <form onSubmit={registerMongoAccount}>
-        <SelectUserType className="test" setChanges={setUserType} />
+        <SelectUserType className="setType" setChanges={setUserType} />
         <CustomButton type="submit">continue</CustomButton>
       </form>
     </div>
