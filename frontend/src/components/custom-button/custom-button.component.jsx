@@ -6,7 +6,7 @@
 */
 
 // main packages:
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 // custom stylesheet:
 import "./custom-button.styles.scss";

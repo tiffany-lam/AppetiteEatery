@@ -1,6 +1,7 @@
 /* 
   Author: Tiffany Lam 
-  Main function: searchResult is a component that retrieves data using AXIOS/Flask to pull from restaurants based on what the user searches from the database. This component is rendered on the /search page and includes pagination, and a sort filter to sort the results. 
+  Course: CECS 470
+  Description: searchResult is a component that retrieves data using AXIOS/Flask to pull from restaurants based on what the user searches from the database. This component is rendered on the /search page and includes pagination, and a sort filter to sort the results. 
  */
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
@@ -19,7 +20,6 @@ import Pagination from "../../components/pagination/Pagination.component";
 //import custom loading animation
 import LoadingAnimation from "../../components/loading-animation/loading-animation.component";
 import SelectInput from "../../components/select-input/select-input.component";
-import Rating from "../../components/rating/rating.component";
 import FormInput from "../../components/form-input/form-input.component";
 //import style
 import "./searchResult-page.styles.scss";
@@ -136,6 +136,8 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
         ) : (
           //else show results
           <div className="resultsContainer">
+            {/* disable dropdown while API request is being made */}
+            {/* <section className="dropdown" disabled={loading}> */}
             <SelectInput
               className="sort-type-select-input"
               disabled={loading}
@@ -170,15 +172,6 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
                 loading,
               }) => (
                 <React.Fragment>
-                  {/* <div className="hello-2" htmlFor="fsdfds"> */}
-                  {/* <input
-                    // id="search-input-5"
-                    className="near-by-city"
-                    type="search"
-                    placeholder="near..."
-                    {...getInputProps()}
-                    autoComplete="off"
-                  /> */}
                   <FormInput
                     readOnly={loading}
                     type="search"
@@ -209,9 +202,7 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
                 </React.Fragment>
               )}
             </PlacesAutocomplete>
-            {/* disable dropdown while API request is being made */}
-
-            {/* <section className="dropdown" disabled={loading}> */}
+     
 
             {/* <select
               className="sortby"
