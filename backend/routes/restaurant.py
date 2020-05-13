@@ -424,3 +424,33 @@ def getLimelight():
         resultObject['results'] = random.sample(resultObject['results'], 9)
 
     return json.dumps(resultObject, default=str), 200
+
+
+@restaurant.route('/graduated', methods=['GET'])
+def getGraduated():
+
+    # gets all the restaurants:
+    restaurants = Restaurant.objects()
+
+    # creates dictionary with a 'results' key which will receive an array
+    # this wrapping is necessary becaus e flask does not send back basic lists properly
+    resultObject = dict()
+    resultObject["results"] = []
+
+    # for a restaurant to graduate they must have more than 10 reviews:
+    # original requirements was supposed to be 200 but for demonstration purposes,
+    # 10 is more attainable
+    minNumOfReviewsTilGraduated = 10
+
+    for restaurant in restaurants:
+        # for each restaurant that does not exceed the threshold
+        if len(restaurant.reviews) >= minNumOfReviewsTilGraduated:
+            # get the review average for that restaurant:
+            updatedRestaurant = restaurant.to_mongo().to_dict()
+            updatedRestaurant['average'] = Review.objects(
+                restaurant=restaurant.id).average('rating')
+
+            # append the object to the resultObject's list
+            resultObject['results'].append(updatedRestaurant)
+
+    return json.dumps(resultObject, default=str), 200
