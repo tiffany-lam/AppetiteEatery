@@ -101,6 +101,7 @@ class ProfilePage extends Component {
         <section className="profile-page-container">
           <form action="" method="put" id="manage-profile">
             <section className="userContainer">
+              <div className="profileName">
               <label htmlFor="patronfname">
                 <span>First Name</span>
                 <input
@@ -128,10 +129,9 @@ class ProfilePage extends Component {
                   onChange={(e) => {
                     this.setState({ lname: e.target.value });
                   }}
-                  // disabled={editInput !== "name"}
                 />
               </label>
-              {/* <h1>{this.props.currentUser.fname} {this.props.currentUser.lname}</h1> */}
+              </div>
               <h2 id="toggle-mini">{this.props.currentUser.email}</h2>
               <Divider full={true} />
               <div className="userContainer-inner">
@@ -152,7 +152,6 @@ class ProfilePage extends Component {
                   ></AddTagInput>
                 </div>
                 <div id="col2">
-                  <h3>About Me</h3>
                   <FormInput
                     type="textarea"
                     htmlFor="about"

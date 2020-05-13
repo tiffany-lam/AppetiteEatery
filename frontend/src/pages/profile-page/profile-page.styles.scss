@@ -29,34 +29,40 @@
     grid-column-start: 2;
     grid-column-end: 2;
   }
-  
-  // .userReviews {
-  //   // background: $primary;
-  //   // border-radius: 15px;
-  //   margin: 13px;
-  //   // column-count: 2
-  // }
-  
-  // .review {
-  //   background: $light_beige;
-  //   display: block;
-  // }
 
-  .mini-icon {
-    width: 20px;
-    height: 20px;
-    float: right;
-  }
 
-  #toggle-mini {
-    display: inline-block;
-  }
+  .profileName {
+    display: flex;
+    flex-direction: row;
 
-  fieldset {
-    height: min-content;
+    margin-bottom: 0.5 rem;
     width: 100%;
 
     border: none;
+
+    input[type="text"] {
+      background: none;
+      border: none;
+      outline: none;
+
+      font-size: 2.3em;
+      font-weight: bold;
+      color: $primary;
+
+      height: min-content;
+      width: 100%;
+      min-width: 4em;
+      box-sizing: border-box;
+
+      display: flex;
+      justify-self: flex-start;
+    }
+
+    textarea {
+      width: 100%;
+      background-color: $background_light;
+      padding: 1rem;
+    }
   }
 
   #favorites {
