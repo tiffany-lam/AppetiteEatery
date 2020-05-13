@@ -12,7 +12,8 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from "react-places-autocomplete";
-
+//from geolib
+import { orderByDistance } from 'geolib';
 //import the results
 import Results from "../../components/search-result/Results.component";
 //import the pagination
@@ -106,11 +107,12 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
       sorted.sort((a, b) => (a.dateOpen < b.dateOpen ? 1 : -1));
     } else if (type === "dateOld") {
       //if the date is greater that means that date is older; so if a is greater than b that means a is older so it goes before b thus return 1 if a is oldder than b
-      sorted = [...results].sort((a, b) => (a.dateOpen > b.dateOpen ? 1 : -1));
+      sorted.sort((a, b) => (a.dateOpen > b.dateOpen ? 1 : -1));
     }
-    // else if(type == 'location'){
-    //   sorted = [...results].sort((a,b) => b.location - a.location);
-    // }
+    else if(type == 'location'){
+      //use the geolib package
+
+    }
     //const sorted = [...results].sort((a,b) => b[sortProperty] - a[sortProperty]);
     //const sorted = [...results].sort((a,b) => a.sortProperty - b.sortProperty);
 
@@ -202,18 +204,6 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
                 </React.Fragment>
               )}
             </PlacesAutocomplete>
-     
-
-            {/* <select
-              className="sortby"
-              onChange={(e) => setSortType(e.target.value)}
-            >
-              <option value="rating">Highest Rating</option>
-              <option value="distance">Distance</option>
-              <option value="dateNew">Date opened (newest)</option>
-              <option value="dateOld">Date opened (oldest)</option>
-            </select> */}
-            {/* </section> */}
             {loading && (
               <LoadingAnimation
                 horizontal
