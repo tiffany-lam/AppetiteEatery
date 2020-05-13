@@ -97,13 +97,13 @@ const ApplyPage = ({ userAuth, ...props }) => {
   const browserHistory = useHistory();
 
   // reperence to captcha
-  const captcha = React.createRef();
+  // const captcha = React.createRef();
 
   // state variable used to check if page is loading during restaurant submit
   const [loading, setLoading] = useState(false);
 
   // state variable used to check if captcha has been verified as a success
-  const [verified, setVerified] = useState(false);
+  // const [verified, setVerified] = useState(false);
 
   // state variables containing values used to create a restaurant
   const [restaurantName, setRestaurantName] = useState("");
@@ -158,9 +158,9 @@ const ApplyPage = ({ userAuth, ...props }) => {
     e.preventDefault();
     setLoading(true);
 
-    if (!verified) {
-      return;
-    }
+    // if (!verified) {
+    //   return;
+    // }
 
     let locationUnformatted = findLocationInfo();
 
@@ -232,17 +232,17 @@ const ApplyPage = ({ userAuth, ...props }) => {
   };
 
   // This function verifies that the captcha fulfillment was a success.
-  const verifyCallback = async (token) => {
-    await axios
-      .post(
-        `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.REACT_APP_CAPTCHA_SECRET_KEY}&response=${token}`
-      )
-      .then((res) => {
-        console.log(res);
-        setVerified(res.data.success);
-      })
-      .catch((error) => console.error(error));
-  };
+  // const verifyCallback = async (token) => {
+  //   await axios
+  //     .post(
+  //       `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.REACT_APP_CAPTCHA_SECRET_KEY}&response=${token}`
+  //     )
+  //     .then((res) => {
+  //       console.log(res);
+  //       setVerified(res.data.success);
+  //     })
+  //     .catch((error) => console.error(error));
+  // };
 
   // returns the apply page with required forms to submit restaurant
   return (
@@ -757,18 +757,19 @@ const ApplyPage = ({ userAuth, ...props }) => {
         <AddTagInput disabled={loading} handleAnyChange={setTags} />
 
         {/* Require a captcha verification to ensure a bot is not spamming the form. */}
-        <ReCAPTCHA
+        {/* <ReCAPTCHA
           className="captcha"
           ref={captcha}
           size="normal"
           render="explicit"
           sitekey={process.env.REACT_APP_SITE_KEY}
           onChange={verifyCallback}
-        ></ReCAPTCHA>
+        ></ReCAPTCHA> */}
 
         {/* buttom to submit form */}
         <CustomButton
-          disabled={loading || !verified}
+          // disabled={loading || !verified}
+          disabled={loading}
           type="submit"
           className="input-override"
           margin
@@ -776,11 +777,11 @@ const ApplyPage = ({ userAuth, ...props }) => {
           submit
         </CustomButton>
         {/* If the captcha has not been verified, then display a message requiring that they fulfill the captcha. */}
-        {!verified ? (
+        {/* {!verified ? (
           <p className="contact-requirement">
             Please fill out captcha to proceed
           </p>
-        ) : null}
+        ) : null} */}
       </form>
     </section>
   );
