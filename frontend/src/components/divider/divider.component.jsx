@@ -2,7 +2,9 @@
   Contributors: Julie Do 014101748
   Course: CECS 470
 
-  Description: This class is a simple divider component using the hr tag. It is styled so that all uses of it do not need to style it according to our websites theme. It should only be used when there is a thematic break or change in the content it is separated. 
+  Description: This class is a simple divider component using the hr tag. It is styled so that 
+  all uses of it do not need to style it according to our websites theme. It should only be used 
+  when there is a thematic break or change in the content it is separated. 
 */
 
 // IMPORT MAIN PACKAGES

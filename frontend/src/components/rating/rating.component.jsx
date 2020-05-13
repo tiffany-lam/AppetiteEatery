@@ -2,15 +2,21 @@
   Contributors: Sam Alhaqab 017018649
   Course: CECS 470
 
-  Description: This functional component returns a styled radio input for rating. In order words, it uses radio inputs to show and/or select the desired rating (in our use case, for a review). This component also includes accessibility for screen readers. 
+  Description: This functional component returns a styled radio input for rating. In order words, 
+  it uses radio inputs to show and/or select the desired rating (in our use case, for a review). 
+  This component also includes accessibility for screen readers. 
 */
 
 // main packages:
 import React, { useState, useEffect } from "react";
+
+// mui icons:
 import StarsIcon from "@material-ui/icons/Stars";
 
+// custom stylesheets:
 import "./rating.styles.scss";
 
+// returns a rating component which can be optionally used as an input or simply to display
 const Rating = ({
   htmlFor = "rating",
   rating = 0,
@@ -21,9 +27,11 @@ const Rating = ({
   icon = <StarsIcon />,
   ...props
 }) => {
+  // state variables holding rating references and which rating is currently selected
   const [ratingSelected, setRatingSelected] = useState(0);
   const [ratingRefs, setRatingRefs] = useState([]);
 
+  // on component mount, creates the desired amount of references
   useEffect(() => {
     const refs = [];
     [...Array(maxRating)].forEach(() => {
@@ -32,10 +40,13 @@ const Rating = ({
     setRatingRefs(refs);
   }, []);
 
+  // on component mount or update of ratingSelected variable, conditionally modifies the
+  // ratingSelcted variable
   useEffect(() => {
     if (!input) setRatingSelected(rating);
   }, [ratingSelected]);
 
+  // creates and clones the desired icons
   const createIcon = (key, onClick, className, inputHover = "") => {
     return React.cloneElement(icon, {
       key: key,
@@ -45,6 +56,7 @@ const Rating = ({
     });
   };
 
+  // returns the rating component with either inputs or icons
   return (
     <div
       role="img"
@@ -53,6 +65,8 @@ const Rating = ({
         vertical ? "rating-vertical" : "rating-horizontal"
       } ${input ? "rating-input" : ""}`}
     >
+      {/* clones desired icons according the passing in amount and conditionally sets the
+      css class to show if the icon is filled or not */}
       {[...Array(maxRating)].map((e, i) => (
         <React.Fragment key={i}>
           {createIcon(
@@ -73,6 +87,7 @@ const Rating = ({
               : "rating-unfilled",
             input ? "rating-input rating-big" : ""
           )}
+          {/* radio inputs for each icon displayed */}
           <label htmlFor={`${htmlFor}-${i}`}>
             <input
               required={props.required}

@@ -1,7 +1,16 @@
+/*
+  Contributors: Julie Do 014101748
+  Course: CECS 470
+
+  Description: This scss class styles the review input component.
+*/
+
 // GLOABL THEME IMPORTS
 @import "../../assets/theme";
 
-// This class is used to visually hide html, but still allow screen-readers to view them for accessibility issues. This class is copied from the following website: https://a11yproject.com/posts/how-to-hide-content/
+// This class is used to visually hide html, but still allow screen-readers to view them for
+// accessibility issues. This class is copied from the following website: https://a11yproject.com/
+// posts/how-to-hide-content/
 @mixin visually-hidden {
   position: absolute !important;
   height: 1px;

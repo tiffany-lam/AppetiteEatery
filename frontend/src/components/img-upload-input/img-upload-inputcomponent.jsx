@@ -2,7 +2,9 @@
   Contributors: Sam Alhaqab 017018649
   Course: CECS 470
 
-  Description: This functional component returns an image upload input that accepts multiple images to upload. It also displays the uploaded images a preview, and allows users to remove these images from the upload. 
+  Description: This functional component returns an image upload input that accepts multiple 
+  images to upload. It also displays the uploaded images a preview, and allows users to remove 
+  these images from the upload.
 */
 
 // main packages:
@@ -90,7 +92,8 @@ const ImageUploadInput = ({
             </div>
           </div>
         ))}
-        {/* displays a number of buttons that also provide the ability to upload images by using references */}
+        {/* displays a number of buttons that also provide the ability to upload images by using 
+        references */}
         {images.length === 0
           ? [...Array(defaultSize)].map((el, i) => (
               <button

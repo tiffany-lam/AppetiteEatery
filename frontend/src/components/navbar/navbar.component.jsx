@@ -2,7 +2,9 @@
   Contributors: Sam Alhaqab 017018649, Tiffany Lam 015181853
   Course: CECS 470
 
-  Description: This functional component returns a navigational bar containing links to all the main pages and/or functions of our website. It also conditionally displays certain links depending on the user's authentication status.
+  Description: This functional component returns a navigational bar containing links to all the 
+  main pages and/or functions of our website. It also conditionally displays certain links 
+  depending on the user's authentication status.
 */
 
 // main packages:
@@ -26,8 +28,6 @@ import CircleButton from "../circle-btn/circle-btn.component";
 import Modal from "../modal/modal.component";
 import LoginRegisterPanel from "../auth/login-register-panel.component";
 import SearchBar from "../../components/search-bar/search-bar.component";
-import LoadingAnimation from "../../components/loading-animation/loading-animation.component";
-import CustomButton from "../custom-button/custom-button.component";
 
 // mui icons:
 import MenuIcon from "@material-ui/icons/Menu";
@@ -62,7 +62,8 @@ const Navbar = ({
       });
   };
 
-  // returns navigation component containing logo and page links (such as home page, my restaurant pages, profile page, etc.)
+  // returns navigation component containing logo and page links (such as home page, my
+  // restaurant pages, profile page, etc.)
   return (
     <nav className="header-nav">
       {/* logo which links to home page */}
@@ -77,7 +78,8 @@ const Navbar = ({
         <SearchBar />
       </div>
 
-      {/* button displayed for dropdown of navigational links when page shrinks instead of displaying navigational links as is */}
+      {/* button displayed for dropdown of navigational links when page shrinks instead of 
+      displaying navigational links as is */}
       <CircleButton id="menu-btn" onClick={toggleNavBar} hoverRotate={true}>
         <MenuIcon />
       </CircleButton>

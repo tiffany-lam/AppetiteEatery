@@ -2,7 +2,11 @@
   Contributors: Sam Alhaqab 017018649
   Course: CECS 470
 
-  Description: This functional component renders an apply page. The page contains a form with inputs that allow a user to create a new restaurant. These inputs include such things as the restaurant name, restaurant description, restaurant tags, images, menu, and other details. Submitting this form will create a new restaurant under the logged in owner. This page can only be viewed by users registered as an owner.
+  Description: This functional component renders an apply page. The page contains a form with 
+  inputs that allow a user to create a new restaurant. These inputs include such things as the 
+  restaurant name, restaurant description, restaurant tags, images, menu, and other details. 
+  Submitting this form will create a new restaurant under the logged in owner. This page can only 
+  be viewed by users registered as an owner.
 */
 
 // main packages:

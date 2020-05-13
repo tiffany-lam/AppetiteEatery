@@ -2,7 +2,10 @@
   Contributors: Sam Alhaqab 017018649
   Course: CECS 470
 
-  Description: This functional component renders list of tag components designed and styled thematically. This list may contain read only tags, or editable tags, which means you may edit pre-existing tag values, you may delete unwanted tag values, and/or you may add a new tag value to the list.
+  Description: This functional component renders list of tag components designed and styled 
+  thematically. This list may contain read only tags, or editable tags, which means you may edit 
+  pre-existing tag values, you may delete unwanted tag values, and/or you may add a new tag value 
+  to the list.
 */
 
 // main packages:
@@ -52,7 +55,8 @@ const AddTagInput = ({
     setTags([...tags.slice(0, index), ...tags.slice(index + 1, tags.length)]);
   };
 
-  // This function handles changes to the list of tag values, that is if a value edited and or changed in array.
+  // This function handles changes to the list of tag values, that is if a value edited and or
+  // changed in array.
   const replaceTagValue = (e, index, value) => {
     e.preventDefault();
     setTags([
@@ -65,7 +69,8 @@ const AddTagInput = ({
   // Returns a list of tags as desired
   return (
     <ul className="add-tag-list">
-      {/* Dynamically renders tags according to the passed in tag values. It also attaches a button to the end of each tag that is used to delete the tag if clicked. */}
+      {/* Dynamically renders tags according to the passed in tag values. It also attaches a 
+      button to the end of each tag that is used to delete the tag if clicked. */}
       {tags.map((tag, i) => (
         <li key={i} className="tag-input-close-btn">
           <Tag

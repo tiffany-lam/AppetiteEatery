@@ -2,7 +2,9 @@
   Contributors: Julie Do 014101748, Sam Alhaqab 017018649
   Course: CECS 470
 
-  Description: This class is the footer component of all our pages. It contains peripheral links to our website that do not display main functionalities. This includes such things as contact us page and about us page.
+  Description: This class is the footer component of all our pages. It contains peripheral links 
+  to our website that do not display main functionalities. This includes such things as contact 
+  us page and about us page.
 */
 
 // IMPORT MAIN PACKAGES
@@ -19,7 +21,8 @@ class FooterNav extends Component {
     super(props);
   }
 
-  // When imported, renders a navigational bar that contains peripheral website links. This navigational bar is styled to our websites theme.
+  // When imported, renders a navigational bar that contains peripheral website links. This
+  // navigational bar is styled to our websites theme.
   render() {
     return (
       <nav className="footer-nav">

@@ -2,9 +2,13 @@
   Contributors: Julie Do 014101748
   Course: CECS 470
 
-  Description: This class renders a carousel component, which takes in image routes and loads them inside of an infinite carousel from an AWS S3 Bucket. Users are required to pass in a prop size, which determines how many images are displayed at one time. Each image is displayed with a 1:1 aspect ratio, and the carousel resizes based on the width of the parent container. 
+  Description: This class renders a carousel component, which takes in image routes and loads 
+  them inside of an infinite carousel from an AWS S3 Bucket. Users are required to pass in a prop
+   size, which determines how many images are displayed at one time. Each image is displayed with 
+   a 1:1 aspect ratio, and the carousel resizes based on the width of the parent container. 
 
-  Current Bugs: Due to Reacts method of rendering objects in the DOM, once you select to view images beyond the last index, it will display in a different order.
+  Current Bugs: Due to Reacts method of rendering objects in the DOM, once you select to view 
+  images beyond the last index, it will display in a different order.
 */
 
 // IMPORT MAIN PACKAGES
@@ -86,9 +90,11 @@ const Carousel = (props) => {
     return urls;
   };
 
-  // This variable holds all image components, sized and styled according to the desired size of the carousel.
+  // This variable holds all image components, sized and styled according to the desired size of
+  // the carousel.
   const carouselImages = images.map((route, imageIndex) => {
-    // Provide the S3 route of the image embedded as a query parameter into a get request that retrieves the image.
+    // Provide the S3 route of the image embedded as a query parameter into a get request that
+    // retrieves the image.
     let url = `${BASE_API_URL}/img-get?url=${route}`;
     // Get all images to be displayed.
     let displayedImages = displayed();
@@ -98,7 +104,8 @@ const Carousel = (props) => {
       // Display only the images to be displayed
       return displayed().includes(imageIndex) ? (
         // Return a displayed image dependent on the size of the carousel.
-        // This div is a wrapper to style the image class and a button, used to delete the image if desired.
+        // This div is a wrapper to style the image class and a button, used to delete the image
+        //  if desired.
         <div
           className={
             props.size === 4
@@ -143,7 +150,8 @@ const Carousel = (props) => {
 
       // Else if there are more images than the desired size...
     } else {
-      // If this is the first image, then it is not an image to be displayed, but an image that is hidden on the left side of the carousel in order for transitions to work.
+      // If this is the first image, then it is not an image to be displayed, but an image that
+      // is hidden on the left side of the carousel in order for transitions to work.
       // This div is a wrapper to style the image class and a button, used to delete the image if desired.
       if (imageIndex === displayedImages[0]) {
         return (
@@ -226,7 +234,8 @@ const Carousel = (props) => {
         // If it is neither the first or last image, then...
       } else {
         // Return the image as displayed, if it is included in the displayed array and is not the last or first image, otherwise return a hidden image.
-        // This div is a wrapper to style the image class and a button, used to delete the image if desired.
+        // This div is a wrapper to style the image class and a button, used to delete the image
+        // if desired.
         return displayed().includes(imageIndex) ? (
           <div
             className={
@@ -273,7 +282,8 @@ const Carousel = (props) => {
     }
   });
 
-  // This function returns a carousel of the desired size of images with all images rendered at a 1:1 aspect ratio.
+  // This function returns a carousel of the desired size of images with all images rendered at a
+  //  1:1 aspect ratio.
   return (
     // This section is the container.
     <section
@@ -287,7 +297,8 @@ const Carousel = (props) => {
             : "carousel-buttons-horizontal"
         }
       >
-        {/* This displays the "Previous Button" if the amount of images passed in is greater than the size desired. */}
+        {/* This displays the "Previous Button" if the amount of images passed in is greater than
+         the size desired. */}
         {props.images.length > props.size ? (
           <button className="left" type="button" onClick={previous}>
             {props.vertical ? (
@@ -298,7 +309,8 @@ const Carousel = (props) => {
           </button>
         ) : null}
 
-        {/* This displays the "Next Button" if the amount of images passed in is greater than the size desired. */}
+        {/* This displays the "Next Button" if the amount of images passed in is greater than the 
+        size desired. */}
         {props.images.length > props.size ? (
           <button className="right" type="button" onClick={next}>
             {props.vertical ? (
@@ -310,7 +322,8 @@ const Carousel = (props) => {
         ) : null}
       </section>
 
-      {/* This section returns the actual images of the carousel, which can be horizontal or vertical according to the props passed in. */}
+      {/* This section returns the actual images of the carousel, which can be horizontal or 
+      vertical according to the props passed in. */}
       <section
         className={
           props.vertical

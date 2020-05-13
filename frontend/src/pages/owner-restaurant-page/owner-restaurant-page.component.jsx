@@ -2,7 +2,9 @@
   Contributors: Sam Alhaqab 017018649
   Course: CECS 470
 
-  Description: This functional component renders the restaurant-owner page, which displays all the restaurants an owner has listed on the website. This page is only accessible by a user who is an owner.
+  Description: This functional component renders the restaurant-owner page, which displays all 
+  the restaurants an owner has listed on the website. This page is only accessible by a user who 
+  is an owner.
 */
 
 // main packages:
@@ -34,7 +36,8 @@ const OwnerRestaurantPage = ({ userAuth, ...props }) => {
   // state variable determines of the page is still loading/fetching the owners restaurant data
   const [loading, setLoading] = useState(false);
 
-  // function calls on component mount, fetching all the owners restaurant data and loading it into the component
+  // function calls on component mount, fetching all the owners restaurant data and loading it
+  // into the component
   useEffect(() => {
     let source = axios.CancelToken.source();
     const validateAcess = async () => {
@@ -68,7 +71,9 @@ const OwnerRestaurantPage = ({ userAuth, ...props }) => {
   // returns the owner restaurant page with all of the owners restaurant listings
   return (
     <div className="owner-restaurant-page">
-      {/* if the owner has at least one restaurant, title the page as your restaurants, else if the owner has no restaurants, title the page with you have not submitted a restaurant to our website */}
+      {/* if the owner has at least one restaurant, title the page as your restaurants, else if 
+      the owner has no restaurants, title the page with you have not submitted a restaurant to 
+      our website */}
 
       {ownersRestaurants.length !== 0 && !loading ? (
         <h1 className="owner-header">Your Restaurants</h1>
@@ -83,7 +88,8 @@ const OwnerRestaurantPage = ({ userAuth, ...props }) => {
         ""
       )}
 
-      {/* if the page is still fetching the restaurant data/loading, then display the loading animation */}
+      {/* if the page is still fetching the restaurant data/loading, then display the loading 
+      animation */}
       {loading ? (
         <LoadingAnimation
           text1="fetching your restaurants"
