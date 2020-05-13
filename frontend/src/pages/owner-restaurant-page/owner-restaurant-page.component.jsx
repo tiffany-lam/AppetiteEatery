@@ -69,12 +69,19 @@ const OwnerRestaurantPage = ({ userAuth, ...props }) => {
   return (
     <div className="owner-restaurant-page">
       {/* if the owner has at least one restaurant, title the page as your restaurants, else if the owner has no restaurants, title the page with you have not submitted a restaurant to our website */}
-      <h1 className="owner-header">
-        {ownersRestaurants.length !== 0 && !loading ? "Your Restaurants" : ""}
-        {ownersRestaurants.length === 0 && !loading
-          ? "You have not submitted a restaurant to our website :("
-          : ""}
-      </h1>
+
+      {ownersRestaurants.length !== 0 && !loading ? (
+        <h1 className="owner-header">Your Restaurants</h1>
+      ) : (
+        ""
+      )}
+      {ownersRestaurants.length === 0 && !loading ? (
+        <h1 className="owner-header">
+          You have not submitted a restaurant to our website :(
+        </h1>
+      ) : (
+        ""
+      )}
 
       {/* if the page is still fetching the restaurant data/loading, then display the loading animation */}
       {loading ? (

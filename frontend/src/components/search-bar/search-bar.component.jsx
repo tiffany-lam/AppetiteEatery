@@ -33,13 +33,7 @@ const SearchBar = ({
 }) => {
   // const [searchbarPlaceholder, setSearchbarPlaceholder] = useState("search...");
   const [prevSearchbarValue, setPrevSearchbarValue] = useState("");
-  const [city, setCity] = useState("");
-  const [address1, setAddress1] = useState("");
-  const [address2, setAddress2] = useState("");
 
-  const [coordinates, setCoordinatates] = useState({ lat: null, long: null });
-
-  const [query, setQuery] = useState("");
   const browserHistory = useHistory();
   const browserLocation = useLocation();
   const inputRef = React.createRef();
@@ -52,38 +46,10 @@ const SearchBar = ({
     if (searchbarValue === "") return;
 
     if (e.key === "Enter" || !e.key) {
-      if (
-        browserLocation.pathname !== "/search" &&
-        prevSearchbarValue !== searchbarValue
-      ) {
+      if (browserLocation.pathname !== "/search") {
         browserHistory.push("/search");
-        setPrevSearchbarValue(searchbarValue);
       }
     }
-  };
-
-  const handleSelect = (value) => {
-    // const placesResults = geocodeByAddress(value); //pass address string value
-
-    // const latLong = getLatLng(placesResults[0]);
-    // console.log("results", latLong);
-    geocodeByAddress(value)
-      .then(async (results) => {
-        return getLatLng(results[0]);
-      })
-      .then((coordinates) => {
-        console.log(coordinates);
-        setCoordinatates(coordinates);
-      })
-      .catch((error) => console.error("Error", error));
-
-    // //results is an array with different values in it, long,lat, geometry, city ect
-    // //converts the string value using the google places api into placesResults
-    // const placesResults = geocodeByAddress(value); //pass address string value
-    // const latLong = getLatLng(placesResults[0]);
-    // setCoordinatates(latLong);
-    //set address to one they selected
-    setAddress1(value);
   };
 
   return (
@@ -103,9 +69,7 @@ const SearchBar = ({
           className="search-input"
           type="search"
           placeholder="search..."
-          onChange={(e) => {
-            setSearchbarValue(e.target.value);
-          }}
+          onChange={handleChange}
           ref={inputRef}
         />
 

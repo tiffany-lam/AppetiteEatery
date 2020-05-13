@@ -5,9 +5,6 @@ import { Link } from "react-router-dom";
 import "./results.styles.scss";
 
 const Results = ({ results, loading }) => {
-  if (loading) {
-    return <h2>Loading...</h2>;
-  }
   return (
     /* Using bootstrap for pagination*/
     // <div>
