@@ -1,66 +1,78 @@
+/*
+  Contributors: Veronica Sumariyanto 013229149
+  Course: CECS 470
+
+  Description: This scss class styles the profile page component.
+*/
+
+// Importing our theme
 @import "../../assets/theme";
 
-
+// Sets up the styling for the entire page
 .profile-page-container {
-  // padding: 25px;
-  // margin: 2em 3em;
   display: flex;
   flex-direction: column;
-  // background-color: $primary;
-  // border-radius: 25px;
 
+  // Sets up the margin
   .userContainer {
-    // background-color: $background_dark;
-    border-radius: 15px;
     margin: 15px;
   }
 
+  // Styles the top portion of the profile page with flex
   .userContainer-inner {
     margin: 20px;
-    display: grid;
-    grid-template-columns: 45% auto;
-    // grid-template-rows: 1fr auto;
-    // grid-template-areas: 
-    //   "picture userInfo"
-    //   "favorites userInfo";
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
   }
 
-  #col2 {
-    grid-column-start: 2;
-    grid-column-end: 2;
-  }
-  
-  // .userReviews {
-  //   // background: $primary;
-  //   // border-radius: 15px;
-  //   margin: 13px;
-  //   // column-count: 2
-  // }
-  
-  // .review {
-  //   background: $light_beige;
-  //   display: block;
-  // }
+  // Styles the first and last name of the patron. Also the input form when it is editing.
+  .profileName {
+    display: flex;
+    flex-direction: row;
 
-  .mini-icon {
-    width: 20px;
-    height: 20px;
-    float: right;
-  }
-
-  #toggle-mini {
-    display: inline-block;
-  }
-
-  fieldset {
-    height: min-content;
+    margin-bottom: 0.5 rem;
     width: 100%;
 
     border: none;
+
+    // Styling the form field to edit a patron's name.
+    input[type="text"] {
+      background: none;
+      border: none;
+      outline: none;
+
+      font-size: 2.3em;
+      font-weight: bold;
+      color: $primary;
+
+      height: min-content;
+      width: 100%;
+      min-width: 4em;
+      box-sizing: border-box;
+
+      display: flex;
+      justify-self: flex-start;
+    }
   }
 
+  // Styling the favorites for tags to flex.
   #favorites {
-    display: inline;
+    display: flex;
+  }
+
+  // Styling the flex-containers within the userContainer-inner.
+  #flex-container1, #flex-container2 {
+    display:flex;
+    flex-direction: column;
+    width: 100%;
+
+    // Styles the text area input for the about me.
+    textarea {
+      width: 100%;
+      background-color: $background_light;
+      padding: 1rem;
+    }
   }
 
   ///////// TEXT STYLING /////////////
@@ -74,6 +86,7 @@
     margin: 8px;
   }
 
+  // This styles the "Edit My Profile" button to have it aligned on the right and sets the width.
   h1 + button {
     width: 15%;
     float: right;
@@ -84,7 +97,7 @@
   h1 {
     font-size: 2.3em;
     text-transform: none;
-    color: #ff6b71;
+    color: $primary;
     display: inline;
   }
 
@@ -98,73 +111,54 @@
     font-weight: bold; 
     color: $secondary;
     padding-bottom: 7px;
-    display: inline-block
+    display: block;
   }
 
+  // Styles the "Save Changes" button.
   .profile-save-button {
-    // display: none;
     width: 15%;
     float: right;
     margin-bottom: 8px;
     margin-right: 20px;
   }
   
-  .userContainer-inner p, li {
-    font-size: 1.1em;
-    line-height: 1.4em;
-    padding-top: 3px;
-    padding-bottom: 5px;
+  // Styles the p element within userContainer-inner
+  .userContainer-inner {
+    p {
+      font-size: 1.1em;
+      line-height: 1.4em;
+      padding-top: 3px;
+      padding-bottom: 5px;
+    }
   }
 
-  #col2 p {
-    padding-bottom: 10px;
-  }
-
+  // Sets the margin for the heading for user reviews.
   .userReviews h3 {
     margin: 10px;
   }
   
+  // Resizes the paragraph in reviews.
   .review-user-info p {
     font-size: 15px;
   }
-  // p {
-  //   line-height: 1.8;
-  //   font-size: 20px;
-  // }
+
   
   /////////// IMAGES /////////////////
 
-  // .map-img {
-  //   width: 400px;
-  //   height: 300px;
-  //   object-fit: cover;
-  //   border-radius: 25px;
-  //   margin: 10px;
-  // }
-
+  // Styles the map container to set its position and size.
   #checkIn {
     position: relative;
     width: 100%;
     height: 300px;
   }
   
-  .review-img {
-    width: 400px;
-    height: 300px;
-    object-fit: cover;
-  }
-  
+  // Styles the patron's avatar to display on the page.
   .profile-img {
-    // float: left;
-    // grid-row-start: 1;
-    // grid-row-end: 1;
-    grid-column-start: 1;
-    grid-column-end: 1;
-    display: block;
+    display: flex;
     justify-self: left;
     margin: 20px;
-    width: 250px;
-    height: 250px;
+    width: 350px;
+    height: 350px;
     object-fit: cover;
     border-radius: 10%;
   }
