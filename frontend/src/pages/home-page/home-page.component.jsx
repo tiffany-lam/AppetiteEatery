@@ -90,7 +90,7 @@ const HomePage = () => {
         </div>
 
         {/* the rest of the cards displayed on the page are restaurant image cards */}
-        {restaurants.map((restaurant, i) => (
+        {results.map((restaurant, i) => (
           <ImageCard
             key={i}
             to={`/restaurant/${restaurant.id}`}
