@@ -33,6 +33,7 @@ import SearchResult from "./pages/searchResult-page/searchResult.component";
 import ApplyPage from "./pages/apply-page/apply.component";
 import OwnerRestaurantPage from "./pages/owner-restaurant-page/owner-restaurant-page.component";
 import AboutUsPage from "./pages/about-us-page/about-us.component";
+import GraduatedPage from "./pages/graduated-page/graduated-page.component";
 
 const App = ({ currentUser, userAuth, ...props }) => {
   const [validUser, setValidUser] = useState(false);
@@ -113,7 +114,7 @@ const App = ({ currentUser, userAuth, ...props }) => {
   }, [currentUser]);
 
   return (
-    <div className="App" onClick={console.log("valid user", validUser)}>
+    <div className="App">
       {userAuth && !validUser && (
         <Modal defaultShow backdrop>
           {loading ? (
@@ -140,7 +141,7 @@ const App = ({ currentUser, userAuth, ...props }) => {
             />
 
             {/* <Route path="/login" component={} /> */}
-            {/* <Route path="/graduated" component={} /> */}
+            <Route path="/graduated" component={GraduatedPage} />
 
             {/* <Route path="/test" component={Test} /> */}
 
