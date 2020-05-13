@@ -5,6 +5,8 @@
   Description: This class component renders a review input used for users to post a review to a 
   specifc restaurant. It allows users to upload images with their review, and preview these as 
   well. They may post some message in the review, and select a max rating of 5 hearts.
+
+  Current Bugs: Hover effect may glitch if user cursor is on the edge of the component page component.
 */
 
 // IMPORT MAIN PACKAGES
@@ -110,7 +112,7 @@ const AboutUsPage = (props) => {
               our webpages to our clients, therefore the backend has a layout
               intended to provide information via such endpoints. Beyond the
               backend, I also developed the restaurant page, contact us page,
-              and the about us page.
+              and the about us page, so check them out if you're interested.
             </p>
           </section>
           {/* This section is for Tiffany lam. */}

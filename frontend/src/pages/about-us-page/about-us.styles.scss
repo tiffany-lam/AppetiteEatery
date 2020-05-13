@@ -179,12 +179,16 @@
     @include about-us-container;
     padding-bottom: 2rem;
 
+    p {
+      margin-top: 10rem;
+    }
+
     transition: all 1s ease-in-out;
     overflow: hidden;
 
-    p {
-      opacity: 0%;
-    }
+    // p {
+    //   opacity: 0%;
+    // }
   }
 
   // This class is used to style the developers section.
@@ -209,70 +213,79 @@
   }
 }
 
-// This class is used to expand the about-us section on hover. It expands the about-us container to the full page to display the contents of each section.
-div.about-us:hover {
-  @include about-us-expand;
-  flex-wrap: nowrap;
-  background-color: transparent;
-
-  .about-us-design {
-    width: 100%;
-    height: min-content;
-    background-color: transparent;
-    padding-bottom: 2rem;
-
-    h2 {
-      top: 0;
-      left: 0;
-
-      transform: translate(0%, 0%) rotate(0deg);
-
-      font-size: 2rem;
-    }
-
-    h2::after {
-      transform: translate(0, 0);
-    }
-
-    p {
-      opacity: 100%;
-      transition: opacity 2s;
-    }
-  }
-
-  .about-us-developers {
-    width: 100%;
-    height: min-content;
-    margin-left: 0;
-    padding-top: 0;
+// This class is used to expand the about-us section on hover. It expands the about-us container to the full
+//  page to display the contents of each section.
+section.about-us-container:hover {
+  // div.about-us:hover {
+  .about-us {
+    @include about-us-expand;
+    flex-wrap: nowrap;
     background-color: transparent;
 
-    h2 {
-      top: 0;
-      left: 0;
+    .about-us-design {
+      width: 100%;
+      height: min-content;
+      background-color: transparent;
+      padding-bottom: 2rem;
 
-      transform: translate(0%, 0%) rotate(0deg);
+      h2 {
+        top: 0;
+        left: 0;
 
-      font-size: 2rem;
+        transform: translate(0%, 0%) rotate(0deg);
+
+        font-size: 2rem;
+      }
+
+      h2::after {
+        transform: translate(0, 0);
+      }
+
+      p {
+        margin-top: 4rem;
+        transition: margin-top 2s;
+      }
+
+      // p {
+      //   opacity: 100%;
+      //   transition: opacity 2s;
+      // }
     }
 
-    h2::after {
-      transform: translate(0, 0);
-    }
-
-    .about-us-sam {
+    .about-us-developers {
+      width: 100%;
+      height: min-content;
+      margin-left: 0;
       padding-top: 0;
-      margin-top: 4rem;
-    }
+      background-color: transparent;
 
-    .about-us-sam,
-    .about-us-julie,
-    .about-us-tiffany,
-    .about-us-veronica {
-      height: 100%;
-      opacity: 100%;
-      transform: rotate(0deg);
-      transition: opacity 2s;
+      h2 {
+        top: 0;
+        left: 0;
+
+        transform: translate(0%, 0%) rotate(0deg);
+
+        font-size: 2rem;
+      }
+
+      h2::after {
+        transform: translate(0, 0);
+      }
+
+      .about-us-sam {
+        padding-top: 0;
+        margin-top: 4rem;
+      }
+
+      .about-us-sam,
+      .about-us-julie,
+      .about-us-tiffany,
+      .about-us-veronica {
+        height: 100%;
+        opacity: 100%;
+        transform: rotate(0deg);
+        transition: opacity 2s;
+      }
     }
   }
 }

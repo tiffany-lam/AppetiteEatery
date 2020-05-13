@@ -146,17 +146,18 @@
           word-break: break-word;
         }
       }
+
       .res-name {
         font-size: 1.1rem;
       }
 
       // Class styling to hide this format of extra information on the card when the page is shrunk.
-      .res-rating-normal {
+      .res-extra-normal {
         display: none;
       }
 
       // Class styling to view this format of extra information on the card when the page is shrunk.
-      .res-rating-shrink {
+      .res-extra-shrink {
         padding: 0 0.25rem;
         display: flex;
 
