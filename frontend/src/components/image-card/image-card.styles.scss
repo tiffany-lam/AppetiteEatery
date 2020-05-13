@@ -8,7 +8,7 @@
   height: 100%;
   width: 100%;
   overflow: hidden;
-  background-color: $primary;
+  background-color: $secondary;
 
   .pop-up-details-container {
     display: none; // hides the details at first
@@ -24,7 +24,7 @@
     .pop-up-details-box {
       // border-radius: 5px;
       padding: 0.5rem;
-      background-color: rgba($background, 0.9);
+      background-color: rgba($background_light, 0.9);
       // background-color: $background;
 
       display: flex;
@@ -36,7 +36,7 @@
         width: 100%;
         // background-color: $secondary_dark;
         color: $secondary_dark;
-        font-size: 1.5rem;
+        font-size: 1.2rem;
         font-weight: bold;
         text-align: center;
 

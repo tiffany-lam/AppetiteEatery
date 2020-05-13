@@ -3,11 +3,31 @@
   Main function: Simple css styling for the margins and format of pagination and sorttby dropdown. 
 
  */
-.sortby{
+.sortby {
   margin: 0.7rem;
   float: right;
 }
 
-.pagination-container {
-  margin-inline-start: 0.7rem;
+.search-results-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .sort-type-select-input {
+    width: 100%;
+  }
+
+  .resultsContainer {
+    width: fit-content;
+    width: -moz-fit-content;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .pagination-container {
+    margin-inline-start: 0.7rem;
+    width: 100%;
+  }
 }

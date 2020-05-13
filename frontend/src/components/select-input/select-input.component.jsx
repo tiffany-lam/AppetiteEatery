@@ -28,7 +28,7 @@ const SelectInput = ({
       >
         <React.Fragment>
           {label}
-          <span className="required-asterisk">*</span>
+          {props.required ? <span className="required-asterisk">*</span> : null}
         </React.Fragment>
       </label>
 
@@ -42,9 +42,6 @@ const SelectInput = ({
         }}
         value={value}
         disabled={disabled}
-        onClick={(e) => {
-          console.log(value);
-        }}
         // onChange={(e) => {
         //   setOption(e.target.value);
         // }}

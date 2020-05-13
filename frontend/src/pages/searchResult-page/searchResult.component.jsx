@@ -14,6 +14,8 @@ import Results from "../../components/search-result/Results.component";
 import Pagination from "../../components/pagination/Pagination.component";
 //import custom loading animation
 import LoadingAnimation from "../../components/loading-animation/loading-animation.component";
+import SelectInput from "../../components/select-input/select-input.component";
+import Rating from "../../components/rating/rating.component";
 //import style
 import "./searchResult-page.styles.scss";
 
@@ -45,7 +47,7 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
             //if the data returned isn't undefined or null then set the result
             if (res.data.search_results) {
               setLoading(false);
-              //because we are on the main search page, we only want NICHE restaurants aka restaurants under 10 reviews for demos we use 10 because we would need a lot of reviews. 
+              //because we are on the main search page, we only want NICHE restaurants aka restaurants under 10 reviews for demos we use 10 because we would need a lot of reviews.
               //.filter looks through array
               console.log("search results:", res.data.search_results);
               setResults(
@@ -81,15 +83,14 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
     sortArray(sortType);
   }, [sortType]); //returns the sorted array
   //sort filters - this will sort the restaurants based on the selected options in the dropdown
-  const sortArray = type =>{
-    console.log("type: ", type)
-    let sorted = [...results]; 
+  const sortArray = (type) => {
+    console.log("type: ", type);
+    let sorted = [...results];
     //sort - returns negative value is first argument is less than second
     //use ... to clone before we sort
-    if(type === 'rating'){
-      sorted.sort((a,b) => b.average - a.average);
-    }
-    else if(type === 'dateNew'){
+    if (type === "rating") {
+      sorted.sort((a, b) => b.average - a.average);
+    } else if (type === "dateNew") {
       //if the date is less that means that date is smaller aka newer; so if a is less than b that means a is newest so it goes before b thius return 1 if a is newer than b
       sorted.sort((a, b) => (a.dateOpen < b.dateOpen ? 1 : -1));
     } else if (type === "dateOld") {
@@ -112,8 +113,20 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
 
   //Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
     <section className="search-results-container">
+      <button
+        type="button"
+        onClick={() => {
+          console.log("sortType", sortType);
+        }}
+      >
+        ff
+      </button>
+
+      <Rating input />
+
       {/* // if result length is 0 show no results, */}
       {loading === true ? (
         <LoadingAnimation
@@ -127,9 +140,27 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
       ) : (
         //else show results
         <div className="resultsContainer">
+          <SelectInput
+            className="sort-type-select-input"
+            disabled={loading}
+            value={sortType}
+            label="Sort By"
+            htmlFor="state"
+            handleChange={(e) => {
+              setSortType(e.target.value);
+            }}
+            id="state-input"
+          >
+            <option value="rating">Highest Rating</option>
+            <option value="distance">Distance</option>
+            <option value="dateNew">Date opened (newest)</option>
+            <option value="dateOld">Date opened (oldest)</option>
+          </SelectInput>
           {/* disable dropdown while API request is being made */}
-          <section className="dropdown" disabled={loading}>
-            <select
+
+          {/* <section className="dropdown" disabled={loading}> */}
+
+          {/* <select
               className="sortby"
               onChange={(e) => setSortType(e.target.value)}
             >
@@ -137,20 +168,19 @@ const SearchResult = ({ searchbarValue, userAuth, ...otherProps }) => {
               <option value="distance">Distance</option>
               <option value="dateNew">Date opened (newest)</option>
               <option value="dateOld">Date opened (oldest)</option>
-            </select>
-          </section>
+            </select> */}
+          {/* </section> */}
           <section>
             {/* this is each of the restaurants that will show up in our search, based on what the user searches */}
             <Results results={currentResults} loading={loading} />
           </section>
-          <section className="pagination-container">
-            <Pagination
-              resultsPerPage={resultsPerPage}
-              totalResults={results.length}
-              paginate={paginate}
-              currentPage={currentPage}
-            />
-          </section>
+          <section className="pagination-container"></section>
+          <Pagination
+            resultsPerPage={resultsPerPage}
+            totalResults={results.length}
+            paginate={paginate}
+            currentPage={currentPage}
+          />
         </div>
       )}
     </section>

@@ -10,13 +10,15 @@ const Results = ({ results, loading }) => {
   }
   return (
     /* Using bootstrap for pagination*/
-    <div>
+    // <div>
+    <React.Fragment>
       {results.map((restaurant, i) => (
-        <Link key={i} to={`/restaurant/${restaurant._id}`}>
+        <Link key={i} className="help5" to={`/restaurant/${restaurant._id}`}>
           <RestaurantCard restaurant={restaurant} className="card-listings" />
         </Link>
       ))}
-    </div>
+    </React.Fragment>
+    // </div>
   );
 };
 export default Results;

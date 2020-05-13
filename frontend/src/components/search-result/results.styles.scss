@@ -1,5 +1,11 @@
 @import "../../assets/theme";
 
-.card-listings {
-  margin: 0.5rem 0;
+.help5 {
+  background-color: red;
+  width: 5rem;
+  max-width: 5rem;
+
+  .card-listings {
+    margin: 0.5rem 0;
+  }
 }
