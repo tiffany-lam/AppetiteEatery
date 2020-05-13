@@ -75,7 +75,8 @@ def upload_images(id):
     return client.to_json(), 200
 
 # Function to delete patron - deletes a patron object and all related s3 images.
-def delete_patron(client):
+def delete_patron(id):
+    client = Client.objects.with_id(id)
     s3_resource = boto3.resource(
         "s3",
         aws_access_key_id=S3_ACCESS_KEY_ID,
@@ -94,7 +95,8 @@ def delete_patron(client):
     return f'{id} patron deleted successfully', 200
 
 # Function to delete owner - deletes an owner object and all related s3 images.
-def delete_owner(client):
+def delete_owner(id):
+    client = Client.objects.with_id(id)
     s3_resource = boto3.resource(
         "s3",
         aws_access_key_id=S3_ACCESS_KEY_ID,
@@ -113,16 +115,16 @@ def delete_owner(client):
 
 # /api/user/<id>
 # DELETE - route deletes a user through their id
-@user.route('/<id>', methods=['DELETE', 'GET'])
+@user.route('/<id>', methods=['DELETE'])
 def delete_client(id):
     if request.method == 'DELETE':
         client = Client.objects.with_id(id)
 
         if client._cls == 'Client.Patron':
-            delete_patron(client)
+            delete_patron(id)
 
         elif client._cls == 'Client.Owner':
-            delete_owner(client)
+            delete_owner(id)
 
         else:
             return "Client delete failed", 200
