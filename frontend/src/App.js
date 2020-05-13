@@ -25,7 +25,7 @@ import RegisterUserType from "./components/auth/register-user-type.component cop
 // page components here:
 import HomePage from "./pages/home-page/home-page.component";
 // import RestaurantPage from "./pages/restaurant-page/restaurant-page.component";
-import RestaurantPage from "./pages/restaurant-page/restaurant-pagev2.component";
+import RestaurantPage from "./pages/restaurant-page/restaurant-page.component";
 import ContactUsPage from "./pages/contact-us-page/contact-us.component";
 import ErrorPage from "./pages/error-page/error-page.component";
 import ProfilePage from "./pages/profile-page/profile-page.component";

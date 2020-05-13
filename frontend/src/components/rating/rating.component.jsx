@@ -1,3 +1,11 @@
+/*
+  Contributors: Sam Alhaqab 017018649
+  Course: CECS 470
+
+  Description: This functional component returns a styled radio input for rating. In order words, it uses radio inputs to show and/or select the desired rating (in our use case, for a review). This component also includes accessibility for screen readers. 
+*/
+
+// main packages:
 import React, { useState, useEffect } from "react";
 import StarsIcon from "@material-ui/icons/Stars";
 

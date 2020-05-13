@@ -1,15 +1,16 @@
+// global theme import
 @import "../../assets/theme";
 
+// styles the container for the entire image card, including the image, the name, and the rating of the restaurant
 .image-container {
   position: relative;
-  // height: 20rem;
-  // width: 20rem;
 
   height: 100%;
   width: 100%;
   overflow: hidden;
   background-color: $primary;
 
+  // displays and styles restaurant name and rating
   .pop-up-details-container {
     display: none; // hides the details at first
     position: absolute;
@@ -22,10 +23,8 @@
     width: 100%;
 
     .pop-up-details-box {
-      // border-radius: 5px;
       padding: 0.5rem;
       background-color: rgba($background, 0.9);
-      // background-color: $background;
 
       display: flex;
       flex-direction: column;
@@ -34,7 +33,6 @@
 
       h2 {
         width: 100%;
-        // background-color: $secondary_dark;
         color: $secondary_dark;
         font-size: 1.5rem;
         font-weight: bold;
@@ -45,6 +43,7 @@
     }
   }
 
+  // surrounds image with a spotlight overloy
   .spotlight-mask {
     position: absolute;
     z-index: 2;

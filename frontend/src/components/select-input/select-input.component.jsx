@@ -1,10 +1,17 @@
-import React, { useState, useEffect } from "react";
+/*
+  Contributors: Sam Alhaqab 017018649
+  Course: CECS 470
 
-import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
-import VisibilityIcon from "@material-ui/icons/Visibility";
+  Description: This functional component returns a customized select input with appropriate accessibility and styling consistent with the web pages themes.
+*/
 
+// main packages:
+import React, { useState } from "react";
+
+// custom stylesheets:
 import "./select-input.styles.scss";
 
+// returns a styled select input
 const SelectInput = ({
   id,
   handleChange,
@@ -12,16 +19,18 @@ const SelectInput = ({
   className,
   type,
   htmlFor, // used for accessibility
-  // required,
   value = "",
   children,
   disabled,
   ...props
 }) => {
+  // option determines the current select value
   const [option, setOption] = useState(value);
 
+  // returns customized select button
   return (
     <div id={id} className={`select-input-container ${className}`}>
+      {/* select label, which overlays on the select input if no value has been selected */}
       <label
         className={`select-input-label ${option !== "" ? "shrink" : ""}`}
         htmlFor={htmlFor}
@@ -32,6 +41,7 @@ const SelectInput = ({
         </React.Fragment>
       </label>
 
+      {/* select input */}
       <select
         {...props}
         className="select-input"
@@ -47,9 +57,6 @@ const SelectInput = ({
           console.log(value);
           console.log(option);
         }}
-        // onChange={(e) => {
-        //   setOption(e.target.value);
-        // }}
       >
         <option value=""></option>
         {children}

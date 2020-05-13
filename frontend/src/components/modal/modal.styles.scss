@@ -1,17 +1,14 @@
+// import global themes
 @import "../../assets/theme";
 
+// modal parent container which formats all containing elements
 .modal-container {
-  // transform: translateY(-999px);
-
   position: fixed;
   z-index: 1000;
   left: 50vw;
   top: 50vh;
-  // transform: translate(50vw, 50vh);
   width: 0px;
   height: 0px;
-  // position: fixed;
-  // background-color: rgba(red, 0.5);
   background-color: red;
   border-radius: 10px;
 
@@ -19,6 +16,7 @@
   justify-content: center;
   align-items: center;
 
+  // modal backdrop which formats the backdrop of the modal
   .modal-backdrop {
     cursor: crosshair;
 
@@ -32,9 +30,9 @@
     backdrop-filter: blur(1px);
   }
 
+  // modal content styles the contents of the modal
   .modal-content {
     position: absolute;
-    // background-color: $foreground;
     z-index: 10;
     border-radius: 5px;
   }

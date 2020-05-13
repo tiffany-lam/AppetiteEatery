@@ -1,14 +1,30 @@
+/*
+  Contributors: Julie Do 014101748
+  Course: CECS 470
+
+  Description: This class component renders a review input used for users to post a review to a specifc restaurant. It allows users to upload images with their review, and preview these as well. They may post some message in the review, and select a max rating of 5 hearts.
+*/
+
+// IMPORT MAIN PACKAGES
 import React, { useState, useEffect } from "react";
 
-import DoneIcon from "@material-ui/icons/Done";
-
+// IMPORT STYLES
 import "./about-us.styles.scss";
 
+// IMPORT ICONS
+import DoneIcon from "@material-ui/icons/Done";
+
+// Functional Component About Us Page
 const AboutUsPage = (props) => {
+  // This returns the about us page and all of its contents.
   return (
+    // This is the parent container for the about us page.
     <section className="about-us-container">
+      {/* This is the heading title of the page. */}
       <h1>About Us</h1>
+      {/* This div is used purely to style the about-us contents. */}
       <div className="about-us">
+        {/* This section contains the design and development description of our website. */}
         <section className="about-us-design">
           <h2>Design & Development</h2>
           <p>
@@ -24,11 +40,14 @@ const AboutUsPage = (props) => {
             flavors at the local hidden gem!
           </p>
         </section>
+        {/* This section contains all the sections about each of our individual developers and their responsibilities. */}
         <section className="about-us-developers">
           <h2>Developers</h2>
+          {/* This section is for Sam Alhaqab. */}
           <section className="about-us-sam">
             <h3>Sam Alhaqab</h3>
             <hr></hr>
+            {/* This h4 and list are used to bullet point the responsibilities. */}
             <h4>Responsibilities</h4>
             <ul>
               <li>
@@ -44,6 +63,7 @@ const AboutUsPage = (props) => {
                 <p>Frontend Structure & Layout</p>
               </li>
             </ul>
+            {/* This paragraph is to give a more descriptive explanation of the aforementioned responsibilities. */}
             <p>
               My name is Sam Alhaqab and I am one of the developers behind this
               project, otherwise known as Appetite Eatery! As a core member of
@@ -56,9 +76,11 @@ const AboutUsPage = (props) => {
               intuitive manner of navigation for all our users.
             </p>
           </section>
+          {/* This section is for Julie Do. */}
           <section className="about-us-julie">
             <h3>Julie Do</h3>
             <hr></hr>
+            {/* This h4 and list are used to bullet point the responsibilities. */}
             <h4>Responsibilities</h4>
             <ul>
               <li>
@@ -74,6 +96,7 @@ const AboutUsPage = (props) => {
                 <p>Backend Structure & Layout</p>
               </li>
             </ul>
+            {/* This paragraph is to give a more descriptive explanation of the aforementioned responsibilities. */}
             <p>
               I'm Julie Do, a member of the development team behind this
               project, Appetite Eatery! My duties included setting up the
@@ -85,9 +108,11 @@ const AboutUsPage = (props) => {
               and the about us page.
             </p>
           </section>
+          {/* This section is for Tiffany lam. */}
           <section className="about-us-tiffany">
             <h3>Tiffany Lam</h3>
             <hr></hr>
+            {/* This h4 and list are used to bullet point the responsibilities. */}
             <h4>Responsibilities</h4>
             <ul>
               <li>
@@ -103,6 +128,7 @@ const AboutUsPage = (props) => {
                 <p>Database Architecture</p>
               </li>
             </ul>
+            {/* This paragraph is to give a more descriptive explanation of the aforementioned responsibilities. */}
             <p>
               My name is Tiffany Lam, and I'm part of the team behind Appetite
               Eatery. As part of the team, I set up authentication for users and
@@ -110,9 +136,11 @@ const AboutUsPage = (props) => {
               the restaurant search, a vital feature of our website.
             </p>
           </section>
+          {/* This section is for Veronica Sumariyanto. */}
           <section className="about-us-veronica">
             <h3>Veronica Sumariyanto</h3>
             <hr></hr>
+            {/* This h4 and list are used to bullet point the responsibilities. */}
             <h4>Responsibilities</h4>
             <ul>
               <li>
@@ -128,6 +156,7 @@ const AboutUsPage = (props) => {
                 <p>Database Information Population</p>
               </li>
             </ul>
+            {/* This paragraph is to give a more descriptive explanation of the aforementioned responsibilities. */}
             <p>
               Hi, I'm Veronica Sumariyanto, one of the developers behind
               Appetite Eatery. As a team member, my responsibilities including

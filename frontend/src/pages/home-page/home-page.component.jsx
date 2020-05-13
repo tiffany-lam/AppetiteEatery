@@ -1,6 +1,12 @@
-// import React from "react";
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+/*
+  Contributors: Sam Alhaqab 017018649
+  Course: CECS 470
+
+  Description: This functional component renders the home page of our website, which contains a list of links to our more popular restaurants. These links display the restaurant name, rating, and an image from the restaurant.
+*/
+
+// main packages:
+import React, { useState } from "react";
 
 // custom components:
 import ImageCard from "../../components/image-card/image-card.component";
@@ -92,22 +98,26 @@ const restaurants = [
   },
 ];
 
+// home page renders a list of links to popular restaurants
 const HomePage = () => {
+  // state variable determines css style of the restaurant listing that is currently being hovered on
   const [galleryItemHover, setGalleryItemHover] = useState(false);
-  // const [limelightContent, setLimelightContent] = useState("");
 
+  // sets the galleryItemHover variable to true/to animate the limelight
   const enableLimelightGlow = () => {
     setGalleryItemHover(true);
   };
 
+  // sets the galleryItemHover variable to false/to stop animating the limelight
   const disableLimeLightGlow = () => {
     setGalleryItemHover(false);
-    // setLimelightContent("");
   };
 
+  // returns home page with a list of popular restaurants
   return (
     <div className="home-page-container">
       <div className="limelight-container">
+        {/* the first container displayed on the page is a css styled lime with a spotlight which animates if you hover on it */}
         <div
           className="header-box"
           onMouseEnter={enableLimelightGlow}
@@ -127,27 +137,9 @@ const HomePage = () => {
             ></div>
           </div>
         </div>
-        {/* {restaurants.map((restaurant, i) => (
-          <Link key={i} to={`/restaurant/${restaurant.id}`}>
-            <ImageCard
-              className="image-lights-up-limelight"
-              onMouseEnter={enableLimelightGlow}
-              onMouseLeave={disableLimeLightGlow}
-              name={restaurant.name}
-              rating={restaurant.rating}
-              imageUrl={restaurant.url}
-            />
-          </Link>
-        ))} */}
 
+        {/* the rest of the cards displayed on the page are restaurant image cards */}
         {restaurants.map((restaurant, i) => (
-          // <div className="gallery-item"></div>
-          // <Link
-          //   key={i}
-          //   to={`/restaurant/${restaurant.id}`}
-          //   onFocus={enableLimelightGlow}
-          //   onBlur={disableLimeLightGlow}
-          // >
           <ImageCard
             key={i}
             to={`/restaurant/${restaurant.id}`}
@@ -158,7 +150,6 @@ const HomePage = () => {
             rating={restaurant.rating}
             imageUrl={restaurant.url}
           />
-          // </Link>
         ))}
       </div>
     </div>

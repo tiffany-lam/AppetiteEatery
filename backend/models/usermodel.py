@@ -19,6 +19,8 @@ class Client(Document):
 class Patron(Client):
     # reviews = ListField(LazyReferenceField('Review'), reverse_delete_rule=PULL)
     reviews = ListField(LazyReferenceField('Review'))
+    about = StringField()
+    tags = ListField(StringField(max_length=50), default=[])
 
 class Owner(Client):
     # restaurants = ListField(LazyReferenceField('Restaurant'), reverse_delete_rule=PULL)

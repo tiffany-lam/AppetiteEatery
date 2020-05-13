@@ -1,5 +1,7 @@
+// global theme import
 @import "../../assets/theme";
 
+// mixin to display label inside of input rather than on top
 @mixin shrinkLabel {
   top: -1rem;
   left: 0.1rem;
@@ -15,6 +17,7 @@
   pointer-events: auto;
 }
 
+// styles container for input and label
 .input-field {
   position: relative;
   outline: none;
@@ -22,9 +25,8 @@
   height: 2rem;
   min-width: 10rem;
 
+  // styles input label
   .form-input-label {
-    // background-color: red;
-    // text-transform: uppercase;
     text-transform: capitalize;
     color: $secondary_dark;
 
@@ -60,29 +62,22 @@
     }
   }
 
+  // styles form input
   .form-input {
-    // background-color: $background_light;
-    // background-color: yellow;
-    // background-color: red;
-    // height: 2rem;
     height: 100%;
     width: 100%;
-    // box-sizing: border-box;
     padding: 0 0.5rem;
 
-    // font-weight: bold;
     color: $secondary_dark;
     font-size: 1rem;
     letter-spacing: 1px;
 
     border: none;
-    // border-radius: 2px;
     border: 1px solid lightgray;
 
     &:focus {
       outline: none;
       border: 1px solid $secondary_dark;
-      // box-shadow: $light_box_shadow;
     }
 
     &:focus-within {
@@ -92,38 +87,23 @@
 
     &:invalid {
       outline: none;
-      // border: 1px solid $primary;
-      // color: $soft_red;
       color: $primary;
     }
 
     &:valid {
       outline: none;
-      // box-shadow: 0 0 5px $lg_lightblue;
-      // border: 1px solid rgb(39, 182, 70);
-      // background-color: ;
       color: $secondary_dark;
     }
 
     &:hover {
       outline: none;
       border: 1px solid $secondary_dark;
-      // box-shadow: $light_box_shadow;
     }
 
     &:read-only {
       background-color: #ececec;
       cursor: not-allowed;
     }
-
-    // &:required {
-    //   outline: none;
-    //   // color: $soft_red;
-    //   // border: 1px solid blue;
-    //   // border: none;
-    //   border: 1px solid $secondary_dark;
-    //   border: 1px solid lightgray;
-    // }
   }
 
   input[type="password"] {
@@ -143,7 +123,6 @@
 
   input[type="date"] {
     color: white;
-    // opacity: 0;
 
     &:invalid {
       color: white;
@@ -153,17 +132,13 @@
       color: $secondary_dark;
     }
 
-    &:hover {
-      // color: yellow;
-      // background-color: red;
-    }
-
     &:focus-within,
     &:focus {
       color: black;
     }
   }
 
+  // styles container for visibility toggle
   .visibility-container {
     cursor: pointer;
 
@@ -195,7 +170,7 @@
     }
   }
 
-  // this is what makes the labal move:
+  // this is what makes the label move:
   &:focus-within,
   &:focus {
     .form-input-label {

@@ -1,5 +1,7 @@
+// global theme imports
 @import "../../assets/theme";
 
+// parent container for the tag component, styled the items inside of it
 .tag-container {
   width: fit-content;
   height: 1.2rem;
@@ -19,8 +21,8 @@
   justify-content: center;
   align-items: center;
 
+  // styles the tag input
   .tag-input {
-    // background-color: rgba(white, 0.1);
     background-color: transparent;
 
     width: 7rem;
@@ -39,10 +41,9 @@
       opacity: 0.8;
       font-weight: normal;
       font-style: italic;
-      // text-transform: lowercase;
     }
+
     &:disabled {
-      // background-color: #ececec;
       cursor: not-allowed;
     }
   }
