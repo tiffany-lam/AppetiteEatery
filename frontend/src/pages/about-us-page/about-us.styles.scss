@@ -179,12 +179,16 @@
     @include about-us-container;
     padding-bottom: 2rem;
 
+    p {
+      margin-top: 10rem;
+    }
+
     transition: all 1s ease-in-out;
     overflow: hidden;
 
-    p {
-      opacity: 0%;
-    }
+    // p {
+    //   opacity: 0%;
+    // }
   }
 
   // This class is used to style the developers section.
@@ -238,9 +242,14 @@ section.about-us-container:hover {
       }
 
       p {
-        opacity: 100%;
-        transition: opacity 2s;
+        margin-top: 4rem;
+        transition: margin-top 2s;
       }
+
+      // p {
+      //   opacity: 100%;
+      //   transition: opacity 2s;
+      // }
     }
 
     .about-us-developers {
