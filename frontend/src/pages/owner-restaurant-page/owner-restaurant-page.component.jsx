@@ -85,11 +85,14 @@ const OwnerRestaurantPage = ({ userAuth, ...props }) => {
       ) : null}
 
       {/* display the restaurant owners list of restaurants */}
-      {ownersRestaurants.map((restaurant, i) => (
-        <Link key={i} to={`/restaurant/${restaurant._id}`}>
-          <RestaurantCard restaurant={restaurant} className="card-margin" />
-        </Link>
-      ))}
+      {/* do not delete section as it is used to uniformly size restaurant cards */}
+      <section>
+        {ownersRestaurants.map((restaurant, i) => (
+          <Link key={i} to={`/restaurant/${restaurant._id}`}>
+            <RestaurantCard restaurant={restaurant} className="card-margin" />
+          </Link>
+        ))}
+      </section>
 
       {/* display a link to the submit/apply page to create another restaurant */}
       <Link to="/apply">
