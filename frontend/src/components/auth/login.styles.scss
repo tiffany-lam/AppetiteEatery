@@ -1,3 +1,10 @@
+/*
+  Contributors: Tiffany Lam 
+  Course: CECS 470
+
+  Description: This is the login component's style sheet. Here we define the the container and the graphics of the image with our logo on it. We also style the custom errors that appear for validation. 
+
+*/
 @import "../../assets/theme";
 
 .login-container {
@@ -15,7 +22,7 @@
     height: 10rem;
     position: relative;
     overflow: hidden;
-
+    //this is the span that holds our text "appËtite"
     span {
       z-index: 20;
       position: absolute;
@@ -43,8 +50,12 @@
       filter: blur(2px);
       object-fit: cover;
     }
+    a.forget-password-link{
+      text-align: center !important;
+      text-decoration: underline !important;
+    }
   }
-
+  //login error messages
   .login-error-msg {
     font-size: 0.8rem;
     color: red;

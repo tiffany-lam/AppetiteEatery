@@ -1,5 +1,14 @@
+/*
+  Contributors: Tiffany Lam
+  Course: CECS 470
+
+  Description: The CSS styling for the pagination. Because each a tag acts a button, we can add hover effects and show their current page by using the .active pseudoclass
+
+
+*/
 @import "../../assets/theme";
 
+//for the pagination bar overall 
 .pagination-nav {
   width: 100%;
   .pagination ul {
@@ -7,20 +16,21 @@
     display: inline-block;
     width: 100%;
   }
-
+  //for all the other links 
   .pagination li a {
     color: $primary;
     float: left;
     padding: 8px 16px;
     text-decoration: none;
   }
-
+  //for the active page change the color
   li.page-item.active {
     a.page-link {
       background-color: $secondary;
       color: white;
     }
   }
+  //oh hover and if it's not active change the color and add an outline
   .pagination a:hover:not(.active) {
     border: 1px solid black;
     background-color: $lime;

@@ -1,3 +1,10 @@
+/*
+  Contributors: Tiffany Lam 
+  Course: CECS 470
+
+  Description: This is the register user type style. This adds some margins and styles of the 2 types
+
+*/
 @import "../../assets/theme";
 
 .register-user-type {
@@ -13,13 +20,8 @@
   // justify-content: space-between;
 
   background-color: $background;
-
-  span {
-    // margin-bottom: 1rem;
-  }
-
   form {
-    .test {
+    .setType {
       margin: 1rem 0;
     }
   }

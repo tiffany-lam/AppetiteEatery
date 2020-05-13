@@ -1,5 +1,11 @@
-import React, { useState, useEffect } from "react";
+/*
+  Contributor: Tiffany Lam 
+  Course: CECS 470
 
+  Description: This is the login/register modal component. Initially this was used in the Tab component, but this creates the modal that holds the Login and Register Panels. Instead of tabs, we can move between them using the button on the bottom (or register, or login)
+
+*/
+import React, { useState} from "react";
 import RegisterForm from "../auth/register.component";
 import LoginForm from "../auth/login.component";
 

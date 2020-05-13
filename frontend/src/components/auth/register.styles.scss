@@ -1,3 +1,10 @@
+/*
+  Contributors: Tiffany Lam 
+  Course: CECS 470
+
+  Description: This is the styles for the register page. Heer we create styles for the form and add margub and padding to the buttons/container
+
+*/
 @import "../../assets/theme";
 
 h1 {
@@ -6,7 +13,6 @@ h1 {
   font-weight: bold;
   text-transform: uppercase;
   color: $primary;
-  // margin: 0.5rem 0;
   padding-left: 0.25rem;
   border-left: solid 1.3rem $primary;
 
@@ -23,7 +29,6 @@ h1 {
   .register-form {
     display: flex;
     flex-direction: column;
-    // background-color: red;
 
     .user-type-radio {
       margin-top: 1.5rem;
@@ -41,72 +46,14 @@ h1 {
       align-items: center;
       .radio {
         flex: 1;
-        .user-type-label {
-        }
-        input[type="radio"] {
-        }
       }
     }
   }
-
-  // label {
-  //   display: block;
-  //   margin-bottom: 10px;
-  //   padding-right: 2em;
-
-  //   .radio {
-  //     float: left;
-  //     clear: none;
-  //     //top, right, bottom, left
-  //     padding: 0px 1em 0px 15px;
-  //     margin-top: none;
-  //   }
-  // }
-
-  // input {
-  //   display: block;
-  //   border: none;
-  //   outline: none;
-  //   // border-radius: 5px;
-  //   background-color: $light_beige;
-  //   margin-bottom: 1em;
-  //   padding: 0.3rem;
-  // }
-
-  // input[type="radio"] {
-  //   float: left;
-  //   clear: none;
-  //   margin: 2px 0px 0px 2px;
-  // }
-
+  //if we have errors 
   .error {
     font-size: 10px;
     color: #d76666;
   }
 
-  // .registerBtn {
-  //   text-align: center;
-  //   cursor: pointer;
-  //   width: 20%;
-  //   height: 32px;
-  //   background-color: $lime;
-  //   border-radius: 2em;
-  // }
-
-  // .registerBtn:hover {
-  //   background-color: $primary;
-  // }
-
-  // .googleBtn {
-  //   text-align: center;
-  //   cursor: pointer;
-  //   width: 50%;
-  //   height: 32px;
-  //   background-color: $lime;
-  //   border-radius: 2em;
-  // }
-
-  // .googleBtn:hover {
-  //   background-color: $primary;
-  // }
+  
 }
