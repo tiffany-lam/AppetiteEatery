@@ -1,50 +1,64 @@
+# Contributors: Julie Do 014101748, Veronica Sumariyanto 013229149, Sam Alhaqab 017018649, Tiffany Lam 015181853
+# Course: CECS 470
+# 
+# Description: This python file contains routes that access, modify, or delete the restaurant documents of 
+# our database. 
+
+# general imports
 from flask import Blueprint, Response, request, jsonify
 from datetime import datetime, timedelta
 import random
+from bson import ObjectId
+import json
 
-# Models
+# relevant model imports
 from ..models.restaurantmodel import Restaurant, Details, Hours, Hour
 from ..models.usermodel import Owner
 from ..models.reviewmodel import Review
-
-# JSON
-from bson import ObjectId
-import json
 
 # S3 Access
 import boto3
 from ..config import S3_USERNAME, S3_BUCKET, S3_ACCESS_KEY_ID, S3_SECRET_ACCESS_KEY
 
+# Instantiate restaurant blueprint
 restaurant = Blueprint('restaurant', __name__)
+
+# Function gets all restaurants in our databse and returns them all
+def get_all_restaurants():
+    # get all restaurant objects
+    restaurants_collection = Restaurant.objects()
+
+    # if object is empty, return string saying None
+    if (restaurants_collection == None):
+        return str(restaurants_collection), 404
+
+    # otherwise format all objects to json and return
+    else:
+        restaurants_json = restaurants_collection.to_json()
+        return restaurants_json, 200
 
 # /api/restaurant
 # GET - returns all restaurants (unpopulated)
 # POST - save a restaurant with relevant data
 @restaurant.route('', methods=['GET', 'POST'])
 def add_restaurant():
-
     if request.method == 'POST':
-
+        # constructor for hours document takes all values allowed for an hours document
         hours = Hours(sunday=Hour(_from=request.json['hours']['sunday']['from'], _to=request.json['hours']['sunday']['to']),
-                      monday=Hour(
-                          _from=request.json['hours']['monday']['from'], _to=request.json['hours']['monday']['to']),
-                      tuesday=Hour(
-                          _from=request.json['hours']['tuesday']['from'], _to=request.json['hours']['tuesday']['to']),
-                      wednesday=Hour(
-                          _from=request.json['hours']['wednesday']['from'], _to=request.json['hours']['wednesday']['to']),
-                      thursday=Hour(
-                          _from=request.json['hours']['thursday']['from'], _to=request.json['hours']['thursday']['to']),
-                      friday=Hour(
-                          _from=request.json['hours']['friday']['from'], _to=request.json['hours']['friday']['to']),
+                      monday=Hour(_from=request.json['hours']['monday']['from'], _to=request.json['hours']['monday']['to']),
+                      tuesday=Hour(_from=request.json['hours']['tuesday']['from'], _to=request.json['hours']['tuesday']['to']),
+                      wednesday=Hour(_from=request.json['hours']['wednesday']['from'], _to=request.json['hours']['wednesday']['to']),
+                      thursday=Hour(_from=request.json['hours']['thursday']['from'], _to=request.json['hours']['thursday']['to']),
+                      friday=Hour(_from=request.json['hours']['friday']['from'], _to=request.json['hours']['friday']['to']),
                       saturday=Hour(_from=request.json['hours']['saturday']['from'], _to=request.json['hours']['saturday']['to']))
-
+        # constructor for details document takes all values allowed for a details document
         details = Details(parking=request.json['details']['parking'],
                           reservation=request.json['details']['reservation'],
                           petsAllowed=request.json['details']['petsAllowed'],
                           takeout=request.json['details']['takeout'],
                           wifi=request.json['details']['wifi'],
                           waitTime=request.json['details']['waitTime'])
-
+        # constructor for restaurant document takes all values allowed for a restaurant document
         restaurant = Restaurant(restaurantName=request.json['restaurantName'],
                                 restaurantTags=request.json['restaurantTags'],
                                 description=request.json['description'],
@@ -59,134 +73,59 @@ def add_restaurant():
                                 hours=hours,
                                 details=details,
                                 website=request.json['website'])
-
+        # saves the restaurant
         restaurant.save()
         id = restaurant.id
-
+        # add the restaurant to the owners list of restaurant
         owner = restaurant.ownerid.fetch()
         owner.restaurants.append(id)
         owner.save()
-
+        # return the newly created restaurant
         return restaurant.to_json(), 200
 
     elif request.method == 'GET':
+        # return all restaurants
+        return get_all_restaurants();
 
-        restaurants_collection = Restaurant.objects()
-
-        if (restaurants_collection == None):
-            return str(restaurants_collection), 404
-
-        else:
-            restaurants_json = restaurants_collection.to_json()
-            return restaurants_json, 200
     else:
         return "API not found", 404
 
-# /api/restaurant/<id>
-# GET - return a specific restaurant's information deeply based on id
-# PUT - updated a specific restaurant's information
-# DELETE - delete a specific restaurant
-@restaurant.route('/<id>', methods=['GET', 'PUT', 'POST', 'DELETE'])
-def modify_restaurant(id):
-    if request.method == 'GET':
+# function gets a singular restaurant and returns the restaurant populated deeply with reviews
+def get_a_restaurant(id):
+    # gets the desired restaurant
+    restaurant = Restaurant.objects.with_id(id)
+
+    # if restaurant not found, return a string None
+    if (restaurant == None):
+        return str(restaurant), 404
+
+    # else if restaurant is found
+    else:
+        # convert restaurant object to a dictionary and edit key reviews to be an empty array
+        updated_restaurant = restaurant.to_mongo().to_dict()
+        updated_restaurant['reviews'] = []
+        # iterate through all restaurant reviews and deeply populate with the reviews content,
+        # and the reviews associated user, and append to reviews array 
+        for review in restaurant.reviews:
+            updated_review = review.fetch().to_mongo().to_dict()
+            updated_review['user'] = review.fetch().user.fetch().to_mongo().to_dict()
+            updated_restaurant['reviews'].append(updated_review)
+
+        # populate the restaurants owner id with the restaurant owner information
+        updated_restaurant['ownerid'] = restaurant.ownerid.fetch().to_mongo().to_dict()
+        # return restaurant that is now deeply populated with reviews, users, and the owner as a json
+        return json.dumps(updated_restaurant, default=str), 200
+
+# function edits all values in a restaurant, including images
+def edit_a_restaurant(id):
+        # retrieve specific restaurant by id
         restaurant = Restaurant.objects.with_id(id)
-
-        if (restaurant == None):
-            return str(restaurant), 404
-
-        else:
-            updated_restaurant = restaurant.to_mongo().to_dict()
-            updated_restaurant['reviews'] = []
-
-            for review in restaurant.reviews:
-                updated_review = review.fetch().to_mongo().to_dict()
-                updated_review['user'] = review.fetch(
-                ).user.fetch().to_mongo().to_dict()
-                updated_restaurant['reviews'].append(updated_review)
-
-            updated_restaurant['ownerid'] = restaurant.ownerid.fetch(
-            ).to_mongo().to_dict()
-
-            return json.dumps(updated_restaurant, default=str), 200
-
-    elif request.method == 'PUT':
-        restaurant = Restaurant.objects.with_id(id)
-
-        if (restaurant == None or (not bool(request.files) and len(request.args) == 0)):
-            return str(restaurant), 404
-
-        else:
-            s3_resource = boto3.resource(
-                "s3",
-                aws_access_key_id=S3_ACCESS_KEY_ID,
-                aws_secret_access_key=S3_SECRET_ACCESS_KEY
-            )
-
-            if bool(request.files):
-                files = request.files.getlist("images[]")
-
-                for image in files:
-                    # print(f"Dealing with image {image.filename}")
-                    if f'restaurants/{id}/{image.filename}' not in restaurant.images:
-                        s3_resource.Bucket(S3_BUCKET).put_object(
-                            Key=f'restaurants/{id}/{image.filename}', Body=image)
-                        restaurant.images.append(
-                            f'restaurants/{id}/{image.filename}')
-                    # print(f"Finished with image {image.filename}")
-
-                restaurant.save()
-
-                files = request.files.getlist("menu[]")
-
-                for menu in files:
-                    print(f"Dealing with menu {menu.filename}")
-                    if f'restaurants/{id}/{menu.filename}' not in restaurant.menu:
-                        s3_resource.Bucket(S3_BUCKET).put_object(
-                            Key=f'restaurants/{id}/{menu.filename}', Body=image)
-                        restaurant.menu.append(
-                            f'restaurants/{id}/{menu.filename}')
-                    print(f"Finished with menu {menu.filename}")
-
-                restaurant.save()
-
-            if ("images[]" in request.args and (request.args.getlist("images[]") != restaurant.images)):
-                images = request.args.getlist("images[]")
-                restaurantimages = restaurant.images
-                for image in restaurantimages:
-                    if image in images:
-                        print(f'deleting {image}')
-                        s3_resource.Object(S3_BUCKET, image).delete()
-                        restaurant.images.remove(image)
-
-                restaurant.save()
-
-            if ("menu[]" in request.args and (request.args.getlist("menu[]") != restaurant.menu)):
-                menu = request.args.getlist("menu[]")
-                restaurantmenu = restaurant.menu
-                for image in restaurantmenu:
-                    if image in menu:
-                        print(f'deleting {image}')
-                        s3_resource.Object(S3_BUCKET, image).delete()
-                        restaurant.menu.remove(image)
-
-                restaurant.save()
-
-            print(request.args)
-            for key in request.args:
-                if (key != "images[]" and key != "menu[]"):
-                    restaurant.update(**{key: request.args[key]})
-
-            return restaurant.to_json(), 200
-
-    elif request.method == 'POST':
-        restaurant = Restaurant.objects.with_id(id)
-        print("here")
-
+        # modify general restaurant information
         restaurant.restaurantName = request.json['restaurantName']
         restaurant.restaurantTags = request.json['restaurantTags']
         restaurant.description = request.json['description']
         restaurant.website = request.json['website']
-        print("here2")
+        # modify restaurant hours
         restaurant.hours.sunday._from = request.json['hours']['sunday']['_from']
         restaurant.hours.sunday._to = request.json['hours']['sunday']['_to']
         restaurant.hours.monday._from = request.json['hours']['monday']['_from']
@@ -201,25 +140,22 @@ def modify_restaurant(id):
         restaurant.hours.friday._to = request.json['hours']['friday']['_to']
         restaurant.hours.saturday._from = request.json['hours']['saturday']['_from']
         restaurant.hours.saturday._to = request.json['hours']['saturday']['_to']
-        print("here4")
+        # modify restaurant details
         restaurant.details.parking = request.json['details']['parking']
         restaurant.details.reservation = request.json['details']['reservation']
         restaurant.details.petsAllowed = request.json['details']['petsAllowed']
         restaurant.details.takeout = request.json['details']['takeout']
         restaurant.details.wifi = request.json['details']['wifi']
         restaurant.details.waitTime = request.json['details']['waitTime']
-
+        # get original images of the restaurant as well as the new images
         originalImages = restaurant.images
-        print(request.json['images'])
         newImages = request.json['images']
-        print(newImages)
-
+        # get original menus of the restaurant as well as the new menus
         originalMenu = restaurant.menu
-        print(request.json['menu'])
         newMenu = request.json['menu']
 
-        updatedImages = [
-            image for image in originalImages if image not in newImages]
+        # list all images or menus that are no longer in the original list of images/menus
+        updatedImages = [image for image in originalImages if image not in newImages]
         updatedMenu = [menu for menu in originalMenu if menu not in newMenu]
 
         s3_resource = boto3.resource(
@@ -227,48 +163,57 @@ def modify_restaurant(id):
             aws_access_key_id=S3_ACCESS_KEY_ID,
             aws_secret_access_key=S3_SECRET_ACCESS_KEY
         )
-
+        # remove deleted images/images no longer in original list of images
         for image in updatedImages:
             s3_resource.Object(S3_BUCKET, image).delete()
 
+        # remove deleted menus/menus no longer in the original list of menus
         for image in updatedMenu:
             s3_resource.Object(S3_BUCKET, image).delete()
-
+        # modify the restaurant images and menus
         restaurant.images = newImages
         restaurant.menu = newMenu
-
-        print(restaurant.to_json())
-
+        # save the update
         restaurant.save()
-
+        # return the restaurant as a json
         return restaurant.to_json(), 200
 
+# function deletes a restaurant and all related images
+def delete_a_restaurant(id):
+    s3_resource = boto3.resource(
+        "s3",
+        aws_access_key_id=S3_ACCESS_KEY_ID,
+        aws_secret_access_key=S3_SECRET_ACCESS_KEY
+    )
+    # delete all of the restaurants images from the s3 bucket
+    s3_resource.Bucket(S3_BUCKET).objects.filter(Prefix=f'restaurants/{id}').delete()
+    # delete the associated restaurant
+    restaurant = Restaurant.objects.with_id(id)
+    restaurant.delete()
+
+    return f'{id} deleted successfully', 200
+
+# /api/restaurant/<id>
+# GET - return a specific restaurant's information deeply based on id
+# POST - updated a specific restaurant's information
+# DELETE - delete a specific restaurant
+@restaurant.route('/<id>', methods=['GET', 'PUT', 'POST', 'DELETE'])
+def modify_restaurant(id):
+    if request.method == 'GET':
+        return get_a_restaurant(id)
+
+    elif request.method == 'POST':
+        return edit_a_restaurant(id)
+
     elif request.method == 'DELETE':
-        s3_resource = boto3.resource(
-            "s3",
-            aws_access_key_id=S3_ACCESS_KEY_ID,
-            aws_secret_access_key=S3_SECRET_ACCESS_KEY
-        )
-
-        s3_resource.Bucket(S3_BUCKET).objects.filter(
-            Prefix=f'restaurants/{id}').delete()
-
-        restaurant = Restaurant.objects.with_id(id)
-
-        # owner = restaurant.ownerid.fetch()
-        # owner.restaurants.remove(id)
-
-        # owner.save()
-        restaurant.delete()
-
-        return f'{id} deleted successfully', 200
+        return delete_a_restaurant(id)
 
     else:
         return "API not found", 404
+
+
 # creating a search for a word function
 # this function looks for a whole word rather than a part of a word
-
-
 def contains_word(sentence, searchWord):
     return f' {searchWord} ' in f' {sentence} '
 
@@ -282,41 +227,33 @@ def upload_images(id):
         aws_secret_access_key=S3_SECRET_ACCESS_KEY
     )
 
+    # get all images uploaded
     files = request.files.getlist("images[]")
-    print(len(files))
     restaurant = Restaurant.objects.with_id(id)
 
+    # add images to s3 bucket and then append images to restaurant's list of images 
     for image in files:
-        print(f"Dealing with image {image.filename}")
-        s3_resource.Bucket(S3_BUCKET).put_object(
-            Key=f'restaurants/{id}/{image.filename}', Body=image)
+        s3_resource.Bucket(S3_BUCKET).put_object(Key=f'restaurants/{id}/{image.filename}', Body=image)
         if f'restaurants/{id}/{image.filename}' not in restaurant.images:
             restaurant.images.append(f'restaurants/{id}/{image.filename}')
-        print(f"Finished with image {image.filename}")
 
+    # get all menu files uploaded
     files = request.files.getlist("menu[]")
 
+    # add menu to s3 bucket and then append menu to restaurant's list of menu
     for image in files:
-        print(f'Dealing with image {image.filename}')
-        s3_resource.Bucket(S3_BUCKET).put_object(
-            Key=f'restaurantss/{id}/{image.filename}', Body=image)
+        s3_resource.Bucket(S3_BUCKET).put_object(Key=f'restaurantss/{id}/{image.filename}', Body=image)
         if f'restaurants/{id}/{image.filename}' not in restaurant.menu:
             restaurant.menu.append(f'restaurants/{id}/{image.filename}')
-        print(f'Finished with image {image.filename}')
 
     restaurant.save()
 
     return restaurant.to_json(), 200
 
-
-@restaurant.route('/search', methods=['GET'])
-def search2():
-    return("hello from", 200)
-
-
+# /api/restaurant/search/<searchvalue>
+# GET - returns all restaurants of a related search value
 @restaurant.route('/search/<searchvalue>', methods=['GET'])
 def search(searchvalue):
-    print("searchValue: ", searchvalue)
     restaurants_collection = Restaurant.objects()
     resultObject = dict()
 
@@ -334,11 +271,6 @@ def search(searchvalue):
 
     # restaurant_collection is an array of restaurants
     # if the restaurant list contains (case insensitive) the search value
-    # for restaurant in Restaurant.objects(restaurantName__icontains=searchvalue):
-    #     updatedRestaurant = restaurant.to_mongo().to_dict()
-    #     updatedRestaurant['average'] = Review.objects(restaurant = restaurant.id).average('rating')
-    #     resultObject['search_results'].append(updatedRestaurant)
-    print("searchvalue in pythion", searchvalue)
     for restaurant in restaurants_collection:
         if searchvalue.lower() in restaurant['restaurantName'].lower():
             updatedRestaurant = restaurant.to_mongo().to_dict()
@@ -349,28 +281,16 @@ def search(searchvalue):
         else:
             for tag in restaurant['restaurantTags']:
                 # call the function i created earlier, if the searchvalue is found in tag
-                # if (contains_word(tag, searchvalue)):
                 if searchvalue in tag:
                     updatedRestaurant = restaurant.to_mongo().to_dict()
                     updatedRestaurant['average'] = Review.objects(
                         restaurant=restaurant.id).average('rating')
                     resultObject['search_results'].append(updatedRestaurant)
-                    print("tag: ", tag)
-
-    # #add the tags into the search as well
-    # for restaurant in restaurants_collection:
-    #     for tag in restaurant['restaurantTags']:
-    #         #call the function i created earlier, if the searchvalue is found in tag
-    #         if (contains_word(tag, searchvalue) and restaurant['restaurantName'] not in ):
-    #             print("tag: ", tag )
-    #             resultObject['search_results'].append(restaurant.to_mongo().to_dict())
-
-    print("result object: ", resultObject)
 
     return json.dumps(resultObject, default=str), 200
-    # return json.dumps(emptyObject, default=str), 200
 
-
+# /api/restaurant/owner/<id>
+# GET - returns all owners restaurants deeply populated
 @restaurant.route('/owner/<id>', methods=['GET'])
 def getOwnerRestaurants(id):
     ownerObjects = Owner.objects.with_id(id)
@@ -380,13 +300,13 @@ def getOwnerRestaurants(id):
 
     for restaurant in ownerObjects['restaurants']:
         updatedRestaurant = restaurant.fetch().to_mongo().to_dict()
-        updatedRestaurant['average'] = Review.objects(
-            restaurant=restaurant.id).average('rating')
+        updatedRestaurant['average'] = Review.objects(restaurant=restaurant.id).average('rating')
         resultObject['results'].append(updatedRestaurant)
 
     return json.dumps(resultObject, default=str), 200
 
-
+# /api/restaurant/limelight
+# GET - returns all restaurants satisifying a certain condition
 @restaurant.route('/limelight', methods=['GET'])
 def getLimelight():
 
