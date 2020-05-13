@@ -1,20 +1,19 @@
+// GLOABL THEME IMPORTS
 @import "../../assets/theme";
 
+// Main class for if a divider is to span the width of it's parent container.
 .divider-full {
-  // height: 2px;
   height: 2px;
   width: 100%;
 
-  //   margin-top: auto;
-  //   margin-bottom: auto;
   margin-top: 10px;
   margin-bottom: 10px;
 
-  //   background-color: $primary_light;
   background-color: $secondary;
   border: none;
 }
 
+// Main class for if a divider is to span the width of it's parent container with a margin.
 .divider-edge {
   height: 1px;
   width: 90%;
@@ -24,7 +23,6 @@
   margin-left: auto;
   margin-right: auto;
 
-  //   background-color: $primary_light;
   background-color: $secondary;
   border: none;
 }

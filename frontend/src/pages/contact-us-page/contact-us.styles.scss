@@ -1,9 +1,12 @@
+// GLOABL THEME IMPORTS
 @import "../../assets/theme";
 
+// This is the main page container laying out the background of the page.
 .contact-us-page-background {
   background-color: transparent;
 }
 
+// This class is used to style the contents of the contact us page.
 .contact-us-page {
   width: 40rem;
   max-width: 100%;
@@ -17,6 +20,7 @@
   justify-content: center;
 }
 
+// This class is used to style the contact us page title.
 .contact-us-title {
   color: $primary;
   font-weight: bolder;
@@ -24,6 +28,7 @@
   margin: 0 auto 1.3rem auto;
 }
 
+// This class is used to style the contact us form.
 .contact-us-form {
   display: flex;
   flex-direction: column;
@@ -40,6 +45,7 @@
   }
 }
 
+// This class is used to style the captcha requirements warning.
 .contact-requirement {
   text-transform: uppercase;
   color: $primary;

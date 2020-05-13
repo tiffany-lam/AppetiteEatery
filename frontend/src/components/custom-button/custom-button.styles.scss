@@ -1,5 +1,8 @@
+// global theme import
 @import "../../assets/theme";
 
+// main buttons styles class
+// centers content and sets colors, size, font styles, etc.
 .custom-btn {
   cursor: pointer;
   height: 2.5rem;
@@ -7,11 +10,9 @@
 
   width: 100%;
 
-  // border-radius: 5rem;
   background-color: $secondary;
 
   font-size: 0.8rem;
-  // font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 1px;
   color: $background_light;
@@ -23,7 +24,6 @@
   align-items: center;
 
   svg {
-    // background-color: red;
     width: 1rem;
     margin-right: 0.25rem;
     path {
@@ -40,11 +40,12 @@
   }
 }
 
-// a default padding:
+// optional to include margin on button
 .btn-margin {
   margin: 1rem 0;
 }
 
+// optional to include if button should be minimal size
 .btn-fit-content {
   width: fit-content;
   width: -moz-fit-content;

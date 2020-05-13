@@ -1,5 +1,7 @@
+// GLOABL THEME IMPORTS
 @import "../../assets/theme";
 
+// Main parent class of the review component.
 .review {
   height: 100%;
   width: 100%;
@@ -16,8 +18,8 @@
 
   border: 1px solid transparent;
 
+  // Class used to style the user information section of the review.
   .review-user-info {
-    // height: min-content;
     width: min-content;
 
     display: flex;
@@ -63,10 +65,8 @@
     }
   }
 
+  // Class used to style the reviews contents section.
   .review-content {
-    // flex-grow: 5;
-    // flex-shrink: 0;
-    // height: 100%;
     width: 100%;
 
     display: flex;
@@ -88,17 +88,16 @@
     }
   }
 
+  // Class used to style the reviews photos.
   .review-photos {
-    // height: min-content;
     width: 5rem;
-
     margin: 0.5rem 0.5rem;
   }
 }
 
+// Classes used for on hover effect of the review component.
 section.review:focus,
 section.review:hover {
   outline: none;
   border: 1px solid $secondary_dark;
-  // box-shadow: $light_box_shadow;
 }

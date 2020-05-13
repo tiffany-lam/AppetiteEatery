@@ -1,48 +1,37 @@
+// global theme imports
 @import "../../assets/theme";
 
-@mixin shrinkLabel {
-  top: -1rem;
-  left: 0.1rem;
-
-  font-size: 0.8rem;
-  text-transform: uppercase;
-
-  font-weight: bold;
-  color: $secondary_dark;
-
-  letter-spacing: 0;
-}
-
+// parent container for the hour range input, which holds both the to and from hour inputs
 .hour-range-input-container {
   position: relative;
-  // margin-top: 1.2rem;
-  // min-height: 2rem;
   display: grid;
-  // flex-direction: column;
 
   gap: 0.2rem;
   grid-template-columns: 1fr 0fr 1fr 0fr 1fr;
   grid-template-areas: "time-label label-from input-from label-to input-to";
 
+  // selects grid area for from hour label
   .label-from {
     grid-area: label-from;
   }
 
+  // selects grid area for to hour label
   .label-to {
     grid-area: label-to;
   }
 
+  // selects grid area for from input
   .input-from {
     grid-area: input-from;
   }
+
+  // selects grid area for to input
   .input-to {
     grid-area: input-to;
   }
 
+  // styles the actual inputs used for the hour rnages
   .hour-range-input {
-    // flex: 1;
-    // position: relative;
-    // z-index: 0;
     height: 2rem;
     min-height: 2rem;
 
@@ -51,7 +40,6 @@
     width: 100%;
     height: 100%;
 
-    // margin: 0 0.2rem;
     padding: 0 0.3rem;
 
     border: 1px solid lightgray;
@@ -69,6 +57,7 @@
     }
   }
 
+  // styles the passed in and visible label of the hour range (not the labels for the individual inputs)
   .hour-range-input-label {
     grid-area: time-label;
     background-color: #ececec;
@@ -86,9 +75,6 @@
     font-weight: normal;
     letter-spacing: 0.05rem;
 
-    // position: absolute;
-    // pointer-events: none;
-
     padding: 0.5rem 1rem;
     margin-right: 0.2rem;
 
@@ -104,13 +90,12 @@
   }
 }
 
+// reorders the layout of the hour range input when shrunk
 @media (max-width: 480px) {
   .hour-range-input-container {
-    // background-color: red;
     display: grid;
 
     grid-template-columns: 0fr 1fr 0fr 1fr;
-    // grid-template-rows: 50px 100px;
     gap: 0;
 
     grid-template-areas:

@@ -1,5 +1,7 @@
+// global theme imports
 @import "../../assets/theme";
 
+// apply page main container setting up layout of contents of the page
 .apply-page-container {
   z-index: 0;
   height: 100%;
@@ -9,26 +11,23 @@
   justify-content: center;
   align-items: center;
 
+  // modifies all inputs except hour range to a certain width and margin top
   .input-override {
     margin-top: 1.6rem;
     max-width: 40rem;
   }
 
+  // modifies the hour range input specifically to have margin bottoms
   .time-range-input {
     margin-bottom: 0.8rem;
-
-    span {
-      // width: 8rem;
-    }
   }
 
+  // styles h1 title of the submit the restaurant form
   .apply-form-header {
-    // margin-bottom: 1rem;
     padding: 0 0.5rem;
     width: 100%;
     background-color: rgba(white, 0.2);
 
-    // border-bottom: 3px solid $secondary;
     border-left: 2.5rem solid $secondary;
 
     height: 2.5rem;
@@ -76,6 +75,7 @@
       }
     }
 
+    // styles all subtitles (h2) inside of the form with a certain style
     .form-subtitle {
       color: $primary;
       font-size: 1.2rem;
@@ -85,22 +85,27 @@
       margin-bottom: 1rem;
     }
 
+    // styles the city-state-zip section so that each input lines up
     .city-state-zip-container {
       width: 100%;
       max-width: 40rem;
 
       display: flex;
 
-      // flex-wrap: wrap;
+      // specifically styles the size of the city input
       #city-input {
         flex: 8;
         min-width: 4.5rem;
       }
+
+      // specifically styles the size of the state input
       #state-input {
         min-width: 4.5rem;
         flex: 1;
         margin-left: 1rem;
       }
+
+      // specifically styles the size of the zipcode input
       #zipcode-input {
         min-width: 6rem;
         flex: 1;
@@ -109,7 +114,6 @@
     }
 
     .hour-input {
-      // width: 2rem;
       flex-direction: row;
     }
   }

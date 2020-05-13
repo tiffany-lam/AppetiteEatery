@@ -1,35 +1,35 @@
+// global theme imports
 @import "../../assets/theme";
 
+// parent container for image upload and buttons
 .img-upload-container {
   display: flex;
   flex-direction: column;
 
+  // image upload label styling
   .img-upload-label {
-    // background-color: $secondary;
-    // margin-top: 0.8rem;
     width: fit-content;
-    // padding: 0.5rem;
 
-    // color: $background_light;
     text-transform: uppercase;
     font-size: 0.8rem;
     font-weight: bold;
-    // letter-spacing: 0.1rem;
   }
 
+  // image upload input styling (hides from view)
   .img-upload-input {
     opacity: 0;
     width: 0.1px;
     height: 0.1px;
   }
 
+  // displays and styles list of previewed images
   .img-list {
     display: flex;
     margin-top: 0.5rem;
     flex-wrap: wrap;
     width: 100%;
-    // background-color: red;
 
+    // wraps and styles image with delete overlay
     .img-container {
       cursor: pointer;
       position: relative;
@@ -46,6 +46,7 @@
         height: 100%;
       }
 
+      // styles delete overlay
       .img-delete {
         position: absolute;
         display: none;
@@ -53,7 +54,6 @@
         left: 0;
         width: 100%;
         height: 100%;
-        // background-color: red;
         background-color: rgba(white, 0.5);
 
         svg {
@@ -74,6 +74,7 @@
       }
     }
 
+    // styles button to add image (by referencing file input)
     .add-img-btn {
       cursor: pointer;
       width: 5rem;
@@ -107,7 +108,6 @@
       }
 
       &:disabled {
-        // cursor: c
         cursor: not-allowed;
       }
     }
