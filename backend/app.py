@@ -1,3 +1,9 @@
+# Contributors: Julie Do 014101748, Veronica Sumariyanto 013229149, Sam Alhaqab 017018649, Tiffany Lam 015181853
+# Course: CECS 470
+# 
+# Description: This is the main python file of our flask project and contains general utilities as well as 
+# our blueprints.
+
 # Critical Imports
 from flask import Flask, render_template, request
 from flask_cors import CORS
@@ -49,16 +55,7 @@ app.register_blueprint(review, url_prefix='/api/review')
 MONGODB_URI = os.getenv('MONGODB_URI')
 db_client = connect('appetite-eatery-db', host=(os.getenv('MONGODB_URI')))
 
-# print('---------------------------------------------------------------')
-# print('PRINTING ENVIRONMENT VARIABLES')
-# print(f"MONGODB_URI={os.getenv('MONGODB_URI')}")
-# print(f"FLASK_APP={os.getenv('FLASK_APP')}")
-# print(f'CWD: {os.getcwd()}')
-# print(f"S3_BUCKET={os.getenv('S3_BUCKET')}")
-# print(f"S3_ACCESS_KEY_ID={os.getenv('S3_ACCESS_KEY_ID')}")
-# print(f"S3_SECRET_ACCESS_KEY={os.getenv('S3_SECRET_ACCESS_KEY')}")
-# print('---------------------------------------------------------------')
-
+# server our react page via flask to our users on request
 @app.route('/')
 def render_index():
     return render_template('index.html')
@@ -77,10 +74,8 @@ def get_image():
 
     # Get requested file url of image
     fileurl = request.args['url']
-
     # Load image with requested url from AWS S3 Bucket
     image = s3_resource.Object(S3_BUCKET, fileurl).get()
-
     # Return image body (only available as png or jpg image)
     return image['Body'].read(), {"Content-Type": "image/png, image/jpg"}
 
@@ -88,16 +83,17 @@ def get_image():
 # POST - sends an email from appetite-eatery gmail to included sender
 @app.route('/api/email', methods=['POST'])
 def process_email():
+    # get the required values of the object
     name = request.json['name']
     sender = request.json['sender']
     subject = request.json['subject']
     body = request.json['body']
-
+    # send the email message from and to our own email including the users name, email, and body of the message
+    # set the subject of the email
     msg = Message(subject, sender = os.getenv('MAIL_USERNAME'), recipients = [os.getenv('MAIL_USERNAME')])
     content = "Name: " + name + "\nEmail: " + sender + "\n\nBody: " + body
     msg.body = content
-    print(msg)
-
+    # send email
     mail.send(msg)
     return "Mail sent!", 200
     
@@ -108,17 +104,6 @@ def page_not_found(e):
     # your processing here
     print("REROUTING TO REACT APP @ index.html")
     return render_template('index.html')
-
-# Testing Route - Prints all available urls
-@app.route("/api/urls")
-def view_routes():
-    urls = {}
-
-    for rule in app.url_map.iter_rules():
-        if rule.endpoint != "static":
-            urls[rule.rule] = app.view_functions[rule.endpoint].__doc__
-
-    return jsonify(urls)
 
 # Run Flask App
 if __name__ == "__main__":

@@ -134,6 +134,7 @@ const ContactUsPage = ({ userAuth, currentUser, ...props }) => {
             required
             label="reason"
             htmlFor="reason"
+            value={contents.subject}
             handleChange={(e) => {
               setContents({ ...contents, subject: e.target.value });
             }}
