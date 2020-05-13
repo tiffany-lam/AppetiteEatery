@@ -26,6 +26,7 @@ const ImageUploadInput = ({
   className = "",
   additionInfo,
   defaultSize = 4,
+  multiple = true,
   ...props
 }) => {
   // state variable holds the image files
@@ -68,10 +69,11 @@ const ImageUploadInput = ({
         id={htmlFor}
         type="file"
         accept=".png,.jpeg,.jpg"
-        multiple
+        multiple={multiple}
         className="img-upload-input"
         onChange={(e) => {
-          setImages([...images, ...Array.from(e.target.files)]);
+          if (multiple) setImages([...images, ...Array.from(e.target.files)]);
+          else setImages([...Array.from(e.target.files)]);
         }}
         ref={inputRef}
       />

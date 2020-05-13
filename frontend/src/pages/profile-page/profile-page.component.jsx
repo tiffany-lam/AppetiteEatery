@@ -24,6 +24,7 @@ import FormInput from "../../components/form-input/form-input.component";
 import AddTagInput from "../../components/add-tag-input/add-tag-input.component";
 import CreateIcon from "@material-ui/icons/Create";
 import DoneIcon from "@material-ui/icons/Done";
+import ImageUploadInput from "../../components/img-upload-input/img-upload-inputcomponent";
 
 class ProfilePage extends Component {
   constructor(props) {
@@ -35,9 +36,9 @@ class ProfilePage extends Component {
       about: "",
       email: "",
       reviewCount: "",
-      avatar: "",
       reviews: [],
       edit: false,
+      avatar: "",
     };
   }
 
@@ -71,7 +72,67 @@ class ProfilePage extends Component {
       updatePatron
     );
 
-    this.props.updateCurrentUser(this.props.userAuth.uid);
+    // axios
+    //   .post(
+    //     `${BASE_API_URL}/user/modify_patron/${this.props.userAuth.uid}`,
+    //     updatePatron
+    //   )
+    //   .then(async (res) => {
+    //     await this.uploadClientImage(this.props.userAuth.uid);
+    //     this.props.updateCurrentUser(this.props.userAuth.uid);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+  };
+
+  // submitImages = async (ownerId) => {
+  //   let formData = new FormData();
+
+  //   for (let i = 0; i < images.length; i++) {
+  //     formData.append("images[]", this.state.avatar);
+  //   }
+
+  //   for (let i = 0; i < menus.length; i++) {
+  //     formData.append("menu[]", menus[i]);
+  //   }
+
+  //   let res = await axios.post(
+  //     `${BASE_API_URL}/owner/img-upload/${ownerId}`,
+  //     formData
+  //   );
+  //   setLoading(false);
+
+  //   browserHistory.push("/my-restaurants");
+
+  //   return res;
+  // };
+
+  uploadClientImage = async (ownerId) => {
+    // e.preventDefault();
+    // let id = this.state.client_image.form.id;
+
+    let formData = new FormData();
+    console.log("avaterrrrr", this.state.avatar);
+    formData.append("avatar", this.state.avatar);
+
+    // let res = await axios.post(
+    //   `${BASE_API_URL}/user/img-upload/${ownerId}`,
+    //   formData,
+    //   {
+    //     "Content-Type": "multipart/form-data",
+    //   }
+    // );
+
+    await axios
+      .post(`${BASE_API_URL}/user/img-upload/${ownerId}`, formData, {
+        "Content-Type": "multipart/form-data",
+      })
+      .then((res) => {
+        console.log("Uploaded Client Avatar: \n");
+        console.log(res.data);
+      })
+      .catch((error) => console.error(error));
   };
 
   render() {
@@ -132,6 +193,18 @@ class ProfilePage extends Component {
                 />
               </label>
               {/* <h1>{this.props.currentUser.fname} {this.props.currentUser.lname}</h1> */}
+              <CustomButton
+                type="button"
+                icon={<DoneIcon />}
+                className="profile-save-button"
+                onClick={(e) => {
+                  console.log(this.state);
+                  this.handleUpdate();
+                  this.setState({ edit: false });
+                }}
+              >
+                Save Changes
+              </CustomButton>
               <h2 id="toggle-mini">{this.props.currentUser.email}</h2>
               <Divider full={true} />
               <div className="userContainer-inner">
@@ -142,6 +215,20 @@ class ProfilePage extends Component {
                     src={`${BASE_API_URL}/img-get?url=${this.props.currentUser.avatar}`}
                     alt="user"
                   />
+                  <ImageUploadInput
+                    // disabled={loading}
+                    defaultSize={1}
+                    multiple={false}
+                    label="Upload a profile picture"
+                    htmlFor="profile-images"
+                    // value={this.state.avatar[0]}
+                    handleChange={(e, value) => {
+                      this.setState({ avatar: value });
+                    }}
+                    additionalInfo=""
+                    className="input-override"
+                  />
+
                   <h3 id="toggle-mini">Favorites</h3>
                   <AddTagInput
                     // disabled
@@ -175,18 +262,6 @@ class ProfilePage extends Component {
                 </div>
                 {/* </fieldset> */}
               </div>
-              <CustomButton
-                type="button"
-                icon={<DoneIcon />}
-                className="profile-save-button"
-                onClick={(e) => {
-                  console.log(this.state);
-                  this.handleUpdate();
-                  this.setState({ edit: false });
-                }}
-              >
-                Save Changes
-              </CustomButton>
             </section>
           </form>
           <Divider full={true} />
